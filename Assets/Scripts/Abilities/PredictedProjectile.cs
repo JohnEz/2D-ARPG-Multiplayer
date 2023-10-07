@@ -1,0 +1,153 @@
+using FishNet;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PredictedProjectile : MonoBehaviour {
+    private Vector2 _direction;
+    private float _passedTime = 0f;
+
+    private CharacterController _caster;
+
+    private Rigidbody2D _body;
+
+    [SerializeField]
+    private GameObject visuals;
+
+    private bool isActive = true;
+
+    // Config variables
+    /////////////////////
+
+    public float Speed = 15f;
+
+    public float LifeTime = 1.5f;
+
+    // FX
+
+    [SerializeField]
+    private AudioClip onCreateSFX;
+
+    [SerializeField]
+    private GameObject onHitVFXPrefab;
+
+    [SerializeField]
+    private AudioClip onHitSFX;
+
+    private void Awake() {
+        _body = GetComponent<Rigidbody2D>();
+    }
+
+    public void Initialise(Vector2 direction, float passedTime, CharacterController caster) {
+        _direction = direction.normalized;
+        transform.up = direction;
+        _passedTime = passedTime;
+        _caster = caster;
+
+        // TODO this probably wants to be some sort of coroutine with cleanup
+        Destroy(gameObject, LifeTime - passedTime);
+
+        if (onCreateSFX) {
+            AudioManager.Instance.PlaySound(onCreateSFX, transform);
+        }
+    }
+
+    private void FixedUpdate() {
+        if (!isActive) {
+            return;
+        }
+
+        Move();
+    }
+
+    private void Move() {
+        float delta = Time.deltaTime;
+
+        float passedTimeDelta = 0f;
+        if (_passedTime > 0f) {
+            /* Rather than use a flat catch up rate the
+             * extra delta will be based on how much passed time
+             * remains. This means the projectile will accelerate
+             * faster at the beginning and slower at the end.
+             * If a flat rate was used then the projectile
+             * would accelerate at a constant rate, then abruptly
+             * change to normal move rate. This is similar to using
+             * a smooth damp. */
+
+            /* Apply 10% of the step per frame. You can adjust
+             * this number to whatever feels good. */
+            float step = (_passedTime * 0.1f);
+            _passedTime -= step;
+
+            /* If the remaining time is less than half a delta then
+             * just append it onto the step. The change won't be noticeable. */
+            if (_passedTime <= (delta / 2f)) {
+                step += _passedTime;
+                _passedTime = 0f;
+            }
+            passedTimeDelta = step;
+        }
+
+        _body.MovePosition(_body.position + _direction * (Speed * (delta + passedTimeDelta)));
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (!isActive) {
+            return;
+        }
+
+        bool isCharacterCollision = collision.gameObject.tag == "Unit";
+        bool isWallCollision = false;
+
+        if (!isCharacterCollision && !isWallCollision) {
+            return;
+        }
+
+        Vector3 hitLocation = Vector3.zero;
+
+        if (isCharacterCollision) {
+            //check if its a character it should hit
+            CharacterController hitCharacter = collision.gameObject.GetComponent<CharacterController>();
+
+            if (hitCharacter == _caster) {
+                return;
+            }
+
+            //If server check to damage hit objects.
+            if (InstanceFinder.IsServer) {
+                // deal damage
+                hitCharacter.GetComponent<NetworkStats>().TakeDamageServer(10, false);
+            }
+
+            if (InstanceFinder.IsClient) {
+                // only show damage text if it was cast by this player
+                hitCharacter.GetComponent<NetworkStats>().TakeDamageClient(10, false, _caster.GetComponent<NetworkStats>().IsOwner);
+            }
+
+            hitLocation = collision.transform.position;
+        }
+
+        //If client show visual effects, play impact audio.
+        if (InstanceFinder.IsClient) {
+            CreateHitEffects(hitLocation);
+        }
+
+        // we destroy the visuals so the trail isnt instantly destroyed.
+        if (visuals) {
+            Destroy(visuals);
+        }
+        isActive = false;
+    }
+
+    public void CreateHitEffects(Vector3 hitLocation) {
+        if (onHitVFXPrefab) {
+            GameObject hitVFX = Instantiate(onHitVFXPrefab);
+            hitVFX.transform.position = hitLocation;
+            hitVFX.transform.rotation = transform.rotation;
+        }
+
+        if (onHitSFX) {
+            AudioManager.Instance.PlaySound(onHitSFX, transform.position);
+        }
+    }
+}
