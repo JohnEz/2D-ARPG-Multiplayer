@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab16c9757379d0f4ebd4c3ef6be46545, type: 3}
   m_Name: Ice Barrier
   m_EditorClassIdentifier: 
-  AbilityName: Ice Lance
-  Icon: {fileID: 21300000, guid: 92414a36a834ccb4b963481484d61e1f, type: 3}
+  AbilityName: Ice Barrier
+  Icon: {fileID: 21300000, guid: 24d0ca988dc4b1b47a115a5df9cfc82b, type: 3}
   AbilityEffectPrefab: {fileID: 7996151038390841083, guid: 37db74af91e97954a9e3cc4f7c3fbc2c, type: 3}
   CastTime: 0.35
   Cooldown: 0.3

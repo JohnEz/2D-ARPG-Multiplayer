@@ -1,5 +1,6 @@
 using FishNet;
 using FishNet.Object;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class PredictedProjectile : MonoBehaviour {
     private GameObject visuals;
 
     private bool isActive = true;
+
+    public event Action<Vector3, NetworkStats, NetworkStats> OnHit;
 
     // Config variables
     /////////////////////
@@ -114,9 +117,9 @@ public class PredictedProjectile : MonoBehaviour {
                 return;
             }
 
-            hitCharacter.GetComponent<NetworkStats>().TakeDamage(10, _caster.GetComponent<NetworkStats>().IsOwner);
-
             hitLocation = collision.transform.position;
+
+            OnHit?.Invoke(hitLocation, _caster.GetComponent<NetworkStats>(), hitCharacter.GetComponent<NetworkStats>());
         }
 
         CreateHitEffects(hitLocation);
