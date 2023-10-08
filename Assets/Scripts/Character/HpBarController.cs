@@ -21,6 +21,8 @@ public class HpBarController : MonoBehaviour {
         currentMax = stats.MaxHealth;
 
         _myStats.OnHealthChanged += SetHp;
+
+        SetHp();
     }
 
     public void OnDisable() {

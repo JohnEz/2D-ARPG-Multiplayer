@@ -33,22 +33,33 @@ public class CastController : NetworkBehaviour {
         castTime = castingAbility.castTime;
         OnCastStart.Invoke(castTime, 0);
 
-        if (InstanceFinder.IsClient) {
-            ServerCastStart(abilityId, base.TimeManager.Tick);
-        } else if (InstanceFinder.IsServer) {
-            ObserverCastStart(abilityId, base.TimeManager.Tick);
-        }
-
         StartCoroutine(Casting());
+
+        NotifyCast(abilityId, base.TimeManager.Tick);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void ServerCastStart(int abilityId, uint tick) {
-        ObserverCastStart(abilityId, tick);
+    public void NotifyCast(int abilityId, uint tick) {
+        if (InstanceFinder.IsServer) {
+            ObserverCast(abilityId, tick);
+        } else {
+            ServerCast(abilityId, tick);
+        }
     }
 
-    [ObserversRpc(ExcludeOwner = true)]
-    private void ObserverCastStart(int abilityId, uint tick) {
+    [ServerRpc]
+    private void ServerCast(int abilityId, uint tick) {
+        castingAbility = _abilitiesController.GetAbility(abilityId);
+
+        float passedTime = (float)base.TimeManager.TimePassed(tick, false);
+        passedTime = Mathf.Min(MAX_PASSED_TIME / 2f, passedTime);
+
+        OnCastStart.Invoke(castingAbility.castTime, passedTime);
+
+        ObserverCast(abilityId, tick);
+    }
+
+    [ObserversRpc(ExcludeOwner = true, ExcludeServer = true)]
+    private void ObserverCast(int abilityId, uint tick) {
         float passedTime = (float)base.TimeManager.TimePassed(tick, false);
         passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
 

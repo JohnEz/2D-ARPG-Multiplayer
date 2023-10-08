@@ -62,16 +62,7 @@ public class PredictedTelegraph : MonoBehaviour {
             return;
         }
 
-        //If server check to damage hit objects.
-        if (InstanceFinder.IsServer) {
-            // deal damage
-            hitCharacter.GetComponent<NetworkStats>().TakeDamageServer(10, false);
-        }
-
-        if (InstanceFinder.IsClient) {
-            // Play hit effects
-            hitCharacter.GetComponent<NetworkStats>().TakeDamageClient(10, false, _caster.GetComponent<NetworkStats>().IsOwner);
-        }
+        hitCharacter.GetComponent<NetworkStats>().TakeDamage(10, _caster.GetComponent<NetworkStats>().IsOwner);
     }
 
     public static List<NetworkStats> GetCircleHitTargets(Vector3 worldPos, float radius) {

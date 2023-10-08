@@ -9,12 +9,12 @@ using FishNet;
 public class NetworkStats : NetworkBehaviour {
 
     [HideInInspector]
-    [SyncVar(OnChange = nameof(HandleCurrentHealthChange))]
+    [SyncVar(OnChange = nameof(HandleCurrentHealthChange), WritePermissions = WritePermission.ServerOnly)]
     private int _currentHealth = 100;
 
     public int CurrentHealth { get { return _currentHealth; } }
 
-    [SyncVar(OnChange = nameof(HandleMaxHealthChange))]
+    [SyncVar(OnChange = nameof(HandleMaxHealthChange), WritePermissions = WritePermission.ServerOnly)]
     private int _maxHealth = 100;
 
     public int MaxHealth { get { return _maxHealth; } }
@@ -38,12 +38,22 @@ public class NetworkStats : NetworkBehaviour {
 
     public event Action<int> OnReceiveHealing;
 
-    private void HandleCurrentHealthChange(int previousValue, int nextValue, bool isServer) {
+    private void HandleCurrentHealthChange(int previousValue, int nextValue, bool asServer) {
+        if (!asServer && InstanceFinder.IsHost) {
+            // this is called for each client and for server, so host would call twice
+            return;
+        }
+
         OnHealthChanged?.Invoke();
         HandleHitPointsChanged(previousValue, nextValue);
     }
 
-    private void HandleMaxHealthChange(int previousValue, int nextValue, bool isServer) {
+    private void HandleMaxHealthChange(int previousValue, int nextValue, bool asServer) {
+        if (!asServer && InstanceFinder.IsHost) {
+            // this is called for each client and for server, so host would call twice
+            return;
+        }
+
         OnHealthChanged?.Invoke();
         HandleHitPointsChanged(previousValue, nextValue);
     }
@@ -52,7 +62,7 @@ public class NetworkStats : NetworkBehaviour {
         if (previousValue > 0 && nextValue <= 0) {
             // newly reached 0 HP
             OnHealthDepleted?.Invoke();
-            //if (NetworkManager.Singleton.IsServer) {
+            //if (InstanceFinder.IsServer) {
             //    NetworkObject.Despawn();
             //}
         } else if (previousValue <= 0 && nextValue > 0) {
@@ -61,27 +71,31 @@ public class NetworkStats : NetworkBehaviour {
         }
     }
 
-    // TODO Pulls these out into damageable and healable scripts
-    public void TakeDamageServer(int damage, bool hitShield) {
-        if (!InstanceFinder.IsServer) {
-            return;
-        }
-
+    [Server]
+    public void TakeDamageServer(int damage) {
         _currentHealth = Math.Max(0, _currentHealth - damage);
     }
 
-    public void TakeDamageClient(int damage, bool hitShield, bool sourceIsPlayer) {
-        // i need to split combat text out somehow
-        OnTakeDamage.Invoke(damage, hitShield, sourceIsPlayer);
+    public void TakeDamage(int damage, bool sourceIsPlayer) {
+        TakeDamageServer(damage);
+
+        if (InstanceFinder.IsClient) {
+            // TODO damage text needs more thinking as the value is calculated on the server
+            // maybe i need an event for being hit and an event for taking numeric damage thats called in an observer? (not great for lag)
+            OnTakeDamage.Invoke(damage, false, sourceIsPlayer);
+        }
     }
 
-    [ServerRpc]
-    public void ReceiveHealing(int healing) {
+    [Server]
+    public void ReceiveHealingServer(int healing) {
         _currentHealth = Math.Min(MaxHealth, _currentHealth + healing);
-        ReceiveHealingClient(healing);
     }
 
-    public void ReceiveHealingClient(int healing) {
-        OnReceiveHealing.Invoke(healing);
+    public void ReceiveHealing(int healing) {
+        ReceiveHealingServer(healing);
+
+        if (InstanceFinder.IsClient) {
+            OnReceiveHealing.Invoke(healing);
+        }
     }
 }

@@ -1,4 +1,5 @@
 using FishNet;
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -113,24 +114,12 @@ public class PredictedProjectile : MonoBehaviour {
                 return;
             }
 
-            //If server check to damage hit objects.
-            if (InstanceFinder.IsServer) {
-                // deal damage
-                hitCharacter.GetComponent<NetworkStats>().TakeDamageServer(10, false);
-            }
-
-            if (InstanceFinder.IsClient) {
-                // only show damage text if it was cast by this player
-                hitCharacter.GetComponent<NetworkStats>().TakeDamageClient(10, false, _caster.GetComponent<NetworkStats>().IsOwner);
-            }
+            hitCharacter.GetComponent<NetworkStats>().TakeDamage(10, _caster.GetComponent<NetworkStats>().IsOwner);
 
             hitLocation = collision.transform.position;
         }
 
-        //If client show visual effects, play impact audio.
-        if (InstanceFinder.IsClient) {
-            CreateHitEffects(hitLocation);
-        }
+        CreateHitEffects(hitLocation);
 
         // we destroy the visuals so the trail isnt instantly destroyed.
         if (visuals) {
@@ -139,6 +128,7 @@ public class PredictedProjectile : MonoBehaviour {
         isActive = false;
     }
 
+    [Client]
     public void CreateHitEffects(Vector3 hitLocation) {
         if (onHitVFXPrefab) {
             GameObject hitVFX = Instantiate(onHitVFXPrefab);

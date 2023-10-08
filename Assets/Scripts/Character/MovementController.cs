@@ -26,7 +26,7 @@ public class MovementController : MonoBehaviour {
 
         float moveSpeed = _stateController.IsCasting() ? _myStats.MoveSpeed * CASTING_SPEED_MODIFIER : _myStats.MoveSpeed;
 
-        Vector3 newPosition = _body.position + (MoveDirection * _myStats.MoveSpeed) * Time.fixedDeltaTime;
+        Vector3 newPosition = _body.position + (MoveDirection * moveSpeed) * Time.fixedDeltaTime;
 
         _body.MovePosition(newPosition);
     }

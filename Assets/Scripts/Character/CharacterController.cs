@@ -11,19 +11,8 @@ using FishNet.Object.Synchronizing;
 [RequireComponent(typeof(AbilitiesController))]
 public class CharacterController : NetworkBehaviour {
 
-    // maybe a better solution for a client value synced to the server
     [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
     public Vector2 InputDirection { get; [ServerRpc(RunLocally = true)] set; }
-
-    //public Vector2 InputDirection {
-    //    get { return GetInputDirection(); }
-    //    set { SetInputDirection(value); }
-    //}
-
-    //private Vector2 _inputDirectionClient;
-
-    //[SyncVar]
-    //private Vector2 _inputDirectionServer;
 
     public Vector2 AimLocation = Vector2.zero;
 
@@ -34,24 +23,6 @@ public class CharacterController : NetworkBehaviour {
 
     [SerializeField]
     private GameObject visuals;
-
-    //public Vector2 GetInputDirection() {
-    //    if (base.IsOwner) {
-    //        return _inputDirectionClient;
-    //    }
-
-    //    return _inputDirectionServer;
-    //}
-
-    //private void SetInputDirection(Vector2 value) {
-    //    _inputDirectionClient = value;
-    //    SetInputDirectionServer(value);
-    //}
-
-    //[ServerRpc]
-    //private void SetInputDirectionServer(Vector2 value) {
-    //    _inputDirectionServer = value;
-    //}
 
     private void Awake() {
         _movementController = GetComponent<MovementController>();

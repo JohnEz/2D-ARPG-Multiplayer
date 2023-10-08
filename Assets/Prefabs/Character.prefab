@@ -303,7 +303,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 65389173, guid: d0f543109e31b2b4f9a9c7c5eda50348, type: 3}
-  m_Color: {r: 0, g: 0.8156863, b: 0.99215686, a: 1}
+  m_Color: {r: 0, g: 0.6902827, b: 0.8396226, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -866,7 +866,7 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 7
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 584410112
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 9038739509120458767
 --- !u!114 &5819790471096828989
