@@ -48,6 +48,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3216382330834860366, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: AbilityList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0217844247c780f4cbf83b41c2b1171f, type: 2}
+    - target: {fileID: 3216382330834860366, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: _abilityPrefabList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3216382330834860366, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: _abilityPrefabList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0217844247c780f4cbf83b41c2b1171f, type: 2}
+    - target: {fileID: 3216382330834860366, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: AbilityList.Array.data[0].castTime
       value: 0.45
       objectReference: {fileID: 0}

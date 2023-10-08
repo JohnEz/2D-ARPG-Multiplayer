@@ -3,13 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilitiesController : MonoBehaviour {
-    public List<Ability> AbilityList;
+
+    [SerializeField]
+    private List<Ability> _abilityPrefabList;
+
+    private List<Ability> _instantiatedAbilityList;
+
+    private void Awake() {
+        _instantiatedAbilityList = new List<Ability>();
+
+        _abilityPrefabList.ForEach((prefab) => {
+            Ability instantiatedAbility = Instantiate(prefab);
+            _instantiatedAbilityList.Add(instantiatedAbility);
+        });
+    }
+
+    public List<Ability> GetAbilities() {
+        return _instantiatedAbilityList;
+    }
 
     public Ability GetAbility(int abilityId) {
-        if (abilityId >= AbilityList.Count) {
+        if (abilityId >= _instantiatedAbilityList.Count) {
             return null;
         }
 
-        return AbilityList[abilityId];
+        return _instantiatedAbilityList[abilityId];
     }
 }

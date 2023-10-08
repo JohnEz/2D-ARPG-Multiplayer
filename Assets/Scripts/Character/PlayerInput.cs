@@ -17,6 +17,7 @@ public class PlayerInput : NetworkBehaviour {
         }
 
         CameraManager.Instance.SetFollowTarget(gameObject);
+        ActionBarManager.Instance.SetCharacter(GetComponent<AbilitiesController>());
     }
 
     private void Awake() {
@@ -31,11 +32,23 @@ public class PlayerInput : NetworkBehaviour {
         }
 
         if (InputHandler.Instance.AttackPressed) {
-            _characterController.UseAbilityOne();
+            _characterController.CastAbility(0);
         }
 
         if (InputHandler.Instance.AltAttackPressed) {
-            _characterController.UseAbilityTwo();
+            _characterController.CastAbility(1);
+        }
+
+        if (InputHandler.Instance.DashPressed) {
+            _characterController.CastAbility(2);
+        }
+
+        if (InputHandler.Instance.UtilityPressed) {
+            _characterController.CastAbility(3);
+        }
+
+        if (InputHandler.Instance.UtilityTwoPressed) {
+            _characterController.CastAbility(4);
         }
     }
 

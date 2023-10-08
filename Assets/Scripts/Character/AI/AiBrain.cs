@@ -67,7 +67,7 @@ public class AiBrain : NetworkBehaviour {
             0.1f // get this from the ability being cast
         );
 
-        _myCharacterController.UseAbilityOne();
+        _myCharacterController.CastAbility(0);
     }
 
     private static Vector2 GetAimLocation(Vector3 myPosition, float projectileSpeed, Vector3 targetsPosition, float targetsMoveSpeed, Vector3 targetsMovementDirection, bool isCasting, float speedWhileCasting) {

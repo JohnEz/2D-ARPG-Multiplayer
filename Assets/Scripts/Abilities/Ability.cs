@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Ability {
-    public GameObject abilityEffectPrefab;
+[CreateAssetMenu(fileName = "Ability", menuName = "2d RPG/New Ability")]
+public class Ability : ScriptableObject {
+    public string AbilityName;
+    public Sprite Icon;
 
-    public float castTime;
-    public float cooldown;
+    public GameObject AbilityEffectPrefab;
+
+    public float CastTime;
+    public float Cooldown;
 
     [HideInInspector]
-    public float timeCast = -Mathf.Infinity;
+    public float TimeCast = -Mathf.Infinity;
 
     public bool IsOnCooldown() {
-        return timeCast + cooldown >= Time.time;
+        return TimeCast + Cooldown >= Time.time;
     }
 
     public bool CanCast() {
@@ -21,20 +24,17 @@ public class Ability {
     }
 
     public void OnCast() {
-        timeCast = Time.time;
-    }
-}
-
-public class AbilityEffect : MonoBehaviour {
-    protected CharacterController _caster;
-
-    public void Initialise(CharacterController caster) {
-        _caster = caster;
+        TimeCast = Time.time;
     }
 
-    public virtual void OnCastStart() {
+    public float GetRemainingCooldown() {
+        float remainingCooldown = TimeCast + Cooldown - Time.time;
+
+        return Mathf.Max(remainingCooldown, 0);
     }
 
-    public virtual void OnCastComplete() {
+    public string GetCooldownAsString() {
+        float remainingCooldown = GetRemainingCooldown();
+        return remainingCooldown > 1 ? remainingCooldown.ToString("F0") : remainingCooldown.ToString("F1");
     }
 }

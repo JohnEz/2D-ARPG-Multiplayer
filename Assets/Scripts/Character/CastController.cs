@@ -30,7 +30,7 @@ public class CastController : NetworkBehaviour {
     public void Cast(int abilityId) {
         CreateAbilityEffect(abilityId);
 
-        castTime = castingAbility.castTime;
+        castTime = castingAbility.CastTime;
         OnCastStart.Invoke(castTime, 0);
 
         StartCoroutine(Casting());
@@ -53,7 +53,7 @@ public class CastController : NetworkBehaviour {
         float passedTime = (float)base.TimeManager.TimePassed(tick, false);
         passedTime = Mathf.Min(MAX_PASSED_TIME / 2f, passedTime);
 
-        OnCastStart.Invoke(castingAbility.castTime, passedTime);
+        OnCastStart.Invoke(castingAbility.CastTime, passedTime);
 
         ObserverCast(abilityId, tick);
     }
@@ -65,14 +65,14 @@ public class CastController : NetworkBehaviour {
 
         castingAbility = _abilitiesController.GetAbility(abilityId);
 
-        OnCastStart.Invoke(castingAbility.castTime, passedTime);
+        OnCastStart.Invoke(castingAbility.CastTime, passedTime);
     }
 
     private void CreateAbilityEffect(int abilityId) {
         castingAbility = _abilitiesController.GetAbility(abilityId);
 
-        // TODO these can potentially be removed
-        GameObject createdEffect = Instantiate(castingAbility.abilityEffectPrefab);
+        // TODO these can potentially be moved to "Casting()"
+        GameObject createdEffect = Instantiate(castingAbility.AbilityEffectPrefab);
         castingAbilityEffect = createdEffect.GetComponent<AbilityEffect>();
         castingAbilityEffect.Initialise(GetComponent<CharacterController>());
     }
