@@ -23,7 +23,7 @@ public class IceLance : MonoBehaviour {
         if (hitBuffController.HasBuff("Chill")) {
             damage += CHILL_DAMAGE;
         } else {
-            hitBuffController.ApplyBuff("Chill");
+            hitBuffController.ServerApplyBuff("Chill");
         }
 
         hitCharacter.TakeDamage(damage, caster.IsOwner);

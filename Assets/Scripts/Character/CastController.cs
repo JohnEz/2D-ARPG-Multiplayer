@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using FishNet;
 using FishNet.Object;
+using UnityEngine.VFX;
 
 public class CastController : NetworkBehaviour {
     private CharacterStateController _stateController;
@@ -14,10 +15,12 @@ public class CastController : NetworkBehaviour {
     private bool castRequest, castSuccess;
     private float castTime = 0;
 
-    private GameObject castVFX;
     public UnityEvent<float, float> OnCastStart = new UnityEvent<float, float>();
     public UnityEvent OnCastFail = new UnityEvent();
     public UnityEvent OnCastSuccess = new UnityEvent();
+
+    [SerializeField]
+    private Transform visuals; // so vfx can follow facing direction
 
     // how much lag we compensate for, probably should be global
     private const float MAX_PASSED_TIME = 0.3f;
@@ -28,14 +31,19 @@ public class CastController : NetworkBehaviour {
     }
 
     public void Cast(int abilityId) {
+        CastAbility(abilityId, 0);
+        NotifyCast(abilityId, base.TimeManager.Tick);
+    }
+
+    private void CastAbility(int abilityId, float passedTime) {
+        castingAbility = _abilitiesController.GetAbility(abilityId);
+        castTime = castingAbility.CastTime;
+
         CreateAbilityEffect(abilityId);
 
-        castTime = castingAbility.CastTime;
-        OnCastStart.Invoke(castTime, 0);
+        OnCastStart.Invoke(castTime, passedTime);
 
         StartCoroutine(Casting());
-
-        NotifyCast(abilityId, base.TimeManager.Tick);
     }
 
     public void NotifyCast(int abilityId, uint tick) {
@@ -48,13 +56,10 @@ public class CastController : NetworkBehaviour {
 
     [ServerRpc]
     private void ServerCast(int abilityId, uint tick) {
-        castingAbility = _abilitiesController.GetAbility(abilityId);
-
         float passedTime = (float)base.TimeManager.TimePassed(tick, false);
         passedTime = Mathf.Min(MAX_PASSED_TIME / 2f, passedTime);
 
-        OnCastStart.Invoke(castingAbility.CastTime, passedTime);
-
+        CastAbility(abilityId, passedTime);
         ObserverCast(abilityId, tick);
     }
 
@@ -63,16 +68,22 @@ public class CastController : NetworkBehaviour {
         float passedTime = (float)base.TimeManager.TimePassed(tick, false);
         passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
 
-        castingAbility = _abilitiesController.GetAbility(abilityId);
-
-        OnCastStart.Invoke(castingAbility.CastTime, passedTime);
+        CastAbility(abilityId, passedTime);
     }
 
     private void CreateAbilityEffect(int abilityId) {
-        castingAbility = _abilitiesController.GetAbility(abilityId);
+        if (!IsClient) {
+            return;
+        }
+
+        if (abilityId >= _abilitiesController.GetAbilities().Count) {
+            return;
+        }
+
+        Ability abilityToCreate = _abilitiesController.GetAbility(abilityId);
 
         // TODO these can potentially be moved to "Casting()"
-        GameObject createdEffect = Instantiate(castingAbility.AbilityEffectPrefab);
+        GameObject createdEffect = Instantiate(abilityToCreate.AbilityEffectPrefab);
         castingAbilityEffect = createdEffect.GetComponent<AbilityEffect>();
         castingAbilityEffect.Initialise(GetComponent<CharacterController>());
     }
@@ -108,14 +119,16 @@ public class CastController : NetworkBehaviour {
         //    });
         //}
 
-        //if (castingAbility.castVFX) {
-        //    castVFX = Instantiate(castingAbility.castVFX, visuals.transform);
-        //    castVFX.GetComponent<VisualEffect>().SetFloat("Duration", castingAbility.castTime);
-        //}
+        GameObject castVFX = null;
 
-        //if (castingAbility.castSFX) {
-        //    AudioManager.Instance.PlaySound(castingAbility.castSFX, visuals.transform);
-        //}
+        if (castingAbility.CastVFX) {
+            castVFX = Instantiate(castingAbility.CastVFX, visuals.transform);
+            castVFX.GetComponent<VisualEffect>().SetFloat("Duration", castTime);
+        }
+
+        if (castingAbility.CastSFX) {
+            AudioManager.Instance.PlaySound(castingAbility.CastSFX, visuals.transform);
+        }
 
         yield return new WaitUntil(() => castRequest == false);
 
@@ -127,14 +140,18 @@ public class CastController : NetworkBehaviour {
         targetGraphics
             .ForEach(targetObject => Destroy(targetObject));
 
-        //if (castVFX) {
-        //    Destroy(castVFX);
-        //}
+        if (castVFX) {
+            Destroy(castVFX);
+        }
 
         if (castSuccess) {
-            // TODO i should probably move casting ability effect into the casting ability?
             castingAbility.OnCast();
-            castingAbilityEffect.OnCastComplete();
+
+            // TODO this feels rather wild west, i need a pattern for when i should do owner checks
+            // i could pass isOwner in to the effect but that feels gross too
+            if (IsOwner) {
+                castingAbilityEffect.OnCastComplete();
+            }
         }
     }
 

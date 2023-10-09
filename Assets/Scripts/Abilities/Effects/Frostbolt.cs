@@ -26,7 +26,5 @@ public class Frostbolt : MonoBehaviour {
         }
 
         hitCharacter.TakeDamage(damage, caster.IsOwner);
-
-        //spawn another effect object, give it the same caster
     }
 }

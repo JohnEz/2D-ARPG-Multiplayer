@@ -54,7 +54,7 @@ public class BuffController : NetworkBehaviour {
         RemoveExpiredBuffs(expiredBuffs);
     }
 
-    public void ApplyBuff(string buffName) {
+    public void ServerApplyBuff(string buffName) {
         if (!IsServer) {
             return;
         }

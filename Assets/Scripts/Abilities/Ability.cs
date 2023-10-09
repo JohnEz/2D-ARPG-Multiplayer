@@ -12,6 +12,11 @@ public class Ability : ScriptableObject {
     public float CastTime;
     public float Cooldown;
 
+    public AudioClip CastSFX;
+    public GameObject CastVFX;
+
+    public float SpeedWhileCasting = 0.1f;
+
     [HideInInspector]
     public float TimeCast = -Mathf.Infinity;
 

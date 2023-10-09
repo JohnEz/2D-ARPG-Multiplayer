@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine.VFX;
 using UnityEngine;
 using FishNet;
+using System;
 
 public class PredictedTelegraph : MonoBehaviour {
     private VisualEffect _vfx;
@@ -22,6 +23,8 @@ public class PredictedTelegraph : MonoBehaviour {
 
     private CharacterController _caster;
 
+    public event Action<NetworkStats, NetworkStats> OnHit;
+
     private void Awake() {
         _vfx = GetComponent<VisualEffect>();
     }
@@ -37,12 +40,6 @@ public class PredictedTelegraph : MonoBehaviour {
         AudioManager.Instance.PlaySound(_onCastSFX, transform.position);
 
         Invoke("OnImpact", lagAdjustedDelay);
-    }
-
-    private void Update() {
-        // TODO its probably better to have control over the time and following the projectile method
-        // currently we just speed up the circle which isnt great
-        //_vfx.SetFloat("Delta_Time", Time.deltaTime);
     }
 
     private void OnImpact() {
@@ -62,7 +59,7 @@ public class PredictedTelegraph : MonoBehaviour {
             return;
         }
 
-        hitCharacter.GetComponent<NetworkStats>().TakeDamage(10, _caster.GetComponent<NetworkStats>().IsOwner);
+        OnHit?.Invoke(_caster.GetComponent<NetworkStats>(), hitCharacter);
     }
 
     public static List<NetworkStats> GetCircleHitTargets(Vector3 worldPos, float radius) {

@@ -51,9 +51,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5371050862608071960, guid: d5b5ccc43b2e57b498b01518c5b3f1b5, type: 3}
+      propertyPath: telegraphId
+      value: Coldsnap
+      objectReference: {fileID: 0}
     - target: {fileID: 6036495425585550850, guid: d5b5ccc43b2e57b498b01518c5b3f1b5, type: 3}
       propertyPath: m_Name
-      value: Coldsnap Ability
+      value: Coldsnap Ability Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5b5ccc43b2e57b498b01518c5b3f1b5, type: 3}

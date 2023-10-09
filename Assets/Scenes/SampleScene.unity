@@ -2280,7 +2280,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1645450203342873503, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
       propertyPath: _latencySimulator._latency
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3251700280951844917, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
       propertyPath: _tickRate

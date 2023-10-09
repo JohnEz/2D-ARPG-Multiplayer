@@ -1046,6 +1046,7 @@ MonoBehaviour:
   OnCastSuccess:
     m_PersistentCalls:
       m_Calls: []
+  visuals: {fileID: 5161580342573608463}
 --- !u!114 &494885872370336054
 MonoBehaviour:
   m_ObjectHideFlags: 0
