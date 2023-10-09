@@ -13,8 +13,8 @@ public class CombatText : MonoBehaviour {
     public AnimationCurve scaleCurve;
     public AnimationCurve alphaCurve;
 
-    public const float MIN_FONT_SIZE = 0.3f;
-    public const float MAX_FONT_SIZE = 0.7f;
+    public const float MIN_FONT_SIZE = 0.1f;
+    public const float MAX_FONT_SIZE = 0.5f;
 
     public void Awake() {
         textTransform.localScale = Vector3.zero;

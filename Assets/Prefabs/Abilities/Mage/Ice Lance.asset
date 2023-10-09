@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Ice Lance
   Icon: {fileID: 21300000, guid: ea8517310d83f79488f29b12e510bfe8, type: 3}
-  AbilityEffectPrefab: {fileID: 7996151038390841083, guid: 37db74af91e97954a9e3cc4f7c3fbc2c, type: 3}
-  CastTime: 0.35
-  Cooldown: 0.3
+  AbilityEffectPrefab: {fileID: 1868483969069013862, guid: b81c1fcdb8da68248b5edb31aadd3f72, type: 3}
+  CastTime: 0.7
+  Cooldown: 4
   TimeCast: -Infinity

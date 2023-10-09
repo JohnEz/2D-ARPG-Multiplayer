@@ -15,6 +15,6 @@ MonoBehaviour:
   AbilityName: Ice Barrier
   Icon: {fileID: 21300000, guid: 24d0ca988dc4b1b47a115a5df9cfc82b, type: 3}
   AbilityEffectPrefab: {fileID: 7996151038390841083, guid: 37db74af91e97954a9e3cc4f7c3fbc2c, type: 3}
-  CastTime: 0.35
-  Cooldown: 0.3
+  CastTime: 0.1
+  Cooldown: 8
   TimeCast: -Infinity

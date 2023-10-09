@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using FishNet;
+using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(PredictedProjectile))]
-public class Frostbolt : MonoBehaviour {
-    private const int BASE_DAMAGE = 15;
+public class IceLance : MonoBehaviour {
+    private const int BASE_DAMAGE = 22;
 
-    private const int CHILL_DAMAGE = 2;
+    private const int CHILL_DAMAGE = 6;
 
     private void OnEnable() {
         GetComponent<PredictedProjectile>().OnHit += HandleProjectileHit;
@@ -21,12 +21,11 @@ public class Frostbolt : MonoBehaviour {
         BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
 
         if (hitBuffController.HasBuff("Chill")) {
-            hitBuffController.ServerUpdateBuffDuration("Chill", .8f);
             damage += CHILL_DAMAGE;
+        } else {
+            hitBuffController.ApplyBuff("Chill");
         }
 
         hitCharacter.TakeDamage(damage, caster.IsOwner);
-
-        //spawn another effect object, give it the same caster
     }
 }

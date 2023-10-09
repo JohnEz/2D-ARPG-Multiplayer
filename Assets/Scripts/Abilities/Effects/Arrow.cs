@@ -8,6 +8,10 @@ public class Arrow : MonoBehaviour {
         GetComponent<PredictedProjectile>().OnHit += HandleProjectileHit;
     }
 
+    private void OnDisable() {
+        GetComponent<PredictedProjectile>().OnHit -= HandleProjectileHit;
+    }
+
     private void HandleProjectileHit(Vector3 hitLocation, NetworkStats caster, NetworkStats hitCharacter) {
         int damage = BASE_DAMAGE;
 

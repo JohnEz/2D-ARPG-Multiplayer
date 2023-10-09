@@ -77,9 +77,11 @@ public class NetworkStats : NetworkBehaviour {
     }
 
     public void TakeDamage(int damage, bool sourceIsPlayer) {
-        TakeDamageServer(damage);
+        if (IsServer) {
+            TakeDamageServer(damage);
+        }
 
-        if (InstanceFinder.IsClient) {
+        if (IsClient) {
             // TODO damage text needs more thinking as the value is calculated on the server
             // maybe i need an event for being hit and an event for taking numeric damage thats called in an observer? (not great for lag)
             OnTakeDamage.Invoke(damage, false, sourceIsPlayer);

@@ -49,6 +49,11 @@ MonoBehaviour:
     prefab: {fileID: 4383211419124462175, guid: fab855985f2f72b4288b02e4dea8d6c6, type: 3}
   - id: Arrow
     prefab: {fileID: 7520552771459370303, guid: 048074c73570e834ea58cab16823f3ff, type: 3}
+  - id: Ice Lance
+    prefab: {fileID: 9066433691788849688, guid: 1862b81efdacd434badac1543fa03715, type: 3}
   _telegraphResources:
   - id: Default
     prefab: {fileID: 2956777469308170475, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
+  _buffResources:
+  - id: Chill
+    prefab: {fileID: 11400000, guid: 1785a481c09f4584189f1b4516f64d58, type: 2}
