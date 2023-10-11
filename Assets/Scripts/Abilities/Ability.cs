@@ -20,6 +20,9 @@ public class Ability : ScriptableObject {
     [HideInInspector]
     public float TimeCast = -Mathf.Infinity;
 
+    [SerializeField]
+    public List<TargetGraphic> TargetGraphics;
+
     public bool IsOnCooldown() {
         return TimeCast + Cooldown >= Time.time;
     }

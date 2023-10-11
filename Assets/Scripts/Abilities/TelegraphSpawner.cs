@@ -37,7 +37,6 @@ public class TelegraphSpawner : NetworkBehaviour {
     private void ServerFire(string telegraphId, Vector3 position, uint tick) {
         //Get passed time. Note the false for allow negative values.
         float passedTime = (float)base.TimeManager.TimePassed(tick, false);
-
         passedTime = Mathf.Min(MAX_PASSED_TIME / 2f, passedTime);
 
         SpawnTelegraph(telegraphId, position, passedTime);

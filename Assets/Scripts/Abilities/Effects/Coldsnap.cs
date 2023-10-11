@@ -20,7 +20,7 @@ public class Coldsnap : MonoBehaviour {
 
         if (hitBuffController.HasBuff("Chill")) {
             hitBuffController.ServerRemoveBuff("Chill");
-            //hitBuffController.ServerApplyBuff("Frozen");
+            hitBuffController.ServerApplyBuff("Frozen");
         } else {
             hitBuffController.ServerApplyBuff("Chill");
         }

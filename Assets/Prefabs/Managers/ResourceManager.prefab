@@ -59,3 +59,7 @@ MonoBehaviour:
   _buffResources:
   - id: Chill
     prefab: {fileID: 11400000, guid: 1785a481c09f4584189f1b4516f64d58, type: 2}
+  - id: Frozen
+    prefab: {fileID: 11400000, guid: 266bd078de321f04ab6365692336b6b0, type: 2}
+  - id: Ice Barrier
+    prefab: {fileID: 11400000, guid: 1a8790870ca9c724f9f1c2a0a7d0a767, type: 2}

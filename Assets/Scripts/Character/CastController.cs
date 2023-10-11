@@ -95,29 +95,29 @@ public class CastController : NetworkBehaviour {
 
         List<GameObject> targetGraphics = new List<GameObject>();
 
-        //if (IsOwner && castingAbility.targetGraphics.Count > 0) {
-        //    castingAbility.targetGraphics.ForEach(targetGraphic => {
-        //        // TODO move this out into targetGraphicController
-        //        GameObject targetGraphicObject = Instantiate(targetGraphic.prefab);
-        //        TargetGraphicController targetGraphicController = targetGraphicObject.GetComponent<TargetGraphicController>();
+        if (IsOwner && castingAbility.TargetGraphics.Count > 0) {
+            castingAbility.TargetGraphics.ForEach(targetGraphic => {
+                // TODO move this out into targetGraphicController
+                GameObject targetGraphicObject = Instantiate(targetGraphic.prefab);
+                TargetGraphicController targetGraphicController = targetGraphicObject.GetComponent<TargetGraphicController>();
 
-        //        switch (targetGraphic.myStyle) {
-        //            case TargetGraphicStyle.SELF:
-        //                targetGraphicController.InitialiseSelfTarget(transform, targetGraphic.scale);
-        //                break;
+                switch (targetGraphic.myStyle) {
+                    case TargetGraphicStyle.SELF:
+                        targetGraphicController.InitialiseSelfTarget(transform, targetGraphic.scale);
+                        break;
 
-        //            case TargetGraphicStyle.FOLLOW_MOUSE:
-        //                targetGraphicController.InitialiseFollowMouseTarget(targetGraphic.scale);
-        //                break;
+                    case TargetGraphicStyle.FOLLOW_MOUSE:
+                        targetGraphicController.InitialiseFollowMouseTarget(targetGraphic.scale);
+                        break;
 
-        //            case TargetGraphicStyle.LEAP:
-        //                targetGraphicController.InitialiseLeapTarget(transform, 10f, targetGraphic.scale);
-        //                break;
-        //        }
+                    case TargetGraphicStyle.LEAP:
+                        targetGraphicController.InitialiseLeapTarget(transform, 10f, targetGraphic.scale);
+                        break;
+                }
 
-        //        targetGraphics.Add(targetGraphicObject);
-        //    });
-        //}
+                targetGraphics.Add(targetGraphicObject);
+            });
+        }
 
         GameObject castVFX = null;
 
