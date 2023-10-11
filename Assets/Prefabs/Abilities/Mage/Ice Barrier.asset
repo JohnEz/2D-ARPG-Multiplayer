@@ -21,4 +21,7 @@ MonoBehaviour:
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
   TimeCast: -Infinity
-  TargetGraphics: []
+  TargetGraphics:
+  - prefab: {fileID: 4536119196424114156, guid: 077acc03dc905f34aa7a9e7eee9468ce, type: 3}
+    scale: 0.5
+    myStyle: 0
