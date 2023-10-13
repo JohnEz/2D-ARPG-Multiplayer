@@ -5,7 +5,8 @@ using System;
 public enum TargetGraphicStyle {
     FOLLOW_MOUSE,
     LEAP,
-    SELF
+    SELF,
+    ARROW
 }
 
 [Serializable]
@@ -24,8 +25,23 @@ public struct TargetGraphic {
 public class TargetGraphicController : MonoBehaviour {
     private TargetGraphicStyle myStyle;
 
+    [SerializeField]
+    private SpriteRenderer _spriteRenderer;
+
+    [SerializeField]
+    private Sprite _circleSprite;
+
+    [SerializeField]
+    private Sprite _arrowSprite;
+
+    [SerializeField]
+    private Transform _graphicTransform;
+
     public void InitialiseSelfTarget(Transform parent, float scale) {
         myStyle = TargetGraphicStyle.SELF;
+
+        _spriteRenderer.sprite = _circleSprite;
+
         transform.SetParent(parent);
         transform.localPosition = Vector3.zero;
         SetScale(scale);
@@ -33,7 +49,10 @@ public class TargetGraphicController : MonoBehaviour {
 
     public void InitialiseFollowMouseTarget(float scale) {
         myStyle = TargetGraphicStyle.FOLLOW_MOUSE;
+
+        _spriteRenderer.sprite = _circleSprite;
         FollowMouse followScript = AddScript(typeof(FollowMouse)) as FollowMouse;
+
         SetScale(scale);
     }
 
@@ -41,9 +60,22 @@ public class TargetGraphicController : MonoBehaviour {
         myStyle = TargetGraphicStyle.LEAP;
         LeapTarget leapScript = AddScript(typeof(LeapTarget)) as LeapTarget;
 
+        _spriteRenderer.sprite = _circleSprite;
+
         leapScript.StartTransform = startTransform;
         leapScript.MaxDistance = maxDistance;
         SetScale(scale);
+    }
+
+    public void InitialiseArrowTarget(Transform visuals, float maxDistance) {
+        myStyle = TargetGraphicStyle.SELF;
+        _graphicTransform.localPosition = new Vector3(0f, 8f, 0);
+        _spriteRenderer.sprite = _arrowSprite;
+
+        transform.SetParent(visuals, false);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        SetScale(1f);
     }
 
     private Component AddScript(System.Type component) {
