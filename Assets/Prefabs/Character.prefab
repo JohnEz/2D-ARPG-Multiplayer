@@ -1334,6 +1334,15 @@ MonoBehaviour:
   _currentHealth: 100
   _maxHealth: 100
   _baseMoveSpeed: 4
+  Health:
+    _baseValue: 100
+    _isInteger: 1
+  Speed:
+    _baseValue: 4
+    _isInteger: 0
+  Power:
+    _baseValue: 0
+    _isInteger: 1
 --- !u!114 &906537381320409878
 MonoBehaviour:
   m_ObjectHideFlags: 0

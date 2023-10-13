@@ -6,6 +6,12 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet;
 
+public enum StatType {
+    HEALTH,
+    POWER,
+    MOVE_SPEED,
+}
+
 public class NetworkStats : NetworkBehaviour {
 
     [HideInInspector]
@@ -14,18 +20,57 @@ public class NetworkStats : NetworkBehaviour {
 
     public int CurrentHealth { get { return _currentHealth; } }
 
-    [SyncVar(OnChange = nameof(HandleMaxHealthChange), WritePermissions = WritePermission.ServerOnly)]
-    private int _maxHealth = 100;
+    //[SyncVar(OnChange = nameof(HandleMaxHealthChange), WritePermissions = WritePermission.ServerOnly)]
+    //private int _maxHealth = 100;
 
-    public int MaxHealth { get { return _maxHealth; } }
+    //public int MaxHealth { get { return _maxHealth; } }
 
     [SerializeField]
     private float _baseMoveSpeed = 4f;
 
     public float MoveSpeed { get { return _baseMoveSpeed; } }
 
+    // new Stats
+    [SerializeField]
+    private int _baseMaxHealth = 100;
+
+    [SyncObject]
+    public readonly SyncedCharacterStat MaxHealth = new SyncedCharacterStat();
+
+    [SerializeField]
+    private float _baseSpeed = 4f;
+
+    [SyncObject]
+    public readonly SyncedCharacterStat Speed = new SyncedCharacterStat();
+
+    [SerializeField]
+    private float _basePower = 0f;
+
+    [SyncObject]
+    public readonly SyncedCharacterStat Power = new SyncedCharacterStat();
+
+    public Dictionary<StatType, SyncedCharacterStat> StatList = new Dictionary<StatType, SyncedCharacterStat>();
+
     public override void OnStartServer() {
-        _currentHealth = MaxHealth;
+        MaxHealth.SetBaseValue(_baseMaxHealth);
+        Power.SetBaseValue(_basePower);
+        Speed.SetBaseValue(_baseSpeed);
+
+        _currentHealth = (int)MaxHealth.CurrentValue;
+    }
+
+    private void Start() {
+        StatList.Add(StatType.HEALTH, MaxHealth);
+        StatList.Add(StatType.POWER, Power);
+        StatList.Add(StatType.MOVE_SPEED, Speed);
+    }
+
+    private void OnEnable() {
+        MaxHealth.OnValueChanged += HandleMaxHealthChange;
+    }
+
+    private void OnDisable() {
+        MaxHealth.OnValueChanged -= HandleMaxHealthChange;
     }
 
     public event Action OnHealthDepleted;
@@ -37,6 +82,14 @@ public class NetworkStats : NetworkBehaviour {
     public event Action<int, bool, bool> OnTakeDamage;
 
     public event Action<int> OnReceiveHealing;
+
+    #region Health Functions
+
+    private void HandleMaxHealthChange() {
+        OnHealthChanged?.Invoke();
+
+        _currentHealth = Mathf.Min(_currentHealth, (int)MaxHealth.CurrentValue);
+    }
 
     private void HandleCurrentHealthChange(int previousValue, int nextValue, bool asServer) {
         if (!asServer && InstanceFinder.IsHost) {
@@ -55,7 +108,6 @@ public class NetworkStats : NetworkBehaviour {
         }
 
         OnHealthChanged?.Invoke();
-        HandleHitPointsChanged(previousValue, nextValue);
     }
 
     private void HandleHitPointsChanged(int previousValue, int nextValue) {
@@ -73,7 +125,7 @@ public class NetworkStats : NetworkBehaviour {
 
     [Server]
     public void TakeDamageServer(int damage) {
-        _currentHealth = Math.Max(0, _currentHealth - damage);
+        _currentHealth = Math.Clamp(_currentHealth - damage, 0, (int)MaxHealth.CurrentValue);
     }
 
     public void TakeDamage(int damage, bool sourceIsPlayer) {
@@ -90,7 +142,7 @@ public class NetworkStats : NetworkBehaviour {
 
     [Server]
     public void ReceiveHealingServer(int healing) {
-        _currentHealth = Math.Min(MaxHealth, _currentHealth + healing);
+        _currentHealth = Math.Clamp(_currentHealth + healing, 0, (int)MaxHealth.CurrentValue);
     }
 
     public void ReceiveHealing(int healing) {
@@ -100,4 +152,38 @@ public class NetworkStats : NetworkBehaviour {
             OnReceiveHealing.Invoke(healing);
         }
     }
+
+    #endregion Health Functions
+
+    #region Modifier functions
+
+    public SyncedCharacterStat GetCharacterStat(StatType stat) {
+        return StatList[stat];
+    }
+
+    public void ApplyStatMods(List<StatModifier> mods) {
+        mods.ForEach(mod => ApplyStatMod(mod));
+    }
+
+    public void ApplyStatMod(StatModifier mod) {
+        SyncedCharacterStat statToMod = GetCharacterStat(mod.Stat);
+        statToMod.AddModifier(mod);
+    }
+
+    public void RemoveStatMods(List<StatModifier> mods) {
+        mods.ForEach(mod => RemoveStatMod(mod));
+    }
+
+    public void RemoveStatMod(StatModifier mod) {
+        SyncedCharacterStat statToMod = GetCharacterStat(mod.Stat);
+        statToMod.RemoveModifier(mod);
+    }
+
+    public void RemoveAllStatModsBySource(object source) {
+        foreach (SyncedCharacterStat stat in StatList.Values) {
+            stat.RemoveAllModifiersFromSource(source);
+        }
+    }
+
+    #endregion Modifier functions
 }

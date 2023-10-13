@@ -1,5 +1,6 @@
 using UnityEngine;
 using FishNet;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "New Buff", menuName = "2d RPG/New Buff")]
 public class Buff : ScriptableObject {
@@ -60,6 +61,11 @@ public class Buff : ScriptableObject {
 
     [SerializeField]
     private GameObject expireVFX;
+
+    [SerializeField]
+    private List<StatModifier> _statMods = new List<StatModifier>();
+
+    public List<StatModifier> StatMods { get { return _statMods; } }
 
     public virtual void Initailise(NetworkStats target, float elapsedTime, float passedTime, float addedTime) {
         targetCharacter = target;

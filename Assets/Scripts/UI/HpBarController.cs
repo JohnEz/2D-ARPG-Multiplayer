@@ -18,7 +18,7 @@ public class HpBarController : MonoBehaviour {
 
     public void Initialize(NetworkStats stats) {
         _myStats = stats;
-        currentMax = stats.MaxHealth;
+        currentMax = stats.MaxHealth.CurrentValue;
 
         _myStats.OnHealthChanged += SetHp;
 
@@ -65,7 +65,7 @@ public class HpBarController : MonoBehaviour {
         float health = _myStats.CurrentHealth;
         //float shield = _myStats.Shield;
         float shield = 0;
-        float maxHealth = _myStats.MaxHealth;
+        float maxHealth = _myStats.MaxHealth.CurrentValue;
 
         targetHPPercent = health / (maxHealth + shield);
         targetShieldPercent = (health + shield) / (maxHealth + shield);

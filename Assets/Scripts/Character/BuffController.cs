@@ -9,7 +9,7 @@ using UnityEngine;
 public class BuffController : NetworkBehaviour {
     private const float MAX_PASSED_TIME = 0.3f;
 
-    private NetworkStats _myCharacter;
+    private NetworkStats _myStats;
 
     public event Action<List<Buff>> OnBuffsChanged;
 
@@ -21,7 +21,7 @@ public class BuffController : NetworkBehaviour {
     }
 
     private void Awake() {
-        _myCharacter = GetComponent<NetworkStats>();
+        _myStats = GetComponent<NetworkStats>();
         ActiveBuffs = new List<Buff>();
     }
 
@@ -67,7 +67,7 @@ public class BuffController : NetworkBehaviour {
         Buff buffPrefab = ResourceManager.Instance.GetBuff(buffName);
 
         Buff newBuff = Instantiate(buffPrefab);
-        newBuff.Initailise(_myCharacter, elapsedTime, passedTime, addedTime);
+        newBuff.Initailise(_myStats, elapsedTime, passedTime, addedTime);
 
         Buff originalBuff = GetBuff(newBuff.Name);
         if (originalBuff) {
@@ -76,9 +76,12 @@ public class BuffController : NetworkBehaviour {
             }
 
             ActiveBuffs.RemoveAll(existingBuff => existingBuff.Name == newBuff.Name);
+
+            _myStats.RemoveStatMods(originalBuff.StatMods);
         }
 
         ActiveBuffs.Add(newBuff);
+        _myStats.ApplyStatMods(newBuff.StatMods);
 
         OnBuffsChanged?.Invoke(ActiveBuffs);
     }
@@ -119,7 +122,15 @@ public class BuffController : NetworkBehaviour {
     }
 
     private void DestroyBuff(string buffName) {
+        Buff originalBuff = GetBuff(buffName);
+
+        if (originalBuff == null) {
+            return;
+        }
+
         ActiveBuffs = ActiveBuffs.FindAll(buff => buff.Name != buffName).ToList();
+        _myStats.RemoveStatMods(originalBuff.StatMods);
+
         OnBuffsChanged.Invoke(ActiveBuffs);
     }
 
