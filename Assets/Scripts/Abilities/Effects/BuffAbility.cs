@@ -11,6 +11,7 @@ public class BuffAbility : AbilityEffect {
 
     public override void OnCastComplete() {
         NetworkStats hitTarget = null;
+        BuffController casterBuffs = _caster.GetComponent<BuffController>();
 
         List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(_caster.AimLocation, .5f);
 
@@ -25,7 +26,9 @@ public class BuffAbility : AbilityEffect {
         }
 
         if (hitTarget != null) {
-            hitTarget.GetComponent<BuffController>().ServerApplyBuff(BuffId);
+            BuffController targetBuffs = hitTarget.GetComponent<BuffController>();
+
+            casterBuffs.ApplyBuff(targetBuffs, BuffId);
         }
 
         Destroy(gameObject);

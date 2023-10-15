@@ -67,6 +67,8 @@ public class Buff : ScriptableObject {
 
     public List<StatModifier> StatMods { get { return _statMods; } }
 
+    private bool isApplied = false;
+
     public virtual void Initailise(NetworkStats target, float elapsedTime, float passedTime, float addedTime) {
         targetCharacter = target;
         ElapsedTime = elapsedTime + passedTime;
@@ -79,6 +81,22 @@ public class Buff : ScriptableObject {
         if (applyVFX) {
             Instantiate(applyVFX, target.transform);
         }
+    }
+
+    public virtual void ApplyEffects() {
+        if (!InstanceFinder.IsServer) {
+            return;
+        }
+
+        targetCharacter.ApplyStatMods(_statMods);
+    }
+
+    public virtual void RemoveEffects() {
+        if (!InstanceFinder.IsServer) {
+            return;
+        }
+
+        targetCharacter.RemoveStatMods(_statMods);
     }
 
     public virtual void UpdateElapsedTime(float deltaTime) {

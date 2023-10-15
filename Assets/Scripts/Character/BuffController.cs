@@ -54,10 +54,27 @@ public class BuffController : NetworkBehaviour {
         RemoveExpiredBuffs(expiredBuffs);
     }
 
+    public void ApplyBuff(BuffController target, string buffName) {
+        if (IsServer) {
+            target.ServerApplyBuff(buffName);
+        } else {
+            CallServerApplyBuff(target, buffName);
+        }
+    }
+
+    [ServerRpc]
+    public void CallServerApplyBuff(BuffController target, string buffName) {
+        target.ServerApplyBuff(buffName);
+    }
+
     public void ServerApplyBuff(string buffName) {
         if (!IsServer) {
             return;
         }
+
+        /* TODO adding passed time here is actually a nerf to the player
+         * because it removes the lagged time from the effect and the effect
+         * only applies its changes on the server */
 
         CreateBuff(buffName, 0f);
         ObserversApplyBuff(buffName, base.TimeManager.Tick);
@@ -76,12 +93,11 @@ public class BuffController : NetworkBehaviour {
             }
 
             ActiveBuffs.RemoveAll(existingBuff => existingBuff.Name == newBuff.Name);
-
-            _myStats.RemoveStatMods(originalBuff.StatMods);
+            originalBuff.RemoveEffects();
         }
 
         ActiveBuffs.Add(newBuff);
-        _myStats.ApplyStatMods(newBuff.StatMods);
+        newBuff.ApplyEffects();
 
         OnBuffsChanged?.Invoke(ActiveBuffs);
     }
@@ -129,7 +145,7 @@ public class BuffController : NetworkBehaviour {
         }
 
         ActiveBuffs = ActiveBuffs.FindAll(buff => buff.Name != buffName).ToList();
-        _myStats.RemoveStatMods(originalBuff.StatMods);
+        originalBuff.RemoveEffects();
 
         OnBuffsChanged.Invoke(ActiveBuffs);
     }
