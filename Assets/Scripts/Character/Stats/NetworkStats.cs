@@ -8,27 +8,19 @@ using FishNet;
 
 public enum StatType {
     HEALTH,
+    SHIELD,
     POWER,
     MOVE_SPEED,
 }
 
 public class NetworkStats : NetworkBehaviour {
+    private BuffController _buffController;
 
     [HideInInspector]
     [SyncVar(OnChange = nameof(HandleCurrentHealthChange), WritePermissions = WritePermission.ServerOnly)]
     private int _currentHealth = 100;
 
     public int CurrentHealth { get { return _currentHealth; } }
-
-    //[SyncVar(OnChange = nameof(HandleMaxHealthChange), WritePermissions = WritePermission.ServerOnly)]
-    //private int _maxHealth = 100;
-
-    //public int MaxHealth { get { return _maxHealth; } }
-
-    [SerializeField]
-    private float _baseMoveSpeed = 4f;
-
-    public float MoveSpeed { get { return _baseMoveSpeed; } }
 
     // new Stats
     [SerializeField]
@@ -47,6 +39,9 @@ public class NetworkStats : NetworkBehaviour {
     private float _basePower = 0f;
 
     [SyncObject]
+    public readonly SyncedCharacterStat Shield = new SyncedCharacterStat();
+
+    [SyncObject]
     public readonly SyncedCharacterStat Power = new SyncedCharacterStat();
 
     public Dictionary<StatType, SyncedCharacterStat> StatList = new Dictionary<StatType, SyncedCharacterStat>();
@@ -55,6 +50,7 @@ public class NetworkStats : NetworkBehaviour {
         MaxHealth.SetBaseValue(_baseMaxHealth);
         Power.SetBaseValue(_basePower);
         Speed.SetBaseValue(_baseSpeed);
+        Shield.SetBaseValue(0f);
 
         _currentHealth = (int)MaxHealth.CurrentValue;
     }
@@ -63,14 +59,19 @@ public class NetworkStats : NetworkBehaviour {
         StatList.Add(StatType.HEALTH, MaxHealth);
         StatList.Add(StatType.POWER, Power);
         StatList.Add(StatType.MOVE_SPEED, Speed);
+        StatList.Add(StatType.SHIELD, Shield);
+
+        _buffController = GetComponent<BuffController>();
     }
 
     private void OnEnable() {
         MaxHealth.OnValueChanged += HandleMaxHealthChange;
+        Shield.OnValueChanged += HandleCurrentShieldChange;
     }
 
     private void OnDisable() {
         MaxHealth.OnValueChanged -= HandleMaxHealthChange;
+        Shield.OnValueChanged += HandleCurrentShieldChange;
     }
 
     public event Action OnHealthDepleted;
@@ -88,7 +89,9 @@ public class NetworkStats : NetworkBehaviour {
     private void HandleMaxHealthChange() {
         OnHealthChanged?.Invoke();
 
-        _currentHealth = Mathf.Min(_currentHealth, (int)MaxHealth.CurrentValue);
+        if (IsServer) {
+            _currentHealth = Mathf.Min(_currentHealth, (int)MaxHealth.CurrentValue);
+        }
     }
 
     private void HandleCurrentHealthChange(int previousValue, int nextValue, bool asServer) {
@@ -99,6 +102,10 @@ public class NetworkStats : NetworkBehaviour {
 
         OnHealthChanged?.Invoke();
         HandleHitPointsChanged(previousValue, nextValue);
+    }
+
+    private void HandleCurrentShieldChange() {
+        OnHealthChanged?.Invoke();
     }
 
     private void HandleMaxHealthChange(int previousValue, int nextValue, bool asServer) {
@@ -123,15 +130,51 @@ public class NetworkStats : NetworkBehaviour {
         }
     }
 
-    [Server]
     public void TakeDamageServer(int damage) {
-        _currentHealth = Math.Clamp(_currentHealth - damage, 0, (int)MaxHealth.CurrentValue);
+        if (!IsServer) {
+            return;
+        }
+
+        int remainingDamage = damage;
+
+        if (Shield.CurrentValue > 0) {
+            // loop through all our buffs to find ones with shield mods
+            List<Buff> shieldBuffs = _buffController.ActiveBuffs.FindAll(activeBuff => activeBuff.HasShield);
+
+            // may need to order them by time applied or remaining time
+
+            shieldBuffs.ForEach(buff => {
+                if (remainingDamage < 0) {
+                    return;
+                }
+
+                StatModifier shieldMod = buff.StatMods.Find(mod => mod.Stat == StatType.SHIELD);
+
+                if (shieldMod == null || shieldMod.Value <= 0) {
+                    return;
+                }
+
+                // reduce remaining shield and remaining damage
+                if (shieldMod.Value >= remainingDamage) {
+                    shieldMod.UpdateRemainingValue(-remainingDamage);
+                    remainingDamage = 0;
+                } else {
+                    remainingDamage -= (int)shieldMod.Value;
+                    shieldMod.UpdateRemainingValue(-shieldMod.Value);
+                }
+            });
+
+            // make sure shield stat is recalculated
+            Shield.ForceUpdateCachedValue();
+
+            Debug.Log(Shield.CurrentValue);
+        }
+
+        _currentHealth = Math.Clamp(_currentHealth - remainingDamage, 0, (int)MaxHealth.CurrentValue);
     }
 
     public void TakeDamage(int damage, bool sourceIsPlayer) {
-        if (IsServer) {
-            TakeDamageServer(damage);
-        }
+        TakeDamageServer(damage);
 
         if (IsClient) {
             // TODO damage text needs more thinking as the value is calculated on the server

@@ -53,7 +53,7 @@ public class AiBrain : NetworkBehaviour {
     private void AttackTarget() {
         _myCharacterController.TurnToFaceTarget(_targetCharacter.transform);
 
-        //NetworkStats _targetStats = _targetCharacter.GetComponent<NetworkStats>();
+        NetworkStats _targetStats = _targetCharacter.GetComponent<NetworkStats>();
         CharacterStateController _targetState = _targetCharacter.GetComponent<CharacterStateController>();
         //CastController _targetCastController = _targetCharacter.GetComponent<CastController>();
 
@@ -61,8 +61,8 @@ public class AiBrain : NetworkBehaviour {
             transform.position,
             20f, // get projectile speed from ability
             _targetCharacter.transform.position,
-            4f, // get movespeed from stats
-            _targetCharacter.InputDirection, // This doesn't work over the network, rethink
+            _targetStats.Speed.CurrentValue,
+            _targetCharacter.InputDirection,
             _targetState.IsCasting(),
             0.1f // get this from the ability being cast
         );

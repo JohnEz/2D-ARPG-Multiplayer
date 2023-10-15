@@ -79,6 +79,10 @@ public class SyncedCharacterStat : SyncBase, ICustomSync {
         return hasRemoved;
     }
 
+    public void ForceUpdateCachedValue() {
+        UpdateCachedValue();
+    }
+
     protected virtual void UpdateCachedValue() {
         Value.ModifiedValue = CalculateFinalValue();
         Dirty();

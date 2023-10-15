@@ -21,6 +21,6 @@ MonoBehaviour:
   applyVFX: {fileID: 0}
   expireVFX: {fileID: 0}
   _statMods:
-  - Value: -0.3
+  - _value: -0.3
     Type: 2
     Stat: 2

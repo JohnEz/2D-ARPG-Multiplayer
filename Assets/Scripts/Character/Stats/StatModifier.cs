@@ -11,17 +11,26 @@ public enum StatModType {
 
 [Serializable]
 public class StatModifier : IComparable<StatModifier> {
-    public float Value;
+
+    [SerializeField]
+    private float _value;
+
     public StatModType Type;
     public object Source;
     public StatType Stat;
 
+    public float Value { get { return _value; } }
+
     public int Order { get => (int)Type; }
 
     public StatModifier(float value, StatModType type, object source = null) {
-        Value = value;
+        _value = value;
         Type = type;
         Source = source;
+    }
+
+    public void UpdateRemainingValue(float mod) {
+        _value += mod;
     }
 
     public int CompareTo(StatModifier other) {
@@ -40,6 +49,7 @@ public class StatModifier : IComparable<StatModifier> {
     public static string StatTypeToString(StatType type) {
         switch (type) {
             case StatType.HEALTH: return "Max Health";
+            case StatType.SHIELD: return "Shield";
             case StatType.POWER: return "Power";
             case StatType.MOVE_SPEED: return "Move Speed";
             default: return "";

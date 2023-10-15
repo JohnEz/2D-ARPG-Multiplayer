@@ -20,3 +20,7 @@ MonoBehaviour:
   expireSFX: {fileID: 8300000, guid: 5ab849359a854044388b71cef47292b1, type: 3}
   applyVFX: {fileID: 5277472720557037422, guid: c1012d090c8671e419e810ca239c9045, type: 3}
   expireVFX: {fileID: 0}
+  _statMods:
+  - _value: 24
+    Type: 0
+    Stat: 1

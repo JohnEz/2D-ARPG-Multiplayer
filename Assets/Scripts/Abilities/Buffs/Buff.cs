@@ -67,12 +67,20 @@ public class Buff : ScriptableObject {
 
     public List<StatModifier> StatMods { get { return _statMods; } }
 
-    private bool isApplied = false;
+    private bool _isApplied = false;
+
+    private bool _hasShield = false;
+
+    public bool HasShield { get { return _hasShield; } }
 
     public virtual void Initailise(NetworkStats target, float elapsedTime, float passedTime, float addedTime) {
         targetCharacter = target;
         ElapsedTime = elapsedTime + passedTime;
         AddedTime = addedTime;
+
+        _hasShield = _statMods.Find(mod =>
+            mod.Stat == StatType.SHIELD
+        ) != null;
 
         if (applySFX) {
             AudioManager.Instance.PlaySound(applySFX, targetCharacter.transform.position);
@@ -84,19 +92,21 @@ public class Buff : ScriptableObject {
     }
 
     public virtual void ApplyEffects() {
-        if (!InstanceFinder.IsServer) {
+        if (!InstanceFinder.IsServer || _isApplied) {
             return;
         }
 
         targetCharacter.ApplyStatMods(_statMods);
+        _isApplied = true;
     }
 
     public virtual void RemoveEffects() {
-        if (!InstanceFinder.IsServer) {
+        if (!InstanceFinder.IsServer || !_isApplied) {
             return;
         }
 
         targetCharacter.RemoveStatMods(_statMods);
+        _isApplied = false;
     }
 
     public virtual void UpdateElapsedTime(float deltaTime) {
