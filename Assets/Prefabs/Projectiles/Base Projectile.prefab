@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visuals: {fileID: 0}
   Speed: 15
-  LifeTime: 1.5
+  LifeTime: 0.5
   onCreateSFX: {fileID: 0}
   onHitVFXPrefab: {fileID: 0}
   onHitSFX: {fileID: 0}

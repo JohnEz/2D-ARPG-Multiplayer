@@ -23,24 +23,23 @@ public struct TargetGraphic {
 }
 
 public class TargetGraphicController : MonoBehaviour {
+    private const float ARROW_BODY_SIZE = 0.5f;
+    private const float ARROW_HEAD_SIZE = 1f;
+    private const float DISTANCE_TO_UNIT_SCALE = 0.5f;
+
     private TargetGraphicStyle myStyle;
-
-    [SerializeField]
-    private SpriteRenderer _spriteRenderer;
-
-    [SerializeField]
-    private Sprite _circleSprite;
-
-    [SerializeField]
-    private Sprite _arrowSprite;
 
     [SerializeField]
     private Transform _graphicTransform;
 
+    [SerializeField]
+    private Transform _arrowHeadTransform;
+
+    [SerializeField]
+    private Transform _arrowBodyTransform;
+
     public void InitialiseSelfTarget(Transform parent, float scale) {
         myStyle = TargetGraphicStyle.SELF;
-
-        _spriteRenderer.sprite = _circleSprite;
 
         transform.SetParent(parent);
         transform.localPosition = Vector3.zero;
@@ -50,7 +49,6 @@ public class TargetGraphicController : MonoBehaviour {
     public void InitialiseFollowMouseTarget(float scale) {
         myStyle = TargetGraphicStyle.FOLLOW_MOUSE;
 
-        _spriteRenderer.sprite = _circleSprite;
         FollowMouse followScript = AddScript(typeof(FollowMouse)) as FollowMouse;
 
         SetScale(scale);
@@ -60,8 +58,6 @@ public class TargetGraphicController : MonoBehaviour {
         myStyle = TargetGraphicStyle.LEAP;
         LeapTarget leapScript = AddScript(typeof(LeapTarget)) as LeapTarget;
 
-        _spriteRenderer.sprite = _circleSprite;
-
         leapScript.StartTransform = startTransform;
         leapScript.MaxDistance = maxDistance;
         SetScale(scale);
@@ -69,13 +65,12 @@ public class TargetGraphicController : MonoBehaviour {
 
     public void InitialiseArrowTarget(Transform visuals, float maxDistance) {
         myStyle = TargetGraphicStyle.SELF;
-        _graphicTransform.localPosition = new Vector3(0f, 8f, 0);
-        _spriteRenderer.sprite = _arrowSprite;
+        _graphicTransform.localPosition = new Vector3(0f, 0f, 0);
 
         transform.SetParent(visuals, false);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-        SetScale(1f);
+        SetArrowLength(maxDistance);
     }
 
     private Component AddScript(System.Type component) {
@@ -84,5 +79,18 @@ public class TargetGraphicController : MonoBehaviour {
 
     private void SetScale(float scale) {
         transform.localScale = new Vector3(scale, scale, scale);
+    }
+
+    private void SetArrowLength(float length) {
+        float unitLength = length * DISTANCE_TO_UNIT_SCALE;
+
+        float requiredHeadDistance = Mathf.Max(unitLength - ARROW_HEAD_SIZE, 0);
+
+        _arrowHeadTransform.localPosition = new Vector3(requiredHeadDistance + (ARROW_HEAD_SIZE / 2), 0, 0);
+
+        float bodyScale = requiredHeadDistance / ARROW_BODY_SIZE;
+
+        _arrowBodyTransform.localScale = new Vector3(bodyScale, 1f, 1f);
+        _arrowBodyTransform.localPosition = new Vector3(bodyScale * (1 - ARROW_BODY_SIZE) / 2, 0, 0);
     }
 }

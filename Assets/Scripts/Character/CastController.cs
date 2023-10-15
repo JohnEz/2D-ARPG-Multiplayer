@@ -115,7 +115,7 @@ public class CastController : NetworkBehaviour {
                         break;
 
                     case TargetGraphicStyle.ARROW:
-                        targetGraphicController.InitialiseArrowTarget(visuals, 10f);
+                        targetGraphicController.InitialiseArrowTarget(visuals, targetGraphic.scale);
                         break;
                 }
 
