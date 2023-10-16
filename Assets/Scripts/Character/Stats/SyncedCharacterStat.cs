@@ -46,20 +46,17 @@ public class SyncedCharacterStat : SyncBase, ICustomSync {
 
         Value.BaseValue = newValue;
         UpdateCachedValue();
-        OnValueChanged?.Invoke();
     }
 
     public void AddModifier(StatModifier mod) {
         _statModifiers.Add(mod);
         _statModifiers.Sort();
         UpdateCachedValue();
-        OnValueChanged?.Invoke();
     }
 
     public bool RemoveModifier(StatModifier mod) {
         if (_statModifiers.Remove(mod)) {
             UpdateCachedValue();
-            OnValueChanged?.Invoke();
             return true;
         }
         return false;
@@ -73,18 +70,19 @@ public class SyncedCharacterStat : SyncBase, ICustomSync {
         if (removed > 0) {
             UpdateCachedValue();
             hasRemoved = true;
-            OnValueChanged?.Invoke();
         }
 
         return hasRemoved;
     }
 
     public void ForceUpdateCachedValue() {
+        Debug.Log("Forcing stat update");
         UpdateCachedValue();
     }
 
     protected virtual void UpdateCachedValue() {
         Value.ModifiedValue = CalculateFinalValue();
+        OnValueChanged?.Invoke();
         Dirty();
     }
 

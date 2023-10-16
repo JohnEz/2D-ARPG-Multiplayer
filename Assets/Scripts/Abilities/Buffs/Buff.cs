@@ -67,6 +67,9 @@ public class Buff : ScriptableObject {
 
     public List<StatModifier> StatMods { get { return _statMods; } }
 
+    [SerializeField]
+    private AbilityEffect _expireEffect;
+
     private bool _isApplied = false;
 
     private bool _hasShield = false;
@@ -138,6 +141,13 @@ public class Buff : ScriptableObject {
 
         if (expireVFX) {
             Instantiate(expireVFX, targetCharacter.transform);
+        }
+
+        if (_expireEffect) {
+            AbilityEffect expireEffect = Instantiate(_expireEffect);
+            //TODO this should probably be the initial caster
+            expireEffect.Initialise(targetCharacter.GetComponent<CharacterController>());
+            expireEffect.OnCastComplete();
         }
     }
 

@@ -846,7 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.14509805, g: 0.83137256, b: 0.7947991, a: 1}
+  m_Color: {r: 0.07338022, g: 0.9150943, b: 0.8718062, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1332,17 +1332,9 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 483269577795649093}
   _networkObjectCache: {fileID: 483269577795649093}
   _currentHealth: 100
-  _maxHealth: 100
-  _baseMoveSpeed: 4
-  Health:
-    _baseValue: 100
-    _isInteger: 1
-  Speed:
-    _baseValue: 4
-    _isInteger: 0
-  Power:
-    _baseValue: 0
-    _isInteger: 1
+  _baseMaxHealth: 100
+  _baseSpeed: 4
+  _basePower: 0
 --- !u!114 &906537381320409878
 MonoBehaviour:
   m_ObjectHideFlags: 0

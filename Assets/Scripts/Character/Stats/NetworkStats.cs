@@ -71,7 +71,7 @@ public class NetworkStats : NetworkBehaviour {
 
     private void OnDisable() {
         MaxHealth.OnValueChanged -= HandleMaxHealthChange;
-        Shield.OnValueChanged += HandleCurrentShieldChange;
+        Shield.OnValueChanged -= HandleCurrentShieldChange;
     }
 
     public event Action OnHealthDepleted;
@@ -166,8 +166,6 @@ public class NetworkStats : NetworkBehaviour {
 
             // make sure shield stat is recalculated
             Shield.ForceUpdateCachedValue();
-
-            Debug.Log(Shield.CurrentValue);
         }
 
         _currentHealth = Math.Clamp(_currentHealth - remainingDamage, 0, (int)MaxHealth.CurrentValue);

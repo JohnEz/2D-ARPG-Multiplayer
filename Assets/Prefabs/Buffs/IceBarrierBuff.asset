@@ -24,3 +24,4 @@ MonoBehaviour:
   - _value: 24
     Type: 0
     Stat: 1
+  _expireEffect: {fileID: 1271447936623868717, guid: bb8aebae320c893428471bd46e166b81, type: 3}
