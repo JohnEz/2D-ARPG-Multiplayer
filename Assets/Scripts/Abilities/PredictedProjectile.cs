@@ -101,7 +101,7 @@ public class PredictedProjectile : MonoBehaviour {
         }
 
         bool isCharacterCollision = collision.gameObject.tag == "Unit";
-        bool isWallCollision = false;
+        bool isWallCollision = collision.gameObject.layer == LayerMask.NameToLayer("Obstacles");
 
         if (!isCharacterCollision && !isWallCollision) {
             return;
@@ -120,6 +120,10 @@ public class PredictedProjectile : MonoBehaviour {
             hitLocation = collision.transform.position;
 
             OnHit?.Invoke(hitLocation, _caster.GetComponent<NetworkStats>(), hitCharacter.GetComponent<NetworkStats>());
+        }
+
+        if (isWallCollision) {
+            hitLocation = transform.position;
         }
 
         CreateHitEffects(hitLocation);
