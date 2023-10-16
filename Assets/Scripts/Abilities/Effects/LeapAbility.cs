@@ -19,7 +19,12 @@ public class LeapAbility : AbilityEffect {
         if (isOwner) {
             Vector3 casterPosition = _caster.transform.position;
 
-            LandingSpot landingSpot = LeapTarget.GetLeapLandingSpot(casterPosition, _distance, InputHandler.Instance.DirectionToMouse(casterPosition));
+            float distanceToAimLocation = Vector3.Distance(casterPosition, _caster.AimLocation);
+            Vector3 aimDirection = ((Vector3)_caster.AimLocation - casterPosition).normalized;
+
+            float distance = Mathf.Min(_distance, distanceToAimLocation);
+
+            LandingSpot landingSpot = LeapTarget.GetLeapLandingSpot(casterPosition, distance, aimDirection);
 
             _caster.StartLeapMovement(landingSpot.safeSpot, _duration, _leapMoveCurve);
         }
