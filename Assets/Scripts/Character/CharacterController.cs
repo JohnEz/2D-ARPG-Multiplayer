@@ -4,6 +4,7 @@ using UnityEngine;
 using FishNet;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using DG.Tweening;
 
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(CharacterStateController))]
@@ -24,11 +25,17 @@ public class CharacterController : NetworkBehaviour {
     [SerializeField]
     private GameObject visuals;
 
+    private Collider2D _hitbox;
+
+    private Rigidbody2D _rigidBody;
+
     private void Awake() {
         _movementController = GetComponent<MovementController>();
         _stateController = GetComponent<CharacterStateController>();
         _castController = GetComponent<CastController>();
         _abilitiesController = GetComponent<AbilitiesController>();
+        _hitbox = GetComponent<Collider2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void Update() {
@@ -39,7 +46,13 @@ public class CharacterController : NetworkBehaviour {
             return;
         }
 
-        MoveFromInput();
+        if (_stateController.IsStunned()) {
+            return;
+        }
+
+        if (!_stateController.IsDashing()) {
+            MoveFromInput();
+        }
 
         if (!_stateController.IsDashing() && !_stateController.IsCasting() && !_stateController.IsLeaping()) {
             _stateController.State = CharacterState.Idle;
@@ -70,5 +83,30 @@ public class CharacterController : NetworkBehaviour {
         }
 
         _castController.Cast(abilityId);
+    }
+
+    public void StartLeapMovement(Vector2 leapTarget, float leapDuration, AnimationCurve leapMoveCurve) {
+        if (!IsOwner) {
+            return;
+        }
+        transform.DOLocalMoveY(leapTarget.y, leapDuration).SetEase(leapMoveCurve);
+        transform.DOLocalMoveX(leapTarget.x, leapDuration).SetEase(leapMoveCurve);
+    }
+
+    public void StartLeap(float leapDuration, AnimationCurve leapZCurve) {
+        _stateController.State = CharacterState.Leaping;
+
+        transform.DOScale(1.75f, leapDuration).SetEase(leapZCurve).OnComplete(LeapComplete);
+
+        _rigidBody.isKinematic = true;
+        _hitbox.enabled = false;
+    }
+
+    // need to make this an rpc
+    private void LeapComplete() {
+        _stateController.State = CharacterState.Idle;
+        _rigidBody.isKinematic = false;
+        _hitbox.enabled = true;
+        //_castingAbility.OnComplete();
     }
 }

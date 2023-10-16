@@ -14,7 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Frost Leap
   Icon: {fileID: 21300000, guid: 998e3e5dafee44c4495cc5745172084e, type: 3}
-  AbilityEffectPrefab: {fileID: 7996151038390841083, guid: 37db74af91e97954a9e3cc4f7c3fbc2c, type: 3}
+  AbilityEffectPrefab: {fileID: 914669042122930571, guid: fcf306b52f6b01f4a909eb68dc2a1875, type: 3}
   CastTime: 0.1
   Cooldown: 7
+  CastSFX: {fileID: 0}
+  CastVFX: {fileID: 0}
+  SpeedWhileCasting: 0.1
   TimeCast: -Infinity
+  TargetGraphics:
+  - prefab: {fileID: 4536119196424114156, guid: 077acc03dc905f34aa7a9e7eee9468ce, type: 3}
+    scale: 0.5
+    myStyle: 1
+  - prefab: {fileID: 4536119196424114156, guid: 077acc03dc905f34aa7a9e7eee9468ce, type: 3}
+    scale: 2
+    myStyle: 2

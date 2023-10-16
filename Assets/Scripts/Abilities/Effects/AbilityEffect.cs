@@ -12,6 +12,6 @@ public class AbilityEffect : MonoBehaviour {
     public virtual void OnCastStart() {
     }
 
-    public virtual void OnCastComplete() {
+    public virtual void OnCastComplete(bool isOwner) {
     }
 }

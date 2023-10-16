@@ -9,15 +9,17 @@ public class IceBarrierBreak : AbilityEffect {
 
     private const float RADIUS = 2f;
 
-    public override void OnCastComplete() {
-        Vector3 targetLocation = _caster.transform.position;
+    public override void OnCastComplete(bool isOwner) {
+        if (isOwner) {
+            Vector3 targetLocation = _caster.transform.position;
 
-        List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(targetLocation, RADIUS);
+            List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(targetLocation, RADIUS);
 
-        hitTargets.ForEach(target => {
-            BuffController targetBuffController = target.GetComponent<BuffController>();
-            _caster.GetComponent<BuffController>().ApplyBuff(targetBuffController, DEBUFF);
-        });
+            hitTargets.ForEach(target => {
+                BuffController targetBuffController = target.GetComponent<BuffController>();
+                _caster.GetComponent<BuffController>().ApplyBuff(targetBuffController, DEBUFF);
+            });
+        }
 
         Destroy(gameObject);
     }

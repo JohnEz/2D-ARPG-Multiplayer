@@ -147,7 +147,7 @@ public class Buff : ScriptableObject {
             AbilityEffect expireEffect = Instantiate(_expireEffect);
             //TODO this should probably be the initial caster
             expireEffect.Initialise(targetCharacter.GetComponent<CharacterController>());
-            expireEffect.OnCastComplete();
+            expireEffect.OnCastComplete(true);
         }
     }
 

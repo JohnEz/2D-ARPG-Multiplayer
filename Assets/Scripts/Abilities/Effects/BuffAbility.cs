@@ -9,26 +9,28 @@ public class BuffAbility : AbilityEffect {
     public bool CanHitAllies = true;
     public bool CanHitSelf = true;
 
-    public override void OnCastComplete() {
-        NetworkStats hitTarget = null;
-        BuffController casterBuffs = _caster.GetComponent<BuffController>();
+    public override void OnCastComplete(bool isOwner) {
+        if (isOwner) {
+            NetworkStats hitTarget = null;
+            BuffController casterBuffs = _caster.GetComponent<BuffController>();
 
-        List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(_caster.AimLocation, .5f);
+            List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(_caster.AimLocation, .5f);
 
-        if (hitTargets.Count > 0) {
-            // if there were units near the mouse, pick the closest to the center
-            // Todo needs to check faction
-            hitTarget = GetClosestToPoint(_caster.AimLocation, hitTargets);
-        }
+            if (hitTargets.Count > 0) {
+                // if there were units near the mouse, pick the closest to the center
+                // Todo needs to check faction
+                hitTarget = GetClosestToPoint(_caster.AimLocation, hitTargets);
+            }
 
-        if (hitTarget == null && CanHitSelf) {
-            hitTarget = _caster.GetComponent<NetworkStats>();
-        }
+            if (hitTarget == null && CanHitSelf) {
+                hitTarget = _caster.GetComponent<NetworkStats>();
+            }
 
-        if (hitTarget != null) {
-            BuffController targetBuffs = hitTarget.GetComponent<BuffController>();
+            if (hitTarget != null) {
+                BuffController targetBuffs = hitTarget.GetComponent<BuffController>();
 
-            casterBuffs.ApplyBuff(targetBuffs, BuffId);
+                casterBuffs.ApplyBuff(targetBuffs, BuffId);
+            }
         }
 
         Destroy(gameObject);

@@ -150,12 +150,7 @@ public class CastController : NetworkBehaviour {
 
         if (castSuccess) {
             castingAbility.OnCast();
-
-            // TODO this feels rather wild west, i need a pattern for when i should do owner checks
-            // i could pass isOwner in to the effect but that feels gross too
-            if (IsOwner) {
-                castingAbilityEffect.OnCastComplete();
-            }
+            castingAbilityEffect.OnCastComplete(IsOwner);
         }
     }
 
