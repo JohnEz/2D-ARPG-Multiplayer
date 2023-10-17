@@ -2,6 +2,11 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Audio;
 
+public class AudioClipOptions {
+    public float Volume { get; set; } = 1f;
+    public float Pitch { get; set; } = 1f;
+}
+
 public class AudioManager : Singleton<AudioManager> {
 
     [SerializeField]
@@ -10,18 +15,18 @@ public class AudioManager : Singleton<AudioManager> {
     [SerializeField]
     private AudioMixerGroup sfxMixer;
 
-    public void PlaySound(AudioClip clip, Vector3 worldPosition) {
+    public void PlaySound(AudioClip clip, Vector3 worldPosition, AudioClipOptions options = null) {
         if (!clip) {
             return;
         }
 
         GameObject soundGameObject = CreateSoundGameObject(clip.name, worldPosition);
-        CreateAudioSource(clip, soundGameObject);
+        CreateAudioSource(clip, soundGameObject, options);
     }
 
-    public void PlaySound(AudioClip clip, Transform parent) {
+    public void PlaySound(AudioClip clip, Transform parent, AudioClipOptions options = null) {
         GameObject soundGameObject = CreateSoundGameObject(clip.name, parent);
-        CreateAudioSource(clip, soundGameObject);
+        CreateAudioSource(clip, soundGameObject, options);
     }
 
     private GameObject CreateSoundGameObject(string clipName, Vector3 worldPosition) {
@@ -38,7 +43,9 @@ public class AudioManager : Singleton<AudioManager> {
         return soundGameObject;
     }
 
-    private void CreateAudioSource(AudioClip clip, GameObject audioObject) {
+    private void CreateAudioSource(AudioClip clip, GameObject audioObject, AudioClipOptions options) {
+        AudioClipOptions audioOptions = options != null ? options : new AudioClipOptions();
+
         AudioSource audioSource = audioObject.AddComponent<AudioSource>();
         audioSource.clip = clip;
         audioSource.maxDistance = 100f;
@@ -47,6 +54,8 @@ public class AudioManager : Singleton<AudioManager> {
         audioSource.dopplerLevel = 0f;
         audioSource.loop = false;
         audioSource.outputAudioMixerGroup = sfxMixer;
+        audioSource.pitch = audioOptions.Pitch;
+        audioSource.volume = audioOptions.Volume;
 
         audioSource.Play();
 

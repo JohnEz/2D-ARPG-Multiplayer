@@ -25,6 +25,7 @@ public class PredictedProjectile : MonoBehaviour {
 
     public float Speed = 15f;
 
+    // TODO should this be distance?
     public float LifeTime = 1.5f;
 
     // FX
@@ -48,8 +49,7 @@ public class PredictedProjectile : MonoBehaviour {
         _passedTime = passedTime;
         _caster = caster;
 
-        // TODO this probably wants to be some sort of coroutine with cleanup
-        Destroy(gameObject, LifeTime - passedTime);
+        Invoke("Expire", LifeTime);
 
         if (onCreateSFX) {
             AudioManager.Instance.PlaySound(onCreateSFX, transform);
@@ -95,6 +95,10 @@ public class PredictedProjectile : MonoBehaviour {
         _body.MovePosition(_body.position + _direction * (Speed * (delta + passedTimeDelta)));
     }
 
+    private void Expire() {
+        HandleHit(transform.position, true);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) {
         if (!isActive) {
             return;
@@ -126,17 +130,28 @@ public class PredictedProjectile : MonoBehaviour {
             hitLocation = transform.position;
         }
 
-        CreateHitEffects(hitLocation);
+        HandleHit(hitLocation, false);
+
+        CancelInvoke("Expire");
+    }
+
+    public void HandleHit(Vector3 hitLocation, bool isExpired = false) {
+        CreateHitEffects(hitLocation, isExpired);
 
         // we destroy the visuals so the trail isnt instantly destroyed.
         if (visuals) {
             Destroy(visuals);
         }
         isActive = false;
+
+        Destroy(gameObject, 0.2f);
     }
 
-    [Client]
-    public void CreateHitEffects(Vector3 hitLocation) {
+    public void CreateHitEffects(Vector3 hitLocation, bool isExpired) {
+        if (!InstanceFinder.IsClient) {
+            return;
+        }
+
         if (onHitVFXPrefab) {
             GameObject hitVFX = Instantiate(onHitVFXPrefab);
             hitVFX.transform.position = hitLocation;
@@ -144,7 +159,14 @@ public class PredictedProjectile : MonoBehaviour {
         }
 
         if (onHitSFX) {
-            AudioManager.Instance.PlaySound(onHitSFX, transform.position);
+            AudioClipOptions options = new AudioClipOptions();
+
+            if (isExpired) {
+                options.Volume = 0.25f;
+                options.Pitch = 0.75f;
+            }
+
+            AudioManager.Instance.PlaySound(onHitSFX, transform.position, options);
         }
     }
 }
