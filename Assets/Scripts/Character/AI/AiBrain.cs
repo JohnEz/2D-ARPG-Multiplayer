@@ -4,11 +4,47 @@ using UnityEngine;
 using FishNet;
 using FishNet.Object;
 using System.Linq;
+using System;
 
 public class AiBrain : NetworkBehaviour {
-    private CharacterController _targetCharacter;
 
+    // TODO these should depend on if the creature is a boss or something
+    private float _aggroRange = 8f;
+
+    private float _combatRange = 4f;
+
+    private Vector3 _startPosition;
     private CharacterController _myCharacterController;
+
+    private Dictionary<CharacterController, int> _aggroTable = new Dictionary<CharacterController, int>();
+
+    [HideInInspector]
+    public event Action<List<CharacterController>> OnAggroTableChange;
+
+    private CharacterController _target;
+
+    // TODO add on target change
+    public CharacterController TargetCharacter {
+        get { return _target; }
+        set { SetTarget(value); }
+    }
+
+    [HideInInspector]
+    public event Action OnTargetChange;
+
+    public float LeashRange {
+        get { return _aggroRange * 1.5f; }
+    }
+
+    public bool HasTarget { get { return TargetCharacter != null; } }
+
+    public float DistanceToTarget = Mathf.Infinity;
+
+    public bool IsTargetOutOfLeashRange { get { return DistanceToTarget >= LeashRange; } }
+
+    public bool IsTargetInCombatRange { get { return DistanceToTarget < _combatRange; } }
+
+    private IEnumerator checksCoroutine;
 
     public override void OnStartClient() {
         base.OnStartClient();
@@ -20,49 +56,130 @@ public class AiBrain : NetworkBehaviour {
 
     private void Awake() {
         _myCharacterController = GetComponent<CharacterController>();
+        _startPosition = transform.position;
     }
 
-    private void Update() {
-        if (_targetCharacter == null) {
-            FindTarget();
-        }
-
-        if (_targetCharacter != null) {
-            AttackTarget();
-        }
+    private void OnEnable() {
+        OnAggroTableChange += HandleAggroTableChange;
+        checksCoroutine = CheckForUpdates(.5f);
+        StartCoroutine(checksCoroutine);
     }
 
-    private void FindTarget() {
-        PlayerInput foundPlayer = FindObjectOfType<PlayerInput>();
-
-        if (foundPlayer) {
-            _targetCharacter = foundPlayer.GetComponent<CharacterController>();
-        }
+    private void OnDisable() {
+        OnAggroTableChange -= HandleAggroTableChange;
+        StopCoroutine(checksCoroutine);
     }
 
-    private void FindTargetLEGACY() {
-        CharacterController foundPlayer = FindObjectsOfType<CharacterController>()
-            .Where((character) => character != _myCharacterController)
-            .First();
+    private IEnumerator CheckForUpdates(float delay) {
+        while (true) {
+            yield return new WaitForSeconds(delay);
 
-        if (foundPlayer) {
-            _targetCharacter = foundPlayer;
+            CalculateDistanceToTarget();
+            CheckForNewEnemiesInRange();
         }
     }
 
+    private void CalculateDistanceToTarget() {
+        if (!HasTarget) {
+            DistanceToTarget = Mathf.Infinity;
+            return;
+        }
+
+        // TODO - Performance - could use Vector3.sqrMagnitude instead if we need to optimise
+        DistanceToTarget = Vector3.Distance(transform.position, TargetCharacter.transform.position);
+    }
+
+    private void CheckForNewEnemiesInRange() {
+        List<CharacterController> newEnemiesInRange = FindObjectsOfType<CharacterController>().Where(target => {
+            return
+                target != _myCharacterController &&
+                !_aggroTable.ContainsKey(target) &&
+                Vector3.Distance(transform.position, target.transform.position) <= _aggroRange;
+        }).ToList();
+
+        if (newEnemiesInRange.Count <= 0) {
+            return;
+        }
+
+        newEnemiesInRange.ForEach(newEnemy => {
+            _aggroTable[newEnemy] = 0;
+        });
+
+        OnAggroTableChange?.Invoke(newEnemiesInRange);
+    }
+
+    private void HandleAggroTableChange(List<CharacterController> updatedCharacters) {
+        if (!HasTarget) {
+            TargetCharacter = GetHighestAggro(updatedCharacters);
+            return;
+        }
+
+        CharacterController newTarget = GetHighestAggro(updatedCharacters);
+
+        if (newTarget != TargetCharacter) {
+            // TODO if we pass an empty update list this will be set to null
+            // it should be fine as we always pass the target character anyway
+            TargetCharacter = newTarget;
+        }
+    }
+
+    private CharacterController GetHighestAggro(List<CharacterController> charactersToCheck) {
+        CharacterController highestAggroCharacter = null;
+        int highestAggro = -1;
+
+        if (TargetCharacter) {
+            highestAggroCharacter = TargetCharacter;
+            highestAggro = _aggroTable[TargetCharacter];
+        }
+
+        charactersToCheck.ForEach(target => {
+            if (_aggroTable.ContainsKey(target)) {
+                int targetAggro = _aggroTable[target];
+
+                if (targetAggro > highestAggro) {
+                    highestAggro = targetAggro;
+                    highestAggroCharacter = target;
+                }
+            }
+        });
+
+        return highestAggroCharacter;
+    }
+
+    public void AddAggro(CharacterController target, int amount) {
+        if (_aggroTable.ContainsKey(target)) {
+            _aggroTable[target] += amount;
+        } else {
+            _aggroTable[target] = amount;
+        }
+
+        OnAggroTableChange?.Invoke(new List<CharacterController>() { target });
+    }
+
+    private void SetTarget(CharacterController target) {
+        if (target == null) {
+            DistanceToTarget = Mathf.Infinity;
+        }
+
+        _target = target;
+
+        Debug.Log($"new target: {target.gameObject.name}");
+    }
+
+    // TODO delete
     private void AttackTarget() {
-        _myCharacterController.TurnToFaceTarget(_targetCharacter.transform);
+        _myCharacterController.TurnToFaceTarget(TargetCharacter.transform);
 
-        NetworkStats _targetStats = _targetCharacter.GetComponent<NetworkStats>();
-        CharacterStateController _targetState = _targetCharacter.GetComponent<CharacterStateController>();
+        NetworkStats _targetStats = TargetCharacter.GetComponent<NetworkStats>();
+        CharacterStateController _targetState = TargetCharacter.GetComponent<CharacterStateController>();
         //CastController _targetCastController = _targetCharacter.GetComponent<CastController>();
 
         _myCharacterController.AimLocation = GetAimLocation(
             transform.position,
             20f, // get projectile speed from ability
-            _targetCharacter.transform.position,
+            TargetCharacter.transform.position,
             _targetStats.Speed.CurrentValue,
-            _targetCharacter.InputDirection,
+            TargetCharacter.InputDirection,
             _targetState.IsCasting(),
             0.1f // get this from the ability being cast
         );
