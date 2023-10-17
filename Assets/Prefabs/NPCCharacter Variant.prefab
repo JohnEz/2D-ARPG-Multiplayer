@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5761314772700349, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: _componentIndexCache
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: _scenePathHash
@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: _networkBehaviours.Array.size
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
@@ -41,6 +41,10 @@ PrefabInstance:
       objectReference: {fileID: 3161367842130477799}
     - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: _networkBehaviours.Array.data[8]
+      value: 
+      objectReference: {fileID: 8246503098769013576}
+    - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: _networkBehaviours.Array.data[9]
       value: 
       objectReference: {fileID: 769069792884234346}
     - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
@@ -183,6 +187,62 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7692810030807578670, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
   m_PrefabInstance: {fileID: 772436623650346199}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3581208948269987931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951982167571737849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.9
+  height: 2
+  canMove: 0
+  maxSpeed: 1
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 1
+  enableRotation: 0
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &2891147145426445495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951982167571737849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41e66c3df1a9f64ba2618844378928d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextWaypointDistance: 0.5
+  isChasing: 0
 --- !u!114 &3161367842130477799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +259,34 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 868302038984649362}
   _networkObjectCache: {fileID: 868302038984649362}
   DistanceToTarget: Infinity
+--- !u!114 &6626518044082529527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951982167571737849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!114 &8246503098769013576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd74fc4a1601cd41b517dfddb943239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 8
   _addedNetworkObject: {fileID: 868302038984649362}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 868302038984649362}

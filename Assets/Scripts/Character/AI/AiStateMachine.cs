@@ -12,6 +12,7 @@ public enum AIState {
 [RequireComponent(typeof(AiBrain))]
 public class AiStateMachine : NetworkBehaviour {
     private AiBrain _brain;
+    private AiMovementPathfinding _movement;
 
     private AIState currentState = AIState.Idle;
 
@@ -25,6 +26,7 @@ public class AiStateMachine : NetworkBehaviour {
 
     private void Awake() {
         _brain = GetComponent<AiBrain>();
+        _movement = GetComponent<AiMovementPathfinding>();
     }
 
     private void Update() {
@@ -54,7 +56,7 @@ public class AiStateMachine : NetworkBehaviour {
 
             case AIState.Combat:
                 if (!_brain.IsTargetInCombatRange) {
-                    ChangeState(AIState.Chase);
+                    ChangeState(!_brain.HasTarget ? AIState.Chase : AIState.Idle);
                 } else if (!_brain.HasTarget) {
                     ChangeState(AIState.Idle);
                 }
@@ -81,6 +83,11 @@ public class AiStateMachine : NetworkBehaviour {
                 break;
 
             case AIState.Chase:
+                if (_brain.HasTarget) {
+                    Debug.Log($"_movement: {_movement}");
+                    Debug.Log($"_brain.TargetCharacter: {_brain.TargetCharacter}");
+                    _movement.SetChaseTarget(_brain.TargetCharacter.transform);
+                }
                 break;
 
             case AIState.Combat:
@@ -96,6 +103,7 @@ public class AiStateMachine : NetworkBehaviour {
                 break;
 
             case AIState.Chase:
+                _movement.Stop();
                 break;
 
             case AIState.Combat:

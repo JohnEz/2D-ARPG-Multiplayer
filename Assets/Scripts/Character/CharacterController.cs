@@ -13,7 +13,7 @@ using DG.Tweening;
 public class CharacterController : NetworkBehaviour {
 
     [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
-    public Vector2 InputDirection { get; [ServerRpc(RunLocally = true)] set; }
+    public Vector2 InputDirection { get; [ServerRpc(RequireOwnership = false, RunLocally = true)] set; }
 
     public Vector2 AimLocation = Vector2.zero;
 
@@ -42,7 +42,7 @@ public class CharacterController : NetworkBehaviour {
     }
 
     private void FixedUpdate() {
-        if (!base.IsOwner) {
+        if (!base.IsOwner && !(base.OwnerId == -1 && IsServer)) {
             return;
         }
 
@@ -96,7 +96,7 @@ public class CharacterController : NetworkBehaviour {
     public void StartLeap(float leapDuration, AnimationCurve leapZCurve) {
         _stateController.State = CharacterState.Leaping;
 
-        transform.DOScale(1.75f, leapDuration).SetEase(leapZCurve).OnComplete(LeapComplete);
+        transform.DOScaleZ(1.75f, leapDuration).SetEase(leapZCurve).OnComplete(LeapComplete);
 
         _rigidBody.isKinematic = true;
         _hitbox.enabled = false;
