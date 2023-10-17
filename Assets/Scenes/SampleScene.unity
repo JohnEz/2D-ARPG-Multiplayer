@@ -4939,6 +4939,93 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5362679807532690856, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
   m_PrefabInstance: {fileID: 3251700280092095175}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1376849758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1376849760}
+  - component: {fileID: 1376849759}
+  m_Layer: 0
+  m_Name: A*
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1376849759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376849758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAAAAIeyAw/F1WgIAABQFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3H0LokvbUOIT0kYUI7ufiyWGusQZY8+giQDP+9K9nGDp2eWN6+3X37Ib8zoWyDhdNmaQR/0BzZ9wkLNvs0GZz3eICtVmvxhj3nRXBXBRJEzjM4oQmfhjCra3RGFD/UVgZyQqBXotSmXvAtZto6S3AJ0iK5jHYhWhH0PmEH+rm6CSFHsmbzYL2RdZNMTmQWqByagdoTe1rL8qqQUDfIg+SBnJ7TppGmqJmOkXxOQ3YtpbCdFuaOTew1g8Z66oQIXAD1FgWEVisU28qFhOPgp7K06DpRBo63wtCI2qzsp27nVoPdtcpeQfpQZzq7jqrapA//+K+m0V0aXd/3dadJqOEqUeye4ViAdaPBjuHbj8K92oPcwUbiS4XqUS+N9oqT0xkfQr3F2e3w99xaVmGxG/BW6gXom/+vJ/Rwit0fMinqTZz81xZYSx3nHZePhnbziwTH07BdCkKDij8Wf8N2fEOd404Y68jVdamCvI32JlDZIs4sdONdpo3CCHeiG1Qg3XFFadzlCi98o7IXnjsIr6Ur3vn6R3AREuGBnyQXrpXen5dlK71/QFs9eSeFwkF0cDzSnDKtVHth45n0YWtvSihGYVsv+MfTYmmZpLjBL3CzmfH5HK/4prxOcQ7fpjNIMU1ZvD2hqE+Qq1ZoNx7amhqSK7qz/iMyWRpo4rVzA/uleKv1aORClXpdGET11GY4C0dDRehd8gUXNKA1OidU3Dd7z5nUxQ55fk6Ux04XB2cgH7LkrBGv2gUkZ1n8auQswOdbXhl8FbgPxftkJ3b6C1BLAwQUAAAICAAAACHsrebfGW0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0kmmagWlqUqpxomWSUYq5eapuSlKahWmqeaKZoVGiaaqpqVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAACHsgMPxdVoCAAAUBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAACHsrebfGW0AAAB4AAAACQAkAAAAAAAAAAAAAACnAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAF8DAAAAAA==
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 0
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 10
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
+--- !u!4 &1376849760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376849758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1438344313
 GameObject:
   m_ObjectHideFlags: 0
@@ -5685,10 +5772,6 @@ PrefabInstance:
     - target: {fileID: 1645450203342873503, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
       propertyPath: _latencySimulator._latency
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3251700280951844917, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
-      propertyPath: _tickRate
-      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 5362679807532690853, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
       propertyPath: Spawns.Array.data[0]

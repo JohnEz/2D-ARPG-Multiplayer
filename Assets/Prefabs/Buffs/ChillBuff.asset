@@ -23,4 +23,5 @@ MonoBehaviour:
   _statMods:
   - _value: -0.3
     Type: 2
-    Stat: 2
+    Stat: 3
+  _expireEffect: {fileID: 0}
