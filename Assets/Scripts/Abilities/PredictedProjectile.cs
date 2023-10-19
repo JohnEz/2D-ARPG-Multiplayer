@@ -124,6 +124,10 @@ public class PredictedProjectile : MonoBehaviour {
             hitLocation = collision.transform.position;
 
             OnHit?.Invoke(hitLocation, _caster.GetComponent<NetworkStats>(), hitCharacter.GetComponent<NetworkStats>());
+
+            if (_caster.IsOwner) {
+                CameraManager.Instance.ShakeCamera(.75f, 0.1f);
+            }
         }
 
         if (isWallCollision) {

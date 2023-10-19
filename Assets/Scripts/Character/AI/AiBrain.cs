@@ -9,9 +9,9 @@ using System;
 public class AiBrain : NetworkBehaviour {
 
     // TODO these should depend on if the creature is a boss or something
-    private float _aggroRange = 8f;
+    private float _aggroRange = 12f;
 
-    private float _combatRange = 4f;
+    private float _combatRange = 9f;
 
     private Vector3 _startPosition;
     private CharacterController _myCharacterController;
@@ -187,7 +187,7 @@ public class AiBrain : NetworkBehaviour {
         _myCharacterController.CastAbility(0);
     }
 
-    private static Vector2 GetAimLocation(Vector3 myPosition, float projectileSpeed, Vector3 targetsPosition, float targetsMoveSpeed, Vector3 targetsMovementDirection, bool isCasting, float speedWhileCasting) {
+    public static Vector2 GetAimLocation(Vector3 myPosition, float projectileSpeed, Vector3 targetsPosition, float targetsMoveSpeed, Vector3 targetsMovementDirection, bool isCasting, float speedWhileCasting) {
         Vector3 targetVelocity = targetsMovementDirection * targetsMoveSpeed;
 
         if (isCasting) {
@@ -201,5 +201,18 @@ public class AiBrain : NetworkBehaviour {
         Debug.DrawLine(targetsPosition, targetLocation);
 
         return targetLocation;
+    }
+
+    public bool HasLineOfSight() {
+        if (!TargetCharacter) {
+            return true;
+        }
+
+        Vector3 targetDirection = (TargetCharacter.transform.position - transform.position).normalized;
+        float distance = Vector2.Distance(TargetCharacter.transform.position, transform.position) - 0.25f;
+
+        RaycastHit2D raycast = Physics2D.CircleCast(transform.position, .5f, targetDirection, distance, 1 << LayerMask.NameToLayer("Obstacles"));
+
+        return raycast.collider == null;
     }
 }

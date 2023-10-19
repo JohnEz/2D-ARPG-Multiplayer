@@ -12,6 +12,7 @@ using DG.Tweening;
 [RequireComponent(typeof(AbilitiesController))]
 public class CharacterController : NetworkBehaviour {
 
+    // TODO this complains if there is no client as we are calling a server rpc
     [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
     public Vector2 InputDirection { get; [ServerRpc(RequireOwnership = false, RunLocally = true)] set; }
 

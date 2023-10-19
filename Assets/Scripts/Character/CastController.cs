@@ -72,10 +72,6 @@ public class CastController : NetworkBehaviour {
     }
 
     private void CreateAbilityEffect(int abilityId) {
-        if (!IsClient) {
-            return;
-        }
-
         if (abilityId >= _abilitiesController.GetAbilities().Count) {
             return;
         }
@@ -150,7 +146,7 @@ public class CastController : NetworkBehaviour {
 
         if (castSuccess) {
             castingAbility.OnCast();
-            castingAbilityEffect.OnCastComplete(IsOwner);
+            castingAbilityEffect.OnCastComplete(IsOwner || (IsServer && OwnerId == -1));
         }
     }
 

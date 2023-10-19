@@ -275,6 +275,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 571895379405457031}
     - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+      propertyPath: LifeTime
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
       propertyPath: onHitSFX
       value: 
       objectReference: {fileID: 8300000, guid: 7dcda0be336bb6b46bee7238fc765adf, type: 3}

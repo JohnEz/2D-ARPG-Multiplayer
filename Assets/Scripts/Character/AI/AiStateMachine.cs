@@ -13,6 +13,8 @@ public enum AIState {
 public class AiStateMachine : NetworkBehaviour {
     private AiBrain _brain;
     private AiMovementPathfinding _movement;
+    private AiCombatState _combat;
+    private CharacterController _characterController;
 
     private AIState currentState = AIState.Idle;
 
@@ -27,6 +29,8 @@ public class AiStateMachine : NetworkBehaviour {
     private void Awake() {
         _brain = GetComponent<AiBrain>();
         _movement = GetComponent<AiMovementPathfinding>();
+        _combat = GetComponent<AiCombatState>();
+        _characterController = GetComponent<CharacterController>();
     }
 
     private void Update() {
@@ -47,7 +51,7 @@ public class AiStateMachine : NetworkBehaviour {
                 break;
 
             case AIState.Chase:
-                if (_brain.IsTargetInCombatRange) {
+                if (_brain.IsTargetInCombatRange && _brain.HasLineOfSight()) {
                     ChangeState(AIState.Combat);
                 } else if (!_brain.HasTarget) {
                     ChangeState(AIState.Idle);
@@ -55,7 +59,7 @@ public class AiStateMachine : NetworkBehaviour {
                 break;
 
             case AIState.Combat:
-                if (!_brain.IsTargetInCombatRange) {
+                if (!_brain.IsTargetInCombatRange || !_brain.HasLineOfSight()) {
                     ChangeState(!_brain.HasTarget ? AIState.Chase : AIState.Idle);
                 } else if (!_brain.HasTarget) {
                     ChangeState(AIState.Idle);
@@ -65,8 +69,6 @@ public class AiStateMachine : NetworkBehaviour {
     }
 
     private void ChangeState(AIState newState) {
-        Debug.Log($"{gameObject.name} changing to state {newState}");
-
         if (newState != currentState) {
             ExitState(currentState);
 
@@ -84,13 +86,12 @@ public class AiStateMachine : NetworkBehaviour {
 
             case AIState.Chase:
                 if (_brain.HasTarget) {
-                    Debug.Log($"_movement: {_movement}");
-                    Debug.Log($"_brain.TargetCharacter: {_brain.TargetCharacter}");
                     _movement.SetChaseTarget(_brain.TargetCharacter.transform);
                 }
                 break;
 
             case AIState.Combat:
+                _combat.EnterState();
                 break;
         }
     }
@@ -107,6 +108,7 @@ public class AiStateMachine : NetworkBehaviour {
                 break;
 
             case AIState.Combat:
+                _combat.ExitState();
                 break;
         }
     }
@@ -118,11 +120,11 @@ public class AiStateMachine : NetworkBehaviour {
                 break;
 
             case AIState.Chase:
-                // Move towards player
+                _characterController.TurnToFaceTarget(_brain.TargetCharacter.transform);
                 break;
 
             case AIState.Combat:
-                // run combat script
+                _combat.UpdateState();
                 break;
         }
     }
