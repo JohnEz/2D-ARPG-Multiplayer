@@ -22,3 +22,5 @@ MonoBehaviour:
   SpeedWhileCasting: 0.1
   TimeCast: -Infinity
   TargetGraphics: []
+  AiDetails:
+    ProjectileSpeed: 20

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct AiAbilityDetails {
+    public float ProjectileSpeed; // this should come from the projectile itself or be an aim ahead stat for telegraphs too
+}
+
 [CreateAssetMenu(fileName = "Ability", menuName = "2d RPG/New Ability")]
 public class Ability : ScriptableObject {
     public string AbilityName;
@@ -22,6 +27,9 @@ public class Ability : ScriptableObject {
 
     [SerializeField]
     public List<TargetGraphic> TargetGraphics;
+
+    [SerializeField]
+    public AiAbilityDetails AiDetails;
 
     public bool IsOnCooldown() {
         return TimeCast + Cooldown >= Time.time;

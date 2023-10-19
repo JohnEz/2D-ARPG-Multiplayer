@@ -14,6 +14,7 @@ public class AiCombatState : NetworkBehaviour {
     private AiMovementPathfinding _movement;
     private CharacterController _characterController;
     private CharacterStateController _stateController;
+    private CastController _castController;
 
     public override void OnStartClient() {
         base.OnStartClient();
@@ -28,6 +29,7 @@ public class AiCombatState : NetworkBehaviour {
         _movement = GetComponent<AiMovementPathfinding>();
         _characterController = GetComponent<CharacterController>();
         _stateController = GetComponent<CharacterStateController>();
+        _castController = GetComponent<CastController>();
     }
 
     public void EnterState() {
@@ -63,7 +65,7 @@ public class AiCombatState : NetworkBehaviour {
 
         _characterController.AimLocation = AiBrain.GetAimLocation(
             transform.position,
-            20f, // get projectile speed from ability
+            _castController.castingAbility.AiDetails.ProjectileSpeed,
             _brain.TargetCharacter.transform.position,
             _targetStats.Speed.CurrentValue,
             _brain.TargetCharacter.InputDirection,
