@@ -51,6 +51,8 @@ MonoBehaviour:
     prefab: {fileID: 7520552771459370303, guid: 048074c73570e834ea58cab16823f3ff, type: 3}
   - id: Ice Lance
     prefab: {fileID: 9066433691788849688, guid: 1862b81efdacd434badac1543fa03715, type: 3}
+  - id: Hamstring Shot
+    prefab: {fileID: 7438075775932065040, guid: 0c729c6835b60b04f940b19fa2314d05, type: 3}
   _telegraphResources:
   - id: Default
     prefab: {fileID: 2956777469308170475, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
@@ -63,3 +65,5 @@ MonoBehaviour:
     prefab: {fileID: 11400000, guid: 266bd078de321f04ab6365692336b6b0, type: 2}
   - id: Ice Barrier
     prefab: {fileID: 11400000, guid: 1a8790870ca9c724f9f1c2a0a7d0a767, type: 2}
+  - id: Snare
+    prefab: {fileID: 11400000, guid: 14005bfa922d4e245b4d9884f5a87e0e, type: 2}
