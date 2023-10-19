@@ -40,9 +40,26 @@ public class AiCombatState : NetworkBehaviour {
         _characterController.TurnToFaceTarget(_brain.TargetCharacter.transform);
 
         
+
+        if (!_stateController.IsCasting()) {
+            AbilitiesController abilitiesController = _characterController.GetComponent<AbilitiesController>();
+
+            int indexToCast = -1;
+        
+            abilitiesController.GetAbilities().Find(ability => {
+                indexToCast++;
+                return ability.CanCast();
+            });
+
+            if (indexToCast != -1) {
+                _characterController.CastAbility(indexToCast);
+            }
+            return;
+        }
+
         NetworkStats _targetStats = _brain.TargetCharacter.GetComponent<NetworkStats>();
         CharacterStateController _targetState = _brain.TargetCharacter.GetComponent<CharacterStateController>();
-        //CastController _targetCastController = _targetCharacter.GetComponent<CastController>();
+        CastController _targetCastController = _brain.TargetCharacter.GetComponent<CastController>();
 
         _characterController.AimLocation = AiBrain.GetAimLocation(
             transform.position,
@@ -51,26 +68,8 @@ public class AiCombatState : NetworkBehaviour {
             _targetStats.Speed.CurrentValue,
             _brain.TargetCharacter.InputDirection,
             _targetState.IsCasting(),
-            0.1f // get this from the ability being cast
+            _targetCastController.castingAbility?.SpeedWhileCasting ?? 1f
         );
 
-        if (_stateController.IsCasting())
-        {
-            return;
-        }
-
-        //choose ability
-        AbilitiesController abilitiesController = _characterController.GetComponent<AbilitiesController>();
-
-        int indexToCast = -1;
-        
-        abilitiesController.GetAbilities().Find(ability => {
-            indexToCast++;
-            return ability.CanCast();
-        });
-
-        if (indexToCast != -1) {
-            _characterController.CastAbility(indexToCast);
-        }
     }
 }
