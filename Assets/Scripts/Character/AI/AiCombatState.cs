@@ -13,6 +13,7 @@ public class AiCombatState : NetworkBehaviour {
     private AiBrain _brain;
     private AiMovementPathfinding _movement;
     private CharacterController _characterController;
+    private CharacterStateController _stateController;
 
     public override void OnStartClient() {
         base.OnStartClient();
@@ -26,6 +27,7 @@ public class AiCombatState : NetworkBehaviour {
         _brain = GetComponent<AiBrain>();
         _movement = GetComponent<AiMovementPathfinding>();
         _characterController = GetComponent<CharacterController>();
+        _stateController = GetComponent<CharacterStateController>();
     }
 
     public void EnterState() {
@@ -37,6 +39,7 @@ public class AiCombatState : NetworkBehaviour {
     public void UpdateState() {
         _characterController.TurnToFaceTarget(_brain.TargetCharacter.transform);
 
+        
         NetworkStats _targetStats = _brain.TargetCharacter.GetComponent<NetworkStats>();
         CharacterStateController _targetState = _brain.TargetCharacter.GetComponent<CharacterStateController>();
         //CastController _targetCastController = _targetCharacter.GetComponent<CastController>();
@@ -51,6 +54,23 @@ public class AiCombatState : NetworkBehaviour {
             0.1f // get this from the ability being cast
         );
 
-        _characterController.CastAbility(0);
+        if (_stateController.IsCasting())
+        {
+            return;
+        }
+
+        //choose ability
+        AbilitiesController abilitiesController = _characterController.GetComponent<AbilitiesController>();
+
+        int indexToCast = -1;
+        
+        abilitiesController.GetAbilities().Find(ability => {
+            indexToCast++;
+            return ability.CanCast();
+        });
+
+        if (indexToCast != -1) {
+            _characterController.CastAbility(indexToCast);
+        }
     }
 }
