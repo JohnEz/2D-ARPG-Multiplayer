@@ -16,11 +16,15 @@ public class ProjectileSpawner : NetworkBehaviour {
     /// </summary>
     private const float MAX_PASSED_TIME = 0.3f;
 
-    public void Fire(string projectileId, Vector3 position, Vector3 direction) {
+    public void Fire(string projectileId, Vector3 startPosition, Vector3 direction) {
         Vector3 normalisedDirection = direction.normalized;
 
-        SpawnProjectile(projectileId, position, normalisedDirection, 0f);
-        NotifyFire(projectileId, position, normalisedDirection, base.TimeManager.Tick);
+        // spawn the project slightly away from the center of the character
+        // this stops the projectile from colliding on spawn
+        Vector3 spawnPosition = startPosition + (normalisedDirection * 0.5f);
+
+        SpawnProjectile(projectileId, spawnPosition, normalisedDirection, 0f);
+        NotifyFire(projectileId, spawnPosition, normalisedDirection, base.TimeManager.Tick);
     }
 
     private void NotifyFire(string projectileId, Vector3 position, Vector3 direction, uint tick) {
