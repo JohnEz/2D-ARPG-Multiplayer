@@ -7,22 +7,22 @@ public class BuffAbility : AbilityEffect {
 
     public bool CanHitEnemies = false;
     public bool CanHitAllies = true;
-    public bool CanHitSelf = true;
+    public bool CanHitCaster = true;
 
     public override void OnCastComplete(bool isOwner) {
         if (isOwner) {
             NetworkStats hitTarget = null;
             BuffController casterBuffs = _caster.GetComponent<BuffController>();
+            NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
 
-            List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(_caster.AimLocation, .5f);
+            List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(_caster.AimLocation, .5f, casterStats, CanHitCaster, CanHitEnemies, CanHitAllies);
 
             if (hitTargets.Count > 0) {
                 // if there were units near the mouse, pick the closest to the center
-                // Todo needs to check faction
                 hitTarget = GetClosestToPoint(_caster.AimLocation, hitTargets);
             }
 
-            if (hitTarget == null && CanHitSelf) {
+            if (hitTarget == null && CanHitCaster) {
                 hitTarget = _caster.GetComponent<NetworkStats>();
             }
 

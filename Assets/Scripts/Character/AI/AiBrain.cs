@@ -90,9 +90,14 @@ public class AiBrain : NetworkBehaviour {
     }
 
     private void CheckForNewEnemiesInRange() {
+        NetworkStats myStats = GetComponent<NetworkStats>();
+
         List<CharacterController> newEnemiesInRange = FindObjectsOfType<CharacterController>().Where(target => {
+            NetworkStats targetStats = target.GetComponent<NetworkStats>();
+
             return
                 target != _myCharacterController &&
+                targetStats.Faction != myStats.Faction &&
                 !_aggroTable.ContainsKey(target) &&
                 Vector3.Distance(transform.position, target.transform.position) <= _aggroRange;
         }).ToList();
@@ -164,27 +169,6 @@ public class AiBrain : NetworkBehaviour {
         _target = target;
 
         Debug.Log($"new target: {target.gameObject.name}");
-    }
-
-    // TODO delete
-    private void AttackTarget() {
-        _myCharacterController.TurnToFaceTarget(TargetCharacter.transform);
-
-        NetworkStats _targetStats = TargetCharacter.GetComponent<NetworkStats>();
-        CharacterStateController _targetState = TargetCharacter.GetComponent<CharacterStateController>();
-        //CastController _targetCastController = _targetCharacter.GetComponent<CastController>();
-
-        _myCharacterController.AimLocation = GetAimLocation(
-            transform.position,
-            20f, // get projectile speed from ability
-            TargetCharacter.transform.position,
-            _targetStats.Speed.CurrentValue,
-            TargetCharacter.InputDirection,
-            _targetState.IsCasting(),
-            0.1f // get this from the ability being cast
-        );
-
-        _myCharacterController.CastAbility(0);
     }
 
     public static Vector2 GetAimLocation(Vector3 myPosition, float projectileSpeed, Vector3 targetsPosition, float targetsMoveSpeed, Vector3 targetsMovementDirection, bool isCasting, float speedWhileCasting) {

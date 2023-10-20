@@ -13,8 +13,19 @@ public enum StatType {
     MOVE_SPEED,
 }
 
+public enum Faction {
+    PLAYER,
+    ENEMY,
+    NEUTRAL,
+}
+
 public class NetworkStats : NetworkBehaviour {
     private BuffController _buffController;
+
+    public string Name = "NO NAME";
+
+    [SerializeField]
+    public Faction Faction;
 
     [HideInInspector]
     [SyncVar(OnChange = nameof(HandleCurrentHealthChange), WritePermissions = WritePermission.ServerOnly)]

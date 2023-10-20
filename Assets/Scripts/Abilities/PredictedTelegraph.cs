@@ -21,6 +21,12 @@ public class PredictedTelegraph : MonoBehaviour {
     [SerializeField]
     private float _radius = 2f;
 
+    public bool CanHitAllies = false;
+
+    public bool CanHitCaster = false;
+
+    public bool CanHitEnemies = true;
+
     private CharacterController _caster;
 
     public event Action<NetworkStats, NetworkStats> OnHit;
@@ -44,8 +50,9 @@ public class PredictedTelegraph : MonoBehaviour {
 
     private void OnImpact() {
         AudioManager.Instance.PlaySound(_onImpactSFX, transform.position);
+        NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
 
-        List<NetworkStats> hitCharacters = GetCircleHitTargets(transform.position, _radius);
+        List<NetworkStats> hitCharacters = GetCircleHitTargets(transform.position, _radius, casterStats, CanHitCaster, CanHitEnemies, CanHitAllies);
 
         foreach (NetworkStats character in hitCharacters) {
             OnHitCharacter(character);
@@ -62,17 +69,25 @@ public class PredictedTelegraph : MonoBehaviour {
         OnHit?.Invoke(_caster.GetComponent<NetworkStats>(), hitCharacter);
     }
 
-    public static List<NetworkStats> GetCircleHitTargets(Vector3 worldPos, float radius) {
+    public static List<NetworkStats> GetCircleHitTargets(Vector3 worldPos, float radius, NetworkStats caster, bool canHitCaster, bool canHitEnemies, bool canHitAllies) {
         List<Collider2D> hitTargets = new List<Collider2D>(Physics2D.OverlapCircleAll(new Vector2(worldPos.x, worldPos.y), radius));
 
         return hitTargets.Where(collider => {
-            NetworkStats characterInRange = collider.gameObject.GetComponent<NetworkStats>();
+            NetworkStats hitTarget = collider.gameObject.GetComponent<NetworkStats>();
 
-            if (!characterInRange) {
+            if (!hitTarget) {
                 return false;
             }
-            // TODO add faction checking here
-            return true;
+
+            bool isCaster = hitTarget == caster;
+            bool isAlly = hitTarget.Faction == caster.Faction;
+
+            bool canHitTarget =
+                (isCaster && canHitCaster) ||
+                (isAlly && canHitAllies) ||
+                (!isAlly && canHitEnemies);
+
+            return canHitTarget;
         }).Select(collider => collider.gameObject.GetComponent<NetworkStats>()).ToList();
     }
 }

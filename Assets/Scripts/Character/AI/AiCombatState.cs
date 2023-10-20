@@ -41,16 +41,15 @@ public class AiCombatState : NetworkBehaviour {
     public void UpdateState() {
         _characterController.TurnToFaceTarget(_brain.TargetCharacter.transform);
 
-        
-
         if (!_stateController.IsCasting()) {
             AbilitiesController abilitiesController = _characterController.GetComponent<AbilitiesController>();
 
             int indexToCast = -1;
-        
+
+            // TODO there should be a way that we select the best ability to cast and support allies
             abilitiesController.GetAbilities().Find(ability => {
                 indexToCast++;
-                return ability.CanCast();
+                return ability.CanCast() && !ability.AiDetails.IsSupportAbility;
             });
 
             if (indexToCast != -1) {
@@ -72,6 +71,5 @@ public class AiCombatState : NetworkBehaviour {
             _targetState.IsCasting(),
             _targetCastController.castingAbility?.SpeedWhileCasting ?? 1f
         );
-
     }
 }

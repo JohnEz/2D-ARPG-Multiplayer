@@ -28,6 +28,12 @@ public class PredictedProjectile : MonoBehaviour {
     // TODO should this be distance?
     public float LifeTime = 1.5f;
 
+    public bool CanHitAllies = false;
+
+    public bool CanHitCaster = false;
+
+    public bool CanHitEnemies = true;
+
     // FX
 
     [SerializeField]
@@ -116,8 +122,17 @@ public class PredictedProjectile : MonoBehaviour {
         if (isCharacterCollision) {
             //check if its a character it should hit
             CharacterController hitCharacter = collision.gameObject.GetComponent<CharacterController>();
+            NetworkStats hitCharacterStats = hitCharacter.GetComponent<NetworkStats>();
 
-            if (hitCharacter == _caster) {
+            bool isCaster = hitCharacter == _caster;
+            bool isAlly = hitCharacterStats.Faction == _caster.GetComponent<NetworkStats>().Faction;
+
+            bool canHitTarget =
+                (isCaster && CanHitCaster) ||
+                (isAlly && CanHitAllies) ||
+                (!isAlly && CanHitEnemies);
+
+            if (!canHitTarget) {
                 return;
             }
 

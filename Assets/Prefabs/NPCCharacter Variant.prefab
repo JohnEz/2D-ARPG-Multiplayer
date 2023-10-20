@@ -155,6 +155,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCCharacter Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8453677958730221470, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: Faction
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
 --- !u!114 &769069792884234346 stripped
