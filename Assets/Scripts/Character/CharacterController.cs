@@ -74,7 +74,7 @@ public class CharacterController : NetworkBehaviour {
     }
 
     public bool CanCastAbility(Ability abilityToCast) {
-        return _stateController.CanCast() && abilityToCast.CanCast();
+        return abilityToCast && _stateController.CanCast() && abilityToCast.CanCast();
     }
 
     public void CastAbility(int abilityId) {
