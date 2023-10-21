@@ -76,7 +76,6 @@ public class SyncedCharacterStat : SyncBase, ICustomSync {
     }
 
     public void ForceUpdateCachedValue() {
-        Debug.Log("Forcing stat update");
         UpdateCachedValue();
     }
 

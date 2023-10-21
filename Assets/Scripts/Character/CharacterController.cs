@@ -22,6 +22,7 @@ public class CharacterController : NetworkBehaviour {
     private CharacterStateController _stateController;
     private CastController _castController;
     private AbilitiesController _abilitiesController;
+    private NetworkStats _stats;
 
     [SerializeField]
     private GameObject visuals;
@@ -37,6 +38,15 @@ public class CharacterController : NetworkBehaviour {
         _abilitiesController = GetComponent<AbilitiesController>();
         _hitbox = GetComponent<Collider2D>();
         _rigidBody = GetComponent<Rigidbody2D>();
+        _stats = GetComponent<NetworkStats>();
+    }
+
+    private void OnEnable() {
+        _stats.OnHealthDepleted += HandleHealthDepleted;
+    }
+
+    private void OnDisable() {
+        _stats.OnHealthDepleted -= HandleHealthDepleted;
     }
 
     private void Update() {
@@ -47,7 +57,7 @@ public class CharacterController : NetworkBehaviour {
             return;
         }
 
-        if (_stateController.IsStunned()) {
+        if (_stateController.IsStunned() || _stateController.IsDead()) {
             return;
         }
 
@@ -58,6 +68,17 @@ public class CharacterController : NetworkBehaviour {
         if (!_stateController.IsDashing() && !_stateController.IsCasting() && !_stateController.IsLeaping()) {
             _stateController.State = CharacterState.Idle;
         }
+    }
+
+    private void HandleHealthDepleted() {
+        _stateController.State = CharacterState.Dead;
+
+        visuals.SetActive(false);
+        _rigidBody.isKinematic = true;
+        _hitbox.enabled = false;
+
+        _movementController.MoveDirection = Vector2.zero;
+        // disable hud
     }
 
     private void MoveFromInput() {

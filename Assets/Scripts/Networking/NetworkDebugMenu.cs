@@ -52,10 +52,10 @@ public class NetworkDebugMenu : NetworkBehaviour {
         }
 
         GameObject instance = Instantiate(prefab);
+        // TODO this should be spawn locations of the map
+        // currently this works as this gameobject is spawned on the spawn locations of the network manager
+        instance.transform.position = transform.position;
         InstanceFinder.ServerManager.Spawn(instance, Owner);
-
-        Debug.Log($"Spawned {character} for {Owner.ClientId}");
-        Debug.Log($"{Owner}");
 
         SpawnedObserver();
     }

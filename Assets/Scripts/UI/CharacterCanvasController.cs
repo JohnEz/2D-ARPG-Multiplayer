@@ -26,6 +26,7 @@ public class CharacterCanvasController : MonoBehaviour {
     private bool canCreateCombatText = true;
 
     private CharacterController _characterController;
+    private CharacterStateController _stateController;
     private int myTeam;
 
     private Color[] teamColours = new Color[] {
@@ -37,10 +38,23 @@ public class CharacterCanvasController : MonoBehaviour {
 
     private void Awake() {
         _characterController = GetComponentInParent<CharacterController>();
+        _stateController = GetComponentInParent<CharacterStateController>();
     }
 
     private void Start() {
         Initialise();
+    }
+
+    private void OnEnable() {
+        _stateController.OnDeath += HandleCharacterDeath;
+    }
+
+    private void OnDisable() {
+        _stateController.OnDeath -= HandleCharacterDeath;
+    }
+
+    private void HandleCharacterDeath() {
+        UnitFrameTransform.gameObject.SetActive(false);
     }
 
     private void Update() {

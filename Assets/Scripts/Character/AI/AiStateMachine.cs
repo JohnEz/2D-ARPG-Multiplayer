@@ -7,6 +7,7 @@ public enum AIState {
     Chase,
     Combat,
     Leash,
+    Dead,
 }
 
 [RequireComponent(typeof(AiBrain))]
@@ -15,6 +16,7 @@ public class AiStateMachine : NetworkBehaviour {
     private AiMovementPathfinding _movement;
     private AiCombatState _combat;
     private CharacterController _characterController;
+    private CharacterStateController _stateController;
 
     private AIState currentState = AIState.Idle;
 
@@ -31,6 +33,7 @@ public class AiStateMachine : NetworkBehaviour {
         _movement = GetComponent<AiMovementPathfinding>();
         _combat = GetComponent<AiCombatState>();
         _characterController = GetComponent<CharacterController>();
+        _stateController = GetComponent<CharacterStateController>();
     }
 
     private void Update() {
@@ -42,6 +45,10 @@ public class AiStateMachine : NetworkBehaviour {
     }
 
     private void HandleTransitions() {
+        if (_stateController.IsDead()) {
+            ChangeState(AIState.Dead);
+        }
+
         // Example transition conditions
         switch (currentState) {
             case AIState.Idle:
@@ -120,7 +127,9 @@ public class AiStateMachine : NetworkBehaviour {
                 break;
 
             case AIState.Chase:
-                _characterController.TurnToFaceTarget(_brain.TargetCharacter.transform);
+                if (_brain.HasTarget) {
+                    _characterController.TurnToFaceTarget(_brain.TargetCharacter.transform);
+                }
                 break;
 
             case AIState.Combat:

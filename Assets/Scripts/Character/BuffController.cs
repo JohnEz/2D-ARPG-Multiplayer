@@ -147,7 +147,7 @@ public class BuffController : NetworkBehaviour {
         ActiveBuffs = ActiveBuffs.FindAll(buff => buff.Name != buffName).ToList();
         originalBuff.RemoveEffects();
 
-        OnBuffsChanged.Invoke(ActiveBuffs);
+        OnBuffsChanged?.Invoke(ActiveBuffs);
     }
 
     public void ServerUpdateBuffDuration(string buffName, float mod) {

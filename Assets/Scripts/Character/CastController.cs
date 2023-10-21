@@ -30,6 +30,18 @@ public class CastController : NetworkBehaviour {
         _abilitiesController = GetComponent<AbilitiesController>();
     }
 
+    private void OnEnable() {
+        _stateController.OnDeath += HandleCharacterDeath;
+    }
+
+    private void OnDisable() {
+        _stateController.OnDeath -= HandleCharacterDeath;
+    }
+
+    private void HandleCharacterDeath() {
+        CancelCast();
+    }
+
     public void Cast(int abilityId) {
         CastAbility(abilityId, 0);
         NotifyCast(abilityId, base.TimeManager.Tick);
@@ -156,7 +168,7 @@ public class CastController : NetworkBehaviour {
     }
 
     private void CancelCast() {
-        if (!_stateController.IsCasting()) {
+        if (!castRequest) {
             return;
         }
 

@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: <PrefabId>k__BackingField
-      value: 17
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
@@ -172,8 +172,24 @@ PrefabInstance:
       value: Target Dummy Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8453677958730221470, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: Name
+      value: TargetDummy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453677958730221470, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: Faction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453677958730221470, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: _baseSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453677958730221470, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: _maxHealth
       value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453677958730221470, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: _baseMaxHealth
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7246345825466605386, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}

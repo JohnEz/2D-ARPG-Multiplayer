@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum CharacterState {
     Idle,
@@ -15,16 +17,24 @@ public enum CharacterState {
 public class CharacterStateController : MonoBehaviour {
     private CharacterState _state;
 
+    public event Action OnDeath;
+
     public CharacterState State {
         get { return _state; }
-        set {
-            if (_state == value) {
-                return;
-            }
+        set { SetState(value); }
+    }
 
-            DebugState(_state, value);
+    public void SetState(CharacterState newState) {
+        if (_state == newState) {
+            return;
+        }
 
-            _state = value;
+        DebugState(_state, newState);
+
+        _state = newState;
+
+        if (newState == CharacterState.Dead) {
+            OnDeath?.Invoke();
         }
     }
 

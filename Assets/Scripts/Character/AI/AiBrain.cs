@@ -15,6 +15,7 @@ public class AiBrain : NetworkBehaviour {
 
     private Vector3 _startPosition;
     private CharacterController _myCharacterController;
+    private CharacterStateController _stateController;
 
     private Dictionary<CharacterController, int> _aggroTable = new Dictionary<CharacterController, int>();
 
@@ -57,16 +58,26 @@ public class AiBrain : NetworkBehaviour {
     private void Awake() {
         _myCharacterController = GetComponent<CharacterController>();
         _startPosition = transform.position;
+        _stateController = GetComponent<CharacterStateController>();
     }
 
     private void OnEnable() {
+        _stateController.OnDeath += HandleDeath;
         OnAggroTableChange += HandleAggroTableChange;
         checksCoroutine = CheckForUpdates(.5f);
         StartCoroutine(checksCoroutine);
     }
 
     private void OnDisable() {
+        _stateController.OnDeath -= HandleDeath;
         OnAggroTableChange -= HandleAggroTableChange;
+        StopCoroutine(checksCoroutine);
+    }
+
+    private void HandleDeath() {
+        OnAggroTableChange -= HandleAggroTableChange;
+        _aggroTable.Clear();
+        TargetCharacter = null;
         StopCoroutine(checksCoroutine);
     }
 
@@ -94,9 +105,11 @@ public class AiBrain : NetworkBehaviour {
 
         List<CharacterController> newEnemiesInRange = FindObjectsOfType<CharacterController>().Where(target => {
             NetworkStats targetStats = target.GetComponent<NetworkStats>();
+            CharacterStateController targetStateController = target.GetComponent<CharacterStateController>();
 
             return
                 target != _myCharacterController &&
+                !targetStateController.IsDead() &&
                 targetStats.Faction != myStats.Faction &&
                 !_aggroTable.ContainsKey(target) &&
                 Vector3.Distance(transform.position, target.transform.position) <= _aggroRange;
@@ -164,11 +177,28 @@ public class AiBrain : NetworkBehaviour {
     private void SetTarget(CharacterController target) {
         if (target == null) {
             DistanceToTarget = Mathf.Infinity;
+            if (_target != null) {
+                _target.GetComponent<CharacterStateController>().OnDeath -= HandleTargetDeath;
+            }
         }
 
         _target = target;
 
-        Debug.Log($"new target: {target.gameObject.name}");
+        if (_target) {
+            _target.GetComponent<CharacterStateController>().OnDeath += HandleTargetDeath;
+            Debug.Log($"new target: {target?.gameObject.name}");
+        }
+    }
+
+    private void HandleTargetDeath() {
+        if (_target == null) {
+            return;
+        }
+
+        _aggroTable.Remove(_target);
+        // TODO should i call that the aggro table has changed instead?
+        _target = null;
+        TargetCharacter = GetHighestAggro(_aggroTable.Keys.ToList());
     }
 
     public static Vector2 GetAimLocation(Vector3 myPosition, float projectileSpeed, Vector3 targetsPosition, float targetsMoveSpeed, Vector3 targetsMovementDirection, bool isCasting, float speedWhileCasting) {
