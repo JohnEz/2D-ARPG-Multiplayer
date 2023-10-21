@@ -97,7 +97,7 @@ public class CharacterController : NetworkBehaviour {
     public void StartLeap(float leapDuration, AnimationCurve leapZCurve) {
         _stateController.State = CharacterState.Leaping;
 
-        transform.DOScaleZ(1.75f, leapDuration).SetEase(leapZCurve).OnComplete(LeapComplete);
+        transform.DOScale(1.75f, leapDuration).SetEase(leapZCurve).OnComplete(LeapComplete);
 
         _rigidBody.isKinematic = true;
         _hitbox.enabled = false;
