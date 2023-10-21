@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
+using FishNet.Connection;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerInput : NetworkBehaviour {
     private CharacterController _characterController;
 
-    public override void OnStartNetwork() {
+    public override void OnStartClient() {
         base.OnStartClient();
 
         if (!base.Owner.IsLocalClient) {
