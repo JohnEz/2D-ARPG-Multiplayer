@@ -73,7 +73,6 @@ public class PredictedSlash : MonoBehaviour {
         }
 
         if (hitCharacter) {
-            Debug.Log($"calling hit code");
             HandleHit(hitCharacter, collision.gameObject.transform.position);
         }
     }
@@ -83,7 +82,6 @@ public class PredictedSlash : MonoBehaviour {
         //CreateHitEffect(hitPosition);
 
         if (InstanceFinder.IsServer) {
-            Debug.Log($"calling hit code Server");
             OnHit?.Invoke(hitPosition, _caster, hitCharacter);
         }
     }

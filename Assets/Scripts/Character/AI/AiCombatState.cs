@@ -88,8 +88,8 @@ public class AiCombatState : NetworkBehaviour {
     }
 
     public void MovementUpdate() {
-        float minRange = _idealRange - _idealRangeBuffer;
-        float maxRange = _idealRange + _idealRangeBuffer;
+        float minRange = _idealRange - (_idealRange * _idealRangeBuffer);
+        float maxRange = _idealRange + (_idealRange * _idealRangeBuffer);
 
         bool inIdealRange = _brain.DistanceToTarget >= minRange && _brain.DistanceToTarget <= maxRange;
         bool hasLineOfSight = _brain.HasLineOfSight();

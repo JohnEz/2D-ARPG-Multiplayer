@@ -64,7 +64,7 @@ public class AiBrain : NetworkBehaviour {
     private void OnEnable() {
         _stateController.OnDeath += HandleDeath;
         OnAggroTableChange += HandleAggroTableChange;
-        checksCoroutine = CheckForUpdates(.5f);
+        checksCoroutine = CheckForUpdates(.2f);
         StartCoroutine(checksCoroutine);
     }
 
