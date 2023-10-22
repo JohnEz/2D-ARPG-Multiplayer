@@ -48,7 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visuals: {fileID: 0}
   Speed: 15
-  LifeTime: 0.5
+  _baseMaxDistance: 12
+  CanHitAllies: 0
+  CanHitCaster: 0
+  CanHitEnemies: 1
   onCreateSFX: {fileID: 0}
   onHitVFXPrefab: {fileID: 0}
   onHitSFX: {fileID: 0}

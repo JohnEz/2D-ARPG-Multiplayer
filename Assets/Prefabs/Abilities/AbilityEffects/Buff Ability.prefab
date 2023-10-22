@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4161319654811375423}
   - component: {fileID: 5394749886650238353}
   m_Layer: 0
-  m_Name: BuffAbility
+  m_Name: Buff Ability
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

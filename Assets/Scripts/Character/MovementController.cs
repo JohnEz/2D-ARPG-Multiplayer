@@ -5,11 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CharacterStateController))]
 public class MovementController : MonoBehaviour {
-    private const float CASTING_SPEED_MODIFIER = 0.1f;
-
     private Rigidbody2D _body;
     private CharacterStateController _stateController;
     private NetworkStats _myStats;
+    private CastController _castController;
 
     public Vector2 MoveDirection;
 
@@ -17,6 +16,7 @@ public class MovementController : MonoBehaviour {
         _body = GetComponent<Rigidbody2D>();
         _myStats = GetComponent<NetworkStats>();
         _stateController = GetComponent<CharacterStateController>();
+        _castController = GetComponent<CastController>();
     }
 
     private void FixedUpdate() {
@@ -24,7 +24,7 @@ public class MovementController : MonoBehaviour {
             return;
         }
 
-        float moveSpeed = _stateController.IsCasting() ? _myStats.Speed.CurrentValue * CASTING_SPEED_MODIFIER : _myStats.Speed.CurrentValue;
+        float moveSpeed = _stateController.IsCasting() ? _myStats.Speed.CurrentValue * _castController.castingAbility.SpeedWhileCasting : _myStats.Speed.CurrentValue;
 
         Vector3 newPosition = _body.position + (MoveDirection * moveSpeed) * Time.fixedDeltaTime;
 

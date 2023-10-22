@@ -21,6 +21,11 @@ public class ResourceManager : Singleton<ResourceManager> {
     private Dictionary<string, PredictedTelegraph> _telegraphs = new Dictionary<string, PredictedTelegraph>();
 
     [SerializeField]
+    private List<Resource<PredictedSlash>> _slashResources;
+
+    private Dictionary<string, PredictedSlash> _slashes = new Dictionary<string, PredictedSlash>();
+
+    [SerializeField]
     private List<Resource<Buff>> _buffResources;
 
     private Dictionary<string, Buff> _buffs = new Dictionary<string, Buff>();
@@ -29,6 +34,7 @@ public class ResourceManager : Singleton<ResourceManager> {
         _projectileResources.ForEach(resource => _projectiles.Add(resource.id, resource.prefab));
         _telegraphResources.ForEach(resource => _telegraphs.Add(resource.id, resource.prefab));
         _buffResources.ForEach(resource => _buffs.Add(resource.id, resource.prefab));
+        _slashResources.ForEach(resource => _slashes.Add(resource.id, resource.prefab));
     }
 
     public PredictedProjectile GetProjectile(string id) {
@@ -37,6 +43,10 @@ public class ResourceManager : Singleton<ResourceManager> {
 
     public PredictedTelegraph GetTelegraph(string id) {
         return _telegraphs[id];
+    }
+
+    public PredictedSlash GetSlash(string id) {
+        return _slashes[id];
     }
 
     public Buff GetBuff(string id) {

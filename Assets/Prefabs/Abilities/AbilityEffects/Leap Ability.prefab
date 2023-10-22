@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6158745668788209667}
   - component: {fileID: 6115307261797090677}
   m_Layer: 0
-  m_Name: LeapAbility
+  m_Name: Leap Ability
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

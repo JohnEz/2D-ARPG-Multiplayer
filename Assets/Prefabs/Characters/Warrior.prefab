@@ -20,6 +20,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 385028806926593515, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 385028806926593515, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: _networkBehaviours.Array.size
       value: 9
       objectReference: {fileID: 0}
@@ -39,6 +43,14 @@ PrefabInstance:
       propertyPath: _networkBehaviours.Array.data[8]
       value: 
       objectReference: {fileID: 6852701549716761662}
+    - target: {fileID: 3405262305815227104, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
+      propertyPath: _abilityPrefabList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405262305815227104, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
+      propertyPath: _abilityPrefabList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c67c416e3d87624a9cf984552b9ec3f, type: 2}
     - target: {fileID: 4367509643389176677, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: m_Sprite
       value: 

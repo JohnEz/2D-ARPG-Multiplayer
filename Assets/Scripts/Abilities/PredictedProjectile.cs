@@ -6,6 +6,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PredictedProjectile : MonoBehaviour {
+
+    // used to make sure the projectile doesnt last forever
+    private const float MAX_LIFE_TIME = 5f;
+
+    private const float MAX_DISTANCE_MODIFIER = -1f;
+
     private Vector2 _direction;
     private float _passedTime = 0f;
 
@@ -20,13 +26,21 @@ public class PredictedProjectile : MonoBehaviour {
 
     public event Action<Vector3, NetworkStats, NetworkStats> OnHit;
 
+    private Vector2 _startPosition;
+
     // Config variables
     /////////////////////
 
     public float Speed = 15f;
 
-    // TODO should this be distance?
-    public float LifeTime = 1.5f;
+    [SerializeField]
+    private float _baseMaxDistance = 12f;
+
+    public float MaxDistance {
+        get {
+            return _baseMaxDistance + MAX_DISTANCE_MODIFIER;
+        }
+    }
 
     public bool CanHitAllies = false;
 
@@ -53,12 +67,23 @@ public class PredictedProjectile : MonoBehaviour {
         _direction = direction.normalized;
         transform.up = direction;
         _passedTime = passedTime;
-        _caster = caster;
+        _caster = caster; // TODO this should be network stats
+        _startPosition = transform.position;
 
-        Invoke("Expire", LifeTime);
+        Invoke("Expire", MAX_LIFE_TIME);
 
         if (onCreateSFX) {
             AudioManager.Instance.PlaySound(onCreateSFX, transform);
+        }
+    }
+
+    private void Update() {
+        if (!isActive) {
+            return;
+        }
+
+        if (Vector2.Distance(transform.position, _startPosition) >= MaxDistance) {
+            Expire();
         }
     }
 
@@ -181,7 +206,7 @@ public class PredictedProjectile : MonoBehaviour {
             AudioClipOptions options = new AudioClipOptions();
 
             if (isExpired) {
-                options.Volume = 0.25f;
+                options.Volume = 0.5f;
                 options.Pitch = 0.75f;
             }
 

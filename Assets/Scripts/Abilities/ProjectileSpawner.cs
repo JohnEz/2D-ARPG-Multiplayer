@@ -38,7 +38,7 @@ public class ProjectileSpawner : NetworkBehaviour {
     private void SpawnProjectile(string projectileId, Vector3 position, Vector3 direction, float passedTime) {
         PredictedProjectile projectilePrefab = ResourceManager.Instance.GetProjectile(projectileId);
         PredictedProjectile createdProjectile = Instantiate(projectilePrefab, position, Quaternion.identity);
-        // TODO i dont like passsing the character controller this way as im not sure the spawner will always be on the character
+        // TODO i dont like passsing the character controller this way as im not sure the spawner script will always be on the character
         createdProjectile.Initialise(direction, passedTime, GetComponent<CharacterController>());
     }
 
