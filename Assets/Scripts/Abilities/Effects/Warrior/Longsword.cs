@@ -5,12 +5,10 @@ public class Longsword : MonoBehaviour {
     private const int BASE_DAMAGE = 9;
 
     private void OnEnable() {
-        Debug.Log("Longsword enabled");
         GetComponent<PredictedSlash>().OnHit += HandleCharacterHit;
     }
 
     private void OnDisable() {
-        Debug.Log("Longsword disabled");
         GetComponent<PredictedSlash>().OnHit -= HandleCharacterHit;
     }
 

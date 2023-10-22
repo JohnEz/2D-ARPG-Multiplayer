@@ -11,7 +11,7 @@ public class AiBrain : NetworkBehaviour {
     // TODO these should depend on if the creature is a boss or something
     private float _aggroRange = 12f;
 
-    private float _combatRange = 9f;
+    private float _combatRange = 11f;
 
     private Vector3 _startPosition;
     private CharacterController _myCharacterController;

@@ -18,6 +18,7 @@ public class AiCombatState : NetworkBehaviour {
     private AbilitiesController _abilitiesController;
 
     private float _idealRange;
+    private const float _idealRangeBuffer = .25f;
 
     public override void OnStartClient() {
         base.OnStartClient();
@@ -34,8 +35,11 @@ public class AiCombatState : NetworkBehaviour {
         _stateController = GetComponent<CharacterStateController>();
         _castController = GetComponent<CastController>();
         _abilitiesController = GetComponent<AbilitiesController>();
+    }
 
+    private void Start() {
         _idealRange = _abilitiesController.GetAbilities()[0].AiDetails.AbilityRange;
+        Debug.Log($"{gameObject.name}'s ideal range: " + _idealRange);
     }
 
     public void EnterState() {
@@ -47,12 +51,18 @@ public class AiCombatState : NetworkBehaviour {
     public void UpdateState() {
         _characterController.TurnToFaceTarget(_brain.TargetCharacter.transform);
 
+        AbilityUpdate();
+        MovementUpdate();
+    }
+
+    public void AbilityUpdate() {
         if (!_stateController.IsCasting()) {
             int indexToCast = -1;
 
             // TODO there should be a way that we select the best ability to cast and support allies
             _abilitiesController.GetAbilities().Find(ability => {
                 indexToCast++;
+                bool inRange = _brain.DistanceToTarget <= ability.AiDetails.AbilityRange;
                 return ability.CanCast() && !ability.AiDetails.IsSupportAbility;
             });
 
@@ -75,5 +85,27 @@ public class AiCombatState : NetworkBehaviour {
             _targetState.IsCasting(),
             _targetCastController.castingAbility?.SpeedWhileCasting ?? 1f
         );
+    }
+
+    public void MovementUpdate() {
+        float minRange = _idealRange - _idealRangeBuffer;
+        float maxRange = _idealRange + _idealRangeBuffer;
+
+        bool inIdealRange = _brain.DistanceToTarget >= minRange && _brain.DistanceToTarget <= maxRange;
+        bool hasLineOfSight = _brain.HasLineOfSight();
+
+        if (inIdealRange && hasLineOfSight) {
+            _movement.Stop();
+            return;
+        }
+
+        bool tooClose = _brain.DistanceToTarget < minRange;
+        bool tooFar = _brain.DistanceToTarget > maxRange;
+
+        if (tooClose) {
+            _movement.MoveAwayFromTarget(_brain.TargetCharacter.transform);
+        } else if ((tooFar && !_movement.isChasing) || !hasLineOfSight) {
+            _movement.SetChaseTarget(_brain.TargetCharacter.transform);
+        }
     }
 }

@@ -32,6 +32,12 @@ public class AiMovementPathfinding : MonoBehaviour {
         MoveToTarget(target.position);
     }
 
+    public void MoveAwayFromTarget(Transform target) {
+        // TODO - find the closest node in line of site of the target that is far enough away
+
+        _myCharacterController.InputDirection = (transform.position - target.position).normalized;
+    }
+
     public void MoveToTarget(Vector3 targetLocation) {
         currentPath = null;
         currentWaypoint = 0;
