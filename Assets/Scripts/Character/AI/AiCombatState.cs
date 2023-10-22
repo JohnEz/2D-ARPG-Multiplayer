@@ -15,6 +15,9 @@ public class AiCombatState : NetworkBehaviour {
     private CharacterController _characterController;
     private CharacterStateController _stateController;
     private CastController _castController;
+    private AbilitiesController _abilitiesController;
+
+    private float _idealRange;
 
     public override void OnStartClient() {
         base.OnStartClient();
@@ -30,6 +33,9 @@ public class AiCombatState : NetworkBehaviour {
         _characterController = GetComponent<CharacterController>();
         _stateController = GetComponent<CharacterStateController>();
         _castController = GetComponent<CastController>();
+        _abilitiesController = GetComponent<AbilitiesController>();
+
+        _idealRange = _abilitiesController.GetAbilities()[0].AiDetails.AbilityRange;
     }
 
     public void EnterState() {
@@ -42,12 +48,10 @@ public class AiCombatState : NetworkBehaviour {
         _characterController.TurnToFaceTarget(_brain.TargetCharacter.transform);
 
         if (!_stateController.IsCasting()) {
-            AbilitiesController abilitiesController = _characterController.GetComponent<AbilitiesController>();
-
             int indexToCast = -1;
 
             // TODO there should be a way that we select the best ability to cast and support allies
-            abilitiesController.GetAbilities().Find(ability => {
+            _abilitiesController.GetAbilities().Find(ability => {
                 indexToCast++;
                 return ability.CanCast() && !ability.AiDetails.IsSupportAbility;
             });

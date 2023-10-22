@@ -17,11 +17,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: <PrefabId>k__BackingField
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
-      value: 919162965805881768
+      value: 9915917590952908521
       objectReference: {fileID: 0}
     - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: SerializedTransformProperties.Position.y

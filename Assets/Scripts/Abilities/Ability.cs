@@ -4,6 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public struct AiAbilityDetails {
+    public float AbilityRange;
     public float ProjectileSpeed; // this should come from the projectile itself or be an aim ahead stat for telegraphs too
     public bool IsSupportAbility;
 }
