@@ -15,6 +15,12 @@ public class BuffController : NetworkBehaviour {
 
     private List<Buff> _activeBuffs;
 
+    public bool IsStunned = false;
+
+    public event Action OnStunApplied;
+
+    public event Action OnStunExpired;
+
     public List<Buff> ActiveBuffs {
         get { return _activeBuffs; }
         set { _activeBuffs = value; OnBuffsChanged?.Invoke(_activeBuffs); }
@@ -23,6 +29,26 @@ public class BuffController : NetworkBehaviour {
     private void Awake() {
         _myStats = GetComponent<NetworkStats>();
         ActiveBuffs = new List<Buff>();
+    }
+
+    private void OnEnable() {
+        OnBuffsChanged += HandleBuffsChanged;
+    }
+
+    public void OnDisable() {
+        OnBuffsChanged -= HandleBuffsChanged;
+    }
+
+    public void HandleBuffsChanged(List<Buff> buffs) {
+        // Check to see if we have been stunned or unstunned
+        bool previousStunState = IsStunned;
+        IsStunned = buffs.Exists(buff => buff.IsAStun);
+
+        if (!previousStunState && IsStunned) {
+            OnStunApplied?.Invoke();
+        } else if (previousStunState && !IsStunned) {
+            OnStunExpired?.Invoke();
+        }
     }
 
     public bool HasBuff(string buffName) {

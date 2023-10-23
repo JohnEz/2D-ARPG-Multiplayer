@@ -47,7 +47,6 @@ public class Buff : ScriptableObject {
 
     public bool IsAStun {
         get { return _isAStun; }
-        set { _isAStun = value; }
     }
 
     [SerializeField]
@@ -72,18 +71,18 @@ public class Buff : ScriptableObject {
 
     private bool _isApplied = false;
 
-    private bool _hasShield = false;
+    private StatModifier _shieldMod;
 
-    public bool HasShield { get { return _hasShield; } }
+    public bool HasShield { get { return _shieldMod != null; } }
 
     public virtual void Initailise(NetworkStats target, float elapsedTime, float passedTime, float addedTime) {
         targetCharacter = target;
         ElapsedTime = elapsedTime + passedTime;
         AddedTime = addedTime;
 
-        _hasShield = _statMods.Find(mod =>
-            mod.Stat == StatType.SHIELD
-        ) != null;
+        _shieldMod = _statMods.Find(mod =>
+            mod.Stat == StatType.SHIELD && mod.Type == StatModType.Flat
+        );
 
         if (applySFX) {
             AudioManager.Instance.PlaySound(applySFX, targetCharacter.transform.position);
@@ -128,7 +127,7 @@ public class Buff : ScriptableObject {
     }
 
     public virtual bool HasExpired() {
-        return RemainingTime() <= 0;
+        return RemainingTime() <= 0 || (HasShield && _shieldMod.Value <= 0);
     }
 
     public virtual void OnTick() {

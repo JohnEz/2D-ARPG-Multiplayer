@@ -22,6 +22,7 @@ public class CharacterController : NetworkBehaviour {
     private CharacterStateController _stateController;
     private CastController _castController;
     private AbilitiesController _abilitiesController;
+    private BuffController _buffController;
     private NetworkStats _stats;
 
     [SerializeField]
@@ -39,14 +40,19 @@ public class CharacterController : NetworkBehaviour {
         _hitbox = GetComponent<Collider2D>();
         _rigidBody = GetComponent<Rigidbody2D>();
         _stats = GetComponent<NetworkStats>();
+        _buffController = GetComponent<BuffController>();
     }
 
     private void OnEnable() {
         _stats.OnHealthDepleted += HandleHealthDepleted;
+        _buffController.OnStunApplied += HandleStunApplied;
+        _buffController.OnStunExpired += HandleStunExpired;
     }
 
     private void OnDisable() {
         _stats.OnHealthDepleted -= HandleHealthDepleted;
+        _buffController.OnStunApplied -= HandleStunApplied;
+        _buffController.OnStunExpired -= HandleStunExpired;
     }
 
     private void Update() {
@@ -79,6 +85,15 @@ public class CharacterController : NetworkBehaviour {
 
         _movementController.MoveDirection = Vector2.zero;
         // disable hud
+    }
+
+    private void HandleStunApplied() {
+        _stateController.SetState(CharacterState.Stunned);
+        _movementController.MoveDirection = Vector2.zero;
+    }
+
+    private void HandleStunExpired() {
+        _stateController.SetState(CharacterState.Idle);
     }
 
     private void MoveFromInput() {

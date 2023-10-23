@@ -9,6 +9,7 @@ using UnityEngine.VFX;
 public class CastController : NetworkBehaviour {
     private CharacterStateController _stateController;
     private AbilitiesController _abilitiesController;
+    private BuffController _buffController;
 
     public Ability castingAbility;
     public AbilityEffect castingAbilityEffect;
@@ -28,14 +29,21 @@ public class CastController : NetworkBehaviour {
     private void Awake() {
         _stateController = GetComponent<CharacterStateController>();
         _abilitiesController = GetComponent<AbilitiesController>();
+        _buffController = GetComponent<BuffController>();
     }
 
     private void OnEnable() {
         _stateController.OnDeath += HandleCharacterDeath;
+        _buffController.OnStunApplied += HandleCharacterStunApplied;
     }
 
     private void OnDisable() {
         _stateController.OnDeath -= HandleCharacterDeath;
+        _buffController.OnStunApplied -= HandleCharacterStunApplied;
+    }
+
+    private void HandleCharacterStunApplied() {
+        CancelCast();
     }
 
     private void HandleCharacterDeath() {
@@ -145,8 +153,8 @@ public class CastController : NetworkBehaviour {
 
         yield return new WaitUntil(() => castRequest == false);
 
-        // TODO this is grim
-        if (!_stateController.IsStunned()) {
+        // TODO this is grim and is trying to avoid overwriting stunned
+        if (_stateController.IsCasting()) {
             _stateController.State = CharacterState.Idle;
         }
 
