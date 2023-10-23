@@ -54,11 +54,12 @@ public class TargetGraphicController : MonoBehaviour {
         SetScale(scale);
     }
 
-    public void InitialiseLeapTarget(Transform startTransform, float maxDistance, float scale) {
+    public void InitialiseLeapTarget(Transform startTransform, float minDistance, float maxDistance, float scale) {
         myStyle = TargetGraphicStyle.LEAP;
         LeapTarget leapScript = AddScript(typeof(LeapTarget)) as LeapTarget;
 
         leapScript.StartTransform = startTransform;
+        leapScript.MinDistance = minDistance;
         leapScript.MaxDistance = maxDistance;
         SetScale(scale);
     }

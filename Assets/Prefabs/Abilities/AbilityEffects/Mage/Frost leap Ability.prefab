@@ -16,6 +16,26 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: MaxDistance
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: MinDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _maxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _minDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _castCompleteSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b4807b14de632f478aa087ea47d145e, type: 3}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: _leapZCurve.m_Curve.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -141,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8606723396271943269, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: m_Name
-      value: Frost leap Ability Variant
+      value: Frost leap Ability
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}

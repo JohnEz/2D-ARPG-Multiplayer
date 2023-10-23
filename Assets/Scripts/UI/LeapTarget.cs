@@ -8,12 +8,14 @@ public struct LandingSpot {
 
 public class LeapTarget : MonoBehaviour {
     public Transform StartTransform { get; set; }
+
+    public float MinDistance { get; set; }
     public float MaxDistance { get; set; }
 
-    public static LandingSpot GetLeapLandingSpot(Vector3 startLocation, float maxDistance, Vector3 direction) {
+    public static LandingSpot GetLeapLandingSpot(Vector3 startLocation, float targetDistance, Vector3 direction) {
         float playerWidth = .5f;
 
-        Vector3 endPoint = startLocation + (direction * maxDistance);
+        Vector3 endPoint = startLocation + (direction * targetDistance);
         Vector3 reverseDir = direction * -1;
 
         float checkInterval = 0.2f;
@@ -21,7 +23,7 @@ public class LeapTarget : MonoBehaviour {
         LandingSpot landingSpot = new LandingSpot();
         landingSpot.hasSafeSpot = false;
 
-        while (!landingSpot.hasSafeSpot && currentDistance < maxDistance) {
+        while (!landingSpot.hasSafeSpot && currentDistance < targetDistance) {
             Vector3 positionToCheck = endPoint + reverseDir * currentDistance;
 
             Collider2D collider = Physics2D.OverlapCircle(positionToCheck, playerWidth, 1 << LayerMask.NameToLayer("Obstacles"));
@@ -43,7 +45,7 @@ public class LeapTarget : MonoBehaviour {
             return;
         }
 
-        float distance = Mathf.Min(MaxDistance, InputHandler.Instance.DistanceToMouse(StartTransform.position));
+        float distance = Mathf.Clamp(InputHandler.Instance.DistanceToMouse(StartTransform.position), MinDistance, MaxDistance);
 
         LandingSpot landingSpot = GetLeapLandingSpot(StartTransform.position, distance, InputHandler.Instance.DirectionToMouse(StartTransform.position));
 

@@ -4,7 +4,10 @@ using UnityEngine;
 public class LeapAbility : AbilityEffect {
 
     [SerializeField]
-    private float _distance;
+    public float MinDistance = 0;
+
+    [SerializeField]
+    public float MaxDistance;
 
     [SerializeField]
     private float _duration;
@@ -16,13 +19,15 @@ public class LeapAbility : AbilityEffect {
     private AnimationCurve _leapZCurve;
 
     public override void OnCastComplete(bool isOwner) {
+        base.OnCastComplete(isOwner);
+
         if (isOwner) {
             Vector3 casterPosition = _caster.transform.position;
 
             float distanceToAimLocation = Vector3.Distance(casterPosition, _caster.AimLocation);
             Vector3 aimDirection = ((Vector3)_caster.AimLocation - casterPosition).normalized;
 
-            float distance = Mathf.Min(_distance, distanceToAimLocation);
+            float distance = Mathf.Clamp(distanceToAimLocation, MinDistance, MaxDistance);
 
             LandingSpot landingSpot = LeapTarget.GetLeapLandingSpot(casterPosition, distance, aimDirection);
 

@@ -119,7 +119,8 @@ public class CastController : NetworkBehaviour {
                         break;
 
                     case TargetGraphicStyle.LEAP:
-                        targetGraphicController.InitialiseLeapTarget(transform, 10f, targetGraphic.scale);
+                        LeapAbility leapAbility = castingAbilityEffect.GetComponent<LeapAbility>();
+                        targetGraphicController.InitialiseLeapTarget(transform, leapAbility.MinDistance, leapAbility.MaxDistance, targetGraphic.scale);
                         break;
 
                     case TargetGraphicStyle.ARROW:

@@ -10,6 +10,8 @@ public class BuffAbility : AbilityEffect {
     public bool CanHitCaster = true;
 
     public override void OnCastComplete(bool isOwner) {
+        base.OnCastComplete(isOwner);
+
         if (isOwner) {
             NetworkStats hitTarget = null;
             BuffController casterBuffs = _caster.GetComponent<BuffController>();
