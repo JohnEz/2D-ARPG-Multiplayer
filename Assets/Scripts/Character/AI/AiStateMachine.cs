@@ -58,7 +58,7 @@ public class AiStateMachine : NetworkBehaviour {
                 break;
 
             case AIState.Chase:
-                if (_brain.IsTargetInCombatRange && _brain.HasLineOfSight()) {
+                if (_brain.IsTargetInCombatRange && _brain.HasLineOfSightToTarget()) {
                     ChangeState(AIState.Combat);
                 } else if (!_brain.HasTarget) {
                     ChangeState(AIState.Idle);
@@ -66,7 +66,7 @@ public class AiStateMachine : NetworkBehaviour {
                 break;
 
             case AIState.Combat:
-                if (!_brain.IsTargetInCombatRange || !_brain.HasLineOfSight()) {
+                if (!_brain.IsTargetInCombatRange || !_brain.HasLineOfSightToTarget()) {
                     ChangeState(!_brain.HasTarget ? AIState.Chase : AIState.Idle);
                 } else if (!_brain.HasTarget) {
                     ChangeState(AIState.Idle);

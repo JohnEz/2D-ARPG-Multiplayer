@@ -251,6 +251,14 @@ public class AiBrain : NetworkBehaviour {
         TargetCharacter = GetHighestAggro(_aggroTable.Keys.ToList());
     }
 
+    public bool HasLineOfSightToTarget() {
+        if (!TargetCharacter) {
+            return true;
+        }
+
+        return HasLineOfSightTo(transform, TargetCharacter.transform);
+    }
+
     public static Vector2 GetAimLocation(Vector3 myPosition, float projectileSpeed, Vector3 targetsPosition, float targetsMoveSpeed, Vector3 targetsMovementDirection, bool isCasting, float speedWhileCasting) {
         if (projectileSpeed <= 0) {
             return targetsPosition;
@@ -269,14 +277,6 @@ public class AiBrain : NetworkBehaviour {
         Debug.DrawLine(targetsPosition, targetLocation);
 
         return targetLocation;
-    }
-
-    public bool HasLineOfSight() {
-        if (!TargetCharacter) {
-            return true;
-        }
-
-        return HasLineOfSightTo(transform, TargetCharacter.transform);
     }
 
     public static bool HasLineOfSightTo(Transform source, Transform target) {

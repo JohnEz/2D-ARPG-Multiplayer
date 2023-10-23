@@ -95,7 +95,7 @@ public class AiCombatState : NetworkBehaviour {
 
     public void MovementUpdate() {
         bool inIdealRange = _brain.DistanceToTarget >= _minRange && _brain.DistanceToTarget <= _maxRange;
-        bool hasLineOfSight = _brain.HasLineOfSight();
+        bool hasLineOfSight = _brain.HasLineOfSightToTarget();
 
         if (inIdealRange && hasLineOfSight) {
             _movement.Stop();
