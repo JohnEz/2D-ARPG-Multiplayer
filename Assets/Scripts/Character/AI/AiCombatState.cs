@@ -17,8 +17,10 @@ public class AiCombatState : NetworkBehaviour {
     private CastController _castController;
     private AbilitiesController _abilitiesController;
 
+    private float _maxRange;
+    private float _minRange;
     private float _idealRange;
-    private const float _idealRangeBuffer = .25f;
+    private const float _idealRangeBuffer = .5f;
 
     public override void OnStartClient() {
         base.OnStartClient();
@@ -38,8 +40,9 @@ public class AiCombatState : NetworkBehaviour {
     }
 
     private void Start() {
-        _idealRange = _abilitiesController.GetAbilities()[0].AiDetails.AbilityRange;
-        Debug.Log($"{gameObject.name}'s ideal range: " + _idealRange);
+        _maxRange = _abilitiesController.GetAbilities()[0].AiDetails.AbilityRange;
+        _minRange = _maxRange - (_maxRange * _idealRangeBuffer);
+        _idealRange = _maxRange - (_maxRange - _minRange) / 2;
     }
 
     public void EnterState() {
@@ -60,13 +63,16 @@ public class AiCombatState : NetworkBehaviour {
             int indexToCast = -1;
 
             // TODO there should be a way that we select the best ability to cast and support allies
-            _abilitiesController.GetAbilities().Find(ability => {
+            Ability abilityToCast = _abilitiesController.GetAbilities().Find(ability => {
                 indexToCast++;
                 bool inRange = _brain.DistanceToTarget <= ability.AiDetails.AbilityRange;
-                return ability.CanCast() && !ability.AiDetails.IsSupportAbility;
+
+                Debug.Log($"Ability {ability.name} in range: {inRange}");
+
+                return ability.CanCast() && !ability.AiDetails.IsSupportAbility && inRange;
             });
 
-            if (indexToCast != -1) {
+            if (indexToCast != -1 && abilityToCast != null) {
                 _characterController.CastAbility(indexToCast);
             }
             return;
@@ -88,10 +94,7 @@ public class AiCombatState : NetworkBehaviour {
     }
 
     public void MovementUpdate() {
-        float minRange = _idealRange - (_idealRange * _idealRangeBuffer);
-        float maxRange = _idealRange + (_idealRange * _idealRangeBuffer);
-
-        bool inIdealRange = _brain.DistanceToTarget >= minRange && _brain.DistanceToTarget <= maxRange;
+        bool inIdealRange = _brain.DistanceToTarget >= _minRange && _brain.DistanceToTarget <= _maxRange;
         bool hasLineOfSight = _brain.HasLineOfSight();
 
         if (inIdealRange && hasLineOfSight) {
@@ -99,8 +102,8 @@ public class AiCombatState : NetworkBehaviour {
             return;
         }
 
-        bool tooClose = _brain.DistanceToTarget < minRange;
-        bool tooFar = _brain.DistanceToTarget > maxRange;
+        bool tooClose = _brain.DistanceToTarget < _minRange;
+        bool tooFar = _brain.DistanceToTarget > _idealRange;
 
         if (tooClose) {
             _movement.MoveAwayFromTarget(_brain.TargetCharacter.transform);

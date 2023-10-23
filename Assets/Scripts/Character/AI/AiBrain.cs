@@ -85,9 +85,12 @@ public class AiBrain : NetworkBehaviour {
         while (true) {
             yield return new WaitForSeconds(delay);
 
-            CalculateDistanceToTarget();
             CheckForNewEnemiesInRange();
         }
+    }
+
+    private void Update() {
+        CalculateDistanceToTarget();
     }
 
     private void CalculateDistanceToTarget() {
@@ -202,6 +205,10 @@ public class AiBrain : NetworkBehaviour {
     }
 
     public static Vector2 GetAimLocation(Vector3 myPosition, float projectileSpeed, Vector3 targetsPosition, float targetsMoveSpeed, Vector3 targetsMovementDirection, bool isCasting, float speedWhileCasting) {
+        if (projectileSpeed <= 0) {
+            return targetsPosition;
+        }
+
         Vector3 targetVelocity = targetsMovementDirection * targetsMoveSpeed;
 
         if (isCasting) {

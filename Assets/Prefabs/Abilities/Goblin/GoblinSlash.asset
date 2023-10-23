@@ -23,6 +23,6 @@ MonoBehaviour:
   TimeCast: -Infinity
   TargetGraphics: []
   AiDetails:
-    AbilityRange: 1
-    ProjectileSpeed: 1
+    AbilityRange: 1.5
+    ProjectileSpeed: -1
     IsSupportAbility: 0
