@@ -9,6 +9,10 @@ public class AbilitiesController : MonoBehaviour {
 
     private List<Ability> _instantiatedAbilityList;
 
+    public List<Ability> AbilityList {
+        get { return _instantiatedAbilityList; }
+    }
+
     private void Awake() {
         _instantiatedAbilityList = new List<Ability>();
 
@@ -16,10 +20,6 @@ public class AbilitiesController : MonoBehaviour {
             Ability instantiatedAbility = Instantiate(prefab);
             _instantiatedAbilityList.Add(instantiatedAbility);
         });
-    }
-
-    public List<Ability> GetAbilities() {
-        return _instantiatedAbilityList;
     }
 
     public Ability GetAbility(int abilityId) {

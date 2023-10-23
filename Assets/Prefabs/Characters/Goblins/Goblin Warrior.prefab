@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9216968842373518153, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _baseSpeed
-      value: 4.2
+      value: 4.3
       objectReference: {fileID: 0}
     - target: {fileID: 9216968842373518153, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _baseMaxHealth

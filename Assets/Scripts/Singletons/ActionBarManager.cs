@@ -18,7 +18,7 @@ public class ActionBarManager : Singleton<ActionBarManager> {
         _myAbilities = abilities;
 
         int index = 0;
-        foreach (Ability ability in _myAbilities.GetAbilities()) {
+        foreach (Ability ability in _myAbilities.AbilityList) {
             _abilityIcons[index].gameObject.SetActive(true);
             _abilityIcons[index].SetAbility(ability);
             index++;

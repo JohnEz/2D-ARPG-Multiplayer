@@ -92,7 +92,7 @@ public class CastController : NetworkBehaviour {
     }
 
     private void CreateAbilityEffect(int abilityId) {
-        if (abilityId >= _abilitiesController.GetAbilities().Count) {
+        if (abilityId >= _abilitiesController.AbilityList.Count) {
             return;
         }
 

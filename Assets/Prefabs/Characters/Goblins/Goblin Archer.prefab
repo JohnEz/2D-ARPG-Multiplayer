@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: <PrefabId>k__BackingField
-      value: 1
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
@@ -106,6 +106,10 @@ PrefabInstance:
     - target: {fileID: 9216968842373518153, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: Name
       value: Goblin Archer
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216968842373518153, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: _baseSpeed
+      value: 4.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 052ae12470bacea41b4700d2939419cf, type: 3}

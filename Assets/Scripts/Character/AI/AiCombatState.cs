@@ -40,7 +40,7 @@ public class AiCombatState : NetworkBehaviour {
     }
 
     private void Start() {
-        _maxRange = _abilitiesController.GetAbilities()[0].AiDetails.AbilityRange;
+        _maxRange = _abilitiesController.AbilityList[_abilitiesController.AbilityList.Count - 1].AiDetails.AbilityRange;
         _minRange = _maxRange - (_maxRange * _idealRangeBuffer);
         _idealRange = _maxRange - (_maxRange - _minRange) / 2;
     }
@@ -63,7 +63,7 @@ public class AiCombatState : NetworkBehaviour {
             int indexToCast = -1;
 
             // TODO there should be a way that we select the best ability to cast and support allies
-            Ability abilityToCast = _abilitiesController.GetAbilities().Find(ability => {
+            Ability abilityToCast = _abilitiesController.AbilityList.Find(ability => {
                 indexToCast++;
                 bool inRange = _brain.DistanceToTarget <= ability.AiDetails.AbilityRange;
 
