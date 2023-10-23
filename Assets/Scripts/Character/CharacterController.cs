@@ -32,6 +32,8 @@ public class CharacterController : NetworkBehaviour {
 
     private Rigidbody2D _rigidBody;
 
+    private LeapAbility _leapAbility;
+
     private void Awake() {
         _movementController = GetComponent<MovementController>();
         _stateController = GetComponent<CharacterStateController>();
@@ -130,7 +132,9 @@ public class CharacterController : NetworkBehaviour {
         transform.DOLocalMoveX(leapTarget.x, leapDuration).SetEase(leapMoveCurve);
     }
 
-    public void StartLeap(float leapDuration, AnimationCurve leapZCurve) {
+    public void StartLeap(float leapDuration, AnimationCurve leapZCurve, LeapAbility leap) {
+        _leapAbility = leap;
+
         _stateController.State = CharacterState.Leaping;
 
         transform.DOScale(1.75f, leapDuration).SetEase(leapZCurve).OnComplete(LeapComplete);
@@ -144,6 +148,7 @@ public class CharacterController : NetworkBehaviour {
         _stateController.State = CharacterState.Idle;
         _rigidBody.isKinematic = false;
         _hitbox.enabled = true;
-        //_castingAbility.OnComplete();
+        _leapAbility.OnLeapComplete();
+        _leapAbility = null;
     }
 }

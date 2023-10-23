@@ -18,6 +18,12 @@ public class LeapAbility : AbilityEffect {
     [SerializeField]
     private AnimationCurve _leapZCurve;
 
+    [SerializeField]
+    private GameObject _landingVFX;
+
+    [SerializeField]
+    private AudioClip _landingSFX;
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
@@ -34,10 +40,16 @@ public class LeapAbility : AbilityEffect {
             _caster.StartLeapMovement(landingSpot.safeSpot, _duration, _leapMoveCurve);
         }
 
-        _caster.StartLeap(_duration, _leapZCurve);
+        _caster.StartLeap(_duration, _leapZCurve, this);
     }
 
-    private void OnLeapComplete() {
+    public void OnLeapComplete() {
+        if (_landingVFX) {
+            Instantiate(_landingVFX, _caster.transform.position, Quaternion.identity);
+        }
+
+        AudioManager.Instance.PlaySound(_landingSFX, _caster.transform.position);
+
         Destroy(gameObject);
     }
 }
