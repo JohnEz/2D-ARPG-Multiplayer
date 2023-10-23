@@ -5,6 +5,7 @@ using FishNet;
 using FishNet.Object;
 using System.Linq;
 using System;
+using UnityEngine.TextCore.Text;
 
 public class AiBrain : NetworkBehaviour {
 
@@ -16,6 +17,7 @@ public class AiBrain : NetworkBehaviour {
     private Vector3 _startPosition;
     private CharacterController _myCharacterController;
     private CharacterStateController _stateController;
+    private NetworkStats _myStats;
 
     private Dictionary<CharacterController, int> _aggroTable = new Dictionary<CharacterController, int>();
 
@@ -57,14 +59,15 @@ public class AiBrain : NetworkBehaviour {
 
     private void Awake() {
         _myCharacterController = GetComponent<CharacterController>();
-        _startPosition = transform.position;
         _stateController = GetComponent<CharacterStateController>();
+        _myStats = GetComponent<NetworkStats>();
+        _startPosition = transform.position;
     }
 
     private void OnEnable() {
         _stateController.OnDeath += HandleDeath;
         OnAggroTableChange += HandleAggroTableChange;
-        checksCoroutine = CheckForUpdates(.2f);
+        checksCoroutine = CheckForUpdates(.5f);
         StartCoroutine(checksCoroutine);
     }
 
@@ -84,8 +87,11 @@ public class AiBrain : NetworkBehaviour {
     private IEnumerator CheckForUpdates(float delay) {
         while (true) {
             yield return new WaitForSeconds(delay);
+            // TODO - Performance - move this out to a manager
+            CharacterController[] allCharacters = FindObjectsOfType<CharacterController>();
 
-            CheckForNewEnemiesInRange();
+            CheckForNewEnemiesInRange(allCharacters);
+            CauseAlliesToAggro(allCharacters);
         }
     }
 
@@ -103,10 +109,10 @@ public class AiBrain : NetworkBehaviour {
         DistanceToTarget = Vector3.Distance(transform.position, TargetCharacter.transform.position);
     }
 
-    private void CheckForNewEnemiesInRange() {
+    private void CheckForNewEnemiesInRange(CharacterController[] allCharacters) {
         NetworkStats myStats = GetComponent<NetworkStats>();
 
-        List<CharacterController> newEnemiesInRange = FindObjectsOfType<CharacterController>().Where(target => {
+        List<CharacterController> newEnemiesInRange = allCharacters.Where(target => {
             NetworkStats targetStats = target.GetComponent<NetworkStats>();
             CharacterStateController targetStateController = target.GetComponent<CharacterStateController>();
 
@@ -129,7 +135,37 @@ public class AiBrain : NetworkBehaviour {
         OnAggroTableChange?.Invoke(newEnemiesInRange);
     }
 
+    private void CauseAlliesToAggro(CharacterController[] allCharacters) {
+        if (!HasTarget) {
+            return;
+        }
+
+        List<CharacterController> alliesToAggro = allCharacters.Where(character => {
+            NetworkStats networkStats = character.GetComponent<NetworkStats>();
+            AiBrain aiBrain = character.GetComponent<AiBrain>();
+
+            if (!aiBrain) {
+                return false;
+            }
+
+            bool isAlly = networkStats.Faction == _myStats.Faction;
+            bool isClose = Vector3.Distance(transform.position, character.transform.position) <= _aggroRange;
+            bool isInLineOfSight = HasLineOfSightTo(transform, character.transform);
+            bool isAlreadyAggroed = aiBrain.HasTarget;
+
+            return isAlly && isClose && isInLineOfSight && !isAlreadyAggroed;
+        }).ToList();
+
+        alliesToAggro.ForEach(ally => {
+            AiBrain aiBrain = ally.GetComponent<AiBrain>();
+
+            aiBrain.AddAggro(TargetCharacter, 1);
+        });
+    }
+
     private void HandleAggroTableChange(List<CharacterController> updatedCharacters) {
+        bool previouslyInCombat = _aggroTable.Count > 0;
+
         if (!HasTarget) {
             TargetCharacter = GetHighestAggro(updatedCharacters);
             return;
@@ -142,6 +178,17 @@ public class AiBrain : NetworkBehaviour {
             // it should be fine as we always pass the target character anyway
             TargetCharacter = newTarget;
         }
+
+        bool isInCombat = _aggroTable.Count > 0;
+
+        if (!previouslyInCombat && isInCombat) {
+            HandlePull();
+        }
+    }
+
+    private void HandlePull() {
+        CharacterController[] allCharacters = FindObjectsOfType<CharacterController>();
+        CauseAlliesToAggro(allCharacters);
     }
 
     private CharacterController GetHighestAggro(List<CharacterController> charactersToCheck) {
@@ -229,10 +276,14 @@ public class AiBrain : NetworkBehaviour {
             return true;
         }
 
-        Vector3 targetDirection = (TargetCharacter.transform.position - transform.position).normalized;
-        float distance = Vector2.Distance(TargetCharacter.transform.position, transform.position) - 0.25f;
+        return HasLineOfSightTo(transform, TargetCharacter.transform);
+    }
 
-        RaycastHit2D raycast = Physics2D.CircleCast(transform.position, .5f, targetDirection, distance, 1 << LayerMask.NameToLayer("Obstacles"));
+    public static bool HasLineOfSightTo(Transform source, Transform target) {
+        Vector3 targetDirection = (target.position - source.position).normalized;
+        float distance = Vector2.Distance(target.position, source.position) - 0.25f; // Todo - why did i remove half circle radius?
+
+        RaycastHit2D raycast = Physics2D.CircleCast(source.position, .5f, targetDirection, distance, 1 << LayerMask.NameToLayer("Obstacles"));
 
         return raycast.collider == null;
     }
