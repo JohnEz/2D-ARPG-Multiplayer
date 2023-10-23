@@ -27,6 +27,10 @@ PrefabInstance:
       propertyPath: SerializedTransformProperties.Position.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2652713151283351242, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: _deathSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 4081ffbd68589084f8cd5ebeccb417e6, type: 3}
     - target: {fileID: 2745750688392768921, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _abilityPrefabList.Array.size
       value: 1

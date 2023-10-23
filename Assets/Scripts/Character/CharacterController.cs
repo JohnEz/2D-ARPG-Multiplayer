@@ -34,6 +34,9 @@ public class CharacterController : NetworkBehaviour {
 
     private LeapAbility _leapAbility;
 
+    [SerializeField]
+    private AudioClip _deathSFX;
+
     private void Awake() {
         _movementController = GetComponent<MovementController>();
         _stateController = GetComponent<CharacterStateController>();
@@ -87,6 +90,11 @@ public class CharacterController : NetworkBehaviour {
 
         _movementController.MoveDirection = Vector2.zero;
         // disable hud
+
+        AudioClipOptions options = new AudioClipOptions();
+        options.Volume = 0.5f;
+
+        AudioManager.Instance.PlaySound(_deathSFX, transform, options);
     }
 
     private void HandleStunApplied() {
