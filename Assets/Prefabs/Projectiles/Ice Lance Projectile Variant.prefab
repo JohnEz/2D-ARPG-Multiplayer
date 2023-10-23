@@ -309,10 +309,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: a5e2333a63dbaba4785786514b80941c, type: 3}
     - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
-      propertyPath: onCreateSFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 74223eed00ea9cf4a96824ef15b894b2, type: 3}
-    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
       propertyPath: onHitVFXPrefab
       value: 
       objectReference: {fileID: 8999511168179259199, guid: 2e4a8d5aee7353843806b70e3d66961b, type: 3}

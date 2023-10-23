@@ -18455,7 +18455,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1645450203342873503, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
       propertyPath: _latencySimulator._latency
-      value: 100
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645450203342873503, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
+      propertyPath: _latencySimulator._simulateHost
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5362679807532690853, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
       propertyPath: Spawns.Array.data[0]

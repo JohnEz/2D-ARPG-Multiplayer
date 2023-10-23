@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitDelay: 0.1
   hitDuration: 0.2
+  _spawnSFX: {fileID: 8300000, guid: cd3b798b9a81c9849b02bad280701e73, type: 3}
+  _hitSFX: {fileID: 8300000, guid: 97ceba6696099ef4ea1edc43c0102076, type: 3}
 --- !u!58 &4067739684247615801
 CircleCollider2D:
   m_ObjectHideFlags: 0

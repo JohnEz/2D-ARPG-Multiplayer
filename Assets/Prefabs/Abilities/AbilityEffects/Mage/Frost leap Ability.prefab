@@ -36,6 +36,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 7b4807b14de632f478aa087ea47d145e, type: 3}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _castCompleteVFX
+      value: 
+      objectReference: {fileID: 2324499392439472971, guid: 8882d1dc514966e48a490642ffed431a, type: 3}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: _leapZCurve.m_Curve.Array.size
       value: 3
       objectReference: {fileID: 0}

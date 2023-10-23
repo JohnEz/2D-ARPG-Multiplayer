@@ -15,6 +15,12 @@ public class PredictedSlash : MonoBehaviour {
     [SerializeField] private float hitDelay = 0.1f;
     [SerializeField] private float hitDuration = 0.2f;
 
+    [SerializeField]
+    private AudioClip _spawnSFX;
+
+    [SerializeField]
+    private AudioClip _hitSFX;
+
     private bool isActive;
 
     private List<int> hitIds;
@@ -26,6 +32,12 @@ public class PredictedSlash : MonoBehaviour {
         transform.SetParent(caster.transform);
         transform.localPosition = Vector3.zero;
         transform.up = direction;
+
+        AudioClipOptions audioClipOptions = new AudioClipOptions();
+        audioClipOptions.RandomPitch = true;
+        audioClipOptions.PitchRange = 0.15f;
+
+        AudioManager.Instance.PlaySound(_spawnSFX, transform.position, audioClipOptions);
 
         float calculatedDelay = hitDelay - passedTime;
 
@@ -80,6 +92,13 @@ public class PredictedSlash : MonoBehaviour {
     private void HandleHit(NetworkStats hitCharacter, Vector3 hitPosition) {
         // ADD hit VFX
         //CreateHitEffect(hitPosition);
+
+        AudioClipOptions audioClipOptions = new AudioClipOptions();
+        audioClipOptions.RandomPitch = true;
+        audioClipOptions.PitchRange = 0.15f;
+        audioClipOptions.Volume = 0.75f;
+
+        AudioManager.Instance.PlaySound(_hitSFX, transform.position, audioClipOptions);
 
         if (InstanceFinder.IsServer) {
             OnHit?.Invoke(hitPosition, _caster, hitCharacter);

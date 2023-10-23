@@ -1,10 +1,13 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.Audio;
 
 public class AudioClipOptions {
     public float Volume { get; set; } = 1f;
     public float Pitch { get; set; } = 1f;
+
+    public bool RandomPitch = false;
+
+    public float PitchRange = 0.1f;
 }
 
 public class AudioManager : Singleton<AudioManager> {
@@ -25,6 +28,10 @@ public class AudioManager : Singleton<AudioManager> {
     }
 
     public void PlaySound(AudioClip clip, Transform parent, AudioClipOptions options = null) {
+        if (!clip) {
+            return;
+        }
+
         GameObject soundGameObject = CreateSoundGameObject(clip.name, parent);
         CreateAudioSource(clip, soundGameObject, options);
     }
@@ -46,6 +53,10 @@ public class AudioManager : Singleton<AudioManager> {
     private void CreateAudioSource(AudioClip clip, GameObject audioObject, AudioClipOptions options) {
         AudioClipOptions audioOptions = options != null ? options : new AudioClipOptions();
 
+        float pitch = audioOptions.RandomPitch ?
+            Random.Range(audioOptions.Pitch - audioOptions.PitchRange, audioOptions.Pitch + audioOptions.PitchRange) :
+            audioOptions.Pitch;
+
         AudioSource audioSource = audioObject.AddComponent<AudioSource>();
         audioSource.clip = clip;
         audioSource.maxDistance = 100f;
@@ -54,7 +65,7 @@ public class AudioManager : Singleton<AudioManager> {
         audioSource.dopplerLevel = 0f;
         audioSource.loop = false;
         audioSource.outputAudioMixerGroup = sfxMixer;
-        audioSource.pitch = audioOptions.Pitch;
+        audioSource.pitch = pitch;
         audioSource.volume = audioOptions.Volume;
 
         audioSource.Play();

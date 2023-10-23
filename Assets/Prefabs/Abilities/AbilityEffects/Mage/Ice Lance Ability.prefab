@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: projectileId
       value: Ice Lance
       objectReference: {fileID: 0}
+    - target: {fileID: -3644083166087770679, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: _castCompleteSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 74223eed00ea9cf4a96824ef15b894b2, type: 3}
     - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -57,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7840497419732744747, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
       propertyPath: m_Name
-      value: Ice Lance Ability Variant
+      value: Ice Lance Ability
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}

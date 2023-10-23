@@ -8,6 +8,9 @@ public class AbilityEffect : MonoBehaviour {
     [SerializeField]
     protected AudioClip _castCompleteSFX;
 
+    [SerializeField]
+    protected GameObject _castCompleteVFX;
+
     public void Initialise(CharacterController caster) {
         _caster = caster;
     }
@@ -16,6 +19,10 @@ public class AbilityEffect : MonoBehaviour {
     }
 
     public virtual void OnCastComplete(bool isOwner) {
+        if (_castCompleteVFX) {
+            Instantiate(_castCompleteVFX, _caster.transform.position, Quaternion.identity);
+        }
+
         AudioManager.Instance.PlaySound(_castCompleteSFX, _caster.transform.position);
     }
 }
