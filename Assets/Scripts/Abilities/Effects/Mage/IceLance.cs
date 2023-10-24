@@ -18,6 +18,6 @@ public class IceLance : ProjectileHitEffect {
             hitBuffController.ServerApplyBuff("Chill");
         }
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner);
+        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
     }
 }

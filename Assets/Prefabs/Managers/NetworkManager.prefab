@@ -574,7 +574,7 @@ MonoBehaviour:
   _timingType: 0
   _allowTickDropping: 0
   _maximumFrameTicks: 2
-  _tickRate: 120
+  _tickRate: 144
   _pingInterval: 1
   _physicsMode: 1
 --- !u!114 &3251700280951844916

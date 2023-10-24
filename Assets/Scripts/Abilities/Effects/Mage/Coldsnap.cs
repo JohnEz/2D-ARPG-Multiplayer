@@ -18,7 +18,7 @@ public class Coldsnap : MonoBehaviour {
 
         BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner);
+        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
 
         if (hitBuffController.HasBuff("Chill")) {
             hitBuffController.ServerRemoveBuff("Chill");

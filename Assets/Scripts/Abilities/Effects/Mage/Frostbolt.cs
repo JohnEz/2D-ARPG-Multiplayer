@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Frostbolt : ProjectileHitEffect
-{
+public class Frostbolt : ProjectileHitEffect {
     private const int BASE_DAMAGE = 15;
 
     private const int CHILL_DAMAGE = 2;
@@ -17,6 +16,6 @@ public class Frostbolt : ProjectileHitEffect
             damage += CHILL_DAMAGE;
         }
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner);
+        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
     }
 }

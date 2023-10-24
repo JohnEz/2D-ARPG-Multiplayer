@@ -7,6 +7,6 @@ public class Arrow : ProjectileHitEffect {
     protected override void HandleProjectileHit(Vector3 hitLocation, NetworkStats caster, NetworkStats hitCharacter) {
         int damage = BASE_DAMAGE;
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner);
+        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
     }
 }

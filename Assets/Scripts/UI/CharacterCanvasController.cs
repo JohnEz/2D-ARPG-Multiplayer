@@ -79,7 +79,7 @@ public class CharacterCanvasController : MonoBehaviour {
         //myCharacter.OnReceiveHealing.AddListener(CreateHealText);
     }
 
-    private void OnTakeDamage(int damage, bool isShield, bool sourceIsPlayer) {
+    private void OnTakeDamage(int damage, bool isShield, bool sourceIsPlayer, CharacterController source) {
         // we only want to show combat text to the client that causes the damage
         if (!sourceIsPlayer) {
             return;

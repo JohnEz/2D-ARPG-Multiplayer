@@ -15,6 +15,6 @@ public class Longsword : MonoBehaviour {
     private void HandleCharacterHit(Vector3 Location, NetworkStats caster, NetworkStats hitCharacter) {
         int damage = BASE_DAMAGE;
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner);
+        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
     }
 }

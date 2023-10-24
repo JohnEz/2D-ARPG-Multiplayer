@@ -91,7 +91,7 @@ public class NetworkStats : NetworkBehaviour {
 
     public event Action OnHealthChanged;
 
-    public event Action<int, bool, bool> OnTakeDamage;
+    public event Action<int, bool, bool, CharacterController> OnTakeDamage;
 
     public event Action<int> OnReceiveHealing;
 
@@ -182,13 +182,13 @@ public class NetworkStats : NetworkBehaviour {
         _currentHealth = Math.Clamp(_currentHealth - remainingDamage, 0, (int)MaxHealth.CurrentValue);
     }
 
-    public void TakeDamage(int damage, bool sourceIsPlayer) {
+    public void TakeDamage(int damage, bool sourceIsPlayer, CharacterController source) {
         TakeDamageServer(damage);
 
         if (IsClient) {
             // TODO damage text needs more thinking as the value is calculated on the server
             // maybe i need an event for being hit and an event for taking numeric damage thats called in an observer? (not great for lag)
-            OnTakeDamage.Invoke(damage, false, sourceIsPlayer);
+            OnTakeDamage.Invoke(damage, false, sourceIsPlayer, source);
         }
     }
 

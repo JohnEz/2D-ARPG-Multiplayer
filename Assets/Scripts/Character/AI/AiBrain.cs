@@ -10,7 +10,7 @@ using UnityEngine.TextCore.Text;
 public class AiBrain : NetworkBehaviour {
 
     // TODO these should depend on if the creature is a boss or something
-    private float _aggroRange = 12f;
+    private float _aggroRange = 10f;
 
     private float _combatRange = 11f;
 
@@ -66,6 +66,7 @@ public class AiBrain : NetworkBehaviour {
 
     private void OnEnable() {
         _stateController.OnDeath += HandleDeath;
+        _myStats.OnTakeDamage += HandleTakeDamage;
         OnAggroTableChange += HandleAggroTableChange;
         checksCoroutine = CheckForUpdates(.5f);
         StartCoroutine(checksCoroutine);
@@ -73,6 +74,7 @@ public class AiBrain : NetworkBehaviour {
 
     private void OnDisable() {
         _stateController.OnDeath -= HandleDeath;
+        _myStats.OnTakeDamage -= HandleTakeDamage;
         OnAggroTableChange -= HandleAggroTableChange;
         StopCoroutine(checksCoroutine);
     }
@@ -82,6 +84,10 @@ public class AiBrain : NetworkBehaviour {
         _aggroTable.Clear();
         TargetCharacter = null;
         StopCoroutine(checksCoroutine);
+    }
+
+    private void HandleTakeDamage(int damage, bool hitShield, bool isSourceOwner, CharacterController source) {
+        AddAggro(source, damage);
     }
 
     private IEnumerator CheckForUpdates(float delay) {
