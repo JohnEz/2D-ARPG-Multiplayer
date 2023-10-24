@@ -24,6 +24,9 @@ public class LeapAbility : AbilityEffect {
     [SerializeField]
     private AudioClip _landingSFX;
 
+    [SerializeField]
+    private AbilityEffect _landAbilityEffect;
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 

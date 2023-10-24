@@ -149,7 +149,7 @@ public class AiBrain : NetworkBehaviour {
             }
 
             bool isAlly = networkStats.Faction == _myStats.Faction;
-            bool isClose = Vector3.Distance(transform.position, character.transform.position) <= _aggroRange;
+            bool isClose = Vector3.Distance(transform.position, character.transform.position) <= _aggroRange / 2;
             bool isInLineOfSight = HasLineOfSightTo(transform, character.transform);
             bool isAlreadyAggroed = aiBrain.HasTarget;
 

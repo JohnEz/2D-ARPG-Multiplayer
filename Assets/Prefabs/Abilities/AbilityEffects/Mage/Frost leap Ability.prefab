@@ -40,6 +40,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2324499392439472971, guid: 8882d1dc514966e48a490642ffed431a, type: 3}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _nextAbilityEffect
+      value: 
+      objectReference: {fileID: 7899689523625065351, guid: b4d52d25e1c5deb4c819569b3db273e8, type: 3}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: _leapZCurve.m_Curve.Array.size
       value: 3
       objectReference: {fileID: 0}

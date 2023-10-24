@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4829195245630424228}
-  - component: {fileID: 1271447936623868717}
+  - component: {fileID: 5392340010105657957}
   m_Layer: 0
   m_Name: Ice Barrier Break Effect
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1271447936623868717
+--- !u!114 &5392340010105657957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8378802418512060624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80bb8ac940f9ba142b75ce024d5ac995, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bae161d4e02b2a4bb01f4aff5f91323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _castCompleteSFX: {fileID: 0}
+  _castCompleteVFX: {fileID: 0}
