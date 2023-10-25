@@ -73,6 +73,10 @@ public class UnityLobbyManager : LobbyManager {
 
             SetJoinedLobby(lobby);
 
+            if (joinedLobby != null && !IsHost()) {
+                await RelayManager.Instance.JoinRelay(joinedLobby.Data[KEY_RELAY_CODE].Value, AuthenticationService.Instance.PlayerId);
+            }
+
             Invoke("PollForLobbyUpdates", LOBBY_UPDATE_POLL_DELAY);
         } catch (LobbyServiceException e) {
             print(e);
@@ -112,12 +116,14 @@ public class UnityLobbyManager : LobbyManager {
         bool createdLobby;
 
         try {
+            string joinCode = await RelayManager.Instance.CreateRelay(AuthenticationService.Instance.PlayerId);
+
             int maxPlayers = 4; // TODO pass this in
             CreateLobbyOptions createLobbyOptions = new CreateLobbyOptions {
                 IsPrivate = false, // TODO pass this in
                 Player = CreatePlayer(),
                 Data = new Dictionary<string, DataObject> {
-                    { KEY_RELAY_CODE, new DataObject(DataObject.VisibilityOptions.Member, "0") }
+                    { KEY_RELAY_CODE, new DataObject(DataObject.VisibilityOptions.Member, joinCode) }
                 }
             };
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, createLobbyOptions);
@@ -157,16 +163,10 @@ public class UnityLobbyManager : LobbyManager {
         Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
         UpdateLobby(lobby);
 
-        Invoke("PollForLobbyUpdates", LOBBY_UPDATE_POLL_DELAY);
-
-        if (joinedLobby.Data[KEY_RELAY_CODE].Value != "0") {
-            if (!IsHost()) {
-                //await RelayManager.Instance.JoinRelay(joinedLobby.Data[KEY_RELAY_CODE].Value, AuthenticationService.Instance.PlayerId);
-            }
-
-            hostedLobby = null;
-            joinedLobby = null;
-            //OnGameStarted.Invoke();
+        if (this) {
+            Invoke("PollForLobbyUpdates", LOBBY_UPDATE_POLL_DELAY);
         }
+
+        //TODO check to see if we havent joined the server and there is no a joinCode
     }
 }
