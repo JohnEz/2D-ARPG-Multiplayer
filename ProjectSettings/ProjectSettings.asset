@@ -735,11 +735,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: 9a99958f-c480-439e-bf61-3866a9db2b1d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: 2D ARPG
+  organizationId: andrew-jones-1414248
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
