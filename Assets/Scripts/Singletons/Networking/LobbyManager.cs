@@ -43,6 +43,10 @@ public class LobbyManager : Singleton<LobbyManager> {
         OnLoggedIn?.Invoke();
     }
 
+    protected virtual void InvokeLobbyJoined() {
+        OnLobbyJoined?.Invoke();
+    }
+
     public virtual void Authenticate(string givenPlayerName) {
         if (givenPlayerName != "") {
             playerName = givenPlayerName;

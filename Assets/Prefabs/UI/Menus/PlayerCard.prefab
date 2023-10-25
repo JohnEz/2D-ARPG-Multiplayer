@@ -1027,6 +1027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 200851169016069140}
   - component: {fileID: 6756477700593391915}
+  - component: {fileID: 3443307292622858415}
   m_Layer: 5
   m_Name: PlayerCard
   m_TagString: Untagged
@@ -1077,6 +1078,20 @@ MonoBehaviour:
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!114 &3443307292622858415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7766574053265632139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59459ff06491ba34eb06a369cf7c7ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterSelectCard: {fileID: 1655633639706267816}
+  _waitingForPlayer: {fileID: 2509250026523148993}
 --- !u!1 &8607185955712547460
 GameObject:
   m_ObjectHideFlags: 0

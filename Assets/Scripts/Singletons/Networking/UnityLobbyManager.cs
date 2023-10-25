@@ -114,6 +114,7 @@ public class UnityLobbyManager : LobbyManager {
         string lobbyName = GenerateLobbyName(givenLobbyName);
 
         bool createdLobby;
+        InvokeLobbyJoined();
 
         try {
             string joinCode = await RelayManager.Instance.CreateRelay(AuthenticationService.Instance.PlayerId);

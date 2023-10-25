@@ -29,6 +29,10 @@ public class PersistentPlayer : NetworkBehaviour {
         // set this player as the owner of the character
     }
 
+    public void Start() {
+        LobbyMenu.Instance.ClientConnected(this);
+    }
+
     public void OnDestroy() {
         RemovePersistentPlayer();
     }
@@ -38,6 +42,10 @@ public class PersistentPlayer : NetworkBehaviour {
     }
 
     private void RemovePersistentPlayer() {
+        if (LobbyMenu.Instance != null) {
+            LobbyMenu.Instance.ClientDisconnected(this);
+        }
+
         if (!IsServer) {
             return;
         }
