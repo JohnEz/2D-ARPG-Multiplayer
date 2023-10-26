@@ -7,7 +7,7 @@ using UnityEngine;
 
 //public class LobbyManager<Player, Lobby> : Singleton<LobbyManager<Player, Lobby>> {
 public class LobbyManager : Singleton<LobbyManager> {
-    protected string playerName;
+    public string PlayerName;
     protected const string DEFAULT_NAME = "Player";
 
     protected Lobby hostedLobby;
@@ -39,7 +39,7 @@ public class LobbyManager : Singleton<LobbyManager> {
     }
 
     protected virtual void InvokeLoggedIn() {
-        Debug.Log($"Logged in as {playerName}");
+        Debug.Log($"Logged in as {PlayerName}");
         OnLoggedIn?.Invoke();
     }
 
@@ -49,10 +49,10 @@ public class LobbyManager : Singleton<LobbyManager> {
 
     public virtual void Authenticate(string givenPlayerName) {
         if (givenPlayerName != "") {
-            playerName = givenPlayerName;
+            PlayerName = givenPlayerName;
         } else {
             int randomId = UnityEngine.Random.Range(0, 10000);
-            playerName = $"{DEFAULT_NAME}-{randomId}";
+            PlayerName = $"{DEFAULT_NAME}-{randomId}";
         }
     }
 
@@ -101,6 +101,6 @@ public class LobbyManager : Singleton<LobbyManager> {
     }
 
     public string GenerateLobbyName(string givenLobbyName) {
-        return givenLobbyName != "" ? givenLobbyName : $"{playerName}'s Lobby";
+        return givenLobbyName != "" ? givenLobbyName : $"{PlayerName}'s Lobby";
     }
 }

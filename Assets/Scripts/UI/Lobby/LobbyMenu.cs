@@ -1,12 +1,18 @@
 using FishNet;
 using FishNet.Connection;
 using FishNet.Managing;
+using FishNet.Managing.Logging;
+using FishNet.Managing.Scened;
 using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LobbyMenu : Singleton<LobbyMenu> {
+    private PersistentPlayer _localPlayer;
+
+    public PersistentPlayer LocalPlayer { get { return _localPlayer; } set { SetLocalPlayer(value); } }
 
     [SerializeField]
     private NetworkManager _networkManager;
@@ -17,6 +23,9 @@ public class LobbyMenu : Singleton<LobbyMenu> {
     [SerializeField]
     private Dictionary<LobbyPlayerCard, PersistentPlayer> _connections;
 
+    [SerializeField]
+    private GameObject _startGameButton;
+
     private void Awake() {
         _connections = new Dictionary<LobbyPlayerCard, PersistentPlayer>();
 
@@ -24,14 +33,6 @@ public class LobbyMenu : Singleton<LobbyMenu> {
             _connections.Add(card, null);
         });
     }
-
-    //public void ClientConnected(NetworkConnection connection) {
-    //    HandleClientConnected(connection);
-    //}
-
-    //public void ClientDisconnected(NetworkConnection connection) {
-    //    HandleClientDisconnected(connection);
-    //}
 
     public void ClientConnected(PersistentPlayer player) {
         HandleClientConnected(player);
@@ -46,6 +47,10 @@ public class LobbyMenu : Singleton<LobbyMenu> {
 
         Debug.Log($"Player {player.OwnerId} connected");
 
+        if (player.IsOwner) {
+            LocalPlayer = player;
+        }
+
         if (card != null) {
             Debug.Log($"Player {player.OwnerId} connected and assigned to card {card.name}");
 
@@ -55,6 +60,10 @@ public class LobbyMenu : Singleton<LobbyMenu> {
     }
 
     private void HandleClientDisconnected(PersistentPlayer player) {
+        if (player == LocalPlayer) {
+            LocalPlayer = null;
+        }
+
         foreach (KeyValuePair<LobbyPlayerCard, PersistentPlayer> pair in _connections) {
             if (pair.Value == player) {
                 pair.Key.SetPlayer(null);
@@ -72,5 +81,62 @@ public class LobbyMenu : Singleton<LobbyMenu> {
         }
 
         return null;
+    }
+
+    private void SetLocalPlayer(PersistentPlayer player) {
+        _localPlayer = player;
+
+        bool isStartButtonVisible = LocalPlayer != null && LocalPlayer.IsHost;
+
+        _startGameButton.SetActive(isStartButtonVisible);
+    }
+
+    public void ClickReady() {
+        if (!LocalPlayer) {
+            return;
+        }
+
+        LocalPlayer.IsReady = !_localPlayer.IsReady;
+    }
+
+    public void ClickStartGame() {
+        if (!LocalPlayer) {
+            return;
+        }
+
+        if (!LocalPlayer.IsOwner) {
+            return;
+        }
+
+        if (!LocalPlayer.IsReady) {
+            LocalPlayer.IsReady = true;
+        }
+
+        if (!AreAllPlayersReady()) {
+            // TODO something to say not all players are ready
+            return;
+        }
+
+        // load the game scene
+        LoadGame();
+    }
+
+    private bool AreAllPlayersReady() {
+        List<PersistentPlayer> players = _connections.Values.ToList().FindAll(player => player != null);
+
+        return players.TrueForAll(player => player.IsReady);
+    }
+
+    [Server(Logging = LoggingType.Off)]
+    private void LoadGame() {
+        NetworkObject[] presistedPlayers = _connections.Values.ToList()
+            .FindAll(player => player != null)
+            .Select(player => player.GetComponent<NetworkObject>())
+            .ToArray();
+
+        SceneLoadData data = new SceneLoadData("Caves");
+        //data.MovedNetworkObjects = presistedPlayers;
+        data.ReplaceScenes = ReplaceOption.All;
+        InstanceFinder.SceneManager.LoadGlobalScenes(data);
     }
 }

@@ -50,7 +50,6 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: -1505888022760207075}
-  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -58,11 +57,11 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
-  _isGlobal: 0
+  _isGlobal: 1
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 8
+  <PrefabId>k__BackingField: 10
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -82,3 +81,9 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5668231823121388943}
   _networkObjectCache: {fileID: 5668231823121388943}
+  _magePrefab: {fileID: 1408878601711538371, guid: d8e84113abad83b4b93bcaa88eccffc2, type: 3}
+  _warriorPrefab: {fileID: 3877460555145762989, guid: 17da9a2bdd92a4649a8478f8939dea54, type: 3}
+  _alchemistPrefab: {fileID: 1408878601711538371, guid: d8e84113abad83b4b93bcaa88eccffc2, type: 3}
+  _username: NO_NAME
+  _selectedCharacter: Mage
+  _isReady: 0

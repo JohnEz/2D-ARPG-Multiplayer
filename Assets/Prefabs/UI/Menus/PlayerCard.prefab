@@ -621,9 +621,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3443307292622858415}
         m_TargetAssemblyTypeName: LobbyPlayerCard, Assembly-CSharp
-        m_MethodName: NextCharacter
+        m_MethodName: SelectNextCharacter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1090,8 +1090,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59459ff06491ba34eb06a369cf7c7ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _selectableCharacters:
+  - Name: Mage
+    Color: {r: 0, g: 0.6901961, b: 0.8392157, a: 1}
+    Sprite: {fileID: 65389173, guid: d0f543109e31b2b4f9a9c7c5eda50348, type: 3}
+  - Name: Warrior
+    Color: {r: 0.5647059, g: 0.4392157, b: 0.3137255, a: 1}
+    Sprite: {fileID: -490937426, guid: d0f543109e31b2b4f9a9c7c5eda50348, type: 3}
   _characterSelectCard: {fileID: 1655633639706267816}
   _waitingForPlayer: {fileID: 2509250026523148993}
+  _rightArrow: {fileID: 3955000073402844683}
+  _leftArrow: {fileID: 8607185955712547460}
+  _characterVisuals: {fileID: 8453643056821766503}
+  _characterName: {fileID: 2076791687608115715}
+  _playername: {fileID: 893088948177519969}
+  _readyCheck: {fileID: 609656040074527642}
 --- !u!1 &8607185955712547460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,9 +1226,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3443307292622858415}
         m_TargetAssemblyTypeName: LobbyPlayerCard, Assembly-CSharp
-        m_MethodName: PreviousCharacter
+        m_MethodName: SelectPreviousCharacter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

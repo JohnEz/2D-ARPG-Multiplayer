@@ -27,7 +27,7 @@ public class UnityLobbyManager : LobbyManager {
     protected override Player CreatePlayer() {
         return new Player {
             Data = new Dictionary<string, PlayerDataObject> {
-                { KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName) },
+                { KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayerName) },
             }
         };
     }
@@ -36,7 +36,7 @@ public class UnityLobbyManager : LobbyManager {
         base.Authenticate(givenPlayerName);
 
         InitializationOptions initializationOptions = new InitializationOptions();
-        initializationOptions.SetProfile(playerName);
+        initializationOptions.SetProfile(PlayerName);
 
         await UnityServices.InitializeAsync(initializationOptions);
 
@@ -53,8 +53,6 @@ public class UnityLobbyManager : LobbyManager {
         List<Lobby> activeLobbies = new List<Lobby>();
         try {
             QueryResponse response = await Lobbies.Instance.QueryLobbiesAsync();
-
-            Debug.Log($"Found {response.Results.Count} lobbies");
 
             activeLobbies = response.Results;
         } catch (LobbyServiceException e) {
