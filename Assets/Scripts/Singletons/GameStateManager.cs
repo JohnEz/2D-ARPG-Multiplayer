@@ -21,11 +21,21 @@ public class GameStateManager : Singleton<GameStateManager> {
     }
 
     private void Start() {
+        Debug.Log("GameStateManager Start()");
+
         List<PersistentPlayer> persistentPlayers = FindObjectsOfType<PersistentPlayer>().ToList();
 
+        //persistentPlayers.ForEach(player => {
+        //    Debug.Log("player exists already");
+        //    PlayerJoined(player);
+        //});
+
+        // TODO rethink this
+
         persistentPlayers.ForEach(player => {
-            Debug.Log("player exists already");
-            PlayerJoined(player);
+            if (player.IsOwner) {
+                player.LocalPlayerConnected();
+            }
         });
     }
 }

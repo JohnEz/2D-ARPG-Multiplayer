@@ -17,6 +17,10 @@ public class CameraManager : Singleton<CameraManager> {
 
     private float _shakeTimer = 0f;
 
+    public void Awake() {
+        Debug.Log("CameraManager Awake()");
+    }
+
     public void SetFollowTarget(GameObject target) {
         player = target;
     }

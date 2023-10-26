@@ -83,10 +83,25 @@ public class PersistentPlayer : NetworkBehaviour {
             LobbyMenu.Instance.ClientConnected(this);
         }
 
-        if (GameStateManager.Instance != null) {
-            Debug.Log("Game manager exists already");
-            GameStateManager.Instance.PlayerJoined(this);
+        // TODO hacky code until we get connectikon manager added
+        if (!IsOwner) {
+            Debug.Log("not owner");
+            return;
         }
+
+        if (GameStateManager.Instance == null) {
+            Debug.Log("no game manager");
+            return;
+        }
+
+        Debug.Log("Telling server to make my character");
+        LocalPlayerConnected();
+    }
+
+    //TEMP
+    [ServerRpc]
+    public void LocalPlayerConnected() {
+        GameStateManager.Instance.PlayerJoined(this);
     }
 
     public void OnDestroy() {
