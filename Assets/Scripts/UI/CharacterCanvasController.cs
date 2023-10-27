@@ -68,8 +68,8 @@ public class CharacterCanvasController : MonoBehaviour {
     public void Initialise() {
         NetworkStats myStats = _characterController.GetComponent<NetworkStats>();
         //myTeam = (int)myStats.Faction;
-        //hpBar.Initialize(myStats);
-        hpBar.SetHPColor(teamColours[myTeam]);
+        hpBar.Initialize(myStats);
+        //hpBar.SetHPColor(teamColours[myTeam]);
 
         CastController castController = _characterController.GetComponent<CastController>();
         castBar.Initialize(castController);

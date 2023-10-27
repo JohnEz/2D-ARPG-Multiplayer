@@ -27,6 +27,8 @@ public class LeapAbility : AbilityEffect {
     [SerializeField]
     private AbilityEffect _landAbilityEffect;
 
+    protected LandingSpot _landingSpot;
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
@@ -38,9 +40,9 @@ public class LeapAbility : AbilityEffect {
 
             float distance = Mathf.Clamp(distanceToAimLocation, MinDistance, MaxDistance);
 
-            LandingSpot landingSpot = LeapTarget.GetLeapLandingSpot(casterPosition, distance, aimDirection);
+            _landingSpot = LeapTarget.GetLeapLandingSpot(casterPosition, distance, aimDirection);
 
-            _caster.StartLeapMovement(landingSpot.safeSpot, _duration, _leapMoveCurve);
+            _caster.StartLeapMovement(_landingSpot.safeSpot, _duration, _leapMoveCurve);
         }
 
         _caster.StartLeap(_duration, _leapZCurve, this);

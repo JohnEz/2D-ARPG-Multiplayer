@@ -18,8 +18,6 @@ public class HpBarController : MonoBehaviour {
 
     public void Initialize(NetworkStats stats) {
         _myStats = stats;
-        currentMax = stats.MaxHealth.CurrentValue;
-
         _myStats.OnHealthChanged += SetHp;
 
         SetHp();
@@ -62,6 +60,7 @@ public class HpBarController : MonoBehaviour {
     }
 
     public void SetHp() {
+        Debug.Log("Setting HP");
         float health = _myStats.CurrentHealth;
         float shield = _myStats.Shield.CurrentValue;
         float maxHealth = _myStats.MaxHealth.CurrentValue;

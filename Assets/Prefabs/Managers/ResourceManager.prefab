@@ -58,6 +58,8 @@ MonoBehaviour:
     prefab: {fileID: 2956777469308170475, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
   - id: Coldsnap
     prefab: {fileID: 8335204648628241473, guid: 439bb57c8a8fcf340b1c658de9f8cb24, type: 3}
+  - id: CourageousLeapTelegraph
+    prefab: {fileID: 2782789320443869927, guid: 57e4460de9f0afe49b56807270fbb6b1, type: 3}
   _slashResources:
   - id: Default
     prefab: {fileID: 8060815555694305268, guid: 618dbc0c15623594cb818cb50899f267, type: 3}

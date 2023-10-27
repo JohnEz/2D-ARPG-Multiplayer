@@ -29,7 +29,9 @@ public class PredictedTelegraph : MonoBehaviour {
 
     private CharacterController _caster;
 
-    public event Action<NetworkStats, NetworkStats> OnHit;
+    public event Action<NetworkStats, List<NetworkStats>> OnHit;
+
+    public event Action<NetworkStats, NetworkStats> OnHitCharacter;
 
     private void Awake() {
         _vfx = GetComponent<VisualEffect>();
@@ -54,19 +56,21 @@ public class PredictedTelegraph : MonoBehaviour {
 
         List<NetworkStats> hitCharacters = GetCircleHitTargets(transform.position, _radius, casterStats, CanHitCaster, CanHitEnemies, CanHitAllies);
 
+        OnHit?.Invoke(casterStats, hitCharacters);
+
         foreach (NetworkStats character in hitCharacters) {
-            OnHitCharacter(character);
+            HitCharacter(character);
         }
 
         Destroy(gameObject, 2f);
     }
 
-    private void OnHitCharacter(NetworkStats hitCharacter) {
+    private void HitCharacter(NetworkStats hitCharacter) {
         if (!hitCharacter) {
             return;
         }
 
-        OnHit?.Invoke(_caster.GetComponent<NetworkStats>(), hitCharacter);
+        OnHitCharacter?.Invoke(_caster.GetComponent<NetworkStats>(), hitCharacter);
     }
 
     public static List<NetworkStats> GetCircleHitTargets(Vector3 worldPos, float radius, NetworkStats caster, bool canHitCaster, bool canHitEnemies, bool canHitAllies) {

@@ -38,8 +38,6 @@ public class ChallengingShout : AbilityEffect {
             float valiantDuration = _baseValiantDuration;
 
             if (hitTargets.Count > 0) {
-                // TODO, should i make this one server call when its created?
-
                 valiantDuration += _valiantDurationPerHit * hitTargets.Count;
             }
 

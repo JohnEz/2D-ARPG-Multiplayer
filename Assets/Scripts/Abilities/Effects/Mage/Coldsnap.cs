@@ -2,20 +2,14 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PredictedTelegraph))]
-public class Coldsnap : MonoBehaviour {
+public class Coldsnap : TelegraphHitEffect {
     private const int BASE_DAMAGE = 16;
 
     private const float CHILL_DURATION = 2.5f;
 
-    private void OnEnable() {
-        GetComponent<PredictedTelegraph>().OnHit += HandleCharacterHit;
-    }
+    protected override void HandleCharacterHit(NetworkStats caster, NetworkStats hitCharacter) {
+        base.HandleCharacterHit(caster, hitCharacter);
 
-    private void OnDisable() {
-        GetComponent<PredictedTelegraph>().OnHit -= HandleCharacterHit;
-    }
-
-    private void HandleCharacterHit(NetworkStats caster, NetworkStats hitCharacter) {
         int damage = BASE_DAMAGE;
 
         BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
