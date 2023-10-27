@@ -200,7 +200,7 @@ public class NetworkStats : NetworkBehaviour {
             // maybe i need an event for being hit and an event for taking numeric damage thats called in an observer? (not great for lag)
             int damageToTake = (int)(damage * DamageTaken.CurrentValue);
 
-            OnTakeDamage.Invoke(damage, false, sourceIsPlayer, source);
+            OnTakeDamage?.Invoke(damage, false, sourceIsPlayer, source);
         }
     }
 
@@ -213,7 +213,7 @@ public class NetworkStats : NetworkBehaviour {
         ReceiveHealingServer(healing);
 
         if (InstanceFinder.IsClient) {
-            OnReceiveHealing.Invoke(healing);
+            OnReceiveHealing?.Invoke(healing);
         }
     }
 

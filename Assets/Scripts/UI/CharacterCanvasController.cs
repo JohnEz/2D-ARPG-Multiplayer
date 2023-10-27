@@ -66,20 +66,19 @@ public class CharacterCanvasController : MonoBehaviour {
     }
 
     public void Initialise() {
-        //myTeam = (int)myCharacter.faction;
-
         NetworkStats myStats = _characterController.GetComponent<NetworkStats>();
-        hpBar.Initialize(myStats);
-        //hpBar.SetHPColor(teamColours[myTeam]);
+        //myTeam = (int)myStats.Faction;
+        //hpBar.Initialize(myStats);
+        hpBar.SetHPColor(teamColours[myTeam]);
 
         CastController castController = _characterController.GetComponent<CastController>();
         castBar.Initialize(castController);
 
-        myStats.OnTakeDamage += OnTakeDamage;
-        //myCharacter.OnReceiveHealing.AddListener(CreateHealText);
+        myStats.OnTakeDamage += HandleTakeDamage;
+        myStats.OnReceiveHealing += HandleReceiveHealing;
     }
 
-    private void OnTakeDamage(int damage, bool isShield, bool sourceIsPlayer, CharacterController source) {
+    private void HandleTakeDamage(int damage, bool isShield, bool sourceIsPlayer, CharacterController source) {
         // we only want to show combat text to the client that causes the damage
         if (!sourceIsPlayer) {
             return;
@@ -90,6 +89,11 @@ public class CharacterCanvasController : MonoBehaviour {
         } else {
             CreateDamageText(damage);
         }
+    }
+
+    private void HandleReceiveHealing(int healing) {
+        // TODO manage source etc
+        CreateHealText(healing);
     }
 
     public void CreateDamageText(int damage) {
