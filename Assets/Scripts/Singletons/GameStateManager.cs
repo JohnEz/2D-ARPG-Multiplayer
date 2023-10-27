@@ -25,11 +25,11 @@ public class GameStateManager : Singleton<GameStateManager> {
     }
 
     private void OnEnable() {
-        //NetworkManagerHooks.Instance.OnPlayerLoaded += HandlePlayerLoaded;
+        NetworkManagerHooks.Instance.OnPlayerLoaded += HandlePlayerLoaded;
     }
 
     private void OnDisable() {
-        //NetworkManagerHooks.Instance.OnPlayerLoaded -= HandlePlayerLoaded;
+        NetworkManagerHooks.Instance.OnPlayerLoaded -= HandlePlayerLoaded;
     }
 
     private void Start() {

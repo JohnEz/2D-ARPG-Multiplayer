@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FrozenBuff
   m_EditorClassIdentifier: 
   _name: Frozen
-  _duration: 4
+  _maxDuration: 3
   _interval: 0
   _isAStun: 1
   applySFX: {fileID: 8300000, guid: 2cba8ce540e06a141aae175acdf7f0da, type: 3}
@@ -24,3 +24,4 @@ MonoBehaviour:
   - _value: 20
     Type: 0
     Stat: 1
+  _expireEffect: {fileID: 0}

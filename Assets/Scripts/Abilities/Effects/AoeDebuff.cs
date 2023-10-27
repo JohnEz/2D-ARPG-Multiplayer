@@ -10,6 +10,9 @@ public class AoeDebuff : AbilityEffect {
     [SerializeField]
     private float _radius = 2f;
 
+    [SerializeField]
+    private float _duration = 1.5f;
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
@@ -21,7 +24,7 @@ public class AoeDebuff : AbilityEffect {
 
             hitTargets.ForEach(target => {
                 BuffController targetBuffController = target.GetComponent<BuffController>();
-                _caster.GetComponent<BuffController>().ApplyBuff(targetBuffController, _debuff);
+                _caster.GetComponent<BuffController>().ApplyBuff(targetBuffController, _debuff, _duration);
             });
         }
 

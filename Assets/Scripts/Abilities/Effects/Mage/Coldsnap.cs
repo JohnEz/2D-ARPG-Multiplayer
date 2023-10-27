@@ -5,6 +5,8 @@ using UnityEngine;
 public class Coldsnap : MonoBehaviour {
     private const int BASE_DAMAGE = 16;
 
+    private const float CHILL_DURATION = 2.5f;
+
     private void OnEnable() {
         GetComponent<PredictedTelegraph>().OnHit += HandleCharacterHit;
     }
@@ -24,7 +26,7 @@ public class Coldsnap : MonoBehaviour {
             hitBuffController.ServerRemoveBuff("Chill");
             hitBuffController.ServerApplyBuff("Frozen");
         } else {
-            hitBuffController.ServerApplyBuff("Chill");
+            hitBuffController.ServerApplyBuff("Chill", CHILL_DURATION);
         }
     }
 }

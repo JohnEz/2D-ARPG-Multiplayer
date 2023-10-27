@@ -80,20 +80,20 @@ public class BuffController : NetworkBehaviour {
         RemoveExpiredBuffs(expiredBuffs);
     }
 
-    public void ApplyBuff(BuffController target, string buffName) {
+    public void ApplyBuff(BuffController target, string buffName, float duration = -1f) {
         if (IsServer) {
-            target.ServerApplyBuff(buffName);
+            target.ServerApplyBuff(buffName, duration);
         } else {
-            CallServerApplyBuff(target, buffName);
+            CallServerApplyBuff(target, buffName, duration);
         }
     }
 
     [ServerRpc]
-    public void CallServerApplyBuff(BuffController target, string buffName) {
-        target.ServerApplyBuff(buffName);
+    public void CallServerApplyBuff(BuffController target, string buffName, float duration) {
+        target.ServerApplyBuff(buffName, duration);
     }
 
-    public void ServerApplyBuff(string buffName) {
+    public void ServerApplyBuff(string buffName, float duration = -1f) {
         if (!IsServer) {
             return;
         }
@@ -102,15 +102,15 @@ public class BuffController : NetworkBehaviour {
          * because it removes the lagged time from the effect and the effect
          * only applies its changes on the server */
 
-        CreateBuff(buffName, 0f);
-        ObserversApplyBuff(buffName, base.TimeManager.Tick);
+        CreateBuff(buffName, duration, 0f);
+        ObserversApplyBuff(buffName, duration, base.TimeManager.Tick);
     }
 
-    private void CreateBuff(string buffName, float passedTime, float elapsedTime = 0f, float addedTime = 0) {
+    private void CreateBuff(string buffName, float duration, float passedTime, float elapsedTime = 0f, float addedTime = 0) {
         Buff buffPrefab = ResourceManager.Instance.GetBuff(buffName);
 
         Buff newBuff = Instantiate(buffPrefab);
-        newBuff.Initailise(_myStats, elapsedTime, passedTime, addedTime);
+        newBuff.Initailise(_myStats, duration, elapsedTime, passedTime, addedTime);
 
         Buff originalBuff = GetBuff(newBuff.Name);
         if (originalBuff) {
@@ -129,11 +129,11 @@ public class BuffController : NetworkBehaviour {
     }
 
     [ObserversRpc(ExcludeServer = true)]
-    private void ObserversApplyBuff(string buffName, uint tick) {
+    private void ObserversApplyBuff(string buffName, float duration, uint tick) {
         float passedTime = (float)base.TimeManager.TimePassed(tick, false);
         passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
 
-        CreateBuff(buffName, passedTime);
+        CreateBuff(buffName, duration, passedTime);
     }
 
     private void RemoveExpiredBuffs(List<Buff> expiredBuffs) {
@@ -184,11 +184,11 @@ public class BuffController : NetworkBehaviour {
         Buff currentBuff = GetBuff(buffName);
         currentBuff.AddedTime += mod;
 
-        ObserversAddTimeToBuff(buffName, currentBuff.ElapsedTime, currentBuff.AddedTime, base.TimeManager.Tick);
+        ObserversAddTimeToBuff(buffName, currentBuff.InitialDuration, currentBuff.ElapsedTime, currentBuff.AddedTime, base.TimeManager.Tick);
     }
 
     [ObserversRpc(ExcludeServer = true)]
-    private void ObserversAddTimeToBuff(string buffName, float elapsedTime, float totalAddedTime, uint tick) {
+    private void ObserversAddTimeToBuff(string buffName, float initialDuration, float elapsedTime, float totalAddedTime, uint tick) {
         if (HasBuff(buffName)) {
             GetBuff(buffName).AddedTime = totalAddedTime;
             OnBuffsChanged?.Invoke(ActiveBuffs);
@@ -199,6 +199,6 @@ public class BuffController : NetworkBehaviour {
         float passedTime = (float)base.TimeManager.TimePassed(tick, false);
         passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
 
-        CreateBuff(buffName, passedTime, elapsedTime, totalAddedTime);
+        CreateBuff(buffName, 0f, passedTime, elapsedTime, totalAddedTime);
     }
 }

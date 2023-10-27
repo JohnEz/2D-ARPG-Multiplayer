@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChillBuff
   m_EditorClassIdentifier: 
   _name: Chill
-  _duration: 4
+  _maxDuration: 4
   _interval: 0
   _isAStun: 0
   applySFX: {fileID: 0}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceBarrierBuff
   m_EditorClassIdentifier: 
   _name: Ice Barrier
-  _duration: 2
+  _maxDuration: 2
   _interval: 0
   _isAStun: 0
   applySFX: {fileID: 8300000, guid: f763143e02563d343b073394a1ce246d, type: 3}
@@ -24,4 +24,4 @@ MonoBehaviour:
   - _value: 24
     Type: 0
     Stat: 1
-  _expireEffect: {fileID: 1271447936623868717, guid: bb8aebae320c893428471bd46e166b81, type: 3}
+  _expireEffect: {fileID: 5392340010105657957, guid: bb8aebae320c893428471bd46e166b81, type: 3}

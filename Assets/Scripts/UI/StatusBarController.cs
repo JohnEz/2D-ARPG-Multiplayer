@@ -47,7 +47,7 @@ public class StatusBarController : MonoBehaviour {
         ResetStatus();
         currentStatus = newStatus;
 
-        statusBar.fillAmount = currentStatus.RemainingTime() / currentStatus.Duration;
+        statusBar.fillAmount = currentStatus.RemainingTime() / currentStatus.MaxDuration;
 
         statusText.text = currentStatus.Name;
     }
@@ -64,7 +64,7 @@ public class StatusBarController : MonoBehaviour {
             return;
         }
 
-        float fillAmount = currentStatus.RemainingTime() / currentStatus.Duration;
+        float fillAmount = currentStatus.RemainingTime() / currentStatus.MaxDuration;
         statusBar.fillAmount = fillAmount;
 
         //Debug.Log(fillAmount);

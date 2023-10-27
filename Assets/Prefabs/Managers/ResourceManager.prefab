@@ -72,3 +72,5 @@ MonoBehaviour:
     prefab: {fileID: 11400000, guid: 1a8790870ca9c724f9f1c2a0a7d0a767, type: 2}
   - id: Snare
     prefab: {fileID: 11400000, guid: 14005bfa922d4e245b4d9884f5a87e0e, type: 2}
+  - id: Valiant
+    prefab: {fileID: 11400000, guid: 520dcb29caba46b4a8f80d039ce3f074, type: 2}

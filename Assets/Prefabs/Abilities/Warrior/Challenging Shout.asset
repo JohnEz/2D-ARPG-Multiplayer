@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab16c9757379d0f4ebd4c3ef6be46545, type: 3}
-  m_Name: Mocking Shout
+  m_Name: Challenging Shout
   m_EditorClassIdentifier: 
-  AbilityName: Mocking Shout
+  AbilityName: Challenging Shout
   Icon: {fileID: 21300000, guid: 761014a83895ebc46b9bc6fdc267f8a0, type: 3}
-  AbilityEffectPrefab: {fileID: 7678783099372667594, guid: b47e0d91713a8c24785e7da5246ecfa8, type: 3}
+  AbilityEffectPrefab: {fileID: 8619108135685365426, guid: 99379936d7b9a9549bfc1d0865bddd56, type: 3}
   CastTime: 0.15
-  Cooldown: 8
+  Cooldown: 6
   CastSFX: {fileID: 0}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
   TimeCast: -Infinity
-  TargetGraphics: []
+  TargetGraphics:
+  - prefab: {fileID: 4536119196424114156, guid: 077acc03dc905f34aa7a9e7eee9468ce, type: 3}
+    scale: 5
+    myStyle: 2
   AiDetails:
     AbilityRange: 0
     ProjectileSpeed: 0

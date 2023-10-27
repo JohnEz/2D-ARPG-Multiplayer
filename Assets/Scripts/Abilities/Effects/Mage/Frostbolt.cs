@@ -6,13 +6,15 @@ public class Frostbolt : ProjectileHitEffect {
 
     private const int CHILL_DAMAGE = 2;
 
+    private const float ADDED_CHILL_DURATION = .8f;
+
     protected override void HandleProjectileHit(Vector3 hitLocation, NetworkStats caster, NetworkStats hitCharacter) {
         int damage = BASE_DAMAGE;
 
         BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
 
         if (hitBuffController.HasBuff("Chill")) {
-            hitBuffController.ServerUpdateBuffDuration("Chill", .8f);
+            hitBuffController.ServerUpdateBuffDuration("Chill", ADDED_CHILL_DURATION);
             damage += CHILL_DAMAGE;
         }
 

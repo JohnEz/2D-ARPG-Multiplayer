@@ -242,6 +242,16 @@ public class AiBrain : NetworkBehaviour {
         OnAggroTableChange?.Invoke(new List<CharacterController>() { target });
     }
 
+    private void SetAggro(CharacterController target, int amount) {
+        if (_aggroTable.ContainsKey(target)) {
+            _aggroTable[target] = amount;
+        } else {
+            _aggroTable[target] = amount;
+        }
+
+        OnAggroTableChange?.Invoke(new List<CharacterController>() { target });
+    }
+
     private void SetTarget(CharacterController target) {
         if (target == null) {
             DistanceToTarget = Mathf.Infinity;
@@ -304,5 +314,16 @@ public class AiBrain : NetworkBehaviour {
         RaycastHit2D raycast = Physics2D.CircleCast(source.position, .5f, targetDirection, distance, 1 << LayerMask.NameToLayer("Obstacles"));
 
         return raycast.collider == null;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void TauntedServer(CharacterController taunter, int additionalAggro) {
+        if (taunter != null) {
+            return;
+        }
+
+        int currentTopAggro = _aggroTable.Values.Max();
+
+        SetAggro(taunter, currentTopAggro + additionalAggro);
     }
 }

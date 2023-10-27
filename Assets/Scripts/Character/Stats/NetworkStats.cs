@@ -11,6 +11,7 @@ public enum StatType {
     SHIELD,
     POWER,
     MOVE_SPEED,
+    DAMAGE_TAKEN,
 }
 
 public enum Faction {
@@ -53,6 +54,9 @@ public class NetworkStats : NetworkBehaviour {
     public readonly SyncedCharacterStat Shield = new SyncedCharacterStat();
 
     [SyncObject]
+    public readonly SyncedCharacterStat DamageTaken = new SyncedCharacterStat();
+
+    [SyncObject]
     public readonly SyncedCharacterStat Power = new SyncedCharacterStat();
 
     public Dictionary<StatType, SyncedCharacterStat> StatList = new Dictionary<StatType, SyncedCharacterStat>();
@@ -62,6 +66,7 @@ public class NetworkStats : NetworkBehaviour {
         Power.SetBaseValue(_basePower);
         Speed.SetBaseValue(_baseSpeed);
         Shield.SetBaseValue(0f);
+        DamageTaken.SetBaseValue(1f);
 
         _currentHealth = (int)MaxHealth.CurrentValue;
     }
@@ -71,6 +76,7 @@ public class NetworkStats : NetworkBehaviour {
         StatList.Add(StatType.POWER, Power);
         StatList.Add(StatType.MOVE_SPEED, Speed);
         StatList.Add(StatType.SHIELD, Shield);
+        StatList.Add(StatType.DAMAGE_TAKEN, DamageTaken);
 
         _buffController = GetComponent<BuffController>();
     }
@@ -146,7 +152,11 @@ public class NetworkStats : NetworkBehaviour {
             return;
         }
 
-        int remainingDamage = damage;
+        int damageToTake = (int)(damage * DamageTaken.CurrentValue);
+        //  we should always take at least 1 damage, even if we have 100% damage reduction
+        damageToTake = Mathf.Max(damageToTake, 1);
+
+        int remainingDamage = damageToTake;
 
         if (Shield.CurrentValue > 0) {
             // loop through all our buffs to find ones with shield mods
@@ -188,6 +198,8 @@ public class NetworkStats : NetworkBehaviour {
         if (IsClient) {
             // TODO damage text needs more thinking as the value is calculated on the server
             // maybe i need an event for being hit and an event for taking numeric damage thats called in an observer? (not great for lag)
+            int damageToTake = (int)(damage * DamageTaken.CurrentValue);
+
             OnTakeDamage.Invoke(damage, false, sourceIsPlayer, source);
         }
     }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d08022b5f71325c4a9a8fccbbcf33831, type: 3}
-  m_Name: SnareBuff
+  m_Name: Valiant
   m_EditorClassIdentifier: 
-  _name: Snared
-  _maxDuration: 2
+  _name: Valiant
+  _maxDuration: 4
   _interval: 0
   _isAStun: 0
   applySFX: {fileID: 0}
@@ -21,7 +21,7 @@ MonoBehaviour:
   applyVFX: {fileID: 0}
   expireVFX: {fileID: 0}
   _statMods:
-  - _value: -0.5
-    Type: 2
-    Stat: 3
+  - _value: -0.2
+    Type: 0
+    Stat: 4
   _expireEffect: {fileID: 0}

@@ -14,12 +14,14 @@ public class Buff : ScriptableObject {
     }
 
     [SerializeField]
-    private float _duration;
+    private float _maxDuration;
 
-    public float Duration {
-        get { return _duration; }
-        set { _duration = value; }
+    public float MaxDuration {
+        get { return _maxDuration; }
+        set { _maxDuration = value; }
     }
+
+    public float InitialDuration { get; set; }
 
     [SerializeField]
     private float _interval;
@@ -75,7 +77,8 @@ public class Buff : ScriptableObject {
 
     public bool HasShield { get { return _shieldMod != null; } }
 
-    public virtual void Initailise(NetworkStats target, float elapsedTime, float passedTime, float addedTime) {
+    public virtual void Initailise(NetworkStats target, float initialDuration, float elapsedTime, float passedTime, float addedTime) {
+        InitialDuration = initialDuration > 0 && initialDuration < MaxDuration ? initialDuration : MaxDuration;
         targetCharacter = target;
         ElapsedTime = elapsedTime + passedTime;
         AddedTime = addedTime;
@@ -151,23 +154,17 @@ public class Buff : ScriptableObject {
     }
 
     public virtual bool ShouldBeOverriden(Buff newBuff) {
-        return newBuff.Duration > RemainingTime();
+        return newBuff.RemainingTime() > RemainingTime();
     }
 
     public float RemainingTime() {
-        return Mathf.Min(Duration - ElapsedTime + AddedTime, Duration);
+        return Mathf.Min(InitialDuration - ElapsedTime + AddedTime, MaxDuration);
     }
 
     public void SetAddedTime(float newAddedTime) {
-        float maxAddedTime = Duration - (Duration - ElapsedTime);
+        float maxAddedTime = MaxDuration - (InitialDuration - ElapsedTime);
         float actualAddedTime = Mathf.Min(newAddedTime, maxAddedTime);
 
         _addedTime = actualAddedTime;
-    }
-
-    public void AddTime(float timeToAdd) {
-        float actualAddedTime = Mathf.Min(timeToAdd, Duration - RemainingTime());
-
-        _addedTime += actualAddedTime;
     }
 }
