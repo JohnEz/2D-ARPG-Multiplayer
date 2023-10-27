@@ -53,55 +53,38 @@ public class PersistentPlayer : NetworkBehaviour {
         // is the connection useful here?
         // is owner id persistent between connections?
         gameObject.name = $"Player {base.OwnerId}";
+    }
 
-        if (!IsServer) {
+    public override void OnStartClient() {
+        base.OnStartClient();
+
+        if (!base.IsOwner) {
             return;
         }
 
-        // Check to see if we have player data in a session manager
+        if (LobbyManager.Instance != null) {
+            Username = LobbyManager.Instance.PlayerName;
+        }
 
-        //if we do, set the data to the session data
-
-        // if the character has already spawned
-        // set this player as the owner of the character
-
-        // if the character has not spawned
-        // spawn the character
-        // set this player as the owner of the character
+        NetworkManagerHooks.Instance.HandleCompletedConnection();
     }
 
     public override void OnOwnershipClient(NetworkConnection prevOwner) {
         base.OnOwnershipClient(prevOwner);
 
-        // TODO move all of this into a connection manager
-
-        if (LobbyMenu.Instance != null) {
-            if (base.IsOwner) {
-                Username = LobbyManager.Instance.PlayerName;
-            }
-
-            LobbyMenu.Instance.ClientConnected(this);
-        }
-
-        // TODO hacky code until we get connectikon manager added
-        if (!IsOwner) {
-            Debug.Log("not owner");
+        if (prevOwner == Owner) {
             return;
         }
 
-        if (GameStateManager.Instance == null) {
-            Debug.Log("no game manager");
-            return;
+        NetworkManagerHooks.Instance.HandlePlayerLoaded(this);
+
+        if (prevOwner.IsValid) {
+            ConnectionManager.Instance.RemovePersistentPlayer(prevOwner, this);
         }
 
-        Debug.Log("Telling server to make my character");
-        LocalPlayerConnected();
-    }
-
-    //TEMP
-    [ServerRpc]
-    public void LocalPlayerConnected() {
-        GameStateManager.Instance.PlayerJoined(this);
+        if (IsOwner) {
+            ConnectionManager.Instance.AddPersistentPlayer(Owner, this);
+        }
     }
 
     public void OnDestroy() {
@@ -143,6 +126,7 @@ public class PersistentPlayer : NetworkBehaviour {
         }
 
         if (prefab == null) {
+            Debug.LogError($"No prefab found for character {SelectedCharacter}");
             return;
         }
 

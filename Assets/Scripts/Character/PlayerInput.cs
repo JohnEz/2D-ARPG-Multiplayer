@@ -11,8 +11,6 @@ public class PlayerInput : NetworkBehaviour {
     public override void OnOwnershipClient(NetworkConnection prevOwner) {
         base.OnOwnershipClient(prevOwner);
 
-        Debug.Log("PlayerInput OnOwnershipClient");
-
         if (!base.Owner.IsLocalClient) {
             GetComponent<CharacterController>().enabled = false;
             GetComponent<PlayerInput>().enabled = false;

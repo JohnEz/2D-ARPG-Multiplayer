@@ -8,6 +8,7 @@ using UnityEngine;
 using Unity.Networking.Transport.Relay;
 using FishNet.Transporting.UTP;
 using static System.Net.WebRequestMethods;
+using System;
 
 public class UnityRelayManager : RelayManager {
 
@@ -57,10 +58,7 @@ public class UnityRelayManager : RelayManager {
 
             utp.SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
 
-            // Start Client Connection
-            _networkManager.ClientManager.StartConnection();
-
-            return true;
+            return _networkManager.ClientManager.StartConnection();
         } catch (RelayServiceException e) {
             print(e);
             return false;

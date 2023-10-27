@@ -1,4 +1,6 @@
 using FishNet;
+using FishNet.Managing.Logging;
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,31 +13,43 @@ public class GameStateManager : Singleton<GameStateManager> {
 
     private int spawnIndex = 0;
 
-    public void PlayerJoined(PersistentPlayer player) {
+    private void SpawnPlayer(PersistentPlayer player) {
         if (!InstanceFinder.IsServer) {
             return;
         }
+
+        Debug.Log("Spawning player");
 
         player.SpawnServer(_spawnLocations[spawnIndex].position);
         spawnIndex = (spawnIndex + 1) % _spawnLocations.Count;
     }
 
+    private void OnEnable() {
+        //NetworkManagerHooks.Instance.OnPlayerLoaded += HandlePlayerLoaded;
+    }
+
+    private void OnDisable() {
+        //NetworkManagerHooks.Instance.OnPlayerLoaded -= HandlePlayerLoaded;
+    }
+
     private void Start() {
-        Debug.Log("GameStateManager Start()");
+        Debug.Log("connections i can see " + ConnectionManager.Instance.Connections.Count);
 
-        List<PersistentPlayer> persistentPlayers = FindObjectsOfType<PersistentPlayer>().ToList();
+        foreach (var item in ConnectionManager.Instance.Connections) {
+            Debug.Log($"ClientId: {item.Key.ClientId}, IsLoadingScene:  {item.Value.IsLoadingScene}, PersistentPlayer:  {item.Value.PersistentPlayer != null}");
 
-        //persistentPlayers.ForEach(player => {
-        //    Debug.Log("player exists already");
-        //    PlayerJoined(player);
-        //});
-
-        // TODO rethink this
-
-        persistentPlayers.ForEach(player => {
-            if (player.IsOwner) {
-                player.LocalPlayerConnected();
+            if (InstanceFinder.IsServer && item.Value.PersistentPlayer != null) {
+                SpawnPlayer(item.Value.PersistentPlayer);
             }
-        });
+        }
+    }
+
+    [Server(Logging = LoggingType.Off)]
+    public void HandlePlayerLoaded(PersistentPlayer player) {
+        Debug.Log("Player loaded");
+
+        if (InstanceFinder.IsServer) {
+            SpawnPlayer(player);
+        }
     }
 }

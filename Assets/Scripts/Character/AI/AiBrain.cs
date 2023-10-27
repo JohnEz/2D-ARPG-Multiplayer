@@ -153,13 +153,25 @@ public class AiBrain : NetworkBehaviour {
             if (!aiBrain) {
                 return false;
             }
-
-            bool isAlly = networkStats.Faction == _myStats.Faction;
-            bool isClose = Vector3.Distance(transform.position, character.transform.position) <= _aggroRange / 2;
-            bool isInLineOfSight = HasLineOfSightTo(transform, character.transform);
             bool isAlreadyAggroed = aiBrain.HasTarget;
 
-            return isAlly && isClose && isInLineOfSight && !isAlreadyAggroed;
+            if (isAlreadyAggroed) {
+                return false;
+            }
+
+            bool isAlly = networkStats.Faction == _myStats.Faction;
+
+            if (!isAlly) {
+                return false;
+            }
+
+            bool isClose = Vector3.Distance(transform.position, character.transform.position) <= _aggroRange / 2;
+
+            if (!isClose) {
+                return false;
+            }
+
+            return HasLineOfSightTo(transform, character.transform);
         }).ToList();
 
         alliesToAggro.ForEach(ally => {

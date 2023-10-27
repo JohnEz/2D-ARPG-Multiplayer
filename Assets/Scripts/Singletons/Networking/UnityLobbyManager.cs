@@ -14,8 +14,6 @@ public class UnityLobbyManager : LobbyManager {
     protected override void CleanUp() {
         base.CleanUp();
 
-        Debug.Log("Cleaning up UnityLobbyManager");
-
         CancelInvoke("LobbyHeartbeat");
         CancelInvoke("PollForLobbyUpdates");
     }
@@ -69,11 +67,11 @@ public class UnityLobbyManager : LobbyManager {
             };
             Lobby lobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId, joinLobbyByCodeOptions);
 
-            SetJoinedLobby(lobby);
-
-            if (joinedLobby != null && !IsHost()) {
-                await RelayManager.Instance.JoinRelay(joinedLobby.Data[KEY_RELAY_CODE].Value, AuthenticationService.Instance.PlayerId);
+            if (lobby != null && !IsHost()) {
+                await RelayManager.Instance.JoinRelay(lobby.Data[KEY_RELAY_CODE].Value, AuthenticationService.Instance.PlayerId);
             }
+
+            SetJoinedLobby(lobby);
 
             Invoke("PollForLobbyUpdates", LOBBY_UPDATE_POLL_DELAY);
         } catch (LobbyServiceException e) {
@@ -112,7 +110,6 @@ public class UnityLobbyManager : LobbyManager {
         string lobbyName = GenerateLobbyName(givenLobbyName);
 
         bool createdLobby;
-        InvokeLobbyJoined();
 
         try {
             string joinCode = await RelayManager.Instance.CreateRelay(AuthenticationService.Instance.PlayerId);
@@ -165,7 +162,5 @@ public class UnityLobbyManager : LobbyManager {
         if (this) {
             Invoke("PollForLobbyUpdates", LOBBY_UPDATE_POLL_DELAY);
         }
-
-        //TODO check to see if we havent joined the server and there is no a joinCode
     }
 }

@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17aa5673a9bb9d049b208685278051b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerName: DEFAULT_NAME
+  _connectionManagerPrefab: {fileID: 6998877856511069730, guid: c9b653c03a132b844b6adbca6ef5cb8b, type: 3}
 --- !u!114 &8536555829115241891
 MonoBehaviour:
   m_ObjectHideFlags: 0

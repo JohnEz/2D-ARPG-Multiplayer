@@ -84,6 +84,6 @@ MonoBehaviour:
   _magePrefab: {fileID: 1408878601711538371, guid: d8e84113abad83b4b93bcaa88eccffc2, type: 3}
   _warriorPrefab: {fileID: 3877460555145762989, guid: 17da9a2bdd92a4649a8478f8939dea54, type: 3}
   _alchemistPrefab: {fileID: 1408878601711538371, guid: d8e84113abad83b4b93bcaa88eccffc2, type: 3}
-  _username: NO_NAME
-  _selectedCharacter: Mage
-  _isReady: 0
+  <Username>k__BackingField: NO_NAME
+  <SelectedCharacter>k__BackingField: Mage
+  <IsReady>k__BackingField: 0

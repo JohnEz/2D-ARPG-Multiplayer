@@ -17,23 +17,22 @@ public class MainMenuUI : MonoBehaviour {
         loginPanel.SetActive(true);
         lobbyExplorerPanel.SetActive(false);
         lobbyPanel.SetActive(false);
-
-        LobbyManager.Instance.OnLoggedIn += HandleLoggedIn;
-        LobbyManager.Instance.OnLobbyJoined += HandleJoinedLobby;
-        LobbyManager.Instance.OnLobbyDisconnected += HandleDisconnectLobby;
-
-        //LobbyManager.Instance.OnGameStarted.AddListener(HandleGameStarted);
     }
 
-    private void OnDestroy() {
-        if (!LobbyManager.Instance) {
-            return;
+    private void OnEnable() {
+        LobbyManager.Instance.OnLoggedIn += HandleLoggedIn;
+
+        NetworkManagerHooks.Instance.OnConnected += HandleJoinedLobby;
+        NetworkManagerHooks.Instance.OnDisconnected += HandleDisconnectLobby;
+    }
+
+    private void OnDisable() {
+        if (LobbyManager.Instance) {
+            LobbyManager.Instance.OnLoggedIn -= HandleLoggedIn;
         }
 
-        LobbyManager.Instance.OnLoggedIn -= HandleLoggedIn;
-        LobbyManager.Instance.OnLobbyJoined -= HandleJoinedLobby;
-        LobbyManager.Instance.OnLobbyDisconnected -= HandleDisconnectLobby;
-        //LobbyManager.Instance.OnGameStarted -= ;
+        NetworkManagerHooks.Instance.OnConnected -= HandleJoinedLobby;
+        NetworkManagerHooks.Instance.OnDisconnected -= HandleDisconnectLobby;
     }
 
     private void HandleLoggedIn() {

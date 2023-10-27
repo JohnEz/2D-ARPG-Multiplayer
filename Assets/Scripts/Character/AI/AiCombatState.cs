@@ -67,8 +67,6 @@ public class AiCombatState : NetworkBehaviour {
                 indexToCast++;
                 bool inRange = _brain.DistanceToTarget <= ability.AiDetails.AbilityRange;
 
-                Debug.Log($"Ability {ability.name} in range: {inRange}");
-
                 return ability.CanCast() && !ability.AiDetails.IsSupportAbility && inRange;
             });
 

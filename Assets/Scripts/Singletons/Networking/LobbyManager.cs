@@ -1,8 +1,11 @@
+using FishNet;
+using FishNet.Transporting;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //public class LobbyManager<Player, Lobby> : Singleton<LobbyManager<Player, Lobby>> {
@@ -18,14 +21,32 @@ public class LobbyManager : Singleton<LobbyManager> {
 
     public event Action OnLoggedIn;
 
-    public event Action OnLobbyJoined;
-
-    public event Action OnLobbyDisconnected;
-
     public event Action<Lobby> OnLobbyUpdate;
+
+    [SerializeField]
+    private ConnectionManager _connectionManagerPrefab;
+
+    private void OnEnable() {
+        NetworkManagerHooks.Instance.OnConnected += HandleConnected;
+        NetworkManagerHooks.Instance.OnDisconnected += CleanUp;
+    }
+
+    private void OnDisable() {
+        NetworkManagerHooks.Instance.OnConnected -= HandleConnected;
+        NetworkManagerHooks.Instance.OnDisconnected -= CleanUp;
+    }
 
     private void OnDestroy() {
         CleanUp();
+    }
+
+    protected virtual void HandleConnected() {
+        if (!InstanceFinder.IsServer) {
+            return;
+        }
+
+        GameObject connectionManager = Instantiate(_connectionManagerPrefab.gameObject);
+        InstanceFinder.ServerManager.Spawn(connectionManager, null);
     }
 
     protected virtual void CleanUp() {
@@ -41,10 +62,6 @@ public class LobbyManager : Singleton<LobbyManager> {
     protected virtual void InvokeLoggedIn() {
         Debug.Log($"Logged in as {PlayerName}");
         OnLoggedIn?.Invoke();
-    }
-
-    protected virtual void InvokeLobbyJoined() {
-        OnLobbyJoined?.Invoke();
     }
 
     public virtual void Authenticate(string givenPlayerName) {
@@ -73,12 +90,6 @@ public class LobbyManager : Singleton<LobbyManager> {
 
     protected void SetJoinedLobby(Lobby lobby) {
         UpdateLobby(lobby);
-
-        if (lobby != null) {
-            OnLobbyJoined?.Invoke();
-        } else {
-            OnLobbyDisconnected?.Invoke();
-        }
     }
 
     protected void UpdateLobby(Lobby lobby) {

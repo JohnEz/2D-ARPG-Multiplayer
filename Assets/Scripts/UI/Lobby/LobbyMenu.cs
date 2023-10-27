@@ -34,6 +34,20 @@ public class LobbyMenu : Singleton<LobbyMenu> {
         });
     }
 
+    private void OnEnable() {
+        NetworkManagerHooks.Instance.OnPlayerLoaded += ClientConnected;
+        NetworkManagerHooks.Instance.OnPlayerDisconnected += ClientDisconnected;
+    }
+
+    private void OnDisable() {
+        if (!ConnectionManager.Instance) {
+            return;
+        }
+
+        NetworkManagerHooks.Instance.OnPlayerLoaded -= ClientConnected;
+        NetworkManagerHooks.Instance.OnPlayerDisconnected -= ClientDisconnected;
+    }
+
     public void ClientConnected(PersistentPlayer player) {
         HandleClientConnected(player);
     }
@@ -45,15 +59,11 @@ public class LobbyMenu : Singleton<LobbyMenu> {
     private void HandleClientConnected(PersistentPlayer player) {
         LobbyPlayerCard card = GetNextAvailableCard();
 
-        Debug.Log($"Player {player.OwnerId} connected");
-
         if (player.IsOwner) {
             LocalPlayer = player;
         }
 
         if (card != null) {
-            Debug.Log($"Player {player.OwnerId} connected and assigned to card {card.name}");
-
             card.SetPlayer(player);
             _connections[card] = player;
         }
