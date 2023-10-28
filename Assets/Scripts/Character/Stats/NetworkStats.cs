@@ -23,8 +23,6 @@ public enum Faction {
 public class NetworkStats : NetworkBehaviour {
     private BuffController _buffController;
 
-    public string Name = "NO NAME";
-
     [SerializeField]
     public Faction Faction;
 

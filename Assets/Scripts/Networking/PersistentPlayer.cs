@@ -79,11 +79,11 @@ public class PersistentPlayer : NetworkBehaviour {
         NetworkManagerHooks.Instance.HandlePlayerLoaded(this);
 
         if (prevOwner.IsValid) {
-            ConnectionManager.Instance.RemovePersistentPlayer(prevOwner, this);
+            ConnectionManager.Instance?.RemovePersistentPlayer(prevOwner, this);
         }
 
         if (IsOwner) {
-            ConnectionManager.Instance.AddPersistentPlayer(Owner, this);
+            ConnectionManager.Instance?.AddPersistentPlayer(Owner, this);
         }
     }
 
@@ -132,6 +132,7 @@ public class PersistentPlayer : NetworkBehaviour {
 
         GameObject instance = Instantiate(prefab);
         instance.transform.position = spawnLocation;
+        instance.GetComponent<CharacterController>().Username = Username; // TODO id like the persistent character or connection to hold this ownership
         InstanceFinder.ServerManager.Spawn(instance, Owner);
     }
 }

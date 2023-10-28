@@ -5,6 +5,7 @@ using FishNet;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using DG.Tweening;
+using System;
 
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(CharacterStateController))]
@@ -23,6 +24,12 @@ public class CharacterController : NetworkBehaviour {
             return ((Vector3)AimLocation - transform.position).normalized;
         }
     }
+
+    // TODO this probably should come from the persistent player
+    [SyncVar(OnChange = nameof(HandleUsernameChange))]
+    public string Username;
+
+    public event Action OnUsernameChanged;
 
     private MovementController _movementController;
     private CharacterStateController _stateController;
@@ -70,6 +77,10 @@ public class CharacterController : NetworkBehaviour {
         _stats.OnHealthDepleted -= HandleHealthDepleted;
         _buffController.OnStunApplied -= HandleStunApplied;
         _buffController.OnStunExpired -= HandleStunExpired;
+    }
+
+    public void HandleUsernameChange(string previousName, string newName, bool asServer) {
+        OnUsernameChanged?.Invoke();
     }
 
     private void Update() {

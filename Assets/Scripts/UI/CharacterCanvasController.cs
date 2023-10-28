@@ -18,7 +18,16 @@ public class CharacterCanvasController : MonoBehaviour {
     public GameObject buffIconPrefab;
 
     public HpBarController hpBar;
-    [SerializeField] private CastBarController castBar;
+
+    [SerializeField]
+    private CastBarController castBar;
+
+    [SerializeField]
+    private StatusBarController _statusBarController;
+
+    [SerializeField]
+    private TMP_Text _username;
+
     public Transform UnitFrameTransform;
 
     private Queue<CombatTextParams> combatTextQueue = new Queue<CombatTextParams>();
@@ -39,6 +48,7 @@ public class CharacterCanvasController : MonoBehaviour {
     private void Awake() {
         _characterController = GetComponentInParent<CharacterController>();
         _stateController = GetComponentInParent<CharacterStateController>();
+        _username.text = _characterController.Username;
     }
 
     private void Start() {
@@ -47,14 +57,32 @@ public class CharacterCanvasController : MonoBehaviour {
 
     private void OnEnable() {
         _stateController.OnDeath += HandleCharacterDeath;
+        _statusBarController.OnShowStatus += HandleShowStatus;
+        _statusBarController.OnHideStatus += HandleHideStatus;
+        _characterController.OnUsernameChanged += HandleUsernameChanged;
     }
 
     private void OnDisable() {
         _stateController.OnDeath -= HandleCharacterDeath;
+        _statusBarController.OnShowStatus -= HandleShowStatus;
+        _statusBarController.OnHideStatus -= HandleHideStatus;
+        _characterController.OnUsernameChanged -= HandleUsernameChanged;
     }
 
     private void HandleCharacterDeath() {
         UnitFrameTransform.gameObject.SetActive(false);
+    }
+
+    private void HandleShowStatus() {
+        _username.gameObject.SetActive(false);
+    }
+
+    private void HandleHideStatus() {
+        _username.gameObject.SetActive(true);
+    }
+
+    private void HandleUsernameChanged() {
+        _username.text = _characterController.Username;
     }
 
     private void Update() {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.IO.LowLevel.Unsafe;
+using System;
 
 public class StatusBarController : MonoBehaviour {
 
@@ -22,6 +23,10 @@ public class StatusBarController : MonoBehaviour {
     private Buff currentStatus;
 
     private BuffController myBuffs;
+
+    public event Action OnShowStatus;
+
+    public event Action OnHideStatus;
 
     private void OnEnable() {
         ResetStatus();
@@ -71,10 +76,9 @@ public class StatusBarController : MonoBehaviour {
             return;
         }
 
-        Debug.Log("Hiding status");
-
         _isDisplayed = false;
         _statusPanel.SetActive(false);
+        OnHideStatus?.Invoke();
     }
 
     private void ShowStatus() {
@@ -82,10 +86,9 @@ public class StatusBarController : MonoBehaviour {
             return;
         }
 
-        Debug.Log("Showing status");
-
         _isDisplayed = true;
         _statusPanel.SetActive(true);
+        OnShowStatus?.Invoke();
     }
 
     private void Update() {
