@@ -100,7 +100,8 @@ public class CharacterCanvasController : MonoBehaviour {
         //hpBar.SetHPColor(teamColours[myTeam]);
 
         CastController castController = _characterController.GetComponent<CastController>();
-        castBar.Initialize(castController);
+        ChannelController channelController = _characterController.GetComponent<ChannelController>();
+        castBar.Initialize(castController, channelController);
 
         myStats.OnTakeDamage += HandleTakeDamage;
         myStats.OnReceiveHealing += HandleReceiveHealing;

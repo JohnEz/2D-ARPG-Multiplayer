@@ -12,8 +12,12 @@ public class CastBarController : MonoBehaviour {
     private float _abilityCastTime;
     private float _passedTime;
     private bool _isCasting = false;
-
     private float _timeSinceCast;
+
+    private float _channelDuration;
+    private float _channelPassedTime;
+    private bool _isChanneling = false;
+    private float _timeSinceChannel;
 
     private Color _baseColor;
 
@@ -35,16 +39,22 @@ public class CastBarController : MonoBehaviour {
     }
 
     private void Update() {
-        ProgressSlider();
+        ProgressCastSlider();
+
+        ProgressChannelSlider();
     }
 
-    public void Initialize(CastController castController) {
+    public void Initialize(CastController castController, ChannelController channelController) {
         castController.OnCastStart.AddListener(HandleCastStart);
         castController.OnCastFail.AddListener(HandleCastCancel);
         castController.OnCastSuccess.AddListener(HandleCastComplete);
+
+        channelController.OnChannelStart += HandleChannelStart;
+        channelController.OnChannelComplete += HandleCastComplete;
+        channelController.OnChannelCancel += HandleCastCancel;
     }
 
-    private void ProgressSlider() {
+    private void ProgressCastSlider() {
         if (!_isCasting) {
             return;
         }
@@ -70,6 +80,43 @@ public class CastBarController : MonoBehaviour {
         float percentComplete = _timeSinceCast / _abilityCastTime;
 
         _castBar.fillAmount = percentComplete;
+    }
+
+    private void ProgressChannelSlider() {
+        if (!_isChanneling) {
+            return;
+        }
+
+        float delta = Time.deltaTime;
+        float passedTimeDelta = 0f;
+
+        if (_channelPassedTime > 0) {
+            float step = (_channelPassedTime * CATCH_UP_PERCENT);
+            _channelPassedTime -= step;
+
+            /* If the remaining time is less than half a delta then
+             * just append it onto the step. The change won't be noticeable. */
+            if (_channelPassedTime <= (delta / 2f)) {
+                step += _channelPassedTime;
+                _channelPassedTime = 0f;
+            }
+            passedTimeDelta = step;
+        }
+
+        _timeSinceChannel += delta + passedTimeDelta;
+
+        float percentComplete = _timeSinceChannel / _channelDuration;
+
+        _castBar.fillAmount = 1 - percentComplete;
+    }
+
+    private void HandleChannelStart(float duration, float passedTime) {
+        _isChanneling = true;
+        _channelDuration = duration;
+        _channelPassedTime = passedTime;
+        _timeSinceChannel = 0f;
+        fadeSequence?.Kill();
+        _castBar.color = _baseColor; // change to channel colour
     }
 
     private void HandleCastStart(float castTime, float passedTime) {

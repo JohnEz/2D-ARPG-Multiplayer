@@ -9,6 +9,7 @@ public enum CharacterState {
     Moving,
     Dashing,
     Casting,
+    Channeling,
     Stunned,
     Dead,
     Leaping,
@@ -29,7 +30,7 @@ public class CharacterStateController : MonoBehaviour {
             return;
         }
 
-        DebugState(_state, newState);
+        //DebugState(_state, newState);
 
         _state = newState;
 
@@ -58,6 +59,10 @@ public class CharacterStateController : MonoBehaviour {
         return State == CharacterState.Casting;
     }
 
+    public bool IsChanneling() {
+        return State == CharacterState.Channeling;
+    }
+
     public bool IsStunned() {
         return State == CharacterState.Stunned;
     }
@@ -71,7 +76,7 @@ public class CharacterStateController : MonoBehaviour {
     }
 
     private void DebugState(CharacterState previousState, CharacterState newState) {
-        //print($"{gameObject.name}: {previousState} -> {newState}");
+        print($"{gameObject.name}: {previousState} -> {newState}");
     }
 
     public bool CanCast() {

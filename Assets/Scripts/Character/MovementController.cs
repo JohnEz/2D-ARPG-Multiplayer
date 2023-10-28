@@ -24,10 +24,23 @@ public class MovementController : MonoBehaviour {
             return;
         }
 
-        float moveSpeed = _stateController.IsCasting() ? _myStats.Speed.CurrentValue * _castController.castingAbility.SpeedWhileCasting : _myStats.Speed.CurrentValue;
-
-        Vector3 newPosition = _body.position + (MoveDirection * moveSpeed) * Time.fixedDeltaTime;
+        Vector3 newPosition = _body.position + (MoveDirection * GetMoveSpeed()) * Time.fixedDeltaTime;
 
         _body.MovePosition(newPosition);
+    }
+
+    private float GetMoveSpeed() {
+        float speedMod = 1f;
+
+        if (_stateController.IsCasting()) {
+            speedMod = _castController.castingAbility.SpeedWhileCasting;
+        }
+
+        if (_stateController.IsChanneling()) {
+            ChannelAbility channelAbility = _castController.castingAbilityEffect as ChannelAbility;
+            speedMod = channelAbility.SpeedWhileChannelingMultiplier;
+        }
+
+        return _myStats.Speed.CurrentValue * speedMod;
     }
 }

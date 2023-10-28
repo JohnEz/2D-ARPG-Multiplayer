@@ -103,7 +103,7 @@ public class CharacterController : NetworkBehaviour {
             MoveFromInput();
         }
 
-        if (!_stateController.IsDashing() && !_stateController.IsCasting() && !_stateController.IsLeaping()) {
+        if (!_stateController.IsDashing() && !_stateController.IsCasting() && !_stateController.IsLeaping() && !_stateController.IsChanneling()) {
             _stateController.State = CharacterState.Idle;
         }
     }
