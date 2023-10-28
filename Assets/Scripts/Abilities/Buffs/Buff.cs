@@ -60,6 +60,8 @@ public class Buff : ScriptableObject {
     [SerializeField]
     private GameObject applyVFX;
 
+    private GameObject _applyVFXInstance;
+
     [SerializeField]
     private GameObject expireVFX;
 
@@ -92,7 +94,7 @@ public class Buff : ScriptableObject {
         }
 
         if (applyVFX) {
-            Instantiate(applyVFX, target.transform);
+            _applyVFXInstance = Instantiate(applyVFX, target.transform);
         }
     }
 
@@ -137,6 +139,10 @@ public class Buff : ScriptableObject {
     }
 
     public virtual void OnExpire() {
+        if (_applyVFXInstance) {
+            Destroy(_applyVFXInstance);
+        }
+
         if (expireSFX) {
             AudioManager.Instance.PlaySound(expireSFX, targetCharacter.transform.position);
         }

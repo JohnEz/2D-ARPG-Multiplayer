@@ -18,7 +18,7 @@ MonoBehaviour:
   _isAStun: 0
   applySFX: {fileID: 0}
   expireSFX: {fileID: 0}
-  applyVFX: {fileID: 0}
+  applyVFX: {fileID: 5277472720557037422, guid: c6e482500c2a3eb459f7b5fbd000cfb7, type: 3}
   expireVFX: {fileID: 0}
   _statMods:
   - _value: 20

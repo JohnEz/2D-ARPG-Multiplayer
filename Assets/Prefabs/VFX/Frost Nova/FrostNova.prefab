@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2324499392439472970}
   - component: {fileID: 3087663541606221683}
   m_Layer: 0
-  m_Name: FrostLeap
+  m_Name: FrostNova
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
