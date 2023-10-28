@@ -213,4 +213,9 @@ public class PredictedProjectile : MonoBehaviour {
             AudioManager.Instance.PlaySound(onHitSFX, transform.position, options);
         }
     }
+
+    public void Reflect(Vector3 reflectPosition, CharacterController _newCaster) {
+        Vector2 reflectDirection = _direction * -1;
+        Initialise(reflectDirection, 0f, _newCaster);
+    }
 }

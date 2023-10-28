@@ -47,6 +47,12 @@ public class CharacterController : NetworkBehaviour {
 
     private LeapAbility _leapAbility;
 
+    public Transform FacingTransform {
+        get {
+            return visuals.transform;
+        }
+    }
+
     [SerializeField]
     private AudioClip _deathSFX;
 
