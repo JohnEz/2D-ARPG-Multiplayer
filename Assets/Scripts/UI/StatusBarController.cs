@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.IO.LowLevel.Unsafe;
 
 public class StatusBarController : MonoBehaviour {
 
@@ -11,9 +12,12 @@ public class StatusBarController : MonoBehaviour {
     private TextMeshProUGUI statusText;
 
     [SerializeField]
+    private GameObject _statusPanel;
+
+    [SerializeField]
     private Image statusBar;
 
-    private bool isDisplayed = false;
+    private bool _isDisplayed = true;
 
     private Buff currentStatus;
 
@@ -21,6 +25,7 @@ public class StatusBarController : MonoBehaviour {
 
     private void OnEnable() {
         ResetStatus();
+        HideStatus();
 
         myBuffs = GetComponentInParent<BuffController>();
 
@@ -34,6 +39,7 @@ public class StatusBarController : MonoBehaviour {
     private void HandleBuffsChanged(List<Buff> buffs) {
         if (buffs.Count == 0) {
             ResetStatus();
+            HideStatus();
             return;
         }
 
@@ -41,6 +47,8 @@ public class StatusBarController : MonoBehaviour {
         Buff buffToDisplay = buffs.OrderByDescending(buff => buff.RemainingTime()).ToList().First();
 
         SetStatus(buffToDisplay);
+
+        ShowStatus();
     }
 
     private void SetStatus(Buff newStatus) {
@@ -56,7 +64,28 @@ public class StatusBarController : MonoBehaviour {
         statusBar.fillAmount = 0;
         statusText.text = "";
         currentStatus = null;
-        isDisplayed = false;
+    }
+
+    private void HideStatus() {
+        if (!_isDisplayed) {
+            return;
+        }
+
+        Debug.Log("Hiding status");
+
+        _isDisplayed = false;
+        _statusPanel.SetActive(false);
+    }
+
+    private void ShowStatus() {
+        if (_isDisplayed) {
+            return;
+        }
+
+        Debug.Log("Showing status");
+
+        _isDisplayed = true;
+        _statusPanel.SetActive(true);
     }
 
     private void Update() {
@@ -67,10 +96,10 @@ public class StatusBarController : MonoBehaviour {
         float fillAmount = currentStatus.RemainingTime() / currentStatus.MaxDuration;
         statusBar.fillAmount = fillAmount;
 
-        //Debug.Log(fillAmount);
-
         if (fillAmount <= 0) {
+            // i dont think this is ran because the buff controller removes it first
             ResetStatus();
+            HideStatus();
         }
     }
 }
