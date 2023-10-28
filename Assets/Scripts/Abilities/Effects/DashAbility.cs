@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class DashAbility : AbilityEffect {
 
@@ -15,15 +16,24 @@ public class DashAbility : AbilityEffect {
     [SerializeField]
     private GameObject _dashVFX;
 
+    [SerializeField]
+    private GameObject _hitboxPrefab;
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
+        Vector2 direction = _caster.AimDirection;
+
         if (isOwner) {
-            _caster.StartDashing(_caster.AimDirection, _dashSpeedCurve, _duration, _dashSpeed);
+            _caster.StartDashing(direction, _dashSpeedCurve, _duration, _dashSpeed);
         }
 
-        //GameObject shieldSlamVFX = Instantiate(dashAbility.prefabs[0], transform);
-        //shieldSlamVFX.transform.up = dashDirection;
-        //Destroy(shieldSlamVFX, dashAbility.DashDuration);
+        GameObject shieldSlamVFX = Instantiate(_dashVFX, _caster.transform);
+        shieldSlamVFX.transform.up = direction;
+        Destroy(shieldSlamVFX, _duration);
+
+        GameObject hitbox = Instantiate(_hitboxPrefab, _caster.transform);
+        hitbox.transform.up = direction;
+        hitbox.GetComponent<Hitbox>().Initialise(_caster.GetComponent<NetworkStats>(), _duration);
     }
 }

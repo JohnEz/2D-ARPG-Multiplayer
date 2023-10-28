@@ -66,13 +66,17 @@ MonoBehaviour:
   - id: Longsword
     prefab: {fileID: 4058092383524047943, guid: 5e0fe48ea9b559e47b97ae98d698dd62, type: 3}
   _buffResources:
+  - id: Snare
+    prefab: {fileID: 11400000, guid: 14005bfa922d4e245b4d9884f5a87e0e, type: 2}
+  - id: Stunned
+    prefab: {fileID: 11400000, guid: de93670c870c04440b67f2d2f34a7e68, type: 2}
+  - id: Shielded
+    prefab: {fileID: 11400000, guid: 751d3f8c9bc037c428377de2f8a207cf, type: 2}
   - id: Chill
     prefab: {fileID: 11400000, guid: 1785a481c09f4584189f1b4516f64d58, type: 2}
   - id: Frozen
     prefab: {fileID: 11400000, guid: 266bd078de321f04ab6365692336b6b0, type: 2}
   - id: Ice Barrier
     prefab: {fileID: 11400000, guid: 1a8790870ca9c724f9f1c2a0a7d0a767, type: 2}
-  - id: Snare
-    prefab: {fileID: 11400000, guid: 14005bfa922d4e245b4d9884f5a87e0e, type: 2}
   - id: Valiant
     prefab: {fileID: 11400000, guid: 520dcb29caba46b4a8f80d039ce3f074, type: 2}

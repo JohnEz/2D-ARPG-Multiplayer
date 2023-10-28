@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cbaed75bb983234ba6527e7b4abecb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _castCompleteSFX: {fileID: 0}
+  _castCompleteSFX: {fileID: 8300000, guid: 42c3df0974f43534dbfb2b9268471793, type: 3}
   _castCompleteVFX: {fileID: 0}
   _nextAbilityEffect: {fileID: 0}
   _dashSpeedCurve:
@@ -73,3 +73,5 @@ MonoBehaviour:
     m_RotationOrder: 4
   _duration: 0.45
   _dashSpeed: 20
+  _dashVFX: {fileID: 432453338631041226, guid: 61c01a0e6a554ca4385d7d1cdefdab18, type: 3}
+  _hitboxPrefab: {fileID: 9133011099275667742, guid: e5e0b8044d09c7843aa6f8a09736b646, type: 3}
