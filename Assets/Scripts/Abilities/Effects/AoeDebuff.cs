@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using FishNet;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +14,13 @@ public class AoeDebuff : AbilityEffect {
     [SerializeField]
     private float _duration = 1.5f;
 
+    [SerializeField]
+    private bool _UpdateDurationIfAlreadyPresent = false;
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
-        if (isOwner) {
+        if (InstanceFinder.IsServer) {
             Vector3 targetLocation = _caster.transform.position;
             NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
 
@@ -24,7 +28,13 @@ public class AoeDebuff : AbilityEffect {
 
             hitTargets.ForEach(target => {
                 BuffController targetBuffController = target.GetComponent<BuffController>();
-                _caster.GetComponent<BuffController>().ApplyBuff(targetBuffController, _debuff, _duration);
+
+                if (targetBuffController.HasBuff(_debuff) && _UpdateDurationIfAlreadyPresent) {
+                    targetBuffController.ServerUpdateBuffDuration(_debuff, _duration);
+                    return;
+                }
+
+                targetBuffController.ServerApplyBuff(_debuff, _duration);
             });
         }
 

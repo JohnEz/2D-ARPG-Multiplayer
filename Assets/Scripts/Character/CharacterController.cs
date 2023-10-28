@@ -18,6 +18,12 @@ public class CharacterController : NetworkBehaviour {
 
     public Vector2 AimLocation = Vector2.zero;
 
+    public Vector3 AimDirection {
+        get {
+            return ((Vector3)AimLocation - transform.position).normalized;
+        }
+    }
+
     private MovementController _movementController;
     private CharacterStateController _stateController;
     private CastController _castController;
@@ -37,15 +43,21 @@ public class CharacterController : NetworkBehaviour {
     [SerializeField]
     private AudioClip _deathSFX;
 
+    private float _timeDashing = 0f;
+    private Vector2 _dashDirection = Vector2.zero;
+    private float _dashDuration = 0f;
+    private float _dashSpeed = 0f;
+    private AnimationCurve _dashCurveSpeed;
+
     private void Awake() {
         _movementController = GetComponent<MovementController>();
         _stateController = GetComponent<CharacterStateController>();
         _castController = GetComponent<CastController>();
         _abilitiesController = GetComponent<AbilitiesController>();
+        _buffController = GetComponent<BuffController>();
+        _stats = GetComponent<NetworkStats>();
         _hitbox = GetComponent<Collider2D>();
         _rigidBody = GetComponent<Rigidbody2D>();
-        _stats = GetComponent<NetworkStats>();
-        _buffController = GetComponent<BuffController>();
     }
 
     private void OnEnable() {
@@ -66,6 +78,10 @@ public class CharacterController : NetworkBehaviour {
     private void FixedUpdate() {
         if (!base.IsOwner && !(base.OwnerId == -1 && IsServer)) {
             return;
+        }
+
+        if (_stateController.IsDashing()) {
+            DashingUpdate();
         }
 
         if (_stateController.IsStunned() || _stateController.IsDead()) {
@@ -132,6 +148,8 @@ public class CharacterController : NetworkBehaviour {
         _castController.Cast(abilityId);
     }
 
+    #region Leaping
+
     public void StartLeapMovement(Vector2 leapTarget, float leapDuration, AnimationCurve leapMoveCurve) {
         if (!IsOwner) {
             return;
@@ -151,7 +169,6 @@ public class CharacterController : NetworkBehaviour {
         _hitbox.enabled = false;
     }
 
-    // need to make this an rpc
     private void LeapComplete() {
         _stateController.State = CharacterState.Idle;
         _rigidBody.isKinematic = false;
@@ -159,4 +176,42 @@ public class CharacterController : NetworkBehaviour {
         _leapAbility.OnLeapComplete();
         _leapAbility = null;
     }
+
+    #endregion Leaping
+
+    #region Dashing
+
+    public void StartDashing(Vector2 direction, AnimationCurve speedCurve, float duration, float speed) {
+        _stateController.State = CharacterState.Dashing;
+        _movementController.MoveDirection = Vector2.zero;
+        _timeDashing = 0f;
+
+        _dashDirection = direction;
+        _dashDuration = duration;
+        _dashSpeed = speed;
+        _dashCurveSpeed = speedCurve;
+    }
+
+    private void DashingUpdate() {
+        _timeDashing += Time.fixedDeltaTime;
+        float currentCurveSpeed = _dashCurveSpeed.Evaluate(_timeDashing / _dashDuration);
+        Vector3 newPosition = _rigidBody.position + (_dashDirection * currentCurveSpeed * _dashSpeed * Time.fixedDeltaTime);
+
+        _rigidBody.MovePosition(newPosition);
+
+        if (_timeDashing >= _dashDuration) {
+            EndDashing();
+        }
+    }
+
+    private void EndDashing() {
+        if (!_stateController.IsDashing()) {
+            Debug.LogError($"EndDashing called when wasnt in dashing state {gameObject.name}");
+            return;
+        }
+
+        _stateController.State = CharacterState.Idle;
+    }
+
+    #endregion Dashing
 }

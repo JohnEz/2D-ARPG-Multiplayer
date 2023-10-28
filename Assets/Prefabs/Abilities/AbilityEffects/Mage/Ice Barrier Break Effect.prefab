@@ -46,3 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _castCompleteSFX: {fileID: 0}
   _castCompleteVFX: {fileID: 0}
+  _nextAbilityEffect: {fileID: 0}
+  _debuff: Chill
+  _radius: 2
+  _duration: 1.5
+  _UpdateDurationIfAlreadyPresent: 1

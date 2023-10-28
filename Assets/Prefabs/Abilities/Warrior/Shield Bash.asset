@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Shield Bash
   Icon: {fileID: 21300000, guid: abbd3d09ac66d2e4e8a3b1b14e51c1c5, type: 3}
-  AbilityEffectPrefab: {fileID: 7678783099372667594, guid: b47e0d91713a8c24785e7da5246ecfa8, type: 3}
+  AbilityEffectPrefab: {fileID: 4085629182842641238, guid: ecf8fc1d3c0c7bd4cb6792eaf127e644, type: 3}
   CastTime: 0.2
   Cooldown: 5
   CastSFX: {fileID: 0}
