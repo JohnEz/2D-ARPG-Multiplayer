@@ -100,8 +100,6 @@ public class PredictedSlash : MonoBehaviour {
 
         AudioManager.Instance.PlaySound(_hitSFX, transform.position, audioClipOptions);
 
-        if (InstanceFinder.IsServer) {
-            OnHit?.Invoke(hitPosition, _caster, hitCharacter);
-        }
+        OnHit?.Invoke(hitPosition, _caster, hitCharacter);
     }
 }
