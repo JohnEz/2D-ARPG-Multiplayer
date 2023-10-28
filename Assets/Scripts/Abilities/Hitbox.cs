@@ -87,6 +87,10 @@ public class Hitbox : MonoBehaviour {
     }
 
     private void HandleHit(NetworkStats hitCharacter, Vector3 hitPosition) {
+        if (_caster.IsOwner) {
+            CameraManager.Instance.ShakeCamera(2.5f, 0.2f);
+        }
+
         OnHit?.Invoke(hitPosition, _caster, hitCharacter);
     }
 }

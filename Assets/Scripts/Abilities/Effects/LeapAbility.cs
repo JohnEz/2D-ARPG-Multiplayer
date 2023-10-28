@@ -48,7 +48,7 @@ public class LeapAbility : AbilityEffect {
         _caster.StartLeap(_duration, _leapZCurve, this);
     }
 
-    public void OnLeapComplete() {
+    public virtual void OnLeapComplete() {
         if (_landingVFX) {
             Instantiate(_landingVFX, _caster.transform.position, Quaternion.identity);
         }

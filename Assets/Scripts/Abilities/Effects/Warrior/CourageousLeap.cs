@@ -11,4 +11,12 @@ public class CourageousLeap : LeapAbility {
             _caster.GetComponent<TelegraphSpawner>().Fire(TELEGRAPH_ID, _landingSpot.safeSpot);
         }
     }
+
+    public override void OnLeapComplete() {
+        if (_caster.IsOwner) {
+            CameraManager.Instance.ShakeCamera(2.5f, 0.2f);
+        }
+
+        base.OnLeapComplete();
+    }
 }

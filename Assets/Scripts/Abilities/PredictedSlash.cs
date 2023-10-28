@@ -100,6 +100,10 @@ public class PredictedSlash : MonoBehaviour {
 
         AudioManager.Instance.PlaySound(_hitSFX, transform.position, audioClipOptions);
 
+        if (_caster.IsOwner) {
+            CameraManager.Instance.ShakeCamera(.5f, 0.1f);
+        }
+
         OnHit?.Invoke(hitPosition, _caster, hitCharacter);
     }
 }
