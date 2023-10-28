@@ -26,10 +26,12 @@ public class GameStateManager : Singleton<GameStateManager> {
 
     private void OnEnable() {
         NetworkManagerHooks.Instance.OnPlayerLoaded += HandlePlayerLoaded;
+        ConnectionManager.Instance.OnPlayerLoadedScene += HandlePlayerLoadedScene;
     }
 
     private void OnDisable() {
         NetworkManagerHooks.Instance.OnPlayerLoaded -= HandlePlayerLoaded;
+        ConnectionManager.Instance.OnPlayerLoadedScene -= HandlePlayerLoadedScene;
     }
 
     private void Start() {
@@ -38,7 +40,7 @@ public class GameStateManager : Singleton<GameStateManager> {
         foreach (var item in ConnectionManager.Instance.Connections) {
             Debug.Log($"ClientId: {item.Key.ClientId}, IsLoadingScene:  {item.Value.IsLoadingScene}, PersistentPlayer:  {item.Value.PersistentPlayer != null}");
 
-            if (InstanceFinder.IsServer && item.Value.PersistentPlayer != null) {
+            if (InstanceFinder.IsServer && item.Value.PersistentPlayer != null && !item.Value.IsLoadingScene) {
                 SpawnPlayer(item.Value.PersistentPlayer);
             }
         }
@@ -50,6 +52,15 @@ public class GameStateManager : Singleton<GameStateManager> {
 
         if (InstanceFinder.IsServer) {
             SpawnPlayer(player);
+        }
+    }
+
+    [Server(Logging = LoggingType.Off)]
+    private void HandlePlayerLoadedScene(PlayerConnectionState player) {
+        Debug.Log("Player loaded scene");
+
+        if (InstanceFinder.IsServer) {
+            SpawnPlayer(player.PersistentPlayer);
         }
     }
 }
