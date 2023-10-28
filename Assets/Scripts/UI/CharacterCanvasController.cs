@@ -133,7 +133,7 @@ public class CharacterCanvasController : MonoBehaviour {
 
     public void CreateHealText(int healing) {
         float fontSize = CalculateCombatTextFontSize(healing);
-        CreateCombatText(healing.ToString(), new Color(0.7294f, 0.9569f, 0.1176f), fontSize);
+        CreateCombatText($"+{healing}", new Color(0.7294f, 0.9569f, 0.1176f), fontSize);
     }
 
     public void CreateShieldText(int shield) {
