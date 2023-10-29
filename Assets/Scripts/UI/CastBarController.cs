@@ -138,6 +138,7 @@ public class CastBarController : MonoBehaviour {
 
     private void EndCast(bool isComplete) {
         _isCasting = false;
+        _isChanneling = false;
 
         Color color = isComplete ? _successColor : _failColor;
 

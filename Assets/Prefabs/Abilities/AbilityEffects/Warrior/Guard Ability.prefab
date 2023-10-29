@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3927e3212aff2748b195923bfc7a7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _castCompleteSFX: {fileID: 0}
+  _castCompleteSFX: {fileID: 8300000, guid: 2382db812717f3d45801d79919755fa3, type: 3}
   _castCompleteVFX: {fileID: 0}
   _nextAbilityEffect: {fileID: 0}
   _channelVFXPrefab: {fileID: 0}
