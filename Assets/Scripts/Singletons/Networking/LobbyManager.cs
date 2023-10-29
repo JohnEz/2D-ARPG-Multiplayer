@@ -32,8 +32,10 @@ public class LobbyManager : Singleton<LobbyManager> {
     }
 
     private void OnDisable() {
-        NetworkManagerHooks.Instance.OnConnected -= HandleConnected;
-        NetworkManagerHooks.Instance.OnDisconnected -= CleanUp;
+        if (NetworkManagerHooks.Instance != null) {
+            NetworkManagerHooks.Instance.OnConnected -= HandleConnected;
+            NetworkManagerHooks.Instance.OnDisconnected -= CleanUp;
+        }
     }
 
     private void OnDestroy() {

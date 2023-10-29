@@ -5,18 +5,18 @@ using UnityEngine;
 public class MainMenuUI : MonoBehaviour {
 
     [SerializeField]
-    private GameObject loginPanel;
+    private Panel loginPanel;
 
     [SerializeField]
-    private GameObject lobbyExplorerPanel;
+    private Panel lobbyExplorerPanel;
 
     [SerializeField]
-    private GameObject lobbyPanel;
+    private Panel lobbyPanel;
 
     private void Start() {
-        loginPanel.SetActive(true);
-        lobbyExplorerPanel.SetActive(false);
-        lobbyPanel.SetActive(false);
+        loginPanel.SetPanelEnabled(true, true);
+        lobbyExplorerPanel.SetPanelEnabled(false, false);
+        lobbyPanel.SetPanelEnabled(false, false);
     }
 
     private void OnEnable() {
@@ -31,22 +31,24 @@ public class MainMenuUI : MonoBehaviour {
             LobbyManager.Instance.OnLoggedIn -= HandleLoggedIn;
         }
 
-        NetworkManagerHooks.Instance.OnConnected -= HandleJoinedLobby;
-        NetworkManagerHooks.Instance.OnDisconnected -= HandleDisconnectLobby;
+        if (NetworkManagerHooks.Instance) {
+            NetworkManagerHooks.Instance.OnConnected -= HandleJoinedLobby;
+            NetworkManagerHooks.Instance.OnDisconnected -= HandleDisconnectLobby;
+        }
     }
 
     private void HandleLoggedIn() {
-        loginPanel.SetActive(false);
-        lobbyExplorerPanel.SetActive(true);
+        loginPanel.SetPanelEnabled(false);
+        lobbyExplorerPanel.SetPanelEnabled(true, true, Panel.OUT_ANIMATION_DURATION); // TODO this delay should be handled by a window / panel manager
     }
 
     private void HandleJoinedLobby() {
-        lobbyExplorerPanel.SetActive(false);
-        lobbyPanel.SetActive(true);
+        lobbyExplorerPanel.SetPanelEnabled(false);
+        lobbyPanel.SetPanelEnabled(true, true, Panel.OUT_ANIMATION_DURATION);
     }
 
     private void HandleDisconnectLobby() {
-        lobbyExplorerPanel.SetActive(true);
-        lobbyPanel.SetActive(false);
+        lobbyExplorerPanel.SetPanelEnabled(true);
+        lobbyPanel.SetPanelEnabled(false, true, Panel.OUT_ANIMATION_DURATION);
     }
 }

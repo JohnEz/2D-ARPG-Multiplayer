@@ -12,8 +12,12 @@ public class LobbyExplorerMenu : MonoBehaviour {
     [SerializeField]
     private GameObject lobbyCardPrefab;
 
-    public void Start() {
-        RefreshLobbyList();
+    public void OnEnable() {
+        GetComponent<Panel>().OnPanelEnabled += RefreshLobbyList;
+    }
+
+    public void OnDisable() {
+        GetComponent<Panel>().OnPanelEnabled -= RefreshLobbyList;
     }
 
     public async void RefreshLobbyList() {

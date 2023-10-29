@@ -21,18 +21,20 @@ public class LoginMenu : MonoBehaviour {
     }
 
     public void Login() {
+        Debug.Log("Login");
+
         HandleLoginStart();
         LobbyManager.Instance.Authenticate(_usernameInput.text);
     }
 
     private void HandleLoginStart() {
         _usernameInput.interactable = false;
-        _loginButton.SetInteractable(false);
+        _loginButton.HandleLoading();
     }
 
     private void HandleLoginComplete() {
         // this feels wrong as we dont want to reactive them if its successful
         _usernameInput.interactable = false;
-        _loginButton.SetInteractable(true);
+        _loginButton.HandleLoadingComplete();
     }
 }

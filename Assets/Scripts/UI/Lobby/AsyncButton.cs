@@ -22,7 +22,7 @@ public class AsyncButton : MonoBehaviour {
         SetInteractable(true);
     }
 
-    public void SetInteractable(bool interactable) {
+    private void SetInteractable(bool interactable) {
         _myButton.interactable = interactable;
 
         if (_loadingIndicator != null) {
@@ -34,11 +34,11 @@ public class AsyncButton : MonoBehaviour {
         }
     }
 
-    private void OnLoading() {
+    public void HandleLoading() {
         SetInteractable(false);
     }
 
-    public void LoadingComplete() {
+    public void HandleLoadingComplete() {
         SetInteractable(true);
     }
 }

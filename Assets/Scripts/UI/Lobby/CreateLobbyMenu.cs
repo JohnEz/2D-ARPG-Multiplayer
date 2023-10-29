@@ -20,7 +20,9 @@ public class CreateLobbyMenu : MonoBehaviour {
     }
 
     public void OnDisable() {
-        NetworkManagerHooks.Instance.OnConnected -= HandleCreateComplete;
+        if (NetworkManagerHooks.Instance) {
+            NetworkManagerHooks.Instance.OnConnected -= HandleCreateComplete;
+        }
     }
 
     public async void CreateLobby() {
@@ -39,12 +41,12 @@ public class CreateLobbyMenu : MonoBehaviour {
 
     private void HandleCreateStart() {
         lobbyNameInput.interactable = false;
-        _createButton.SetInteractable(false);
+        _createButton.HandleLoading();
     }
 
     private void HandleCreateComplete() {
         // this feels wrong as we dont want to reactive them if its successful
         lobbyNameInput.interactable = false;
-        _createButton.SetInteractable(true);
+        _createButton.HandleLoadingComplete();
     }
 }

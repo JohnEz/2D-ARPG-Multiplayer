@@ -264,7 +264,6 @@ public class AiBrain : NetworkBehaviour {
 
         if (_target) {
             _target.GetComponent<CharacterStateController>().OnDeath += HandleTargetDeath;
-            Debug.Log($"new target: {target?.gameObject.name}");
         }
     }
 

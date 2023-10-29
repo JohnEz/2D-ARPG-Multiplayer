@@ -18,6 +18,10 @@ public class AudioManager : Singleton<AudioManager> {
     [SerializeField]
     private AudioMixerGroup sfxMixer;
 
+    public void PlaySound(AudioClip clip, AudioClipOptions options = null) {
+        PlaySound(clip, Camera.main.transform, options);
+    }
+
     public void PlaySound(AudioClip clip, Vector3 worldPosition, AudioClipOptions options = null) {
         if (!clip) {
             return;
