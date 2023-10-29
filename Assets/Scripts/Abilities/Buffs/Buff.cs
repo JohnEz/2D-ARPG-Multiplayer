@@ -122,10 +122,6 @@ public class Buff : ScriptableObject {
     public virtual void UpdateElapsedTime(float deltaTime) {
         ElapsedTime += deltaTime;
 
-        if (!InstanceFinder.IsServer) {
-            return;
-        }
-
         int ticks = Mathf.FloorToInt(ElapsedTime / Interval);
 
         if (ticks > tickCounter) {

@@ -19,9 +19,7 @@ public class ChannelAbility : AbilityEffect {
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
-        if (isOwner) {
-            _caster.GetComponent<ChannelController>().StartChanneling(_channelDuration, 0, this);
-        }
+        _caster.GetComponent<ChannelController>().StartChanneling(_channelDuration, 0, this);
     }
 
     public virtual void OnChannelStart() {

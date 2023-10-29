@@ -5,6 +5,7 @@ using UnityEngine;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet;
+using FishNet.Managing.Logging;
 
 public enum StatType {
     HEALTH,
@@ -145,11 +146,8 @@ public class NetworkStats : NetworkBehaviour {
         }
     }
 
+    [Server(Logging = LoggingType.Off)]
     public void TakeDamageServer(int damage) {
-        if (!IsServer) {
-            return;
-        }
-
         int damageToTake = (int)(damage * DamageTaken.CurrentValue);
         //  we should always take at least 1 damage, even if we have 100% damage reduction
         damageToTake = Mathf.Max(damageToTake, 1);
@@ -202,7 +200,7 @@ public class NetworkStats : NetworkBehaviour {
         }
     }
 
-    [Server]
+    [Server(Logging = LoggingType.Off)]
     public void ReceiveHealingServer(int healing) {
         _currentHealth = Math.Clamp(_currentHealth + healing, 0, (int)MaxHealth.CurrentValue);
     }
