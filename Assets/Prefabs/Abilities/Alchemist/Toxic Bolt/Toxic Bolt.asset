@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Toxic Bolt
   Icon: {fileID: 21300000, guid: 9bca91dfcd8e5fc45a33eeda928e20b4, type: 3}
-  AbilityEffectPrefab: {fileID: 5701502190798903976, guid: e3fc177920c58804ea9440aaa6684caf, type: 3}
+  AbilityEffectPrefab: {fileID: 4824077025394156327, guid: 0c8c922aeca170d4ead90604bcff7443, type: 3}
   CastTime: 0.4
   Cooldown: 0.55
   CastSFX: {fileID: 0}

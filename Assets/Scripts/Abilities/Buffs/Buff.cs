@@ -31,6 +31,9 @@ public class Buff : ScriptableObject {
         set { _interval = value; }
     }
 
+    [SerializeField]
+    private AbilityEffect _tickEffectPrefab;
+
     public float ElapsedTime { get; set; }
 
     private float _addedTime = 0f;
@@ -136,6 +139,18 @@ public class Buff : ScriptableObject {
     }
 
     public virtual void OnTick() {
+        CreateTickEffect();
+    }
+
+    private void CreateTickEffect() {
+        if (_tickEffectPrefab == null) {
+            return;
+        }
+
+        AbilityEffect tickEffect = Instantiate(_tickEffectPrefab, targetCharacter.transform);
+        // TODO this should be the caster of the buff probably but passing that over the network might have problems?
+        tickEffect.Initialise(targetCharacter.GetComponent<CharacterController>());
+        tickEffect.OnCastComplete(true);
     }
 
     public virtual void OnExpire() {
