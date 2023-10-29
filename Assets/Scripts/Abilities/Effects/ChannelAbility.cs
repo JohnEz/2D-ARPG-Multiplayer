@@ -7,7 +7,7 @@ public class ChannelAbility : AbilityEffect {
     private GameObject _channelVFXPrefab;
 
     [SerializeField]
-    private float _channelDuration = 1f;
+    protected float _channelDuration = 1f;
 
     [SerializeField]
     private float _speedWhileChannelingMultiplier = 0.1f;

@@ -80,3 +80,5 @@ MonoBehaviour:
     prefab: {fileID: 11400000, guid: 1a8790870ca9c724f9f1c2a0a7d0a767, type: 2}
   - id: Valiant
     prefab: {fileID: 11400000, guid: 520dcb29caba46b4a8f80d039ce3f074, type: 2}
+  - id: Guard
+    prefab: {fileID: 11400000, guid: bb8cb8466f84b514b865bbe675c6e363, type: 2}
