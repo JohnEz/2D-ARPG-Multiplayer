@@ -1097,6 +1097,9 @@ MonoBehaviour:
   - Name: Warrior
     Color: {r: 0.5647059, g: 0.4392157, b: 0.3137255, a: 1}
     Sprite: {fileID: -490937426, guid: d0f543109e31b2b4f9a9c7c5eda50348, type: 3}
+  - Name: Alchemist
+    Color: {r: 0.23529412, g: 0.5568628, b: 0.30980393, a: 1}
+    Sprite: {fileID: 337020188, guid: d0f543109e31b2b4f9a9c7c5eda50348, type: 3}
   _characterSelectCard: {fileID: 1655633639706267816}
   _waitingForPlayer: {fileID: 2509250026523148993}
   _rightArrow: {fileID: 3955000073402844683}
