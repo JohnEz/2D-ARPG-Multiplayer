@@ -143,7 +143,6 @@ public class BuffController : NetworkBehaviour {
 
         if (expiredBuffs.Count > 0) {
             expiredBuffs.ForEach(expiredBuff => {
-                expiredBuff.OnExpire();
                 ServerRemoveBuff(expiredBuff.Name);
             });
         }
@@ -169,6 +168,8 @@ public class BuffController : NetworkBehaviour {
         if (originalBuff == null) {
             return;
         }
+
+        originalBuff.OnExpire();
 
         ActiveBuffs = ActiveBuffs.FindAll(buff => buff.Name != buffName).ToList();
         originalBuff.RemoveEffects();
