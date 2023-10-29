@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BuffAbility : AbilityEffect {
@@ -9,6 +10,28 @@ public class BuffAbility : AbilityEffect {
     public bool CanHitAllies = true;
     public bool CanHitCaster = true;
 
+    public static List<NetworkStats> GetHitTargets(NetworkStats casterStats, bool canHitCaster, bool canHitEnemies, bool canHitAllies) {
+        List<NetworkStats> hitTargets = new List<NetworkStats>();
+
+        GameObject.FindGameObjectsWithTag("Unit").ToList().ForEach((unit) => {
+            NetworkStats unitStats = unit.GetComponent<NetworkStats>();
+
+            if (unitStats == null) {
+                return;
+            }
+
+            if (canHitCaster && unitStats == casterStats) {
+                hitTargets.Add(unitStats);
+            } else if (canHitEnemies && unitStats.Faction != casterStats.Faction) {
+                hitTargets.Add(unitStats);
+            } else if (canHitAllies && unitStats.Faction == casterStats.Faction) {
+                hitTargets.Add(unitStats);
+            }
+        });
+
+        return hitTargets;
+    }
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
@@ -17,15 +40,11 @@ public class BuffAbility : AbilityEffect {
             BuffController casterBuffs = _caster.GetComponent<BuffController>();
             NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
 
-            List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(_caster.AimLocation, .5f, casterStats, CanHitCaster, CanHitEnemies, CanHitAllies);
+            List<NetworkStats> hitTargets = GetHitTargets(casterStats, CanHitCaster, CanHitEnemies, CanHitAllies);
 
             if (hitTargets.Count > 0) {
                 // if there were units near the mouse, pick the closest to the center
                 hitTarget = GetClosestToPoint(_caster.AimLocation, hitTargets);
-            }
-
-            if (hitTarget == null && CanHitCaster) {
-                hitTarget = _caster.GetComponent<NetworkStats>();
             }
 
             if (hitTarget != null) {
