@@ -17,7 +17,7 @@ MonoBehaviour:
   AbilityEffectPrefab: {fileID: 4824077025394156327, guid: 0c8c922aeca170d4ead90604bcff7443, type: 3}
   CastTime: 0.4
   Cooldown: 0.55
-  CastSFX: {fileID: 0}
+  CastSFX: {fileID: 8300000, guid: 0927fec77d17070469ee409df6f93b42, type: 3}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0
   TimeCast: -Infinity

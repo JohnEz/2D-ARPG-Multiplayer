@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d08022b5f71325c4a9a8fccbbcf33831, type: 3}
-  m_Name: Rejuvination
+  m_Name: Rejuvenation
   m_EditorClassIdentifier: 
-  _name: Rejuvination
+  _name: Rejuvenation
   _maxDuration: 4
   _interval: 2
   _tickEffectPrefab: {fileID: 1477186968419173098, guid: 5e9f32462b609eb4a8e4132c679f8624, type: 3}

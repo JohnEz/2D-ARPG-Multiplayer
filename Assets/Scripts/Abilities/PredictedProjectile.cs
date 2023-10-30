@@ -26,7 +26,11 @@ public class PredictedProjectile : MonoBehaviour {
 
     public event Action<Vector3, NetworkStats, NetworkStats> OnHit;
 
+    public event Action<Vector3, NetworkStats> OnHitLocation;
+
     private Vector2 _startPosition;
+
+    private bool _hasTargetLocation;
 
     // Config variables
     /////////////////////
@@ -41,6 +45,8 @@ public class PredictedProjectile : MonoBehaviour {
             return _baseMaxDistance + MAX_DISTANCE_MODIFIER;
         }
     }
+
+    private float _targetDistance = 0f;
 
     public bool CanHitAllies = false;
 
@@ -63,12 +69,13 @@ public class PredictedProjectile : MonoBehaviour {
         _body = GetComponent<Rigidbody2D>();
     }
 
-    public void Initialise(Vector2 direction, float passedTime, CharacterController caster) {
-        _direction = direction.normalized;
-        transform.up = direction;
+    public void Initialise(Vector2 direction, float passedTime, CharacterController caster, float distance = -1f) {
         _passedTime = passedTime;
         _caster = caster; // TODO this should be network stats
         _startPosition = transform.position;
+        _targetDistance = distance > 0 ? Mathf.Clamp(distance, 0.1f, MaxDistance) : MaxDistance;
+        _direction = direction;
+        transform.up = direction;
 
         Invoke("Expire", MAX_LIFE_TIME);
 
@@ -77,12 +84,20 @@ public class PredictedProjectile : MonoBehaviour {
         }
     }
 
+    public void InitialiseTargetLocation(Vector3 targetLocation, float passedTime, CharacterController caster) {
+        _hasTargetLocation = true;
+        float distance = Vector2.Distance(transform.position, targetLocation);
+        Vector2 direction = (targetLocation - transform.position).normalized;
+
+        Initialise(direction, passedTime, caster, distance);
+    }
+
     private void Update() {
         if (!isActive) {
             return;
         }
 
-        if (Vector2.Distance(transform.position, _startPosition) >= MaxDistance) {
+        if (Vector2.Distance(transform.position, _startPosition) >= _targetDistance) {
             Expire();
         }
     }
@@ -142,6 +157,12 @@ public class PredictedProjectile : MonoBehaviour {
             return;
         }
 
+        bool hasNoCharacterCollision = !isCharacterCollision && !CanHitAllies && !CanHitEnemies;
+
+        if (hasNoCharacterCollision && isCharacterCollision) {
+            return;
+        }
+
         Vector3 hitLocation = Vector3.zero;
 
         if (isCharacterCollision) {
@@ -181,6 +202,8 @@ public class PredictedProjectile : MonoBehaviour {
 
     public void HandleHit(Vector3 hitLocation, bool isExpired = false) {
         CreateHitEffects(hitLocation, isExpired);
+
+        OnHitLocation?.Invoke(hitLocation, _caster.GetComponent<NetworkStats>());
 
         // we destroy the visuals so the trail isnt instantly destroyed.
         if (visuals) {

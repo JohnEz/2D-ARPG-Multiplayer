@@ -55,6 +55,8 @@ MonoBehaviour:
     prefab: {fileID: 7438075775932065040, guid: 0c729c6835b60b04f940b19fa2314d05, type: 3}
   - id: Toxic Bolt
     prefab: {fileID: 7520552771459370303, guid: d652c0009eb68bf49a33a29fff5256b6, type: 3}
+  - id: Healing Salve
+    prefab: {fileID: 853652346070200505, guid: 931f4800e4c9d24459e1dfb0e5162ccf, type: 3}
   _telegraphResources:
   - id: Default
     prefab: {fileID: 2956777469308170475, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
@@ -86,7 +88,7 @@ MonoBehaviour:
     prefab: {fileID: 11400000, guid: bb8cb8466f84b514b865bbe675c6e363, type: 2}
   - id: Toxic
     prefab: {fileID: 11400000, guid: 0173b9feb55dbbe4090aa3fa28320b6a, type: 2}
-  - id: Rejuvination
+  - id: Rejuvenation
     prefab: {fileID: 11400000, guid: 6ea4a52f8e581eb4080962293f70b4e7, type: 2}
   - id: Barrier
     prefab: {fileID: 11400000, guid: bf9f71d5f2dbf074297c2d9efd4b9432, type: 2}
