@@ -17,7 +17,8 @@ public class CharacterController : NetworkBehaviour {
     [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
     public Vector2 InputDirection { get; [ServerRpc(RequireOwnership = false, RunLocally = true)] set; }
 
-    public Vector2 AimLocation = Vector2.zero;
+    [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
+    public Vector2 AimLocation { get; [ServerRpc(RequireOwnership = false, RunLocally = true)] set; }
 
     public Vector3 AimDirection {
         get {

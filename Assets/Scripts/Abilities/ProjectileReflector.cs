@@ -15,7 +15,10 @@ public class ProjectileReflector : MonoBehaviour {
         }
 
         PredictedProjectile projectile = collision.gameObject.GetComponent<PredictedProjectile>();
-        if (projectile != null) {
+
+        NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
+
+        if (projectile != null && projectile.ShouldReflect(casterStats)) {
             projectile.Reflect(transform.position, _caster);
         }
     }

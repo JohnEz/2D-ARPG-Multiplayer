@@ -237,6 +237,23 @@ public class PredictedProjectile : MonoBehaviour {
         }
     }
 
+    public bool ShouldReflect(NetworkStats reflector) {
+        bool hitsUnits = CanHitAllies || CanHitEnemies || CanHitCaster;
+
+        if (!hitsUnits) {
+            return false;
+        }
+
+        NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
+
+        if (reflector.Faction == casterStats.Faction) {
+            // cant reflect allies projectiles
+            return false;
+        }
+
+        return true;
+    }
+
     public void Reflect(Vector3 reflectPosition, CharacterController _newCaster) {
         Vector2 reflectDirection = _direction * -1;
         Initialise(reflectDirection, 0f, _newCaster);
