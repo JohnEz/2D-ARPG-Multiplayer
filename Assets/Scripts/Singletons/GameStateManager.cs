@@ -30,8 +30,13 @@ public class GameStateManager : Singleton<GameStateManager> {
     }
 
     private void OnDisable() {
-        NetworkManagerHooks.Instance.OnPlayerLoaded -= HandlePlayerLoaded;
-        ConnectionManager.Instance.OnPlayerLoadedScene -= HandlePlayerLoadedScene;
+        if (NetworkManagerHooks.Instance != null) {
+            NetworkManagerHooks.Instance.OnPlayerLoaded -= HandlePlayerLoaded;
+        }
+
+        if (ConnectionManager.Instance != null) {
+            ConnectionManager.Instance.OnPlayerLoadedScene -= HandlePlayerLoadedScene;
+        }
     }
 
     private void Start() {

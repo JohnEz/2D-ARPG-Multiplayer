@@ -18,11 +18,12 @@ public class Longsword : MonoBehaviour {
         int damage = BASE_DAMAGE;
 
         BuffController buffController = caster.GetComponent<BuffController>();
+        CharacterController characterController = caster.GetComponent<CharacterController>();
 
         if (buffController.HasBuff("Valiant")) {
-            caster.ReceiveHealing(VALIANT_HEALING);
+            caster.ReceiveHealing(VALIANT_HEALING, characterController);
         }
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
+        hitCharacter.TakeDamage(damage, characterController);
     }
 }

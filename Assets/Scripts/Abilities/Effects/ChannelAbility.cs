@@ -16,6 +16,9 @@ public class ChannelAbility : AbilityEffect {
 
     private GameObject _channelVFX;
 
+    [SerializeField]
+    private AudioClip _channelSFX;
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
@@ -25,6 +28,11 @@ public class ChannelAbility : AbilityEffect {
     public virtual void OnChannelStart() {
         if (_channelVFXPrefab != null) {
             _channelVFX = Instantiate(_channelVFXPrefab, _caster.transform);
+        }
+
+        if (_channelSFX != null) {
+            // TODO is there a way to loop this and stop when we stop channeling without just deleting the audio source?
+            AudioManager.Instance.PlaySound(_channelSFX, _caster.transform);
         }
     }
 

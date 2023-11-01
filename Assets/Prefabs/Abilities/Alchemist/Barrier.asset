@@ -25,7 +25,7 @@ MonoBehaviour:
   - _value: 50
     Type: 0
     Stat: 1
-  - _value: 0.5
+  - _value: 0.33
     Type: 1
     Stat: 3
   _expireEffect: {fileID: 0}

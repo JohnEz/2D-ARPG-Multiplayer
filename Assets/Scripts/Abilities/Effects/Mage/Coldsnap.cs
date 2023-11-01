@@ -14,7 +14,7 @@ public class Coldsnap : TelegraphHitEffect {
 
         BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
+        hitCharacter.TakeDamage(damage, caster.GetComponent<CharacterController>());
 
         if (hitBuffController.HasBuff("Chill")) {
             hitBuffController.ServerRemoveBuff("Chill");

@@ -31,7 +31,7 @@ public class FlashOnHit : MonoBehaviour {
         }
     }
 
-    public void Flash(int damage, bool isShield, bool sourceIsPlayer, CharacterController source) {
+    public void Flash(int damage, bool isShield, CharacterController source) {
         // If the flashRoutine is not null, then it is currently running.
         if (flashRoutine != null) {
             // In this case, we should stop it first.

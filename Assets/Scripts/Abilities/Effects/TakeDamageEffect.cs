@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class TakeHealingEffect : AbilityEffect {
+public class TakeDamageEffect : AbilityEffect {
 
     [SerializeField]
-    private int _healing = 2;
+    private int _damage = 2;
 
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
-        _caster.GetComponent<NetworkStats>().ReceiveHealing(_healing);
+        _caster.GetComponent<NetworkStats>().TakeDamage(_damage, _caster);
 
         Destroy(gameObject);
     }

@@ -12,6 +12,6 @@ public class HamstringShot : ProjectileHitEffect {
 
         hitBuffController.ServerApplyBuff("Snare");
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
+        hitCharacter.TakeDamage(damage, caster.GetComponent<CharacterController>());
     }
 }

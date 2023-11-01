@@ -22,7 +22,7 @@ public class ChallengingShout : AbilityEffect {
         List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(targetLocation, _radius, casterStats, false, true, false);
 
         hitTargets.ForEach(target => {
-            target.TakeDamage(_damage, isOwner, _caster);
+            target.TakeDamage(_damage, _caster);
 
             if (InstanceFinder.IsServer) {
                 AiBrain aiBrain = target.GetComponent<AiBrain>();

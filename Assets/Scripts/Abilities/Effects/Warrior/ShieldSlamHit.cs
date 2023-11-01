@@ -26,7 +26,7 @@ public class ShieldSlamHit : MonoBehaviour {
 
         AudioManager.Instance.PlaySound(_hitSFX, hitLocation);
 
-        hitCharacter.TakeDamage(_damage, caster.IsOwner, caster.GetComponent<CharacterController>());
+        hitCharacter.TakeDamage(_damage, caster.GetComponent<CharacterController>());
 
         hitCharacter.GetComponent<BuffController>().ServerApplyBuff("Stunned", 1f);
 

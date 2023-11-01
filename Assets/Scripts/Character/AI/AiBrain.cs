@@ -86,7 +86,7 @@ public class AiBrain : NetworkBehaviour {
         StopCoroutine(checksCoroutine);
     }
 
-    private void HandleTakeDamage(int damage, bool hitShield, bool isSourceOwner, CharacterController source) {
+    private void HandleTakeDamage(int damage, bool hitShield, CharacterController source) {
         AddAggro(source, damage);
     }
 

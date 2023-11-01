@@ -18,6 +18,6 @@ public class Frostbolt : ProjectileHitEffect {
             damage += CHILL_DAMAGE;
         }
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
+        hitCharacter.TakeDamage(damage, caster.GetComponent<CharacterController>());
     }
 }

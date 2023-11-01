@@ -50,4 +50,5 @@ MonoBehaviour:
   _channelVFXPrefab: {fileID: 0}
   _channelDuration: 1.5
   _speedWhileChannelingMultiplier: 0.3
+  _channelSFX: {fileID: 8300000, guid: 5035a25d062a01249b3adfd8e51837f2, type: 3}
   _reflectPrefab: {fileID: 1389003125303018186, guid: 6058c4ccdaf8ad946a505c02ae472769, type: 3}

@@ -32,6 +32,6 @@ public class HealingSalve : ProjectileHitEffect {
 
         hitBuffController.ServerApplyBuff(BUFF);
 
-        hitTarget.ReceiveHealing(baseHealAmount);
+        hitTarget.ReceiveHealing(baseHealAmount, caster.GetComponent<CharacterController>());
     }
 }

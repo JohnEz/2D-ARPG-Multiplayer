@@ -13,6 +13,6 @@ public class ToxicBolt : ProjectileHitEffect {
 
         hitBuffController.ServerApplyBuff(BUFF);
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
+        hitCharacter.TakeDamage(damage, caster.GetComponent<CharacterController>());
     }
 }

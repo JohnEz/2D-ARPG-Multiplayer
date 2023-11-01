@@ -96,9 +96,9 @@ public class NetworkStats : NetworkBehaviour {
 
     public event Action OnHealthChanged;
 
-    public event Action<int, bool, bool, CharacterController> OnTakeDamage;
+    public event Action<int, bool, CharacterController> OnTakeDamage;
 
-    public event Action<int> OnReceiveHealing;
+    public event Action<int, CharacterController> OnReceiveHealing;
 
     #region Health Functions
 
@@ -188,7 +188,7 @@ public class NetworkStats : NetworkBehaviour {
         _currentHealth = Math.Clamp(_currentHealth - remainingDamage, 0, (int)MaxHealth.CurrentValue);
     }
 
-    public void TakeDamage(int damage, bool sourceIsPlayer, CharacterController source) {
+    public void TakeDamage(int damage, CharacterController source) {
         TakeDamageServer(damage);
 
         if (IsClient) {
@@ -196,7 +196,7 @@ public class NetworkStats : NetworkBehaviour {
             // maybe i need an event for being hit and an event for taking numeric damage thats called in an observer? (not great for lag)
             int damageToTake = (int)(damage * DamageTaken.CurrentValue);
 
-            OnTakeDamage?.Invoke(damage, false, sourceIsPlayer, source);
+            OnTakeDamage?.Invoke(damage, false, source);
         }
     }
 
@@ -205,11 +205,11 @@ public class NetworkStats : NetworkBehaviour {
         _currentHealth = Math.Clamp(_currentHealth + healing, 0, (int)MaxHealth.CurrentValue);
     }
 
-    public void ReceiveHealing(int healing) {
+    public void ReceiveHealing(int healing, CharacterController source) {
         ReceiveHealingServer(healing);
 
         if (InstanceFinder.IsClient) {
-            OnReceiveHealing?.Invoke(healing);
+            OnReceiveHealing?.Invoke(healing, source);
         }
     }
 

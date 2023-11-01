@@ -28,6 +28,6 @@ public class CourageousLeapLand : TelegraphHitEffect {
 
         int damage = BASE_DAMAGE;
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
+        hitCharacter.TakeDamage(damage, caster.GetComponent<CharacterController>());
     }
 }

@@ -23,6 +23,6 @@ public class IceLance : ProjectileHitEffect {
             hitBuffController.ServerApplyBuff(DEBUFF, CHILL_DURATION);
         }
 
-        hitCharacter.TakeDamage(damage, caster.IsOwner, caster.GetComponent<CharacterController>());
+        hitCharacter.TakeDamage(damage, caster.GetComponent<CharacterController>());
     }
 }
