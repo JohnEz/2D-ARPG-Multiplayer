@@ -184,6 +184,7 @@ public class BuffController : NetworkBehaviour {
 
         Buff currentBuff = GetBuff(buffName);
         currentBuff.AddedTime += mod;
+        OnBuffsChanged?.Invoke(ActiveBuffs);
 
         ObserversAddTimeToBuff(buffName, currentBuff.InitialDuration, currentBuff.ElapsedTime, currentBuff.AddedTime, base.TimeManager.Tick);
     }

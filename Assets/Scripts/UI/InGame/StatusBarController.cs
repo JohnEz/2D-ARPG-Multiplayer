@@ -28,6 +28,14 @@ public class StatusBarController : MonoBehaviour {
 
     public event Action OnHideStatus;
 
+    // delay variables
+
+    private const float COUNTDOWN_DELAY = .5f;
+
+    private float _delayedTime;
+
+    private float _timeScaler;
+
     private void OnEnable() {
         ResetStatus();
         HideStatus();
@@ -60,12 +68,18 @@ public class StatusBarController : MonoBehaviour {
         ResetStatus();
         currentStatus = newStatus;
 
-        statusBar.fillAmount = currentStatus.RemainingTime() / currentStatus.MaxDuration;
+        float initialRemainingTime = currentStatus.RemainingTime();
+        _timeScaler = (initialRemainingTime - COUNTDOWN_DELAY) / initialRemainingTime;
+
+        float fillAmount = currentStatus.RemainingTime() / currentStatus.MaxDuration;
+        statusBar.fillAmount = fillAmount;
 
         statusText.text = currentStatus.Name;
     }
 
     private void ResetStatus() {
+        _timeScaler = 0f;
+        _delayedTime = 0f;
         statusBar.fillAmount = 0;
         statusText.text = "";
         currentStatus = null;
@@ -96,13 +110,25 @@ public class StatusBarController : MonoBehaviour {
             return;
         }
 
-        float fillAmount = currentStatus.RemainingTime() / currentStatus.MaxDuration;
+        if (_delayedTime < COUNTDOWN_DELAY) {
+            _delayedTime += Time.deltaTime;
+            return;
+        }
+
+        float fillAmount = GetFillAmount();
         statusBar.fillAmount = fillAmount;
 
         if (fillAmount <= 0) {
             // i dont think this is ran because the buff controller removes it first
-            ResetStatus();
-            HideStatus();
+            //ResetStatus();
+            //HideStatus();
         }
+    }
+
+    private float GetFillAmount() {
+        float remainingTime = currentStatus.RemainingTime();
+        float maxDuration = currentStatus.MaxDuration * _timeScaler;
+
+        return remainingTime / maxDuration;
     }
 }
