@@ -20,7 +20,11 @@ public class CourageousLeapLand : TelegraphHitEffect {
             valiantDuration += _valiantDurationPerHit * hitCharacters.Count;
         }
 
-        buffController.ApplyBuff(buffController, "Valiant", valiantDuration);
+        if (buffController.HasBuff("Valiant")) {
+            buffController.ServerUpdateBuffDuration("Valiant", valiantDuration);
+        } else {
+            buffController.ServerApplyBuff("Valiant", valiantDuration);
+        }
     }
 
     protected override void HandleCharacterHit(NetworkStats caster, NetworkStats hitCharacter) {

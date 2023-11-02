@@ -41,7 +41,11 @@ public class ChallengingShout : AbilityEffect {
                 valiantDuration += _valiantDurationPerHit * hitTargets.Count;
             }
 
-            buffController.ApplyBuff(buffController, "Valiant", valiantDuration);
+            if (buffController.HasBuff("Valiant")) {
+                buffController.ServerUpdateBuffDuration("Valiant", valiantDuration);
+            } else {
+                buffController.ServerApplyBuff("Valiant", valiantDuration);
+            }
         }
     }
 }

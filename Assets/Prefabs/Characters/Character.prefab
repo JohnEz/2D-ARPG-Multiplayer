@@ -1273,7 +1273,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 483269577795649093}
   _networkObjectCache: {fileID: 483269577795649093}
   <InputDirection>k__BackingField: {x: 0, y: 0}
-  AimLocation: {x: 0, y: 0}
+  <AimLocation>k__BackingField: {x: 0, y: 0}
   Username: 
   visuals: {fileID: 7478747238312840284}
   _deathSFX: {fileID: 0}
@@ -1398,7 +1398,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 21
+  <PrefabId>k__BackingField: 22
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -1540,7 +1540,7 @@ MonoBehaviour:
   Faction: 0
   _currentHealth: 100
   _baseMaxHealth: 100
-  _baseSpeed: 4
+  _baseSpeed: 3.5
   _basePower: 0
 --- !u!114 &906537381320409878
 MonoBehaviour:
