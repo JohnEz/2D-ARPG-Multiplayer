@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine;
 
 public class BuffController : NetworkBehaviour {
-    private const float MAX_PASSED_TIME = 0.3f;
+    private const float MAX_PASSED_TIME = 0.4f;
 
     private NetworkStats _myStats;
 

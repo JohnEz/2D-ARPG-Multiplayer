@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 public class CastBarController : MonoBehaviour {
-    private const float FADE_OUT_TIME = .5f;
+    private const float FADE_OUT_TIME = .2f;
 
     private Image _castBar;
 
@@ -137,6 +137,10 @@ public class CastBarController : MonoBehaviour {
     }
 
     private void EndCast(bool isComplete) {
+        if (!_isCasting && !_isChanneling) {
+            return;
+        }
+
         _isCasting = false;
         _isChanneling = false;
 

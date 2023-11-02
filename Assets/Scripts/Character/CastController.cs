@@ -154,9 +154,6 @@ public class CastController : NetworkBehaviour {
         yield return new WaitUntil(() => castRequest == false);
 
         // TODO this is grim and is trying to avoid overwriting stunned
-        if (_stateController.IsCasting()) {
-            _stateController.State = CharacterState.Idle;
-        }
 
         targetGraphics
             .ForEach(targetObject => Destroy(targetObject));
@@ -166,8 +163,15 @@ public class CastController : NetworkBehaviour {
         }
 
         if (castSuccess) {
-            castingAbility.OnCast();
             castingAbilityEffect.OnCastComplete(IsOwner || (IsServer && OwnerId == -1));
+            castingAbility.OnCast();
+
+            // global cast cooldown
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        if (_stateController.IsCasting()) {
+            _stateController.State = CharacterState.Idle;
         }
     }
 
