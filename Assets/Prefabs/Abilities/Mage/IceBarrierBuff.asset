@@ -15,6 +15,8 @@ MonoBehaviour:
   _name: Ice Barrier
   _maxDuration: 2
   _interval: 0
+  _tickEffectPrefab: {fileID: 0}
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
   _isAStun: 0
   applySFX: {fileID: 8300000, guid: f763143e02563d343b073394a1ce246d, type: 3}
   expireSFX: {fileID: 8300000, guid: 5ab849359a854044388b71cef47292b1, type: 3}

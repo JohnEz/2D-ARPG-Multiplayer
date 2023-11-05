@@ -16,6 +16,7 @@ MonoBehaviour:
   _maxDuration: 6
   _interval: 1.5
   _tickEffectPrefab: {fileID: 3665909466439048483, guid: accffb96bd08c984abd702efa495d956, type: 3}
+  TextColor: {r: 0.04111784, g: 0.7924528, b: 0.1192168, a: 1}
   _isAStun: 0
   applySFX: {fileID: 0}
   expireSFX: {fileID: 0}

@@ -73,15 +73,19 @@ public class StatusBarController : MonoBehaviour {
 
         float fillAmount = currentStatus.RemainingTime() / currentStatus.MaxDuration;
         statusBar.fillAmount = fillAmount;
+        statusBar.color = currentStatus.TextColor;
 
         statusText.text = currentStatus.Name;
+        statusText.color = currentStatus.TextColor;
     }
 
     private void ResetStatus() {
         _timeScaler = 0f;
         _delayedTime = 0f;
         statusBar.fillAmount = 0;
+        statusBar.color = Color.white;
         statusText.text = "";
+        statusText.color = Color.white;
         currentStatus = null;
     }
 

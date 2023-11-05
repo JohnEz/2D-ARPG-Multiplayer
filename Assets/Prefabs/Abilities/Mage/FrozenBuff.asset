@@ -15,6 +15,8 @@ MonoBehaviour:
   _name: Frozen
   _maxDuration: 3
   _interval: 0
+  _tickEffectPrefab: {fileID: 0}
+  TextColor: {r: 0.14097545, g: 0.3978731, b: 0.9056604, a: 1}
   _isAStun: 1
   applySFX: {fileID: 8300000, guid: 2cba8ce540e06a141aae175acdf7f0da, type: 3}
   expireSFX: {fileID: 8300000, guid: 5ab849359a854044388b71cef47292b1, type: 3}

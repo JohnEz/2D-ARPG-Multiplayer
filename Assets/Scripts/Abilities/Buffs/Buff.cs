@@ -48,6 +48,9 @@ public class Buff : ScriptableObject {
     private int tickCounter = 0;
 
     [SerializeField]
+    public Color TextColor = Color.white;
+
+    [SerializeField]
     private bool _isAStun;
 
     public bool IsAStun {
