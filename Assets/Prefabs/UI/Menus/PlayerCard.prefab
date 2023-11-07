@@ -512,6 +512,7 @@ GameObject:
   - component: {fileID: 8835328885656836041}
   - component: {fileID: 4436480124535948586}
   - component: {fileID: 7287242529652343690}
+  - component: {fileID: 348066496796510730}
   m_Layer: 5
   m_Name: RightArrow
   m_TagString: Untagged
@@ -621,6 +622,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 348066496796510730}
+        m_TargetAssemblyTypeName: ButtonFX, Assembly-CSharp
+        m_MethodName: HandleClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 3443307292622858415}
         m_TargetAssemblyTypeName: LobbyPlayerCard, Assembly-CSharp
         m_MethodName: SelectNextCharacter
@@ -633,6 +646,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &348066496796510730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955000073402844683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 825c025e6498a3f45aa86136ea4c332a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hoverSound: {fileID: 0}
+  _clickSound: {fileID: 8300000, guid: fedca28db439a5b4c8a49ab9b3f33f62, type: 3}
+  _shouldScale: 1
 --- !u!1 &4340412264573836938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,6 +1148,7 @@ GameObject:
   - component: {fileID: 149757945351387346}
   - component: {fileID: 6363294557148660370}
   - component: {fileID: 2509590074553550528}
+  - component: {fileID: 5099181720748397483}
   m_Layer: 5
   m_Name: LeftArrow
   m_TagString: Untagged
@@ -1229,6 +1258,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 5099181720748397483}
+        m_TargetAssemblyTypeName: ButtonFX, Assembly-CSharp
+        m_MethodName: HandleClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 3443307292622858415}
         m_TargetAssemblyTypeName: LobbyPlayerCard, Assembly-CSharp
         m_MethodName: SelectPreviousCharacter
@@ -1241,3 +1282,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5099181720748397483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607185955712547460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 825c025e6498a3f45aa86136ea4c332a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hoverSound: {fileID: 0}
+  _clickSound: {fileID: 8300000, guid: fedca28db439a5b4c8a49ab9b3f33f62, type: 3}
+  _shouldScale: 1
