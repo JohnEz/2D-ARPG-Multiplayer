@@ -65,9 +65,18 @@ public class AiCombatState : NetworkBehaviour {
             // TODO there should be a way that we select the best ability to cast and support allies
             Ability abilityToCast = _abilitiesController.AbilityList.Find(ability => {
                 indexToCast++;
+
+                if (!ability.CanCast()) {
+                    return false;
+                }
+
+                if (ability.AiDetails.IsAutoCast) {
+                    return true;
+                }
+
                 bool inRange = _brain.DistanceToTarget <= ability.AiDetails.AbilityRange;
 
-                return ability.CanCast() && !ability.AiDetails.IsSupportAbility && inRange;
+                return inRange;
             });
 
             if (indexToCast != -1 && abilityToCast != null) {

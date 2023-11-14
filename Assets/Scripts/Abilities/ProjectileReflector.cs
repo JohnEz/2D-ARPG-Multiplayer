@@ -19,7 +19,7 @@ public class ProjectileReflector : MonoBehaviour {
         NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
 
         if (projectile != null && projectile.ShouldReflect(casterStats)) {
-            projectile.Reflect(transform.position, _caster);
+            projectile.Reflect(transform.position, casterStats);
         }
     }
 }

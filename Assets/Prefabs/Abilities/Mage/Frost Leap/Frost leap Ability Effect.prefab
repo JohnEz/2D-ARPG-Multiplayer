@@ -68,6 +68,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _leapMoveCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: _leapZCurve.m_Curve.Array.data[0].inSlope
       value: 2
       objectReference: {fileID: 0}
@@ -81,6 +85,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: _leapMoveCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _leapMoveCurve.m_Curve.Array.data[2].value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
@@ -101,11 +109,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: _leapMoveCurve.m_Curve.Array.data[0].inSlope
-      value: 0.0041823178
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _leapMoveCurve.m_Curve.Array.data[1].inSlope
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: _leapMoveCurve.m_Curve.Array.data[0].outSlope
-      value: 0.0041823178
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _leapMoveCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _leapMoveCurve.m_Curve.Array.data[1].outSlope
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: _leapZCurve.m_Curve.Array.data[0].tangentMode
@@ -121,7 +141,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: _leapMoveCurve.m_Curve.Array.data[0].outWeight
-      value: 0.99903286
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _leapMoveCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _leapMoveCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115307261797090677, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
+      propertyPath: _leapMoveCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 6158745668788209667, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: m_RootOrder
@@ -169,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8606723396271943269, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}
       propertyPath: m_Name
-      value: Frost leap Ability
+      value: Frost leap Ability Effect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74040c12af12a7d4eb264d248ccdc80b, type: 3}

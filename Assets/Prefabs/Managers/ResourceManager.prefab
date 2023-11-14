@@ -57,6 +57,8 @@ MonoBehaviour:
     prefab: {fileID: 7520552771459370303, guid: d652c0009eb68bf49a33a29fff5256b6, type: 3}
   - id: Healing Salve
     prefab: {fileID: 853652346070200505, guid: 931f4800e4c9d24459e1dfb0e5162ccf, type: 3}
+  - id: Plague Bolt
+    prefab: {fileID: 2288069532137908070, guid: e36a708c20c63c94bb2dbdff8888a83b, type: 3}
   _telegraphResources:
   - id: Default
     prefab: {fileID: 2956777469308170475, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
@@ -64,6 +66,8 @@ MonoBehaviour:
     prefab: {fileID: 8335204648628241473, guid: 439bb57c8a8fcf340b1c658de9f8cb24, type: 3}
   - id: CourageousLeapTelegraph
     prefab: {fileID: 2782789320443869927, guid: 57e4460de9f0afe49b56807270fbb6b1, type: 3}
+  - id: Plague Bolt
+    prefab: {fileID: 8759667477236898491, guid: a55eb3253e7c1444b9dac48bbd167fc5, type: 3}
   _slashResources:
   - id: Default
     prefab: {fileID: 8060815555694305268, guid: 618dbc0c15623594cb818cb50899f267, type: 3}

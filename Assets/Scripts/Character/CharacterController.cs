@@ -172,6 +172,7 @@ public class CharacterController : NetworkBehaviour {
         if (!IsOwner) {
             return;
         }
+        // TODO this should be the body not the transform
         transform.DOLocalMoveY(leapTarget.y, leapDuration).SetEase(leapMoveCurve);
         transform.DOLocalMoveX(leapTarget.x, leapDuration).SetEase(leapMoveCurve);
     }

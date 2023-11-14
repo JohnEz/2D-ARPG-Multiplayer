@@ -11,9 +11,9 @@ public struct Resource<T> {
 public class ResourceManager : Singleton<ResourceManager> {
 
     [SerializeField]
-    private List<Resource<PredictedProjectile>> _projectileResources;
+    private List<Resource<Projectile>> _projectileResources;
 
-    private Dictionary<string, PredictedProjectile> _projectiles = new Dictionary<string, PredictedProjectile>();
+    private Dictionary<string, Projectile> _projectiles = new Dictionary<string, Projectile>();
 
     [SerializeField]
     private List<Resource<PredictedTelegraph>> _telegraphResources;
@@ -37,7 +37,7 @@ public class ResourceManager : Singleton<ResourceManager> {
         _slashResources.ForEach(resource => _slashes.Add(resource.id, resource.prefab));
     }
 
-    public PredictedProjectile GetProjectile(string id) {
+    public Projectile GetProjectile(string id) {
         return _projectiles[id];
     }
 

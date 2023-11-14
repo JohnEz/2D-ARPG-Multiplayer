@@ -1,32 +1,15 @@
 using FishNet;
-using FishNet.Object;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PredictedProjectile : MonoBehaviour {
+public class PredictedProjectile : Projectile {
 
     // used to make sure the projectile doesnt last forever
     private const float MAX_LIFE_TIME = 5f;
 
     private const float MAX_DISTANCE_MODIFIER = -1f;
 
-    private Vector2 _direction;
     private float _passedTime = 0f;
-
-    private CharacterController _caster;
-
-    private Rigidbody2D _body;
-
-    [SerializeField]
-    private GameObject visuals;
-
-    private bool isActive = true;
-
-    public event Action<Vector3, NetworkStats, NetworkStats> OnHit;
-
-    public event Action<Vector3, NetworkStats> OnHitLocation;
 
     private Vector2 _startPosition;
 
@@ -48,48 +31,23 @@ public class PredictedProjectile : MonoBehaviour {
 
     private float _targetDistance = 0f;
 
-    public bool CanHitAllies = false;
-
-    public bool CanHitCaster = false;
-
-    public bool CanHitEnemies = true;
-
-    // FX
-
-    [SerializeField]
-    private AudioClip onCreateSFX;
-
-    [SerializeField]
-    private GameObject onHitVFXPrefab;
-
-    [SerializeField]
-    private AudioClip onHitSFX;
-
     private void Awake() {
         _body = GetComponent<Rigidbody2D>();
     }
 
-    public void Initialise(Vector2 direction, float passedTime, CharacterController caster, float distance = -1f) {
+    public override void Initialise(Vector2 direction, float passedTime, NetworkStats caster, float distance = -1f) {
+        base.Initialise(direction, passedTime, caster, distance);
+
         _passedTime = passedTime;
-        _caster = caster; // TODO this should be network stats
         _startPosition = transform.position;
         _targetDistance = distance > 0 ? Mathf.Clamp(distance, 0.1f, MaxDistance) : MaxDistance;
-        _direction = direction;
-        transform.up = direction;
 
         Invoke("Expire", MAX_LIFE_TIME);
-
-        if (onCreateSFX) {
-            AudioManager.Instance.PlaySound(onCreateSFX, transform);
-        }
     }
 
-    public void InitialiseTargetLocation(Vector3 targetLocation, float passedTime, CharacterController caster) {
+    public override void InitialiseTargetLocation(Vector3 targetLocation, float passedTime, NetworkStats caster) {
         _hasTargetLocation = true;
-        float distance = Vector2.Distance(transform.position, targetLocation);
-        Vector2 direction = (targetLocation - transform.position).normalized;
-
-        Initialise(direction, passedTime, caster, distance);
+        base.InitialiseTargetLocation(targetLocation, passedTime, caster);
     }
 
     private void Update() {
@@ -110,7 +68,7 @@ public class PredictedProjectile : MonoBehaviour {
         Move();
     }
 
-    private void Move() {
+    protected virtual void Move() {
         float delta = Time.deltaTime;
 
         float passedTimeDelta = 0f;
@@ -171,7 +129,7 @@ public class PredictedProjectile : MonoBehaviour {
             NetworkStats hitCharacterStats = hitCharacter.GetComponent<NetworkStats>();
 
             bool isCaster = hitCharacter == _caster;
-            bool isAlly = hitCharacterStats.Faction == _caster.GetComponent<NetworkStats>().Faction;
+            bool isAlly = hitCharacterStats.Faction == _caster.Faction;
 
             bool canHitTarget =
                 (isCaster && CanHitCaster) ||
@@ -184,7 +142,7 @@ public class PredictedProjectile : MonoBehaviour {
 
             hitLocation = collision.transform.position;
 
-            OnHit?.Invoke(hitLocation, _caster.GetComponent<NetworkStats>(), hitCharacter.GetComponent<NetworkStats>());
+            CallOnHit(hitLocation, hitCharacter.GetComponent<NetworkStats>());
 
             if (_caster.IsOwner) {
                 CameraManager.Instance.ShakeCamera(.5f, 0.1f);
@@ -198,64 +156,5 @@ public class PredictedProjectile : MonoBehaviour {
         HandleHit(hitLocation, false);
 
         CancelInvoke("Expire");
-    }
-
-    public void HandleHit(Vector3 hitLocation, bool isExpired = false) {
-        CreateHitEffects(hitLocation, isExpired);
-
-        OnHitLocation?.Invoke(hitLocation, _caster.GetComponent<NetworkStats>());
-
-        // we destroy the visuals so the trail isnt instantly destroyed.
-        if (visuals) {
-            Destroy(visuals);
-        }
-        isActive = false;
-
-        Destroy(gameObject, 0.2f);
-    }
-
-    public void CreateHitEffects(Vector3 hitLocation, bool isExpired) {
-        if (!InstanceFinder.IsClient) {
-            return;
-        }
-
-        if (onHitVFXPrefab) {
-            GameObject hitVFX = Instantiate(onHitVFXPrefab);
-            hitVFX.transform.position = hitLocation;
-            hitVFX.transform.rotation = transform.rotation;
-        }
-
-        if (onHitSFX) {
-            AudioClipOptions options = new AudioClipOptions();
-
-            if (isExpired) {
-                options.Volume = 0.5f;
-                options.Pitch = 0.75f;
-            }
-
-            AudioManager.Instance.PlaySound(onHitSFX, transform.position, options);
-        }
-    }
-
-    public bool ShouldReflect(NetworkStats reflector) {
-        bool hitsUnits = CanHitAllies || CanHitEnemies || CanHitCaster;
-
-        if (!hitsUnits) {
-            return false;
-        }
-
-        NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
-
-        if (reflector.Faction == casterStats.Faction) {
-            // cant reflect allies projectiles
-            return false;
-        }
-
-        return true;
-    }
-
-    public void Reflect(Vector3 reflectPosition, CharacterController _newCaster) {
-        Vector2 reflectDirection = _direction * -1;
-        Initialise(reflectDirection, 0f, _newCaster);
     }
 }

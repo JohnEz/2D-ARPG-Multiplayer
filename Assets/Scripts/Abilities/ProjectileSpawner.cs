@@ -38,9 +38,9 @@ public class ProjectileSpawner : NetworkBehaviour {
     }
 
     private void SpawnProjectile(string projectileId, Vector3 position, Vector3 targetLocation, bool targetsLocation, float passedTime) {
-        PredictedProjectile projectilePrefab = ResourceManager.Instance.GetProjectile(projectileId);
-        PredictedProjectile createdProjectile = Instantiate(projectilePrefab, position, Quaternion.identity);
-        CharacterController caster = GetComponent<CharacterController>();
+        Projectile projectilePrefab = ResourceManager.Instance.GetProjectile(projectileId);
+        Projectile createdProjectile = Instantiate(projectilePrefab, position, Quaternion.identity);
+        NetworkStats caster = GetComponent<NetworkStats>();
 
         if (targetsLocation) {
             createdProjectile.InitialiseTargetLocation(targetLocation, passedTime, caster);
@@ -48,7 +48,6 @@ public class ProjectileSpawner : NetworkBehaviour {
             Vector3 direction = (targetLocation - position).normalized;
             createdProjectile.Initialise(direction, passedTime, caster);
         }
-        // TODO i dont like passsing the character controller this way as im not sure the spawner script will always be on the character
     }
 
     [ServerRpc]
