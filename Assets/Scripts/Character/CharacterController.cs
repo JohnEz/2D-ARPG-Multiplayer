@@ -91,9 +91,6 @@ public class CharacterController : NetworkBehaviour {
     }
 
     private void Update() {
-    }
-
-    private void FixedUpdate() {
         if (!base.IsOwner && !(base.OwnerId == -1 && IsServer)) {
             return;
         }
@@ -113,6 +110,9 @@ public class CharacterController : NetworkBehaviour {
         if (!_stateController.IsDashing() && !_stateController.IsCasting() && !_stateController.IsLeaping() && !_stateController.IsChanneling()) {
             _stateController.State = CharacterState.Idle;
         }
+    }
+
+    private void FixedUpdate() {
     }
 
     private void HandleHealthDepleted() {

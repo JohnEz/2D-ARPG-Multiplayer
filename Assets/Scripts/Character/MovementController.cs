@@ -1,3 +1,5 @@
+using FishNet;
+using FishNet.Managing.Timing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,16 +19,24 @@ public class MovementController : MonoBehaviour {
         _myStats = GetComponent<NetworkStats>();
         _stateController = GetComponent<CharacterStateController>();
         _castController = GetComponent<CastController>();
+
+        InstanceFinder.TimeManager.OnTick += Move;
     }
 
     private void FixedUpdate() {
+    }
+
+    private void Move() {
         if (MoveDirection.magnitude == 0) {
             return;
         }
 
-        Vector3 newPosition = _body.position + (MoveDirection * GetMoveSpeed()) * Time.fixedDeltaTime;
+        //Vector3 newPosition = _body.position + (MoveDirection * GetMoveSpeed()) * Time.fixedDeltaTime;
 
-        _body.MovePosition(newPosition);
+        //_body.MovePosition(newPosition);
+
+        //_body.AddForce(MoveDirection * GetMoveSpeed(), ForceMode2D.Impulse);
+        _body.AddForce(MoveDirection * GetMoveSpeed(), ForceMode2D.Impulse);
     }
 
     private float GetMoveSpeed() {

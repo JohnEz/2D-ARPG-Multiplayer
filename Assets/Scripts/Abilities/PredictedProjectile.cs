@@ -96,6 +96,7 @@ public class PredictedProjectile : Projectile {
             passedTimeDelta = step;
         }
 
+        // TODO this might be better to be addForce but since that function is already multiplied by delta there needs to be some math
         _body.MovePosition(_body.position + _direction * (Speed * (delta + passedTimeDelta)));
     }
 

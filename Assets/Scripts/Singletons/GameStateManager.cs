@@ -26,7 +26,10 @@ public class GameStateManager : Singleton<GameStateManager> {
 
     private void OnEnable() {
         NetworkManagerHooks.Instance.OnPlayerLoaded += HandlePlayerLoaded;
-        ConnectionManager.Instance.OnPlayerLoadedScene += HandlePlayerLoadedScene;
+
+        if (ConnectionManager.Instance) {
+            ConnectionManager.Instance.OnPlayerLoadedScene += HandlePlayerLoadedScene;
+        }
     }
 
     private void OnDisable() {
@@ -40,6 +43,10 @@ public class GameStateManager : Singleton<GameStateManager> {
     }
 
     private void Start() {
+        if (!ConnectionManager.Instance) {
+            return;
+        }
+
         Debug.Log("connections i can see " + ConnectionManager.Instance.Connections.Count);
 
         foreach (var item in ConnectionManager.Instance.Connections) {

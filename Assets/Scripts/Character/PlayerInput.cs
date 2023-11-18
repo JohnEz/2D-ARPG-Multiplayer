@@ -51,13 +51,16 @@ public class PlayerInput : NetworkBehaviour {
         if (InputHandler.Instance.UtilityTwoPressed) {
             _characterController.CastAbility(4);
         }
-    }
 
-    private void FixedUpdate() {
+        //
+
         TurnToMouse();
 
         _characterController.InputDirection = InputHandler.Instance.MovementVector.normalized;
         _characterController.AimLocation = new Vector2(InputHandler.Instance.MouseWorldPosition.x, InputHandler.Instance.MouseWorldPosition.y);
+    }
+
+    private void FixedUpdate() {
     }
 
     private void TurnToMouse() {
