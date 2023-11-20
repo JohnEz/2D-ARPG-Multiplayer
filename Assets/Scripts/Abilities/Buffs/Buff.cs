@@ -58,6 +58,20 @@ public class Buff : ScriptableObject {
     }
 
     [SerializeField]
+    private bool _isPositive;
+
+    public bool IsPositive {
+        get { return _isPositive; }
+    }
+
+    [SerializeField]
+    private bool _canBeDispelled = true;
+
+    public bool CanBeDispelled {
+        get { return _canBeDispelled; }
+    }
+
+    [SerializeField]
     private AudioClip applySFX;
 
     [SerializeField]

@@ -148,11 +148,8 @@ public class BuffController : NetworkBehaviour {
         }
     }
 
+    [Server(Logging = FishNet.Managing.Logging.LoggingType.Off)]
     public void ServerRemoveBuff(string buffName) {
-        if (!IsServer) {
-            return;
-        }
-
         DestroyBuff(buffName);
         ObserversRemoveBuff(buffName);
     }
@@ -202,5 +199,30 @@ public class BuffController : NetworkBehaviour {
         passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
 
         CreateBuff(buffName, 0f, passedTime, elapsedTime, totalAddedTime);
+    }
+
+    [Server(Logging = FishNet.Managing.Logging.LoggingType.Off)]
+    public bool ServerDispellBuffs(bool dispellPositiveBuffs, bool dispellNegativeBuffs, int numberToDispell = -1) {
+        List<Buff> buffsToDispell = new List<Buff>();
+        int remainingBuffsToDispell = numberToDispell == -1 ? 1000 : numberToDispell;
+        bool dispelledABuff = false;
+
+        ActiveBuffs.ForEach(buff => {
+            if (remainingBuffsToDispell <= 0) {
+                return;
+            }
+
+            if ((buff.IsPositive && dispellPositiveBuffs) || (!buff.IsPositive && dispellNegativeBuffs)) {
+                buffsToDispell.Add(buff);
+                remainingBuffsToDispell -= 1;
+                dispelledABuff = true;
+            }
+        });
+
+        buffsToDispell.ForEach(buff => {
+            DestroyBuff(buff.Name);
+        });
+
+        return dispelledABuff;
     }
 }

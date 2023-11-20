@@ -18,6 +18,8 @@ MonoBehaviour:
   _tickEffectPrefab: {fileID: 0}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   _isAStun: 0
+  _isPositive: 1
+  _canBeDispelled: 1
   applySFX: {fileID: 8300000, guid: f763143e02563d343b073394a1ce246d, type: 3}
   expireSFX: {fileID: 8300000, guid: 5ab849359a854044388b71cef47292b1, type: 3}
   applyVFX: {fileID: 5277472720557037422, guid: c1012d090c8671e419e810ca239c9045, type: 3}

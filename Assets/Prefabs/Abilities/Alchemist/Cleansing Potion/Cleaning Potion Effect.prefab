@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &798579586546293909
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -3644083166087770679, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: projectileId
+      value: Cleansing Potion
+      objectReference: {fileID: 0}
+    - target: {fileID: -3644083166087770679, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: _castCompleteSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: f86eb3376d9200e4c866f7509b10bb5e, type: 3}
+    - target: {fileID: -3644083166087770679, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: _targetsLocation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493820111249824843, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7840497419732744747, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: m_Name
+      value: Cleaning Potion Effect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}

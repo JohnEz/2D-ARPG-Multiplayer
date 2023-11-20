@@ -59,6 +59,8 @@ MonoBehaviour:
     prefab: {fileID: 853652346070200505, guid: 931f4800e4c9d24459e1dfb0e5162ccf, type: 3}
   - id: Plague Bolt
     prefab: {fileID: 2288069532137908070, guid: e36a708c20c63c94bb2dbdff8888a83b, type: 3}
+  - id: Cleansing Potion
+    prefab: {fileID: 2288069532137908070, guid: 7af72dedd38b02c48aa6c5bf42b9675b, type: 3}
   _telegraphResources:
   - id: Default
     prefab: {fileID: 2956777469308170475, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}

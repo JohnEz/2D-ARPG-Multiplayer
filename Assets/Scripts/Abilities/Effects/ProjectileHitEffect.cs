@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(PredictedProjectile))]
+[RequireComponent(typeof(Projectile))]
 public class ProjectileHitEffect : MonoBehaviour {
 
     private void OnEnable() {
-        GetComponent<PredictedProjectile>().OnHit += HandleProjectileHit;
-        GetComponent<PredictedProjectile>().OnHitLocation += HandleProjectileHitLocation;
+        GetComponent<Projectile>().OnHit += HandleProjectileHit;
+        GetComponent<Projectile>().OnHitLocation += HandleProjectileHitLocation;
     }
 
     private void OnDisable() {
-        GetComponent<PredictedProjectile>().OnHit -= HandleProjectileHit;
-        GetComponent<PredictedProjectile>().OnHitLocation -= HandleProjectileHitLocation;
+        GetComponent<Projectile>().OnHit -= HandleProjectileHit;
+        GetComponent<Projectile>().OnHitLocation -= HandleProjectileHitLocation;
     }
 
     protected virtual void HandleProjectileHit(Vector3 hitLocation, NetworkStats caster, NetworkStats hitCharacter) {
