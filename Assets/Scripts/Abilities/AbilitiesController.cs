@@ -29,4 +29,10 @@ public class AbilitiesController : MonoBehaviour {
 
         return _instantiatedAbilityList[abilityId];
     }
+
+    private void Update() {
+        _instantiatedAbilityList.ForEach((ability) => {
+            ability.Update();
+        });
+    }
 }

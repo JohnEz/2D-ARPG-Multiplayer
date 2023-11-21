@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -19,11 +20,21 @@ public class Ability : ScriptableObject {
 
     public float CastTime;
     public float Cooldown;
+    private float _remainingCooldown;
 
     public AudioClip CastSFX;
     public GameObject CastVFX;
 
     public float SpeedWhileCasting = 0.1f;
+
+    [SerializeField]
+    private int _maxCharges = 1;
+
+    public int MaxCharges { get { return _maxCharges; } }
+
+    private int _currentCharges = 0;
+
+    public int CurrentCharges { get { return _currentCharges; } }
 
     [HideInInspector]
     public float TimeCast = -Mathf.Infinity;
@@ -34,8 +45,32 @@ public class Ability : ScriptableObject {
     [SerializeField]
     public AiAbilityDetails AiDetails;
 
+    public void Awake() {
+        _remainingCooldown = Cooldown;
+    }
+
+    public void Update() {
+        if (_remainingCooldown <= 0) {
+            return;
+        }
+
+        _remainingCooldown -= Time.deltaTime;
+
+        if (_remainingCooldown > 0) {
+            return;
+        }
+
+        _currentCharges += 1;
+
+        if (CurrentCharges == MaxCharges) {
+            return;
+        }
+
+        _remainingCooldown = Cooldown;
+    }
+
     public bool IsOnCooldown() {
-        return TimeCast + Cooldown >= Time.time;
+        return _currentCharges == 0;
     }
 
     public bool CanCast() {
@@ -43,13 +78,15 @@ public class Ability : ScriptableObject {
     }
 
     public void OnCast() {
-        TimeCast = Time.time;
+        if (!IsOnCooldown()) {
+            _remainingCooldown = Cooldown;
+        }
+
+        _currentCharges -= 1;
     }
 
     public float GetRemainingCooldown() {
-        float remainingCooldown = TimeCast + Cooldown - Time.time;
-
-        return Mathf.Max(remainingCooldown, 0);
+        return Mathf.Max(_remainingCooldown, 0);
     }
 
     public string GetCooldownAsString() {

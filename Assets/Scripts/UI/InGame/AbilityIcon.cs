@@ -13,7 +13,13 @@ public class AbilityIcon : MonoBehaviour {
     private Image _icon;
 
     [SerializeField]
+    private Image _cooldownBar;
+
+    [SerializeField]
     private TextMeshProUGUI _cooldownText;
+
+    [SerializeField]
+    private TMP_Text _chargesText;
 
     private const float HIDE_DURATION = .3f;
     private const float SHOW_DURATION = .3f;
@@ -33,6 +39,10 @@ public class AbilityIcon : MonoBehaviour {
         _icon.sprite = ability.Icon;
 
         _isOnCooldown = false;
+
+        _chargesText.text = ability.MaxCharges > 1 ? ability.MaxCharges.ToString() : "";
+
+        _cooldownBar.fillAmount = 0;
     }
 
     private void Update() {
@@ -50,6 +60,18 @@ public class AbilityIcon : MonoBehaviour {
 
         if (_isOnCooldown) {
             _cooldownText.text = _myAbility.GetCooldownAsString();
+        }
+
+        if (_myAbility.MaxCharges <= 1) {
+            return;
+        }
+
+        _chargesText.text = _myAbility.CurrentCharges > 0 ? _myAbility.CurrentCharges.ToString() : "";
+
+        if (_myAbility.CurrentCharges > 0 && _myAbility.CurrentCharges < _myAbility.MaxCharges) {
+            _cooldownBar.fillAmount = 1 - (_myAbility.GetRemainingCooldown() / _myAbility.Cooldown);
+        } else {
+            _cooldownBar.fillAmount = 0;
         }
     }
 

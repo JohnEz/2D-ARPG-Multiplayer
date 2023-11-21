@@ -6,6 +6,8 @@ public class HealingSalve : ProjectileHitEffect {
     private const int HEALING_SALVE_HEAL_AMOUNT = 14;
 
     private const string BUFF = "Rejuvenation";
+    private const string BUFF2 = "Rejuvenation II";
+    private const string BUFF3 = "Rejuvenation III";
 
     private float _radius = 2f;
 
@@ -30,7 +32,17 @@ public class HealingSalve : ProjectileHitEffect {
 
         BuffController hitBuffController = hitTarget.GetComponent<BuffController>();
 
-        hitBuffController.ServerApplyBuff(BUFF);
+        if (hitBuffController.HasBuff(BUFF3)) {
+            hitBuffController.ServerUpdateBuffDuration(BUFF3, -1);
+        } else if (hitBuffController.HasBuff(BUFF2)) {
+            hitBuffController.ServerRemoveBuff(BUFF2);
+            hitBuffController.ServerApplyBuff(BUFF3);
+        } else if (hitBuffController.HasBuff(BUFF)) {
+            hitBuffController.ServerRemoveBuff(BUFF);
+            hitBuffController.ServerApplyBuff(BUFF2);
+        } else {
+            hitBuffController.ServerApplyBuff(BUFF);
+        }
 
         hitTarget.ReceiveHealing(baseHealAmount, caster.GetComponent<CharacterController>());
     }

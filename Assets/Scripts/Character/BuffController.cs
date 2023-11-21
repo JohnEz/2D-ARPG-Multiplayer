@@ -180,7 +180,7 @@ public class BuffController : NetworkBehaviour {
         }
 
         Buff currentBuff = GetBuff(buffName);
-        currentBuff.AddedTime += mod;
+        currentBuff.AddedTime += mod == -1 ? currentBuff.MaxDuration : mod;
         OnBuffsChanged?.Invoke(ActiveBuffs);
 
         ObserversAddTimeToBuff(buffName, currentBuff.InitialDuration, currentBuff.ElapsedTime, currentBuff.AddedTime, base.TimeManager.Tick);

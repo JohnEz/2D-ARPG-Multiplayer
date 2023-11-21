@@ -94,7 +94,15 @@ MonoBehaviour:
     prefab: {fileID: 11400000, guid: bb8cb8466f84b514b865bbe675c6e363, type: 2}
   - id: Toxic
     prefab: {fileID: 11400000, guid: 0173b9feb55dbbe4090aa3fa28320b6a, type: 2}
+  - id: Toxic II
+    prefab: {fileID: 11400000, guid: 9c5d32471b14e82499e13f44a59b83dc, type: 2}
+  - id: Toxic III
+    prefab: {fileID: 11400000, guid: a0c421cdc784de84ba3661ea272a411c, type: 2}
   - id: Rejuvenation
     prefab: {fileID: 11400000, guid: 6ea4a52f8e581eb4080962293f70b4e7, type: 2}
+  - id: Rejuvenation II
+    prefab: {fileID: 11400000, guid: 5463c19c8d0fc0149a43c093fb7ef5b5, type: 2}
+  - id: Rejuvenation III
+    prefab: {fileID: 11400000, guid: e31aa5b31860ea04cbfc0d8e93e639f9, type: 2}
   - id: Barrier
     prefab: {fileID: 11400000, guid: bf9f71d5f2dbf074297c2d9efd4b9432, type: 2}
