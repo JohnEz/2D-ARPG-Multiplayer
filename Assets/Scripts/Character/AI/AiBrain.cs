@@ -6,6 +6,7 @@ using FishNet.Object;
 using System.Linq;
 using System;
 using UnityEngine.TextCore.Text;
+using static Unity.VisualScripting.Member;
 
 public class AiBrain : NetworkBehaviour {
 
@@ -87,6 +88,12 @@ public class AiBrain : NetworkBehaviour {
     }
 
     private void HandleTakeDamage(int damage, bool hitShield, CharacterController source) {
+        NetworkStats sourceStats = source.GetComponent<NetworkStats>();
+
+        if (sourceStats.Faction == _myStats.Faction) {
+            return;
+        }
+
         AddAggro(source, damage);
     }
 
@@ -233,6 +240,12 @@ public class AiBrain : NetworkBehaviour {
     }
 
     public void AddAggro(CharacterController target, int amount) {
+        NetworkStats targetStats = target.GetComponent<NetworkStats>();
+
+        if (targetStats.Faction == _myStats.Faction) {
+            return;
+        }
+
         if (_aggroTable.ContainsKey(target)) {
             _aggroTable[target] += amount;
         } else {
@@ -243,6 +256,12 @@ public class AiBrain : NetworkBehaviour {
     }
 
     private void SetAggro(CharacterController target, int amount) {
+        NetworkStats targetStats = target.GetComponent<NetworkStats>();
+
+        if (targetStats.Faction == _myStats.Faction) {
+            return;
+        }
+
         if (_aggroTable.ContainsKey(target)) {
             _aggroTable[target] = amount;
         } else {
