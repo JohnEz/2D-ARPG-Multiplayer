@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Cleansing Potion
   m_EditorClassIdentifier: 
   AbilityName: Cleansing Potion
-  Icon: {fileID: 21300000, guid: 24d0ca988dc4b1b47a115a5df9cfc82b, type: 3}
+  Icon: {fileID: 21300000, guid: 23ff9c33da7b32c48bf435911cb83d9d, type: 3}
   AbilityEffectPrefab: {fileID: 7483317077893260990, guid: 419dbd502b0b15b47b00cf96c39c9dfb, type: 3}
   CastTime: 0.15
-  Cooldown: 1
+  Cooldown: 6
   CastSFX: {fileID: 0}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0.5
+  _maxCharges: 1
   TimeCast: -Infinity
   TargetGraphics:
   - prefab: {fileID: 4536119196424114156, guid: 077acc03dc905f34aa7a9e7eee9468ce, type: 3}

@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: Toxic Bolt
   m_EditorClassIdentifier: 
   AbilityName: Toxic Bolt
-  Icon: {fileID: 21300000, guid: 9bca91dfcd8e5fc45a33eeda928e20b4, type: 3}
+  Icon: {fileID: 21300000, guid: f325e9c15be9c0a418fb63f9134985c0, type: 3}
   AbilityEffectPrefab: {fileID: 4824077025394156327, guid: 0c8c922aeca170d4ead90604bcff7443, type: 3}
   CastTime: 0.4
   Cooldown: 0.55
   CastSFX: {fileID: 8300000, guid: 0927fec77d17070469ee409df6f93b42, type: 3}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0
+  _maxCharges: 1
   TimeCast: -Infinity
   TargetGraphics: []
   AiDetails:
     AbilityRange: 0
     ProjectileSpeed: 0
     IsSupportAbility: 0
+    IsAutoCast: 0
