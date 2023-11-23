@@ -14,15 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Slash
   Icon: {fileID: 21300000, guid: 9bca91dfcd8e5fc45a33eeda928e20b4, type: 3}
-  AbilityEffectPrefab: {fileID: 7678783099372667594, guid: b47e0d91713a8c24785e7da5246ecfa8, type: 3}
+  AbilityEffectPrefab: {fileID: 8715676121977015262, guid: f0a907f2bafdda94ebd7b37879318339, type: 3}
   CastTime: 0.4
   Cooldown: 0.5
   CastSFX: {fileID: 0}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 1
+  _maxCharges: 1
   TimeCast: -Infinity
   TargetGraphics: []
   AiDetails:
     AbilityRange: 1.5
     ProjectileSpeed: -1
     IsSupportAbility: 0
+    IsAutoCast: 0

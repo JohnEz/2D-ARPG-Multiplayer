@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HamstringShot : ProjectileHitEffect {
-    private const int BASE_DAMAGE = 15;
+    private const int BASE_DAMAGE = 20;
 
     protected override void HandleProjectileHit(Vector3 hitLocation, NetworkStats caster, NetworkStats hitCharacter) {
         int damage = BASE_DAMAGE;

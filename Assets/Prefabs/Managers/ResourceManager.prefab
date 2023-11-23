@@ -75,6 +75,8 @@ MonoBehaviour:
     prefab: {fileID: 8060815555694305268, guid: 618dbc0c15623594cb818cb50899f267, type: 3}
   - id: Longsword
     prefab: {fileID: 4058092383524047943, guid: 5e0fe48ea9b559e47b97ae98d698dd62, type: 3}
+  - id: Goblin  Slash
+    prefab: {fileID: 3412648189789434532, guid: b187a82a9fadbea45882eef3dc401769, type: 3}
   _buffResources:
   - id: Snare
     prefab: {fileID: 11400000, guid: 14005bfa922d4e245b4d9884f5a87e0e, type: 2}
