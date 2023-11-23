@@ -32,20 +32,18 @@ public class ChallengingShout : AbilityEffect {
             }
         });
 
-        if (isOwner) {
-            BuffController buffController = _caster.GetComponent<BuffController>();
+        BuffController buffController = _caster.GetComponent<BuffController>();
 
-            float valiantDuration = _baseValiantDuration;
+        float valiantDuration = _baseValiantDuration;
 
-            if (hitTargets.Count > 0) {
-                valiantDuration += _valiantDurationPerHit * hitTargets.Count;
-            }
+        if (hitTargets.Count > 0) {
+            valiantDuration += _valiantDurationPerHit * hitTargets.Count;
+        }
 
-            if (buffController.HasBuff("Valiant")) {
-                buffController.ServerUpdateBuffDuration("Valiant", valiantDuration);
-            } else {
-                buffController.ServerApplyBuff("Valiant", valiantDuration);
-            }
+        if (buffController.HasBuff("Valiant")) {
+            buffController.ServerUpdateBuffDuration("Valiant", valiantDuration);
+        } else {
+            buffController.ServerApplyBuff("Valiant", valiantDuration);
         }
     }
 }
