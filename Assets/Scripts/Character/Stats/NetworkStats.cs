@@ -213,6 +213,11 @@ public class NetworkStats : NetworkBehaviour {
         }
     }
 
+    [Server(Logging = LoggingType.Off)]
+    public void ServerKill() {
+        _currentHealth = 0;
+    }
+
     #endregion Health Functions
 
     #region Modifier functions
