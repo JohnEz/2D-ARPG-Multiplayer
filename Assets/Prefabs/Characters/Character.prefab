@@ -1276,6 +1276,7 @@ MonoBehaviour:
   <AimLocation>k__BackingField: {x: 0, y: 0}
   Username: 
   visuals: {fileID: 7478747238312840284}
+  _characterSprite: {fileID: 4575530052882258123}
   _deathSFX: {fileID: 0}
 --- !u!114 &8899804265899810880
 MonoBehaviour:

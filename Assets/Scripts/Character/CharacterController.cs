@@ -42,6 +42,9 @@ public class CharacterController : NetworkBehaviour {
     [SerializeField]
     private GameObject visuals;
 
+    [SerializeField]
+    private SpriteRenderer _characterSprite;
+
     private Collider2D _hitbox;
 
     private Rigidbody2D _rigidBody;
@@ -119,7 +122,15 @@ public class CharacterController : NetworkBehaviour {
         _stateController.State = CharacterState.Dead;
 
         visuals.SetActive(false);
-        _rigidBody.isKinematic = true;
+
+        _characterSprite.sortingOrder = -1;
+
+        Color fadedColor = _characterSprite.color;
+        fadedColor.a = .4f;
+
+        // TODO we need to animate because the flash animation fucks us
+        _characterSprite.DOColor(fadedColor, 1f);
+
         _hitbox.enabled = false;
 
         _movementController.MoveDirection = Vector2.zero;

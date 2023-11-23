@@ -40,6 +40,10 @@ public class MovementController : MonoBehaviour {
     }
 
     private float GetMoveSpeed() {
+        if (_stateController.IsDead()) {
+            return 0f;
+        }
+
         float speedMod = 1f;
 
         if (_stateController.IsCasting()) {
