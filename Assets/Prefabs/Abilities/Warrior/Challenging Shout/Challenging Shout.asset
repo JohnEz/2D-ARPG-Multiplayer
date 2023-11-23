@@ -20,6 +20,7 @@ MonoBehaviour:
   CastSFX: {fileID: 8300000, guid: 5f4ce1d79dcc57349aa3fd91e4ee19a8, type: 3}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
+  _maxCharges: 1
   TimeCast: -Infinity
   TargetGraphics:
   - prefab: {fileID: 4536119196424114156, guid: 077acc03dc905f34aa7a9e7eee9468ce, type: 3}
@@ -29,3 +30,8 @@ MonoBehaviour:
     AbilityRange: 0
     ProjectileSpeed: 0
     IsSupportAbility: 0
+    IsAutoCast: 0
+  Description: Taunts nearby enemies making you Valiant, dealing 6 damage andchanging
+    their focus to you. Valiant duration increased per enemy hit.
+  buffIds:
+  - Valiant

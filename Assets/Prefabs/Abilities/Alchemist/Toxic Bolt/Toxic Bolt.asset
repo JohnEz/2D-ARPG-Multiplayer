@@ -28,3 +28,6 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+  Description: Shoots an arrow that deals 12 damage and applies Toxic.
+  buffIds:
+  - Toxic

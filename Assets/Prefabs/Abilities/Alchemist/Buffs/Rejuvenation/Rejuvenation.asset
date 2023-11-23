@@ -26,3 +26,4 @@ MonoBehaviour:
   expireVFX: {fileID: 0}
   _statMods: []
   _expireEffect: {fileID: 0}
+  Description: Heals the target for 6 over 4 seconds. Stacks up to 3 times.

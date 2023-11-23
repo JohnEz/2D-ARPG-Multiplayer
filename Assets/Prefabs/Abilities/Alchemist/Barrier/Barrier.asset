@@ -31,3 +31,6 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+  Description: Grants Barrier to an ally.
+  buffIds:
+  - Barrier

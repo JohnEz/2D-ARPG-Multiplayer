@@ -6,6 +6,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using DG.Tweening;
 using System;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(CharacterStateController))]
@@ -227,7 +228,8 @@ public class CharacterController : NetworkBehaviour {
         float currentCurveSpeed = _dashCurveSpeed.Evaluate(_timeDashing / _dashDuration);
         Vector3 newPosition = _rigidBody.position + (_dashDirection * currentCurveSpeed * _dashSpeed * Time.fixedDeltaTime);
 
-        _rigidBody.MovePosition(newPosition);
+        //_rigidBody.MovePosition(newPosition);
+        _rigidBody.AddForce(_dashDirection * (currentCurveSpeed * _dashSpeed), ForceMode2D.Impulse);
 
         if (_timeDashing >= _dashDuration) {
             EndDashing();

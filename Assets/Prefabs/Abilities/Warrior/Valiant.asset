@@ -29,3 +29,4 @@ MonoBehaviour:
     Type: 2
     Stat: 4
   _expireEffect: {fileID: 0}
+  Description: Reduces the damage you take by 20%.

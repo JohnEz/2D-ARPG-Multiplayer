@@ -31,3 +31,6 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+  Description: Throws a potion that removes negative effects from allies and positive
+    effects from enemies.
+  buffIds: []

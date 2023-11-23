@@ -20,8 +20,18 @@ MonoBehaviour:
   CastSFX: {fileID: 8300000, guid: 6ec7f2b5cca3d9c4fb9b85279987bb39, type: 3}
   CastVFX: {fileID: 6839791804671265580, guid: 1283d801c4b28904689e074306f064cf, type: 3}
   SpeedWhileCasting: 0.1
+  _maxCharges: 1
   TimeCast: -Infinity
   TargetGraphics:
   - prefab: {fileID: 3993497721173713923, guid: c790c04c860f3594dade1109caa9c196, type: 3}
     scale: 12
     myStyle: 3
+  AiDetails:
+    AbilityRange: 0
+    ProjectileSpeed: 0
+    IsSupportAbility: 0
+    IsAutoCast: 0
+  Description: Launches an ice lance that deals 22 damage and applies Chill. Deals
+    6 additional damage if target is already affected by Chill.
+  buffIds:
+  - Chill

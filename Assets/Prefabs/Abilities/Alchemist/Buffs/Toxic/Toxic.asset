@@ -18,9 +18,12 @@ MonoBehaviour:
   _tickEffectPrefab: {fileID: 3665909466439048483, guid: accffb96bd08c984abd702efa495d956, type: 3}
   TextColor: {r: 0.04111784, g: 0.7924528, b: 0.1192168, a: 1}
   _isAStun: 0
+  _isPositive: 0
+  _canBeDispelled: 1
   applySFX: {fileID: 0}
   expireSFX: {fileID: 0}
   applyVFX: {fileID: 0}
   expireVFX: {fileID: 0}
   _statMods: []
   _expireEffect: {fileID: 0}
+  Description: Deals 12 damage over 6 seconds. Stacks up to 3 times.

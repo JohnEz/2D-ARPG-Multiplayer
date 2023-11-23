@@ -45,6 +45,12 @@ public class Ability : ScriptableObject {
     [SerializeField]
     public AiAbilityDetails AiDetails;
 
+    [SerializeField]
+    public string Description;
+
+    [SerializeField]
+    public List<string> buffIds;
+
     public void Awake() {
         _remainingCooldown = Cooldown;
     }

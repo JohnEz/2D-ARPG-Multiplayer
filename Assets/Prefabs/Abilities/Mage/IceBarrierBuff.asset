@@ -29,3 +29,4 @@ MonoBehaviour:
     Type: 0
     Stat: 1
   _expireEffect: {fileID: 5392340010105657957, guid: bb8aebae320c893428471bd46e166b81, type: 3}
+  Description: Absorbs 24 damage and applies Chill to nearby enemies when broken.

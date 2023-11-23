@@ -29,3 +29,4 @@ MonoBehaviour:
     Type: 0
     Stat: 1
   _expireEffect: {fileID: 0}
+  Description: Absorbs 20 damage.

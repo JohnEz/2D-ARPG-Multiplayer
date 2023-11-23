@@ -25,7 +25,8 @@ MonoBehaviour:
   applyVFX: {fileID: 0}
   expireVFX: {fileID: 0}
   _statMods:
-  - _value: 0.4
+  - _value: 0.33
     Type: 1
     Stat: 3
   _expireEffect: {fileID: 0}
+  Description: Increases movement speed by 40%.

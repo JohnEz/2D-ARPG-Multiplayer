@@ -32,3 +32,4 @@ MonoBehaviour:
     Type: 1
     Stat: 3
   _expireEffect: {fileID: 0}
+  Description: Absorbs 50 damage and boosts movement speed by 33% for 3 seconds.

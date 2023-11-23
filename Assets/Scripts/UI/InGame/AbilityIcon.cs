@@ -7,6 +7,9 @@ using TMPro;
 public class AbilityIcon : MonoBehaviour {
 
     [SerializeField]
+    private Transform _visualsTransform;
+
+    [SerializeField]
     private GameObject _fadeOut;
 
     [SerializeField]
@@ -25,6 +28,8 @@ public class AbilityIcon : MonoBehaviour {
     private const float SHOW_DURATION = .3f;
 
     private Ability _myAbility;
+
+    public Ability MyAbility { get { return _myAbility; } }
 
     private bool _isOnCooldown = false;
 
@@ -77,12 +82,12 @@ public class AbilityIcon : MonoBehaviour {
 
     private void HideIcon() {
         _fadeOut.SetActive(true);
-        transform.DOLocalMoveY(-50f, HIDE_DURATION).SetEase(Ease.OutQuart);
+        _visualsTransform.DOLocalMoveY(-50f, HIDE_DURATION).SetEase(Ease.OutQuart);
     }
 
     private void ShowIcon() {
         _fadeOut.SetActive(false);
         _cooldownText.text = "";
-        transform.DOLocalMoveY(0f, SHOW_DURATION).SetEase(Ease.OutQuart);
+        _visualsTransform.DOLocalMoveY(0f, SHOW_DURATION).SetEase(Ease.OutQuart);
     }
 }

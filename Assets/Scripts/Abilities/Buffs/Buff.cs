@@ -99,6 +99,8 @@ public class Buff : ScriptableObject {
 
     public bool HasShield { get { return _shieldMod != null; } }
 
+    public string Description;
+
     public virtual void Initailise(NetworkStats target, float initialDuration, float elapsedTime, float passedTime, float addedTime) {
         InitialDuration = initialDuration > 0 && initialDuration < MaxDuration ? initialDuration : MaxDuration;
         targetCharacter = target;

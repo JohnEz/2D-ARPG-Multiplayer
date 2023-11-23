@@ -20,4 +20,14 @@ MonoBehaviour:
   CastSFX: {fileID: 8300000, guid: efdcc463d67e75e4aa105e9d32cba518, type: 3}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
+  _maxCharges: 1
   TimeCast: -Infinity
+  TargetGraphics: []
+  AiDetails:
+    AbilityRange: 0
+    ProjectileSpeed: 0
+    IsSupportAbility: 0
+    IsAutoCast: 0
+  Description: Launches a frostbolt that deals 15 damage. Deals an additional 2 damage
+    and extends the duration of Chill if affected by Chill.
+  buffIds: []

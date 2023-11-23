@@ -18,6 +18,8 @@ MonoBehaviour:
   _tickEffectPrefab: {fileID: 0}
   TextColor: {r: 0.14097545, g: 0.3978731, b: 0.9056604, a: 1}
   _isAStun: 1
+  _isPositive: 0
+  _canBeDispelled: 1
   applySFX: {fileID: 8300000, guid: 2cba8ce540e06a141aae175acdf7f0da, type: 3}
   expireSFX: {fileID: 8300000, guid: 5ab849359a854044388b71cef47292b1, type: 3}
   applyVFX: {fileID: 0}
@@ -27,3 +29,5 @@ MonoBehaviour:
     Type: 0
     Stat: 1
   _expireEffect: {fileID: 0}
+  Description: Target gains a 20 health shield and is unable to move or use abilities
+    for 3s. This effect breaks when the shield breaks.

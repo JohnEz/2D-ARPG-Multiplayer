@@ -20,8 +20,15 @@ MonoBehaviour:
   CastSFX: {fileID: 0}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 1
+  _maxCharges: 1
   TimeCast: -Infinity
   TargetGraphics: []
   AiDetails:
+    AbilityRange: 0
     ProjectileSpeed: 0
     IsSupportAbility: 0
+    IsAutoCast: 0
+  Description: Slash with your longsword, dealing 9 damage. If you are Valiant you
+    also heal for 4.
+  buffIds:
+  - Valiant

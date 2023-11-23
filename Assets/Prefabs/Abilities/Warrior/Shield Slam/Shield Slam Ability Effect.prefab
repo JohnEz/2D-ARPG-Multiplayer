@@ -71,7 +71,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _duration: 0.45
-  _dashSpeed: 20
+  _duration: 0.65
+  _dashSpeed: 15
   _dashVFX: {fileID: 432453338631041226, guid: 61c01a0e6a554ca4385d7d1cdefdab18, type: 3}
   _hitboxPrefab: {fileID: 9133011099275667742, guid: e5e0b8044d09c7843aa6f8a09736b646, type: 3}

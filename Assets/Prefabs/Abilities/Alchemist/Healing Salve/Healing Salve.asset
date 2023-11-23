@@ -31,3 +31,6 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+  Description: Throws a potion that heals allies for 14 and applies Rejuvenation.
+  buffIds:
+  - Rejuvenation

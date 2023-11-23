@@ -15,10 +15,15 @@ MonoBehaviour:
   _name: Stunned
   _maxDuration: 2
   _interval: 0
+  _tickEffectPrefab: {fileID: 0}
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
   _isAStun: 1
+  _isPositive: 0
+  _canBeDispelled: 1
   applySFX: {fileID: 0}
   expireSFX: {fileID: 0}
   applyVFX: {fileID: 0}
   expireVFX: {fileID: 0}
   _statMods: []
   _expireEffect: {fileID: 0}
+  Description: Cant move or use abilities.

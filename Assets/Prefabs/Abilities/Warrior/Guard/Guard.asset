@@ -20,9 +20,15 @@ MonoBehaviour:
   CastSFX: {fileID: 0}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
+  _maxCharges: 1
   TimeCast: -Infinity
   TargetGraphics: []
   AiDetails:
     AbilityRange: 0
     ProjectileSpeed: 0
     IsSupportAbility: 0
+    IsAutoCast: 0
+  Description: Gain Guard and raise your shield for 1.5s, reflecting projectiles
+    that hit it.
+  buffIds:
+  - Guard
