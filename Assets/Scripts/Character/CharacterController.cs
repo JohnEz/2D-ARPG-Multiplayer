@@ -120,11 +120,11 @@ public class CharacterController : NetworkBehaviour {
     }
 
     private void HandleHealthDepleted() {
-        Debug.Log("handling death");
-
         _stateController.State = CharacterState.Dead;
 
         visuals.SetActive(false);
+        _buffController.enabled = false;
+        _hitbox.enabled = false;
 
         _characterSprite.sortingOrder = -1;
 
@@ -133,8 +133,6 @@ public class CharacterController : NetworkBehaviour {
 
         // TODO we need to animate because the flash animation fucks us
         _characterSprite.DOColor(fadedColor, 1f);
-
-        _hitbox.enabled = false;
 
         _movementController.MoveDirection = Vector2.zero;
         // disable hud

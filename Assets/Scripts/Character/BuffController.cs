@@ -41,6 +41,8 @@ public class BuffController : NetworkBehaviour {
 
     public void OnDisable() {
         OnBuffsChanged -= HandleBuffsChanged;
+
+        ActiveBuffs.Clear();
     }
 
     public void HandleBuffsChanged(List<Buff> buffs) {
