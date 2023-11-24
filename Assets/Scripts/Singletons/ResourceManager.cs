@@ -30,11 +30,17 @@ public class ResourceManager : Singleton<ResourceManager> {
 
     private Dictionary<string, Buff> _buffs = new Dictionary<string, Buff>();
 
+    [SerializeField]
+    private List<Resource<PersistentAOE>> _persistentAOEResources;
+
+    private Dictionary<string, PersistentAOE> _persistentAOEs = new Dictionary<string, PersistentAOE>();
+
     public void Awake() {
         _projectileResources.ForEach(resource => _projectiles.Add(resource.id, resource.prefab));
         _telegraphResources.ForEach(resource => _telegraphs.Add(resource.id, resource.prefab));
         _buffResources.ForEach(resource => _buffs.Add(resource.id, resource.prefab));
         _slashResources.ForEach(resource => _slashes.Add(resource.id, resource.prefab));
+        _persistentAOEResources.ForEach(resource => _persistentAOEs.Add(resource.id, resource.prefab));
     }
 
     public Projectile GetProjectile(string id) {
@@ -51,5 +57,9 @@ public class ResourceManager : Singleton<ResourceManager> {
 
     public Buff GetBuff(string id) {
         return _buffs[id];
+    }
+
+    public PersistentAOE GetPersistentAOE(string id) {
+        return _persistentAOEs[id];
     }
 }

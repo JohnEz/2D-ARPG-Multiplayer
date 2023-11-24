@@ -33,7 +33,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4604158467522375800, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4604158467522375800, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Name

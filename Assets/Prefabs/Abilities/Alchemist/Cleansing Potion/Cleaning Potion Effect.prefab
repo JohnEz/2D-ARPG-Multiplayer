@@ -63,6 +63,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7550471873473540724, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: projectileId
+      value: Cleansing Potion
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550471873473540724, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: _castCompleteSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: f86eb3376d9200e4c866f7509b10bb5e, type: 3}
+    - target: {fileID: 7550471873473540724, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: _targetsLocation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7840497419732744747, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
       propertyPath: m_Name
       value: Cleaning Potion Effect

@@ -52,7 +52,8 @@ public class Ability : ScriptableObject {
     public List<string> buffIds;
 
     public void Awake() {
-        _remainingCooldown = Cooldown;
+        _remainingCooldown = 0;
+        _currentCharges = MaxCharges;
     }
 
     public void Update() {

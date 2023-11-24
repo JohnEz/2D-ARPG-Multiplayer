@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1493820111249824843}
-  - component: {fileID: -3644083166087770679}
+  - component: {fileID: 7550471873473540724}
   m_Layer: 0
   m_Name: Projectile Ability
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3644083166087770679
+--- !u!114 &7550471873473540724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7840497419732744747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f52c432a925e22247911cdf949ddd68b, type: 3}
+  m_Script: {fileID: 11500000, guid: 94e90d43775304643893f0c658daccf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _castCompleteSFX: {fileID: 0}
+  _castCompleteVFX: {fileID: 0}
+  _nextAbilityEffect: {fileID: 0}
   projectileId: 
+  _targetsLocation: 0
+  telegraphId: 

@@ -108,3 +108,6 @@ MonoBehaviour:
     prefab: {fileID: 11400000, guid: e31aa5b31860ea04cbfc0d8e93e639f9, type: 2}
   - id: Barrier
     prefab: {fileID: 11400000, guid: bf9f71d5f2dbf074297c2d9efd4b9432, type: 2}
+  _persistentAOEResources:
+  - id: HealingAOE
+    prefab: {fileID: 6044991187181725206, guid: 6dbc05bbe925a80409af3b61408b647c, type: 3}

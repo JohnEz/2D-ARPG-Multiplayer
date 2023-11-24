@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 620169334017532200}
-  - component: {fileID: 5371050862608071960}
+  - component: {fileID: 3786411398552522270}
   m_Layer: 0
   m_Name: Telegraph Ability
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5371050862608071960
+--- !u!114 &3786411398552522270
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6036495425585550850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea03b7c7b1fde5c4886b7dc6d4e9b335, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e6bec24062ee494b8e4fe284673746c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  telegraphId: Default
+  _castCompleteSFX: {fileID: 0}
+  _castCompleteVFX: {fileID: 0}
+  _nextAbilityEffect: {fileID: 0}
+  telegraphId: 

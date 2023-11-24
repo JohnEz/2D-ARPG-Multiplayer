@@ -55,9 +55,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7550471873473540724, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: projectileId
+      value: Hamstring Shot
+      objectReference: {fileID: 0}
     - target: {fileID: 7840497419732744747, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
       propertyPath: m_Name
-      value: Hamstring Shot Ability
+      value: Hamstring Shot Ability Effect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
