@@ -84,7 +84,7 @@ public class PredictedTelegraph : MonoBehaviour {
             }
 
             bool isCaster = hitTarget == caster;
-            bool isAlly = hitTarget.Faction == caster.Faction;
+            bool isAlly = hitTarget.Faction == caster.Faction && !isCaster;
 
             bool canHitTarget =
                 (isCaster && canHitCaster) ||

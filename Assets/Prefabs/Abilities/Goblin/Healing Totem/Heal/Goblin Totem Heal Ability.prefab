@@ -49,3 +49,6 @@ MonoBehaviour:
   _nextAbilityEffect: {fileID: 0}
   _radius: 6
   _healAmount: 15
+  _canHitCaster: 0
+  _canHitAlly: 1
+  _canHitEnemy: 0
