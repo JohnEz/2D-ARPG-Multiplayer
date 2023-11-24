@@ -12,7 +12,6 @@ public class PlayerInput : NetworkBehaviour {
         base.OnOwnershipClient(prevOwner);
 
         if (!base.Owner.IsLocalClient) {
-            GetComponent<CharacterController>().enabled = false;
             GetComponent<PlayerInput>().enabled = false;
             return;
         }

@@ -120,6 +120,8 @@ public class CharacterController : NetworkBehaviour {
     }
 
     private void HandleHealthDepleted() {
+        Debug.Log("handling death");
+
         _stateController.State = CharacterState.Dead;
 
         visuals.SetActive(false);

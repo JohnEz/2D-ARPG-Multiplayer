@@ -1,4 +1,5 @@
 using FishNet;
+using FishNet.Managing.Logging;
 using FishNet.Object;
 using System;
 using System.Collections;
