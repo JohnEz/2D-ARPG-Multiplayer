@@ -47,7 +47,7 @@ MonoBehaviour:
   _castCompleteSFX: {fileID: 8300000, guid: 6f96a4893d7708441887a586a96fc04a, type: 3}
   _castCompleteVFX: {fileID: 2923128738963998858, guid: adf3e9407e66b72469061d4f3b279e4d, type: 3}
   _nextAbilityEffect: {fileID: 0}
-  _radius: 6
+  _radius: 10
   _healAmount: 15
   _canHitCaster: 0
   _canHitAlly: 1

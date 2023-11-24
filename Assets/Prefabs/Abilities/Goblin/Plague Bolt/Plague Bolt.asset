@@ -15,14 +15,18 @@ MonoBehaviour:
   AbilityName: Plague Bolt
   Icon: {fileID: 21300000, guid: 432967171011efa4fbc67e7725dfb24f, type: 3}
   AbilityEffectPrefab: {fileID: 4138308132625889146, guid: 2a8dd0a94296a5d4990b7341de74d2df, type: 3}
-  CastTime: 0.3
-  Cooldown: 5
+  CastTime: 0.4
+  Cooldown: 2.5
   CastSFX: {fileID: 0}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
+  _maxCharges: 1
   TimeCast: -Infinity
   TargetGraphics: []
   AiDetails:
     AbilityRange: 8
     ProjectileSpeed: 20
     IsSupportAbility: 0
+    IsAutoCast: 0
+  Description: 
+  buffIds: []

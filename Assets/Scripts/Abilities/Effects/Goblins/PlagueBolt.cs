@@ -2,10 +2,9 @@
 using UnityEngine;
 
 public class PlagueBolt : TelegraphHitEffect {
-    private const int BASE_DAMAGE = 20;
+    private const int BASE_DAMAGE = 25;
 
-    protected override void HandleCharacterHit(NetworkStats caster, NetworkStats hitCharacter)
-    {
+    protected override void HandleCharacterHit(NetworkStats caster, NetworkStats hitCharacter) {
         base.HandleCharacterHit(caster, hitCharacter);
 
         int damage = BASE_DAMAGE;
@@ -14,5 +13,4 @@ public class PlagueBolt : TelegraphHitEffect {
 
         hitCharacter.TakeDamage(damage, caster.GetComponent<CharacterController>());
     }
-
 }
