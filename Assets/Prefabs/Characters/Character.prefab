@@ -1573,6 +1573,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 483269577795649093}
   _networkObjectCache: {fileID: 483269577795649093}
   IsStunned: 0
+  _canReceiveBuffs: 1
 --- !u!1 &8033721373708534210
 GameObject:
   m_ObjectHideFlags: 0

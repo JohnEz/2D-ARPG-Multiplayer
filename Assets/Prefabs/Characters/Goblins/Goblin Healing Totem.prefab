@@ -79,6 +79,10 @@ PrefabInstance:
       propertyPath: _componentIndexCache
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3751802400548974737, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: _canReceiveBuffs
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3875263173456399388, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Sprite
       value: 

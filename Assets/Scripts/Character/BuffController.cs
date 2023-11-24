@@ -17,6 +17,9 @@ public class BuffController : NetworkBehaviour {
 
     public bool IsStunned = false;
 
+    [SerializeField]
+    private bool _canReceiveBuffs = true;
+
     public event Action OnStunApplied;
 
     public event Action OnStunExpired;
@@ -94,7 +97,7 @@ public class BuffController : NetworkBehaviour {
     }
 
     public void ServerApplyBuff(string buffName, float duration = -1f) {
-        if (!IsServer) {
+        if (!IsServer || !_canReceiveBuffs) {
             return;
         }
 
