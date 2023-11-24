@@ -84,12 +84,13 @@ public class PredictedTelegraph : MonoBehaviour {
             }
 
             bool isCaster = hitTarget == caster;
-            bool isAlly = hitTarget.Faction == caster.Faction && !isCaster;
+            bool isEnemy = hitTarget.Faction != caster.Faction;
+            bool isAlly = !isEnemy && !isCaster;
 
             bool canHitTarget =
                 (isCaster && canHitCaster) ||
                 (isAlly && canHitAllies) ||
-                (!isAlly && canHitEnemies);
+                (isEnemy && canHitEnemies);
 
             return canHitTarget;
         }).Select(collider => collider.gameObject.GetComponent<NetworkStats>()).ToList();
