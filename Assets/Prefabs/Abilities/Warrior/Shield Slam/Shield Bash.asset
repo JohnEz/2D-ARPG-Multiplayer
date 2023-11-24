@@ -16,7 +16,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: abbd3d09ac66d2e4e8a3b1b14e51c1c5, type: 3}
   AbilityEffectPrefab: {fileID: 4085629182842641238, guid: ecf8fc1d3c0c7bd4cb6792eaf127e644, type: 3}
   CastTime: 0.2
-  Cooldown: 0.5
+  Cooldown: 5
   CastSFX: {fileID: 0}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1

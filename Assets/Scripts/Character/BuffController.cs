@@ -154,7 +154,7 @@ public class BuffController : NetworkBehaviour {
         }
     }
 
-    [Server(Logging = FishNet.Managing.Logging.LoggingType.Off)]
+    [Server(Logging = LoggingType.Off)]
     public void ServerRemoveBuff(string buffName) {
         DestroyBuff(buffName);
         ObserversRemoveBuff(buffName);
@@ -207,7 +207,7 @@ public class BuffController : NetworkBehaviour {
         CreateBuff(buffName, 0f, passedTime, elapsedTime, totalAddedTime);
     }
 
-    [Server(Logging = FishNet.Managing.Logging.LoggingType.Off)]
+    [Server(Logging = LoggingType.Off)]
     public bool ServerDispellBuffs(bool dispellPositiveBuffs, bool dispellNegativeBuffs, int numberToDispell = -1) {
         List<Buff> buffsToDispell = new List<Buff>();
         int remainingBuffsToDispell = numberToDispell == -1 ? 1000 : numberToDispell;
@@ -226,7 +226,7 @@ public class BuffController : NetworkBehaviour {
         });
 
         buffsToDispell.ForEach(buff => {
-            DestroyBuff(buff.Name);
+            ServerRemoveBuff(buff.Name);
         });
 
         return dispelledABuff;
