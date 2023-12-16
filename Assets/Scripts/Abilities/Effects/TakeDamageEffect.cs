@@ -8,7 +8,7 @@ public class TakeDamageEffect : BuffTickEffect {
     private int BASE_DAMAGE = 2;
 
     [SerializeField]
-    private const float POWER_SCALING = 0.2f;
+    private float POWER_SCALING = 0.2f;
 
     public override void OnTick(bool isOwner, NetworkStats target) {
         base.OnCastComplete(isOwner);

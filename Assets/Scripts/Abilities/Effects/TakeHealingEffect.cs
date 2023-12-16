@@ -7,7 +7,7 @@ public class TakeHealingEffect : BuffTickEffect {
     private int BASE_HEALING = 2;
 
     [SerializeField]
-    private const float POWER_SCALING = .2f;
+    private float POWER_SCALING = .2f;
 
     public override void OnTick(bool isOwner, NetworkStats target) {
         base.OnCastComplete(isOwner);

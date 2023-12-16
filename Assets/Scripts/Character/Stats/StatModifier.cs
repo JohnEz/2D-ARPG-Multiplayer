@@ -15,6 +15,9 @@ public class StatModifier : IComparable<StatModifier> {
     [SerializeField]
     private float _value;
 
+    [SerializeField]
+    private float powerScale = 0f;
+
     public StatModType Type;
     public object Source;
     public StatType Stat;
@@ -27,6 +30,12 @@ public class StatModifier : IComparable<StatModifier> {
         _value = value;
         Type = type;
         Source = source;
+    }
+
+    public void Initialise(int power) {
+        if (Type == StatModType.Flat) {
+            _value += power * powerScale;
+        }
     }
 
     public void UpdateRemainingValue(float mod) {
@@ -48,11 +57,20 @@ public class StatModifier : IComparable<StatModifier> {
 
     public static string StatTypeToString(StatType type) {
         switch (type) {
-            case StatType.HEALTH: return "Max Health";
-            case StatType.SHIELD: return "Shield";
-            case StatType.POWER: return "Power";
-            case StatType.MOVE_SPEED: return "Move Speed";
-            default: return "";
+            case StatType.HEALTH:
+            return "Max Health";
+
+            case StatType.SHIELD:
+            return "Shield";
+
+            case StatType.POWER:
+            return "Power";
+
+            case StatType.MOVE_SPEED:
+            return "Move Speed";
+
+            default:
+            return "";
         }
     }
 }

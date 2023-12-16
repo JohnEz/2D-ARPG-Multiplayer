@@ -63,5 +63,9 @@ PrefabInstance:
       propertyPath: BASE_DAMAGE
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 9141774781692131815, guid: fb88b0476ed3f3e4aaef66e4f4c0c576, type: 3}
+      propertyPath: POWER_SCALING
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb88b0476ed3f3e4aaef66e4f4c0c576, type: 3}

@@ -115,6 +115,12 @@ public class Buff : ScriptableObject {
         AddedTime = addedTime;
         _caster = caster;
 
+        NetworkStats casterStats = caster.GetComponent<NetworkStats>();
+
+        _statMods.ForEach(statMod => {
+            statMod.Initialise((int)casterStats.Power.CurrentValue);
+        });
+
         _shieldMod = _statMods.Find(mod =>
             mod.Stat == StatType.SHIELD && mod.Type == StatModType.Flat
         );
