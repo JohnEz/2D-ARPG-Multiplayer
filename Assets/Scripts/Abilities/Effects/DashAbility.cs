@@ -22,10 +22,10 @@ public class DashAbility : AbilityEffect {
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
-        Vector2 direction = _caster.AimDirection;
+        Vector2 direction = _casterController.AimDirection;
 
         if (isOwner) {
-            _caster.StartDashing(direction, _dashSpeedCurve, _duration, _dashSpeed);
+            _casterController.StartDashing(direction, _dashSpeedCurve, _duration, _dashSpeed);
         }
 
         GameObject shieldSlamVFX = Instantiate(_dashVFX, _caster.transform);

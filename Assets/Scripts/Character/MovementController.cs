@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CharacterStateController))]
 public class MovementController : MonoBehaviour {
+    private const float BASE_MOVEMENT_SPEED = 3.0f;
+
     private Rigidbody2D _body;
     private CharacterStateController _stateController;
     private NetworkStats _myStats;
@@ -44,17 +46,19 @@ public class MovementController : MonoBehaviour {
             return 0f;
         }
 
-        float speedMod = 1f;
+        float stateSpeedMod = 1f;
 
         if (_stateController.IsCasting()) {
-            speedMod = _castController.castingAbility.SpeedWhileCasting;
+            stateSpeedMod = _castController.castingAbility.SpeedWhileCasting;
         }
 
         if (_stateController.IsChanneling()) {
             ChannelAbility channelAbility = _castController.castingAbilityEffect as ChannelAbility;
-            speedMod = channelAbility.SpeedWhileChannelingMultiplier;
+            stateSpeedMod = channelAbility.SpeedWhileChannelingMultiplier;
         }
 
-        return _myStats.Speed.CurrentValue * speedMod;
+        float speedMod = _myStats.Speed.CurrentValue * stateSpeedMod;
+
+        return BASE_MOVEMENT_SPEED * speedMod;
     }
 }

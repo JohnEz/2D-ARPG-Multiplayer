@@ -87,14 +87,12 @@ public class AiBrain : NetworkBehaviour {
         StopCoroutine(checksCoroutine);
     }
 
-    private void HandleTakeDamage(int damage, bool hitShield, CharacterController source) {
-        NetworkStats sourceStats = source.GetComponent<NetworkStats>();
-
-        if (sourceStats.Faction == _myStats.Faction) {
+    private void HandleTakeDamage(int damage, bool hitShield, NetworkStats source) {
+        if (source.Faction == _myStats.Faction) {
             return;
         }
 
-        AddAggro(source, damage);
+        AddAggro(source.GetComponent<CharacterController>(), damage);
     }
 
     private IEnumerator CheckForUpdates(float delay) {

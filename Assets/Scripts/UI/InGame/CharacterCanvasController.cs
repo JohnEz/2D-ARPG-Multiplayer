@@ -107,7 +107,7 @@ public class CharacterCanvasController : MonoBehaviour {
         myStats.OnReceiveHealing += HandleReceiveHealing;
     }
 
-    private void HandleTakeDamage(int damage, bool isShield, CharacterController source) {
+    private void HandleTakeDamage(int damage, bool isShield, NetworkStats source) {
         // we only want to show combat text to the client that causes the damage
         if (!source.IsOwner) {
             return;
@@ -120,7 +120,7 @@ public class CharacterCanvasController : MonoBehaviour {
         }
     }
 
-    private void HandleReceiveHealing(int healing, CharacterController source) {
+    private void HandleReceiveHealing(int healing, NetworkStats source) {
         if (!source.IsOwner) {
             return;
         }

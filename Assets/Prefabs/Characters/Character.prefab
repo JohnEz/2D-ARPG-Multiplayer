@@ -1558,7 +1558,7 @@ MonoBehaviour:
   Faction: 0
   _currentHealth: 100
   _baseMaxHealth: 100
-  _baseSpeed: 3.5
+  _baseSpeed: 1
   _basePower: 0
 --- !u!114 &906537381320409878
 MonoBehaviour:

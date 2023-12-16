@@ -32,7 +32,7 @@ public class Buff : ScriptableObject {
     }
 
     [SerializeField]
-    private AbilityEffect _tickEffectPrefab;
+    private BuffTickEffect _tickEffectPrefab;
 
     public float ElapsedTime { get; set; }
 
@@ -72,6 +72,13 @@ public class Buff : ScriptableObject {
     }
 
     [SerializeField]
+    private BuffController _caster;
+
+    public BuffController Caster {
+        get { return _caster; }
+    }
+
+    [SerializeField]
     private AudioClip applySFX;
 
     [SerializeField]
@@ -101,11 +108,12 @@ public class Buff : ScriptableObject {
 
     public string Description;
 
-    public virtual void Initailise(NetworkStats target, float initialDuration, float elapsedTime, float passedTime, float addedTime) {
+    public virtual void Initailise(BuffController caster, NetworkStats target, float initialDuration, float elapsedTime, float passedTime, float addedTime) {
         InitialDuration = initialDuration > 0 && initialDuration < MaxDuration ? initialDuration : MaxDuration;
         targetCharacter = target;
         ElapsedTime = elapsedTime + passedTime;
         AddedTime = addedTime;
+        _caster = caster;
 
         _shieldMod = _statMods.Find(mod =>
             mod.Stat == StatType.SHIELD && mod.Type == StatModType.Flat
@@ -162,10 +170,9 @@ public class Buff : ScriptableObject {
             return;
         }
 
-        AbilityEffect tickEffect = Instantiate(_tickEffectPrefab, targetCharacter.transform);
-        // TODO this should be the caster of the buff probably but passing that over the network might have problems?
-        tickEffect.Initialise(targetCharacter.GetComponent<CharacterController>());
-        tickEffect.OnCastComplete(true);
+        BuffTickEffect tickEffect = Instantiate(_tickEffectPrefab, targetCharacter.transform);
+        tickEffect.Initialise(_caster.GetComponent<NetworkStats>());
+        tickEffect.OnTick(true, targetCharacter);
     }
 
     public virtual void OnExpire() {
@@ -184,7 +191,7 @@ public class Buff : ScriptableObject {
         if (_expireEffect) {
             AbilityEffect expireEffect = Instantiate(_expireEffect);
             //TODO this should probably be the initial caster
-            expireEffect.Initialise(targetCharacter.GetComponent<CharacterController>());
+            expireEffect.Initialise(targetCharacter);
             expireEffect.OnCastComplete(true);
         }
     }

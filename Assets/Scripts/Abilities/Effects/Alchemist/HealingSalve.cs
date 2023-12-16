@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealingSalve : ProjectileHitEffect {
-    private const int HEALING_SALVE_HEAL_AMOUNT = 14;
+    private const int BASE_HEALING = 14;
+    private const float POWER_SCALING = 1f;
 
     private const string BUFF = "Rejuvenation";
     private const string BUFF2 = "Rejuvenation II";
@@ -20,30 +21,31 @@ public class HealingSalve : ProjectileHitEffect {
 
         List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(hitLocation, _radius, caster, true, false, true);
 
-        hitTargets.ForEach(hitTarget => HandleCharacterHit(caster, hitTarget));
+        hitTargets.ForEach(hitTarget => HandleProjectileHit(hitLocation, caster, hitTarget));
     }
 
-    private void HandleCharacterHit(NetworkStats caster, NetworkStats hitTarget) {
+    protected override void HandleProjectileHit(Vector3 hitLocation, NetworkStats caster, NetworkStats hitTarget) {
+        base.HandleProjectileHit(hitLocation, caster, hitTarget);
+
         if (hitTarget == null) {
             return;
         }
 
-        int baseHealAmount = HEALING_SALVE_HEAL_AMOUNT;
-
         BuffController hitBuffController = hitTarget.GetComponent<BuffController>();
+        BuffController casterBuffController = caster.GetComponent<BuffController>();
 
         if (hitBuffController.HasBuff(BUFF3)) {
             hitBuffController.ServerUpdateBuffDuration(BUFF3, -1);
         } else if (hitBuffController.HasBuff(BUFF2)) {
             hitBuffController.ServerRemoveBuff(BUFF2);
-            hitBuffController.ServerApplyBuff(BUFF3);
+            casterBuffController.ApplyBuffTo(hitBuffController, BUFF3);
         } else if (hitBuffController.HasBuff(BUFF)) {
             hitBuffController.ServerRemoveBuff(BUFF);
-            hitBuffController.ServerApplyBuff(BUFF2);
+            casterBuffController.ApplyBuffTo(hitBuffController, BUFF2);
         } else {
-            hitBuffController.ServerApplyBuff(BUFF);
+            casterBuffController.ApplyBuffTo(hitBuffController, BUFF);
         }
 
-        hitTarget.ReceiveHealing(baseHealAmount, caster.GetComponent<CharacterController>());
+        caster.GiveHealingTo(gameObject.name, hitTarget, BASE_HEALING, POWER_SCALING);
     }
 }

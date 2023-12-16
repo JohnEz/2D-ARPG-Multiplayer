@@ -10,7 +10,7 @@ public class SpawnUnitEffect : AbilityEffect {
         base.OnCastComplete(isOwner);
 
         if (isOwner) {
-            CharacterManager.Instance.SpawnCharacter(_spawnCharacterId, _caster.AimLocation);
+            CharacterManager.Instance.SpawnCharacter(_spawnCharacterId, _casterController.AimLocation);
         }
 
         Destroy(gameObject);

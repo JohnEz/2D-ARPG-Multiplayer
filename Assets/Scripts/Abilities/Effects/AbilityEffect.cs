@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityEffect : MonoBehaviour {
-    protected CharacterController _caster;
+    protected NetworkStats _caster;
+
+    protected CharacterController _casterController;
 
     [SerializeField]
     protected AudioClip _castCompleteSFX;
@@ -14,8 +16,9 @@ public class AbilityEffect : MonoBehaviour {
     [SerializeField]
     protected AbilityEffect _nextAbilityEffect;
 
-    public void Initialise(CharacterController caster) {
+    public void Initialise(NetworkStats caster) {
         _caster = caster;
+        _casterController = caster.GetComponent<CharacterController>();
     }
 
     public virtual void OnCastStart() {

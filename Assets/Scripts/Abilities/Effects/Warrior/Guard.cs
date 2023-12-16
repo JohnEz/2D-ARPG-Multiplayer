@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using static Pathfinding.Util.RetainedGizmos;
 
 public class Guard : ChannelAbility {
 
@@ -18,11 +19,13 @@ public class Guard : ChannelAbility {
         base.OnChannelStart();
 
         if (_reflectPrefab != null) {
-            _reflect = Instantiate(_reflectPrefab, _caster.FacingTransform);
-            _reflect.GetComponent<ProjectileReflector>().SetCaster(_caster);
+            _reflect = Instantiate(_reflectPrefab, _casterController.FacingTransform);
+            _reflect.GetComponent<ProjectileReflector>().SetCaster(_casterController);
         }
 
-        _caster.GetComponent<BuffController>().ServerApplyBuff(BUFF);
+        BuffController casterBuffController = _caster.GetComponent<BuffController>();
+
+        casterBuffController.ApplyBuffTo(casterBuffController, BUFF);
     }
 
     public override void OnChannelComplete() {

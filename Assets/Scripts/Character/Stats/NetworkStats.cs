@@ -96,9 +96,9 @@ public class NetworkStats : NetworkBehaviour {
 
     public event Action OnHealthChanged;
 
-    public event Action<int, bool, CharacterController> OnTakeDamage;
+    public event Action<int, bool, NetworkStats> OnTakeDamage;
 
-    public event Action<int, CharacterController> OnReceiveHealing;
+    public event Action<int, NetworkStats> OnReceiveHealing;
 
     #region Health Functions
 
@@ -188,7 +188,14 @@ public class NetworkStats : NetworkBehaviour {
         _currentHealth = Math.Clamp(_currentHealth - remainingDamage, 0, (int)MaxHealth.CurrentValue);
     }
 
-    public void TakeDamage(int damage, CharacterController source) {
+    public void DealDamageTo(string spellId, NetworkStats target, int baseDamage, float powerScaling) {
+        int damage = GetDamage(baseDamage, powerScaling);
+
+        target.TakeDamage(spellId, this, damage);
+    }
+
+    //public void TakeDamage(int damage, CharacterController source) {
+    public void TakeDamage(string spellId, NetworkStats source, int damage) {
         TakeDamageServer(damage);
 
         if (IsClient) {
@@ -205,7 +212,13 @@ public class NetworkStats : NetworkBehaviour {
         _currentHealth = Math.Clamp(_currentHealth + healing, 0, (int)MaxHealth.CurrentValue);
     }
 
-    public void ReceiveHealing(int healing, CharacterController source) {
+    public void GiveHealingTo(string spellId, NetworkStats target, int baseHealing, float powerScaling) {
+        int healing = GetDamage(baseHealing, powerScaling);
+
+        target.ReceiveHealing(spellId, this, healing);
+    }
+
+    public void ReceiveHealing(string spellId, NetworkStats source, int healing) {
         ReceiveHealingServer(healing);
 
         if (InstanceFinder.IsClient) {
@@ -221,6 +234,10 @@ public class NetworkStats : NetworkBehaviour {
     #endregion Health Functions
 
     #region Modifier functions
+
+    public int GetDamage(int baseDamage, float powerScaling) {
+        return baseDamage + (int)(powerScaling * Power.CurrentValue);
+    }
 
     public SyncedCharacterStat GetCharacterStat(StatType stat) {
         return StatList[stat];

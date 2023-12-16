@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Longsword : MonoBehaviour {
     private const int BASE_DAMAGE = 9;
+    private const float POWER_SCALING = 0.9f;
 
     private const int VALIANT_HEALING = 4;
+    private const float VALIANT_POWER_SCALING = 0.4f;
 
     private void OnEnable() {
         GetComponent<PredictedSlash>().OnHit += HandleCharacterHit;
@@ -15,15 +17,13 @@ public class Longsword : MonoBehaviour {
     }
 
     private void HandleCharacterHit(Vector3 Location, NetworkStats caster, NetworkStats hitCharacter) {
-        int damage = BASE_DAMAGE;
-
         BuffController buffController = caster.GetComponent<BuffController>();
         CharacterController characterController = caster.GetComponent<CharacterController>();
 
         if (buffController.HasBuff("Valiant")) {
-            caster.ReceiveHealing(VALIANT_HEALING, characterController);
+            caster.GiveHealingTo(gameObject.name, caster, VALIANT_HEALING, VALIANT_POWER_SCALING);
         }
 
-        hitCharacter.TakeDamage(damage, characterController);
+        caster.DealDamageTo(gameObject.name, hitCharacter, BASE_DAMAGE, POWER_SCALING);
     }
 }

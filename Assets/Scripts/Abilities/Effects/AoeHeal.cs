@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Pathfinding.Util.RetainedGizmos;
 
 public class AoeHeal : AbilityEffect {
 
@@ -9,7 +10,10 @@ public class AoeHeal : AbilityEffect {
     private float _radius = 2f;
 
     [SerializeField]
-    private int _healAmount = 0;
+    private const int BASE_HEALING = 0;
+
+    [SerializeField]
+    private const float POWER_SCALING = 0f;
 
     [SerializeField]
     private bool _canHitCaster = false;
@@ -20,18 +24,24 @@ public class AoeHeal : AbilityEffect {
     [SerializeField]
     private bool _canHitEnemy = false;
 
+    [SerializeField]
+    private GameObject _characterHitVfx;
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
         if (InstanceFinder.IsServer) {
             Vector3 targetLocation = _caster.transform.position;
-            NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
 
-            List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(targetLocation, _radius, casterStats, _canHitCaster, _canHitEnemy, _canHitAlly);
+            List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(targetLocation, _radius, _caster, _canHitCaster, _canHitEnemy, _canHitAlly);
 
-            hitTargets.ForEach(target => {
-                Debug.Log($"Target: {target.name}");
-                target.ReceiveHealing(_healAmount, casterStats.GetComponent<CharacterController>());
+            hitTargets.ForEach(hitTarget => {
+                _caster.GiveHealingTo(gameObject.name, hitTarget, BASE_HEALING, POWER_SCALING);
+
+                if (_characterHitVfx) {
+                    GameObject hitVFX = Instantiate(_characterHitVfx, hitTarget.transform);
+                    hitVFX.transform.position = hitTarget.transform.position;
+                }
             });
         }
 

@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b25821287b4db4b905fec18b2cb9cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healAmount: 6
+  _characterHitVfx: {fileID: 6762083383415996051, guid: 4e41c3153bcaa764794131e1b774f0d2, type: 3}
 --- !u!114 &-3350679993920812328
 MonoBehaviour:
   m_ObjectHideFlags: 0

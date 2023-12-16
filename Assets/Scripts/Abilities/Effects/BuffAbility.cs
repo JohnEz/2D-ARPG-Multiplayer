@@ -38,19 +38,18 @@ public class BuffAbility : AbilityEffect {
         if (isOwner) {
             NetworkStats hitTarget = null;
             BuffController casterBuffs = _caster.GetComponent<BuffController>();
-            NetworkStats casterStats = _caster.GetComponent<NetworkStats>();
 
-            List<NetworkStats> hitTargets = GetHitTargets(casterStats, CanHitCaster, CanHitEnemies, CanHitAllies);
+            List<NetworkStats> hitTargets = GetHitTargets(_caster, CanHitCaster, CanHitEnemies, CanHitAllies);
 
             if (hitTargets.Count > 0) {
                 // if there were units near the mouse, pick the closest to the center
-                hitTarget = GetClosestToPoint(_caster.AimLocation, hitTargets);
+                hitTarget = GetClosestToPoint(_casterController.AimLocation, hitTargets);
             }
 
             if (hitTarget != null) {
                 BuffController targetBuffs = hitTarget.GetComponent<BuffController>();
 
-                casterBuffs.ApplyBuff(targetBuffs, BuffId);
+                casterBuffs.ApplyBuffTo(targetBuffs, BuffId);
             }
         }
 

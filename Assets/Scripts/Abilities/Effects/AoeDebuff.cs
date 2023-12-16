@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Pathfinding.Util.RetainedGizmos;
 
 public class AoeDebuff : AbilityEffect {
 
@@ -28,13 +29,14 @@ public class AoeDebuff : AbilityEffect {
 
             hitTargets.ForEach(target => {
                 BuffController targetBuffController = target.GetComponent<BuffController>();
+                BuffController casterBuffController = _caster.GetComponent<BuffController>();
 
                 if (targetBuffController.HasBuff(_debuff) && _UpdateDurationIfAlreadyPresent) {
                     targetBuffController.ServerUpdateBuffDuration(_debuff, _duration);
                     return;
                 }
 
-                targetBuffController.ServerApplyBuff(_debuff, _duration);
+                casterBuffController.ApplyBuffTo(targetBuffController, _debuff, _duration);
             });
         }
 

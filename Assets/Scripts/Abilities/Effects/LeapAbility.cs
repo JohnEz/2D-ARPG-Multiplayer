@@ -35,25 +35,25 @@ public class LeapAbility : AbilityEffect {
         if (isOwner) {
             Vector3 casterPosition = _caster.transform.position;
 
-            float distanceToAimLocation = Vector3.Distance(casterPosition, _caster.AimLocation);
-            Vector3 aimDirection = ((Vector3)_caster.AimLocation - casterPosition).normalized;
+            float distanceToAimLocation = Vector3.Distance(casterPosition, _casterController.AimLocation);
+            Vector3 aimDirection = ((Vector3)_casterController.AimLocation - casterPosition).normalized;
 
             float distance = Mathf.Clamp(distanceToAimLocation, MinDistance, MaxDistance);
 
             _landingSpot = LeapTarget.GetLeapLandingSpot(casterPosition, distance, aimDirection);
 
-            _caster.StartLeapMovement(_landingSpot.safeSpot, _duration, _leapMoveCurve);
+            _casterController.StartLeapMovement(_landingSpot.safeSpot, _duration, _leapMoveCurve);
         }
 
-        _caster.StartLeap(_duration, _leapZCurve, this);
+        _casterController.StartLeap(_duration, _leapZCurve, this);
     }
 
     public virtual void OnLeapComplete() {
         if (_landingVFX) {
-            Instantiate(_landingVFX, _caster.transform.position, Quaternion.identity);
+            Instantiate(_landingVFX, _casterController.transform.position, Quaternion.identity);
         }
 
-        AudioManager.Instance.PlaySound(_landingSFX, _caster.transform.position);
+        AudioManager.Instance.PlaySound(_landingSFX, _casterController.transform.position);
 
         Destroy(gameObject);
     }

@@ -48,7 +48,7 @@ MonoBehaviour:
   _castCompleteVFX: {fileID: 2923128738963998858, guid: adf3e9407e66b72469061d4f3b279e4d, type: 3}
   _nextAbilityEffect: {fileID: 0}
   _radius: 10
-  _healAmount: 15
   _canHitCaster: 0
   _canHitAlly: 1
   _canHitEnemy: 0
+  _characterHitVfx: {fileID: 6762083383415996051, guid: 4e41c3153bcaa764794131e1b774f0d2, type: 3}

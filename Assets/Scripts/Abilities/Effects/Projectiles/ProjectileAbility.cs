@@ -15,10 +15,10 @@ public class ProjectileAbility : AbilityEffect {
         base.OnCastComplete(isOwner);
 
         if (isOwner) {
-            _caster.GetComponent<ProjectileSpawner>().Fire(projectileId, _caster.transform.position, _caster.AimLocation, _targetsLocation);
+            _caster.GetComponent<ProjectileSpawner>().Fire(projectileId, _caster.transform.position, _casterController.AimLocation, _targetsLocation);
 
             if (telegraphId != null && telegraphId != "") {
-                _caster.GetComponent<TelegraphSpawner>().Fire(telegraphId, _caster.AimLocation);
+                _caster.GetComponent<TelegraphSpawner>().Fire(telegraphId, _casterController.AimLocation);
             }
         }
 

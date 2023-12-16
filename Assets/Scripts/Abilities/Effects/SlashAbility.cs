@@ -8,7 +8,7 @@ public class SlashAbility : AbilityEffect {
         base.OnCastComplete(isOwner);
 
         if (isOwner) {
-            _caster.GetComponent<SlashSpawner>().Slash(slashId, _caster.transform.position, _caster.AimDirection);
+            _caster.GetComponent<SlashSpawner>().Slash(slashId, _caster.transform.position, _casterController.AimDirection);
         }
 
         Destroy(gameObject);

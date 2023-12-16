@@ -101,7 +101,7 @@ public class CastController : NetworkBehaviour {
         // TODO these can potentially be moved to "Casting()"
         GameObject createdEffect = Instantiate(abilityToCreate.AbilityEffectPrefab);
         castingAbilityEffect = createdEffect.GetComponent<AbilityEffect>();
-        castingAbilityEffect.Initialise(GetComponent<CharacterController>());
+        castingAbilityEffect.Initialise(GetComponent<NetworkStats>());
     }
 
     private IEnumerator Casting() {
@@ -119,21 +119,21 @@ public class CastController : NetworkBehaviour {
 
                 switch (targetGraphic.myStyle) {
                     case TargetGraphicStyle.SELF:
-                        targetGraphicController.InitialiseSelfTarget(transform, targetGraphic.scale);
-                        break;
+                    targetGraphicController.InitialiseSelfTarget(transform, targetGraphic.scale);
+                    break;
 
                     case TargetGraphicStyle.FOLLOW_MOUSE:
-                        targetGraphicController.InitialiseFollowMouseTarget(targetGraphic.scale);
-                        break;
+                    targetGraphicController.InitialiseFollowMouseTarget(targetGraphic.scale);
+                    break;
 
                     case TargetGraphicStyle.LEAP:
-                        LeapAbility leapAbility = castingAbilityEffect.GetComponent<LeapAbility>();
-                        targetGraphicController.InitialiseLeapTarget(transform, leapAbility.MinDistance, leapAbility.MaxDistance, targetGraphic.scale);
-                        break;
+                    LeapAbility leapAbility = castingAbilityEffect.GetComponent<LeapAbility>();
+                    targetGraphicController.InitialiseLeapTarget(transform, leapAbility.MinDistance, leapAbility.MaxDistance, targetGraphic.scale);
+                    break;
 
                     case TargetGraphicStyle.ARROW:
-                        targetGraphicController.InitialiseArrowTarget(visuals, targetGraphic.scale);
-                        break;
+                    targetGraphicController.InitialiseArrowTarget(visuals, targetGraphic.scale);
+                    break;
                 }
 
                 targetGraphics.Add(targetGraphicObject);

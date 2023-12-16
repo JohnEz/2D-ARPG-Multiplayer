@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class CourageousLeapLand : TelegraphHitEffect {
     private const int BASE_DAMAGE = 22;
+    private const float POWER_SCALING = 0.5f;
 
     private float _baseValiantDuration = 1f;
 
     private float _valiantDurationPerHit = .75f;
 
+    private string BUFF = "Valiant";
+
     protected override void HandleHit(NetworkStats caster, List<NetworkStats> hitCharacters) {
         base.HandleHit(caster, hitCharacters);
 
-        BuffController buffController = caster.GetComponent<BuffController>();
+        BuffController casterBuffController = caster.GetComponent<BuffController>();
 
         float valiantDuration = _baseValiantDuration;
 
@@ -20,18 +23,16 @@ public class CourageousLeapLand : TelegraphHitEffect {
             valiantDuration += _valiantDurationPerHit * hitCharacters.Count;
         }
 
-        if (buffController.HasBuff("Valiant")) {
-            buffController.ServerUpdateBuffDuration("Valiant", valiantDuration);
+        if (casterBuffController.HasBuff(BUFF)) {
+            casterBuffController.ServerUpdateBuffDuration(BUFF, valiantDuration);
         } else {
-            buffController.ServerApplyBuff("Valiant", valiantDuration);
+            casterBuffController.ApplyBuffTo(casterBuffController, BUFF, valiantDuration);
         }
     }
 
     protected override void HandleCharacterHit(NetworkStats caster, NetworkStats hitCharacter) {
         base.HandleCharacterHit(caster, hitCharacter);
 
-        int damage = BASE_DAMAGE;
-
-        hitCharacter.TakeDamage(damage, caster.GetComponent<CharacterController>());
+        caster.DealDamageTo(gameObject.name, hitCharacter, BASE_DAMAGE, POWER_SCALING);
     }
 }

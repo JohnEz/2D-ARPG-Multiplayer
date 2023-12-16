@@ -7,7 +7,8 @@ public class ShieldSlamHit : MonoBehaviour {
     [SerializeField]
     private AudioClip _hitSFX;
 
-    private int _damage = 14;
+    private const int BASE_DAMAGE = 14;
+    private const float POWER_SCALING = 1f;
 
     private bool _hasGainedShield = false;
 
@@ -26,14 +27,15 @@ public class ShieldSlamHit : MonoBehaviour {
 
         AudioManager.Instance.PlaySound(_hitSFX, hitLocation);
 
-        hitCharacter.TakeDamage(_damage, caster.GetComponent<CharacterController>());
+        caster.DealDamageTo(gameObject.name, hitCharacter, BASE_DAMAGE, POWER_SCALING);
 
-        hitCharacter.GetComponent<BuffController>().ServerApplyBuff("Stunned", 1f);
-
+        BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
         BuffController casterBuffController = caster.GetComponent<BuffController>();
 
+        casterBuffController.ApplyBuffTo(hitBuffController, "Stunned", 1f);
+
         if (!_hasGainedShield && casterBuffController.HasBuff("Valiant")) {
-            caster.GetComponent<BuffController>().ServerApplyBuff("Shielded");
+            casterBuffController.ApplyBuffTo(casterBuffController, "Shielded");
             _hasGainedShield = true;
         }
     }

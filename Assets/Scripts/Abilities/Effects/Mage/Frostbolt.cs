@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Frostbolt : ProjectileHitEffect {
     private const int BASE_DAMAGE = 15;
+    private const float POWER_SCALING = .5f;
 
     private const int CHILL_DAMAGE = 2;
+    private const float CHILL_POWER_SCALING = 0.2f;
 
     private const float ADDED_CHILL_DURATION = .8f;
 
@@ -15,9 +17,9 @@ public class Frostbolt : ProjectileHitEffect {
 
         if (hitBuffController.HasBuff("Chill")) {
             hitBuffController.ServerUpdateBuffDuration("Chill", ADDED_CHILL_DURATION);
-            damage += CHILL_DAMAGE;
+            damage += caster.GetDamage(CHILL_DAMAGE, CHILL_POWER_SCALING);
         }
 
-        hitCharacter.TakeDamage(damage, caster.GetComponent<CharacterController>());
+        caster.DealDamageTo(gameObject.name, hitCharacter, damage, POWER_SCALING);
     }
 }

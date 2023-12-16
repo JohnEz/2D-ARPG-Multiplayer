@@ -9,7 +9,7 @@ public class PersistentAOEAbility : AbilityEffect {
         base.OnCastComplete(isOwner);
 
         if (isOwner) {
-            _caster.GetComponent<AbilitySpawner>().CreatePersistentAOE(persistentId, _caster.AimLocation);
+            _caster.GetComponent<AbilitySpawner>().CreatePersistentAOE(persistentId, _casterController.AimLocation);
         }
 
         Destroy(gameObject);

@@ -9,7 +9,7 @@ public class TelegraphAbility : AbilityEffect {
         base.OnCastComplete(isOwner);
 
         if (isOwner) {
-            _caster.GetComponent<TelegraphSpawner>().Fire(telegraphId, _caster.AimLocation);
+            _caster.GetComponent<TelegraphSpawner>().Fire(telegraphId, _casterController.AimLocation);
         }
 
         Destroy(gameObject);
