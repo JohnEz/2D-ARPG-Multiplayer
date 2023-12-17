@@ -26,7 +26,7 @@ MonoBehaviour:
   applyVFX: {fileID: 5277472720557037422, guid: c6e482500c2a3eb459f7b5fbd000cfb7, type: 3}
   expireVFX: {fileID: 0}
   _statMods:
-  - _value: 50
+  - _value: 40
     powerScale: 1
     Type: 0
     Stat: 1
@@ -35,4 +35,4 @@ MonoBehaviour:
     Type: 1
     Stat: 3
   _expireEffect: {fileID: 0}
-  Description: Absorbs 50 damage and boosts movement speed by 33% for 3 seconds.
+  Description: Absorbs 40 damage and boosts movement speed by 33% for 3 seconds.

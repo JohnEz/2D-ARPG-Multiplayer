@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class PlagueBolt : TelegraphHitEffect {
-    private const int BASE_DAMAGE = 25;
+    private const int BASE_DAMAGE = 10;
     private const float POWER_SCALING = 1.5f;
 
     protected override void HandleCharacterHit(NetworkStats caster, NetworkStats hitCharacter) {

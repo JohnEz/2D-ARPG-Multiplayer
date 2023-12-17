@@ -7,13 +7,13 @@ using static Pathfinding.Util.RetainedGizmos;
 public class ChallengingShout : AbilityEffect {
     private float _radius = 5f;
 
-    private int _additionalAggro = 14;
+    private int _additionalAggro = 10;
 
     private const float AGGRO_POWER_SCALING = 1.4f;
 
-    private const int BASE_DAMAGE = 6;
+    private const int BASE_DAMAGE = 5;
 
-    private const float DAMAGE_POWER_SCALING = .6f;
+    private const float DAMAGE_POWER_SCALING = .1f;
 
     private float _baseValiantDuration = 1f;
 

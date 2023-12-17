@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealingSalve : ProjectileHitEffect {
-    private const int BASE_HEALING = 14;
-    private const float POWER_SCALING = 1f;
+    private const int BASE_HEALING = 7;
+    private const float POWER_SCALING = .75f;
 
     private const string BUFF = "Rejuvenation";
     private const string BUFF2 = "Rejuvenation II";

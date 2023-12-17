@@ -13,7 +13,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8428141614255548507, guid: d4e24e84a82111a44bd60f753cce39e3, type: 3}
       propertyPath: BASE_HEALING
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8428141614255548507, guid: d4e24e84a82111a44bd60f753cce39e3, type: 3}
+      propertyPath: POWER_SCALING
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1439242263089670710, guid: d4e24e84a82111a44bd60f753cce39e3, type: 3}
       propertyPath: m_Name

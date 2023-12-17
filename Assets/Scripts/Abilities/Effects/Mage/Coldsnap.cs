@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PredictedTelegraph))]
 public class Coldsnap : TelegraphHitEffect {
-    private const int BASE_DAMAGE = 16;
+    private const int BASE_DAMAGE = 14;
     private const float POWER_SCALING = 0.25f;
 
     private const float CHILL_DURATION = 2.5f;

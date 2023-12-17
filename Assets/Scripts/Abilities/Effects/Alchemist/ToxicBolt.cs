@@ -3,8 +3,8 @@ using System.Collections;
 using UnityEngine;
 
 public class ToxicBolt : ProjectileHitEffect {
-    private const int BASE_DAMAGE = 12;
-    private const float POWER_SCALING = .75f;
+    private const int BASE_DAMAGE = 7;
+    private const float POWER_SCALING = .5f;
 
     private const string BUFF = "Toxic";
     private const string BUFF2 = "Toxic II";

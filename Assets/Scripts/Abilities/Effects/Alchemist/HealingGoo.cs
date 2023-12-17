@@ -5,10 +5,10 @@ using UnityEngine;
 public class HealingGoo : PersistentAOEHitEffect {
 
     [SerializeField]
-    private const int BASE_HEALING = 6;
+    private const int BASE_HEALING = 3;
 
     [SerializeField]
-    private const float POWER_SCALING = 0.6f;
+    private const float POWER_SCALING = 0.3f;
 
     protected override void HandleTick(NetworkStats caster, List<NetworkStats> hitTargets) {
         base.HandleTick(caster, hitTargets);

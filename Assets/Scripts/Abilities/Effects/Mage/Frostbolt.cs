@@ -2,10 +2,10 @@
 using UnityEngine;
 
 public class Frostbolt : ProjectileHitEffect {
-    private const int BASE_DAMAGE = 15;
+    private const int BASE_DAMAGE = 10;
     private const float POWER_SCALING = .5f;
 
-    private const int CHILL_DAMAGE = 2;
+    private const int CHILL_DAMAGE = 1;
     private const float CHILL_POWER_SCALING = 0.2f;
 
     private const float ADDED_CHILL_DURATION = .8f;

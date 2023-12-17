@@ -1559,7 +1559,7 @@ MonoBehaviour:
   _currentHealth: 100
   _baseMaxHealth: 100
   _baseSpeed: 1
-  _basePower: 0
+  _basePower: 10
 --- !u!114 &906537381320409878
 MonoBehaviour:
   m_ObjectHideFlags: 0
