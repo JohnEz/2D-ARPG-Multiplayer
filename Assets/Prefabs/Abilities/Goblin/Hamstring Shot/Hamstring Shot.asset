@@ -16,13 +16,17 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 9bca91dfcd8e5fc45a33eeda928e20b4, type: 3}
   AbilityEffectPrefab: {fileID: 480352421159649576, guid: 2eb3a14c1662a5349a33ee67adabee7f, type: 3}
   CastTime: 1.5
-  Cooldown: 8
+  Cooldown: 10
   CastSFX: {fileID: 8300000, guid: 4e236fd6e63668840a1461571b488a26, type: 3}
   CastVFX: {fileID: 0}
   SpeedWhileCasting: 0
+  _maxCharges: 1
   TimeCast: -Infinity
   TargetGraphics: []
   AiDetails:
     AbilityRange: 12
     ProjectileSpeed: 30
     IsSupportAbility: 0
+    IsAutoCast: 0
+  Description: 
+  buffIds: []
