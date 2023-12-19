@@ -9,6 +9,11 @@ public enum AICombatState {
     ATTACKING
 }
 
+public struct AbilityTarget {
+    public int abilityIndex;
+    public CharacterController target;
+}
+
 public class AiCombatState : NetworkBehaviour {
     private AiBrain _brain;
     private AiMovementPathfinding _movement;
@@ -21,6 +26,8 @@ public class AiCombatState : NetworkBehaviour {
     private float _minRange;
     private float _idealRange;
     private const float _idealRangeBuffer = .5f;
+
+    private AbilityTarget _abilityTarget;
 
     public override void OnStartClient() {
         base.OnStartClient();
@@ -58,43 +65,127 @@ public class AiCombatState : NetworkBehaviour {
         MovementUpdate();
     }
 
+    private AbilityTarget GetAbilityToCast() {
+        int abilityIndex = -1;
+        AbilityTarget abilityTarget = new AbilityTarget();
+        abilityTarget.abilityIndex = -1;
+
+        // TODO there should be a way that we select the best ability to cast and support allies
+        Ability abilityToCast = _abilitiesController.AbilityList.Find(ability => {
+            abilityIndex++;
+
+            if (!ability.CanCast()) {
+                return false;
+            }
+
+            // should always be cast if its not on cooldown (mainly for spells that dont require targets, eg totem aoe heal)
+            if (ability.AiDetails.IsAutoCast) {
+                abilityTarget.abilityIndex = abilityIndex;
+                return true;
+            }
+
+            CharacterController target = GetAbilityTarget(ability);
+
+            bool hasValidTarget = target != null;
+
+            if (!hasValidTarget) {
+                return false;
+            }
+
+            bool inRange = Vector2.Distance(target.transform.position, transform.position) <= ability.AiDetails.AbilityRange;
+
+            if (!inRange) {
+                return false;
+            }
+
+            abilityTarget.abilityIndex = abilityIndex;
+            abilityTarget.target = target;
+
+            return true;
+        });
+
+        return abilityTarget;
+    }
+
+    private CharacterController GetAbilityTarget(Ability ability) {
+        if (!ability.AiDetails.IsSupportAbility) {
+            return _brain.TargetCharacter;
+        }
+
+        return FindAllyForAbility(ability);
+    }
+
+    private CharacterController FindAllyForAbility(Ability ability) {
+        // can cast on self?
+        return _brain.AlliesInRange.Find((ally) => {
+            return IsValidTarget(ally, ability.AiDetails.targetConditions);
+        });
+    }
+
+    private bool IsValidTarget(CharacterController target, AbilityTargetCondition conditions) {
+        // TODO allow multiple conditions
+        float value = GetCharacterAttributeValue(target, conditions.attribute);
+
+        switch (conditions.AttributeQuantifier) {
+            case Quantifier.LT:
+            return value < conditions.amount;
+
+            case Quantifier.GT:
+            return value > conditions.amount;
+
+            case Quantifier.EQ:
+            return value == conditions.amount;
+
+            case Quantifier.LTEQ:
+            return value <= conditions.amount;
+
+            case Quantifier.GTEQ:
+            return value >= conditions.amount;
+
+            default:
+            return false;
+        }
+    }
+
+    private float GetCharacterAttributeValue(CharacterController target, TargetAttribute attribute) {
+        switch (attribute) {
+            case TargetAttribute.DISTANCE:
+            return Vector2.Distance(target.transform.position, transform.position);
+
+            case TargetAttribute.CURRENT_HEALTH_PERCENT:
+            NetworkStats targetStats = target.GetComponent<NetworkStats>();
+            return targetStats.CurrentHealth / targetStats.MaxHealth.CurrentValue;
+
+            default:
+            return 0f;
+        }
+    }
+
     public void AbilityUpdate() {
         if (!_stateController.IsCasting()) {
-            int indexToCast = -1;
+            AbilityTarget abilityToCast = GetAbilityToCast();
 
-            // TODO there should be a way that we select the best ability to cast and support allies
-            Ability abilityToCast = _abilitiesController.AbilityList.Find(ability => {
-                indexToCast++;
+            if (abilityToCast.abilityIndex != -1) {
+                _characterController.CastAbility(abilityToCast.abilityIndex);
 
-                if (!ability.CanCast()) {
-                    return false;
-                }
-
-                if (ability.AiDetails.IsAutoCast) {
-                    return true;
-                }
-
-                bool inRange = _brain.DistanceToTarget <= ability.AiDetails.AbilityRange;
-
-                return inRange;
-            });
-
-            if (indexToCast != -1 && abilityToCast != null) {
-                _characterController.CastAbility(indexToCast);
+                _abilityTarget = abilityToCast;
             }
+        }
+
+        if (!_abilityTarget.target) {
             return;
         }
 
-        NetworkStats _targetStats = _brain.TargetCharacter.GetComponent<NetworkStats>();
-        CharacterStateController _targetState = _brain.TargetCharacter.GetComponent<CharacterStateController>();
-        CastController _targetCastController = _brain.TargetCharacter.GetComponent<CastController>();
+        NetworkStats _targetStats = _abilityTarget.target.GetComponent<NetworkStats>();
+        CharacterStateController _targetState = _abilityTarget.target.GetComponent<CharacterStateController>();
+        CastController _targetCastController = _abilityTarget.target.GetComponent<CastController>();
 
         _characterController.AimLocation = AiBrain.GetAimLocation(
             transform.position,
             _castController.castingAbility.AiDetails.ProjectileSpeed,
-            _brain.TargetCharacter.transform.position,
+            _abilityTarget.target.transform.position,
             _targetStats.Speed.CurrentValue,
-            _brain.TargetCharacter.InputDirection,
+            _abilityTarget.target.InputDirection,
             _targetState.IsCasting(),
             _targetCastController.castingAbility?.SpeedWhileCasting ?? 1f
         );

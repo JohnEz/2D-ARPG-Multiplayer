@@ -10,10 +10,10 @@ public class AoeHeal : AbilityEffect {
     private float _radius = 2f;
 
     [SerializeField]
-    private const int BASE_HEALING = 0;
+    private int BASE_HEALING = 0;
 
     [SerializeField]
-    private const float POWER_SCALING = 0f;
+    private float POWER_SCALING = 0f;
 
     [SerializeField]
     private bool _canHitCaster = false;

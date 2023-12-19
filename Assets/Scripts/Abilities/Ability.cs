@@ -4,11 +4,36 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
+public enum TargetAttribute {
+    DISTANCE,
+    CURRENT_HEALTH_PERCENT,
+    ROLE
+}
+
+[System.Serializable]
+public enum Quantifier {
+    LT,
+    GT,
+    EQ,
+    LTEQ,
+    GTEQ,
+}
+
+[System.Serializable]
+public struct AbilityTargetCondition {
+    public TargetAttribute attribute;
+    public Quantifier AttributeQuantifier;
+    public float amount;
+}
+
+[System.Serializable]
 public struct AiAbilityDetails {
     public float AbilityRange;
     public float ProjectileSpeed; // this should come from the projectile itself or be an aim ahead stat for telegraphs too
     public bool IsSupportAbility;
     public bool IsAutoCast;
+
+    public AbilityTargetCondition targetConditions;
 }
 
 [CreateAssetMenu(fileName = "Ability", menuName = "2d RPG/New Ability")]

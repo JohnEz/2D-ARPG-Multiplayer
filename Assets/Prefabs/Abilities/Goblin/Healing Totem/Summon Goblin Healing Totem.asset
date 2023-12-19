@@ -28,5 +28,9 @@ MonoBehaviour:
     ProjectileSpeed: 1000
     IsSupportAbility: 1
     IsAutoCast: 0
+    targetConditions:
+      attribute: 1
+      AttributeQuantifier: 0
+      amount: 0.9
   Description: 
   buffIds: []

@@ -33,6 +33,10 @@ public class AiBrain : NetworkBehaviour {
         set { SetTarget(value); }
     }
 
+    private List<CharacterController> _alliesInRange;
+
+    public List<CharacterController> AlliesInRange { get { return _alliesInRange; } }
+
     [HideInInspector]
     public event Action OnTargetChange;
 
@@ -102,7 +106,8 @@ public class AiBrain : NetworkBehaviour {
             CharacterController[] allCharacters = FindObjectsOfType<CharacterController>();
 
             CheckForNewEnemiesInRange(allCharacters);
-            CauseAlliesToAggro(allCharacters);
+            CalculateAlliesInRange(allCharacters);
+            CauseAlliesToAggro();
         }
     }
 
@@ -146,12 +151,32 @@ public class AiBrain : NetworkBehaviour {
         OnAggroTableChange?.Invoke(newEnemiesInRange);
     }
 
-    private void CauseAlliesToAggro(CharacterController[] allCharacters) {
+    private void CalculateAlliesInRange(CharacterController[] allCharacters) {
+        _alliesInRange = allCharacters.Where(character => {
+            NetworkStats networkStats = character.GetComponent<NetworkStats>();
+
+            bool isAlly = networkStats.Faction == _myStats.Faction;
+
+            if (!isAlly) {
+                return false;
+            }
+
+            bool isClose = Vector3.Distance(transform.position, character.transform.position) <= _combatRange;
+
+            if (!isClose) {
+                return false;
+            }
+
+            return HasLineOfSightTo(transform, character.transform);
+        }).ToList();
+    }
+
+    private void CauseAlliesToAggro() {
         if (!HasTarget) {
             return;
         }
 
-        List<CharacterController> alliesToAggro = allCharacters.Where(character => {
+        List<CharacterController> alliesToAggro = AlliesInRange.Where(character => {
             NetworkStats networkStats = character.GetComponent<NetworkStats>();
             AiBrain aiBrain = character.GetComponent<AiBrain>();
 
@@ -164,19 +189,13 @@ public class AiBrain : NetworkBehaviour {
                 return false;
             }
 
-            bool isAlly = networkStats.Faction == _myStats.Faction;
+            bool isInAggroRange = Vector3.Distance(transform.position, character.transform.position) <= _aggroRange / 2;
 
-            if (!isAlly) {
+            if (!isInAggroRange) {
                 return false;
             }
 
-            bool isClose = Vector3.Distance(transform.position, character.transform.position) <= _aggroRange / 2;
-
-            if (!isClose) {
-                return false;
-            }
-
-            return HasLineOfSightTo(transform, character.transform);
+            return true;
         }).ToList();
 
         alliesToAggro.ForEach(ally => {
@@ -210,8 +229,7 @@ public class AiBrain : NetworkBehaviour {
     }
 
     private void HandlePull() {
-        CharacterController[] allCharacters = FindObjectsOfType<CharacterController>();
-        CauseAlliesToAggro(allCharacters);
+        CauseAlliesToAggro();
     }
 
     private CharacterController GetHighestAggro(List<CharacterController> charactersToCheck) {
@@ -241,6 +259,12 @@ public class AiBrain : NetworkBehaviour {
         NetworkStats targetStats = target.GetComponent<NetworkStats>();
 
         if (targetStats.Faction == _myStats.Faction) {
+            return;
+        }
+
+        CharacterStateController targetState = target.GetComponent<CharacterStateController>();
+
+        if (targetState.IsDead()) {
             return;
         }
 

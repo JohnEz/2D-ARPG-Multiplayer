@@ -3,10 +3,10 @@ using System.Collections;
 using UnityEngine;
 
 public class IceLance : ProjectileHitEffect {
-    private const int BASE_DAMAGE = 22;
-    private const float POWER_SCALING = 1f;
+    private const int BASE_DAMAGE = 15;
+    private const float POWER_SCALING = .6f;
 
-    private const int CHILL_DAMAGE = 6;
+    private const int CHILL_DAMAGE = 4;
     private const float CHILL_POWER_SCALING = 0.2f;
 
     private const float CHILL_DURATION = 1.5f;
