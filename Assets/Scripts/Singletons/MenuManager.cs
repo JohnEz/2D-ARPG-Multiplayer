@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuManager : Singleton<MenuManager> {
+[Serializable]
+public enum MenuType {
+    MAIN_MENU,
+    OPTIONS_MENU,
+    NONE
+}
 
-    private enum MenuType {
-        MAIN_MENU,
-        OPTIONS_MENU,
-        NONE
-    }
+public class MenuManager : Singleton<MenuManager> {
 
     [SerializeField]
     private GameObject _mainMenu;
@@ -43,37 +45,32 @@ public class MenuManager : Singleton<MenuManager> {
 
     private void EmptyUpdate() {
         if (Input.GetKeyUp(KeyCode.Escape)) {
-            OpenMenu(MenuType.MAIN_MENU);
+            OpenMainMenu();
         }
     }
 
     private void MainMenuUpdate() {
         if (Input.GetKeyUp(KeyCode.Escape)) {
-            CloseCurrentMenu();
-            OpenMenu(MenuType.NONE);
+            CloseMainMenu();
         }
     }
 
     private void OptionsMenuUpdate() {
         if (Input.GetKeyUp(KeyCode.Escape)) {
-            CloseCurrentMenu();
-            OpenMenu(MenuType.MAIN_MENU);
+            CloseOptionsMenu();
         }
     }
 
-    public void OpenMainMenu() {
-        _mainMenu.SetActive(true);
-        _currentMenu = MenuType.MAIN_MENU;
-    }
-
     private void OpenMenu(MenuType menuToOpen) {
+        CloseCurrentMenu();
+
         switch (menuToOpen) {
             case MenuType.MAIN_MENU:
-            OpenMainMenu();
+            DisplayMainMenu();
             break;
 
             case MenuType.OPTIONS_MENU:
-            OpenOptionsMenu();
+            DisplayOptionsMenu();
             break;
 
             case MenuType.NONE:
@@ -87,11 +84,11 @@ public class MenuManager : Singleton<MenuManager> {
     private void CloseCurrentMenu() {
         switch (_currentMenu) {
             case MenuType.MAIN_MENU:
-            CloseMainMenu();
+            HideMainMenu();
             break;
 
             case MenuType.OPTIONS_MENU:
-            CloseOptionsMenu();
+            HideOptionsMenu();
             break;
 
             case MenuType.NONE:
@@ -101,19 +98,37 @@ public class MenuManager : Singleton<MenuManager> {
         _currentMenu = MenuType.NONE;
     }
 
-    public void CloseMainMenu() {
+    private void DisplayMainMenu() {
+        _mainMenu.SetActive(true);
+    }
+
+    private void HideMainMenu() {
         _mainMenu.SetActive(false);
     }
 
-    public void OpenOptionsMenu() {
+    private void DisplayOptionsMenu() {
         _optionsMenu.SetActive(true);
     }
 
-    public void CloseOptionsMenu() {
+    private void HideOptionsMenu() {
         _optionsMenu.SetActive(false);
     }
 
-    public bool IsAMenuOpen() {
-        return _currentMenu != MenuType.NONE;
+    // publicly accessible functions
+
+    public void OpenMainMenu() {
+        OpenMenu(MenuType.MAIN_MENU);
+    }
+
+    public void CloseMainMenu() {
+        OpenMenu(MenuType.NONE);
+    }
+
+    public void OpenOptionsMenu() {
+        OpenMenu(MenuType.OPTIONS_MENU);
+    }
+
+    public void CloseOptionsMenu() {
+        OpenMenu(MenuType.MAIN_MENU);
     }
 }
