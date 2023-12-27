@@ -131,4 +131,8 @@ public class MenuManager : Singleton<MenuManager> {
     public void CloseOptionsMenu() {
         OpenMenu(MenuType.MAIN_MENU);
     }
+
+    public bool IsBlockingMenuOpen() {
+        return _currentMenu != MenuType.NONE;
+    }
 }

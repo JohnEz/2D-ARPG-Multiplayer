@@ -26,6 +26,10 @@ public class PlayerInput : NetworkBehaviour {
 
     // Update is called once per frame
     private void Update() {
+        if (MenuManager.Instance.IsBlockingMenuOpen()) {
+            return;
+        }
+
         if (InputHandler.Instance.MovementUpPressed || InputHandler.Instance.MovementDownPressed || InputHandler.Instance.MovementLeftPressed || InputHandler.Instance.MovementRightPressed) {
             // TODO removed until melee isnt cancelled
             //_characterController.ManualCancelCast();
@@ -51,15 +55,10 @@ public class PlayerInput : NetworkBehaviour {
             _characterController.CastAbility(4);
         }
 
-        //
-
         TurnToMouse();
 
         _characterController.InputDirection = InputHandler.Instance.MovementVector.normalized;
         _characterController.AimLocation = new Vector2(InputHandler.Instance.MouseWorldPosition.x, InputHandler.Instance.MouseWorldPosition.y);
-    }
-
-    private void FixedUpdate() {
     }
 
     private void TurnToMouse() {
