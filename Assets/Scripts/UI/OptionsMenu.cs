@@ -38,9 +38,25 @@ public class OptionsMenu : MonoBehaviour {
     }
 
     public void LoadOptions() {
+        savedOptions.masterVolume = PlayerPrefs.GetFloat("MasterVolume", 50);
+        savedOptions.sfxVolume = PlayerPrefs.GetFloat("SfxVolume", 50);
+        savedOptions.musicVolume = PlayerPrefs.GetFloat("MusicVolume", 50);
+
+        HandleMasterVolumeChange(savedOptions.masterVolume);
+        HandleSfxVolumeChange(savedOptions.sfxVolume);
+        HandleMusicVolumeChange(savedOptions.musicVolume);
+
+        masterVolumeSlider.SetValueWithoutNotify(savedOptions.masterVolume);
+        sfxVolumeSlider.SetValueWithoutNotify(savedOptions.sfxVolume);
+        musicVolumeSlider.SetValueWithoutNotify(savedOptions.musicVolume);
     }
 
     public void SaveOptions() {
+        PlayerPrefs.SetFloat("MasterVolume", currentOptions.masterVolume);
+        PlayerPrefs.SetFloat("SfxVolume", currentOptions.sfxVolume);
+        PlayerPrefs.SetFloat("MusicVolume", currentOptions.musicVolume);
+        PlayerPrefs.Save();
+
         savedOptions = currentOptions;
     }
 

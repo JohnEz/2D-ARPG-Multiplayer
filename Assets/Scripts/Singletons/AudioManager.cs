@@ -83,27 +83,39 @@ public class AudioManager : Singleton<AudioManager> {
 
     public void SetMasterVolume(float volume) {
         float MAX_VOLUME = 20f;
-        float MIN_VOLUME = -80f;
+        float MIN_VOLUME = -60f;
 
         float newVolume = GetMixerVolume(volume / 100, MIN_VOLUME, MAX_VOLUME);
+
+        if (newVolume == MIN_VOLUME) {
+            newVolume = -80;
+        }
 
         masterMixer.audioMixer.SetFloat("MasterVolume", newVolume);
     }
 
     public void SetMusicVolume(float volume) {
         float MAX_VOLUME = 20f;
-        float MIN_VOLUME = -80f;
+        float MIN_VOLUME = -60f;
 
         float newVolume = GetMixerVolume(volume / 100, MIN_VOLUME, MAX_VOLUME);
+
+        if (newVolume == MIN_VOLUME) {
+            newVolume = -80;
+        }
 
         musicMixer.audioMixer.SetFloat("MusicVolume", newVolume);
     }
 
     public void SetSfxVolume(float volume) {
         float MAX_VOLUME = 0f;
-        float MIN_VOLUME = -80f;
+        float MIN_VOLUME = -60f;
 
         float newVolume = GetMixerVolume(volume / 100, MIN_VOLUME, MAX_VOLUME);
+
+        if (newVolume == MIN_VOLUME) {
+            newVolume = -80;
+        }
 
         sfxMixer.audioMixer.SetFloat("SFXVolume", newVolume);
     }
