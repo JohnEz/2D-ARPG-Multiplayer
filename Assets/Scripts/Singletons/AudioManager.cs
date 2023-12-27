@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 
 public class AudioClipOptions {
     public float Volume { get; set; } = 1f;
@@ -11,6 +12,9 @@ public class AudioClipOptions {
 }
 
 public class AudioManager : Singleton<AudioManager> {
+
+    [SerializeField]
+    private AudioMixerGroup masterMixer;
 
     [SerializeField]
     private AudioMixerGroup musicMixer;
@@ -75,5 +79,38 @@ public class AudioManager : Singleton<AudioManager> {
         audioSource.Play();
 
         Destroy(audioObject, audioSource.clip.length);
+    }
+
+    public void SetMasterVolume(float volume) {
+        float MAX_VOLUME = 20f;
+        float MIN_VOLUME = -80f;
+
+        float newVolume = GetMixerVolume(volume / 100, MIN_VOLUME, MAX_VOLUME);
+
+        masterMixer.audioMixer.SetFloat("MasterVolume", newVolume);
+    }
+
+    public void SetMusicVolume(float volume) {
+        float MAX_VOLUME = 20f;
+        float MIN_VOLUME = -80f;
+
+        float newVolume = GetMixerVolume(volume / 100, MIN_VOLUME, MAX_VOLUME);
+
+        musicMixer.audioMixer.SetFloat("MusicVolume", newVolume);
+    }
+
+    public void SetSfxVolume(float volume) {
+        float MAX_VOLUME = 0f;
+        float MIN_VOLUME = -80f;
+
+        float newVolume = GetMixerVolume(volume / 100, MIN_VOLUME, MAX_VOLUME);
+
+        sfxMixer.audioMixer.SetFloat("SFXVolume", newVolume);
+    }
+
+    private float GetMixerVolume(float percent, float min, float max) {
+        float VOLUME_RANGE = max - min;
+
+        return min + (VOLUME_RANGE * percent);
     }
 }
