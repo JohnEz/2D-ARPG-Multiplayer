@@ -13,17 +13,17 @@ public enum MenuType {
 public class MenuManager : Singleton<MenuManager> {
 
     [SerializeField]
-    private GameObject _mainMenu;
+    private Panel _mainMenu;
 
     [SerializeField]
-    private GameObject _optionsMenu;
+    private Panel _optionsMenu;
 
     private MenuType _currentMenu;
 
     private void Start() {
         _currentMenu = MenuType.NONE;
-        _mainMenu.SetActive(false);
-        _optionsMenu.SetActive(false);
+        _mainMenu.SetPanelEnabled(false, false);
+        _optionsMenu.SetPanelEnabled(false, false);
     }
 
     private void Update() {
@@ -99,19 +99,19 @@ public class MenuManager : Singleton<MenuManager> {
     }
 
     private void DisplayMainMenu() {
-        _mainMenu.SetActive(true);
+        _mainMenu.SetPanelEnabled(true);
     }
 
     private void HideMainMenu() {
-        _mainMenu.SetActive(false);
+        _mainMenu.SetPanelEnabled(false);
     }
 
     private void DisplayOptionsMenu() {
-        _optionsMenu.SetActive(true);
+        _optionsMenu.SetPanelEnabled(true);
     }
 
     private void HideOptionsMenu() {
-        _optionsMenu.SetActive(false);
+        _optionsMenu.SetPanelEnabled(false);
     }
 
     // publicly accessible functions

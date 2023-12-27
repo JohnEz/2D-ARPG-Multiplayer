@@ -27,6 +27,12 @@ public class Panel : MonoBehaviour {
     [SerializeField]
     private bool _scaleOutOnDisable = true;
 
+    [SerializeField]
+    private AudioClip _onOpenSFX;
+
+    [SerializeField]
+    private AudioClip _onCloseSFX;
+
     private RectTransform _rectTransform;
 
     private CanvasGroup _canvasGroup;
@@ -49,6 +55,8 @@ public class Panel : MonoBehaviour {
     }
 
     private void EnablePanel(bool withAnimations, float delay) {
+        AudioManager.Instance.PlaySound(_onOpenSFX);
+
         if (!withAnimations) {
             TurnPanelOn();
             return;
@@ -92,6 +100,8 @@ public class Panel : MonoBehaviour {
     }
 
     private void DisablePanel(bool withAnimations, float delay) {
+        AudioManager.Instance.PlaySound(_onCloseSFX);
+
         if (!withAnimations) {
             TurnPanelOff();
             return;
