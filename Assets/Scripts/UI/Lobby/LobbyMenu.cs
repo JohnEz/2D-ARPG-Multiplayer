@@ -139,13 +139,7 @@ public class LobbyMenu : Singleton<LobbyMenu> {
 
     [Server(Logging = LoggingType.Off)]
     private void LoadGame() {
-        NetworkObject[] presistedPlayers = _connections.Values.ToList()
-            .FindAll(player => player != null)
-            .Select(player => player.GetComponent<NetworkObject>())
-            .ToArray();
-
         SceneLoadData data = new SceneLoadData("Caves");
-        //data.MovedNetworkObjects = presistedPlayers;
         data.ReplaceScenes = ReplaceOption.All;
         InstanceFinder.SceneManager.LoadGlobalScenes(data);
     }

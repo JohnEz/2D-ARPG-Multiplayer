@@ -26,7 +26,7 @@ public class PlayerInput : NetworkBehaviour {
 
     // Update is called once per frame
     private void Update() {
-        if (MenuManager.Instance.IsBlockingMenuOpen()) {
+        if (MenuManager.Instance && MenuManager.Instance.IsBlockingMenuOpen()) {
             return;
         }
 
