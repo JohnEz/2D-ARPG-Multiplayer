@@ -61,7 +61,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 15
+  <PrefabId>k__BackingField: 14
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -85,5 +85,5 @@ MonoBehaviour:
   _warriorPrefab: {fileID: 3877460555145762989, guid: 17da9a2bdd92a4649a8478f8939dea54, type: 3}
   _alchemistPrefab: {fileID: 1106388896330228486, guid: 7a8a77200816ad34f93b989c6386e327, type: 3}
   <Username>k__BackingField: NO_NAME
-  <SelectedCharacter>k__BackingField: Alchemist
+  <SelectedCharacter>k__BackingField: Mage
   <IsReady>k__BackingField: 0

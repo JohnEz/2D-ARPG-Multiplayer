@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEditor.Search;
 
 internal struct CombatTextParams {
     public string text;
@@ -28,7 +29,11 @@ public class CharacterCanvasController : MonoBehaviour {
     [SerializeField]
     private TMP_Text _username;
 
-    public Transform UnitFrameTransform;
+    [SerializeField]
+    private GameObject _interactablePrompt;
+
+    [SerializeField]
+    private GameObject _unitframe;
 
     private Queue<CombatTextParams> combatTextQueue = new Queue<CombatTextParams>();
 
@@ -70,7 +75,7 @@ public class CharacterCanvasController : MonoBehaviour {
     }
 
     private void HandleCharacterDeath() {
-        UnitFrameTransform.gameObject.SetActive(false);
+        _unitframe.SetActive(false);
     }
 
     private void HandleShowStatus() {
@@ -191,5 +196,24 @@ public class CharacterCanvasController : MonoBehaviour {
     private IEnumerator AllowCreateCombatText() {
         yield return new WaitForSeconds(COMBAT_TEXT_THROTTLE);
         canCreateCombatText = true;
+    }
+
+    private void ShowUnitFrame() {
+        _unitframe.SetActive(true);
+    }
+
+    private void HideUnitFrame() {
+        _unitframe.SetActive(false);
+    }
+
+    public void ShowInteractablePrompt(IInteractable interactable) {
+        HideUnitFrame();
+        _interactablePrompt.SetActive(true);
+        _interactablePrompt.GetComponent<InteractionPromptController>().Show(interactable.InteractionIcon, interactable.InteractionPrompt);
+    }
+
+    public void HideInteractablePrompt() {
+        _interactablePrompt.SetActive(false);
+        ShowUnitFrame();
     }
 }

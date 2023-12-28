@@ -8,6 +8,8 @@ using FishNet.Connection;
 public class PlayerInput : NetworkBehaviour {
     private CharacterController _characterController;
 
+    private Interactor _interactor;
+
     public override void OnOwnershipClient(NetworkConnection prevOwner) {
         base.OnOwnershipClient(prevOwner);
 
@@ -22,6 +24,7 @@ public class PlayerInput : NetworkBehaviour {
 
     private void Awake() {
         _characterController = GetComponent<CharacterController>();
+        _interactor = GetComponent<Interactor>();
     }
 
     // Update is called once per frame
@@ -53,6 +56,10 @@ public class PlayerInput : NetworkBehaviour {
 
         if (InputHandler.Instance.UtilityTwoPressed) {
             _characterController.CastAbility(4);
+        }
+
+        if (InputHandler.Instance.InteractPressed && _interactor.HasInteractionTarget()) {
+            _interactor.Interact();
         }
 
         TurnToMouse();

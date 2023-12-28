@@ -22,6 +22,8 @@ public class InputHandler : Singleton<InputHandler> {
     public bool MovementLeftPressed { get; private set; }
     public bool MovementRightPressed { get; private set; }
 
+    public bool InteractPressed { get; private set; }
+
     private void Update() {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
@@ -38,12 +40,14 @@ public class InputHandler : Singleton<InputHandler> {
         UtilityPressed = Input.GetKey(KeyCode.Q);
         UtilityTwoPressed = Input.GetKey(KeyCode.E);
 
-        UltimatePressed = Input.GetKeyDown(KeyCode.F);
+        UltimatePressed = Input.GetKeyDown(KeyCode.R);
 
         MovementUpPressed = Input.GetKeyDown(KeyCode.W);
         MovementDownPressed = Input.GetKeyDown(KeyCode.S);
         MovementLeftPressed = Input.GetKeyDown(KeyCode.A);
         MovementRightPressed = Input.GetKeyDown(KeyCode.D);
+
+        InteractPressed = Input.GetKeyDown(KeyCode.F);
     }
 
     public Vector2 DirectionToMouse(Vector3 startPosition) {
