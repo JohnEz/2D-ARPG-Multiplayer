@@ -7,6 +7,8 @@ using UnityEngine;
 public enum MenuType {
     MAIN_MENU,
     OPTIONS_MENU,
+    SCENARIO_SELECT,
+    BLACKSMITH,
     NONE
 }
 
@@ -61,7 +63,7 @@ public class MenuManager : Singleton<MenuManager> {
         }
     }
 
-    private void OpenMenu(MenuType menuToOpen) {
+    public void OpenMenu(MenuType menuToOpen) {
         CloseCurrentMenu();
 
         switch (menuToOpen) {
@@ -114,7 +116,7 @@ public class MenuManager : Singleton<MenuManager> {
         _optionsMenu.SetPanelEnabled(false);
     }
 
-    // publicly accessible functions
+    // Functions for buttons to call
 
     public void OpenMainMenu() {
         OpenMenu(MenuType.MAIN_MENU);

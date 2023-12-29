@@ -13,8 +13,11 @@ public class InteractorMenu : MonoBehaviour, IInteractable {
 
     public Sprite InteractionIcon => _icon;
 
+    [SerializeField]
+    private MenuType _menu;
+
     public bool Interact(Interactor interactor) {
-        Debug.Log($"Interacted with {_prompt}");
+        MenuManager.Instance.OpenMenu(MenuType.MAIN_MENU);
         return true;
     }
 }

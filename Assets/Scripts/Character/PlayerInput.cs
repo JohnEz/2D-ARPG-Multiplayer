@@ -58,14 +58,17 @@ public class PlayerInput : NetworkBehaviour {
             _characterController.CastAbility(4);
         }
 
-        if (InputHandler.Instance.InteractPressed && _interactor.HasInteractionTarget()) {
-            _interactor.Interact();
-        }
-
         TurnToMouse();
 
         _characterController.InputDirection = InputHandler.Instance.MovementVector.normalized;
         _characterController.AimLocation = new Vector2(InputHandler.Instance.MouseWorldPosition.x, InputHandler.Instance.MouseWorldPosition.y);
+
+        if (InputHandler.Instance.InteractPressed && _interactor.HasInteractionTarget()) {
+            _interactor.Interact();
+
+            // TODO this feels like a hacky way to stop the character moving
+            _characterController.InputDirection = Vector2.zero;
+        }
     }
 
     private void TurnToMouse() {
