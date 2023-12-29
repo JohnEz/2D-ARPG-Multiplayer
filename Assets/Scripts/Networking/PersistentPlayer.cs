@@ -76,6 +76,7 @@ public class PersistentPlayer : NetworkBehaviour {
             return;
         }
 
+        // Shouldnt be needed after connection manager changes, function should be remnoved?
         NetworkManagerHooks.Instance.HandlePlayerLoaded(this);
 
         if (prevOwner.IsValid) {
@@ -97,7 +98,7 @@ public class PersistentPlayer : NetworkBehaviour {
 
     private void RemovePersistentPlayer() {
         if (LobbyMenu.Instance != null) {
-            LobbyMenu.Instance.ClientDisconnected(this);
+            //LobbyMenu.Instance.ClientDisconnected(this);
         }
 
         if (!IsServer) {

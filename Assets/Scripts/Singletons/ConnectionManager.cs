@@ -20,6 +20,10 @@ public class ConnectionManager : NetworkSingleton<ConnectionManager> {
     [SyncObject, SerializeField]
     public readonly SyncDictionary<NetworkConnection, PlayerConnectionState> Connections = new();
 
+    public event Action<PlayerConnectionState> OnPlayerConnected;
+
+    public event Action<PlayerConnectionState> OnPlayerDisconnected;
+
     public event Action<PlayerConnectionState> OnPlayerStartedLoadingScene;
 
     public event Action<PlayerConnectionState> OnPlayerLoadedScene;
@@ -27,13 +31,27 @@ public class ConnectionManager : NetworkSingleton<ConnectionManager> {
     private void OnEnable() {
         InstanceFinder.ServerManager.OnRemoteConnectionState += HandleRemoteConnectionChange;
 
+        Connections.OnChange += HandleConnectionChange;
+
         EnableSceneEventListeners();
     }
 
     private void OnDisable() {
         InstanceFinder.ServerManager.OnRemoteConnectionState -= HandleRemoteConnectionChange;
 
+        Connections.OnChange -= HandleConnectionChange;
+
         DisableSceneEventListeners();
+    }
+
+    private void HandleConnectionChange(SyncDictionaryOperation operation, NetworkConnection key, PlayerConnectionState value, bool asServer) {
+        if (operation == SyncDictionaryOperation.Add) {
+            OnPlayerConnected?.Invoke(value);
+        }
+
+        if (operation == SyncDictionaryOperation.Remove) {
+            OnPlayerDisconnected?.Invoke(value);
+        }
     }
 
     private void EnableSceneEventListeners() {
