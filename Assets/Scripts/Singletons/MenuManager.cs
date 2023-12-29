@@ -7,7 +7,7 @@ using UnityEngine;
 public enum MenuType {
     MAIN_MENU,
     OPTIONS_MENU,
-    SCENARIO_SELECT,
+    QUEST_BOARD,
     BLACKSMITH,
     NONE
 }
@@ -20,12 +20,16 @@ public class MenuManager : Singleton<MenuManager> {
     [SerializeField]
     private Panel _optionsMenu;
 
+    [SerializeField]
+    private Panel _questBoard;
+
     private MenuType _currentMenu;
 
     private void Start() {
         _currentMenu = MenuType.NONE;
         _mainMenu.SetPanelEnabled(false, false);
         _optionsMenu.SetPanelEnabled(false, false);
+        _questBoard.SetPanelEnabled(false, false);
     }
 
     private void Update() {
@@ -36,6 +40,10 @@ public class MenuManager : Singleton<MenuManager> {
 
             case MenuType.OPTIONS_MENU:
             OptionsMenuUpdate();
+            break;
+
+            case MenuType.QUEST_BOARD:
+            QuestBoardUpdate();
             break;
 
             case MenuType.NONE:
@@ -63,6 +71,12 @@ public class MenuManager : Singleton<MenuManager> {
         }
     }
 
+    private void QuestBoardUpdate() {
+        if (Input.GetKeyUp(KeyCode.Escape)) {
+            CloseQuestBoard();
+        }
+    }
+
     public void OpenMenu(MenuType menuToOpen) {
         CloseCurrentMenu();
 
@@ -73,6 +87,10 @@ public class MenuManager : Singleton<MenuManager> {
 
             case MenuType.OPTIONS_MENU:
             DisplayOptionsMenu();
+            break;
+
+            case MenuType.QUEST_BOARD:
+            DisplayQuestBoard();
             break;
 
             case MenuType.NONE:
@@ -91,6 +109,10 @@ public class MenuManager : Singleton<MenuManager> {
 
             case MenuType.OPTIONS_MENU:
             HideOptionsMenu();
+            break;
+
+            case MenuType.QUEST_BOARD:
+            HideQuestBoard();
             break;
 
             case MenuType.NONE:
@@ -116,6 +138,14 @@ public class MenuManager : Singleton<MenuManager> {
         _optionsMenu.SetPanelEnabled(false);
     }
 
+    private void DisplayQuestBoard() {
+        _questBoard.SetPanelEnabled(true);
+    }
+
+    private void HideQuestBoard() {
+        _questBoard.SetPanelEnabled(false);
+    }
+
     // Functions for buttons to call
 
     public void OpenMainMenu() {
@@ -132,6 +162,14 @@ public class MenuManager : Singleton<MenuManager> {
 
     public void CloseOptionsMenu() {
         OpenMenu(MenuType.MAIN_MENU);
+    }
+
+    public void OpenQuestBoard() {
+        OpenMenu(MenuType.QUEST_BOARD);
+    }
+
+    public void CloseQuestBoard() {
+        OpenMenu(MenuType.NONE);
     }
 
     public bool IsBlockingMenuOpen() {

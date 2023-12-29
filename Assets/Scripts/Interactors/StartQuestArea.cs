@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(InteractableEvent))]
-public class StartScenarioArea : MonoBehaviour {
+public class StartQuestArea : MonoBehaviour {
     private InteractableEvent _interactableEvent;
 
     private void Awake() {
@@ -14,12 +14,12 @@ public class StartScenarioArea : MonoBehaviour {
     }
 
     private void HandleInteracted() {
-        if (ScenarioManager.Instance == null) {
+        if (QuestManager.Instance == null) {
             Debug.LogError("No ScenarioManager in scene");
             return;
         }
 
-        if (!ScenarioManager.Instance.HasValidScenario()) {
+        if (!QuestManager.Instance.HasValidQuest()) {
             Debug.Log("No scenario selected. Go to the Adventurers Guild to select a scenario!");
             return;
         }
@@ -30,6 +30,6 @@ public class StartScenarioArea : MonoBehaviour {
             return;
         }
 
-        ScenarioManager.Instance.StartScenario();
+        QuestManager.Instance.StartQuest();
     }
 }

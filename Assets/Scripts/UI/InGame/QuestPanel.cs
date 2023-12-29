@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ScenarioPanel : MonoBehaviour {
+public class QuestPanel : MonoBehaviour {
 
     [SerializeField]
     private TMP_Text _title;
@@ -11,18 +11,18 @@ public class ScenarioPanel : MonoBehaviour {
     private TMP_Text _objective;
 
     private void Awake() {
-        ScenarioManager.Instance.OnScenarioChanged += HandleScenarioChange;
+        QuestManager.Instance.OnQuestChanged += HandleScenarioChange;
 
         HandleScenarioChange(0);
     }
 
     private void HandleScenarioChange(int newScenarioIndex) {
-        Scenario newScenario = ScenarioManager.Instance.GetSelectedScenario();
+        Quest newScenario = QuestManager.Instance.GetSelectedQuest();
 
         SetScenarioText(newScenario);
     }
 
-    private void SetScenarioText(Scenario scenario) {
+    private void SetScenarioText(Quest scenario) {
         string newTitle = "";
         string newObjective = "";
 

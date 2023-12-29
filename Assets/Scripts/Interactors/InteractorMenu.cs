@@ -17,7 +17,7 @@ public class InteractorMenu : MonoBehaviour, IInteractable {
     private MenuType _menu;
 
     public bool Interact(Interactor interactor) {
-        MenuManager.Instance.OpenMenu(MenuType.MAIN_MENU);
+        MenuManager.Instance.OpenMenu(_menu);
         return true;
     }
 }
