@@ -109,20 +109,21 @@ public class PersistentPlayer : NetworkBehaviour {
 
     [Server(Logging = LoggingType.Off)]
     public void SpawnServer(Vector3 spawnLocation) {
+        Debug.Log("Spawning on server");
         GameObject prefab = null;
 
         switch (SelectedCharacter) {
             case "Mage":
-                prefab = _magePrefab;
-                break;
+            prefab = _magePrefab;
+            break;
 
             case "Warrior":
-                prefab = _warriorPrefab;
-                break;
+            prefab = _warriorPrefab;
+            break;
 
             case "Alchemist":
-                prefab = _alchemistPrefab;
-                break;
+            prefab = _alchemistPrefab;
+            break;
         }
 
         if (prefab == null) {

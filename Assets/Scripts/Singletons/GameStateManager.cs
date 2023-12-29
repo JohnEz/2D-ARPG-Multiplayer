@@ -18,7 +18,10 @@ public class GameStateManager : Singleton<GameStateManager> {
             return;
         }
 
-        Debug.Log("Spawning player");
+        if (!player) {
+            Debug.LogError("No persistent player given to SpawnPlayer");
+            return;
+        }
 
         player.SpawnServer(_spawnLocations[spawnIndex].position);
         spawnIndex = (spawnIndex + 1) % _spawnLocations.Count;

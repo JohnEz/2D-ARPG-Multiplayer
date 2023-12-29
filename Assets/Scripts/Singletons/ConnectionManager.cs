@@ -118,6 +118,7 @@ public class ConnectionManager : NetworkSingleton<ConnectionManager> {
         };
 
         if (args.Added) {
+            Debug.Log(Connections[args.Connection]);
             OnPlayerLoadedScene?.Invoke(Connections[args.Connection]);
         } else {
             OnPlayerStartedLoadingScene?.Invoke(Connections[args.Connection]);
