@@ -23,8 +23,8 @@ public class QuestPanel : MonoBehaviour {
     }
 
     private void SetScenarioText(Quest scenario) {
-        string newTitle = "";
-        string newObjective = "";
+        string newTitle = "No Quest";
+        string newObjective = "Select a quest at the Adventurer's Guild!";
 
         if (scenario != null) {
             newTitle = scenario.Title;
