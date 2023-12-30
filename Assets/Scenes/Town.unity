@@ -402,18 +402,8 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 115861867}
   _networkObjectCache: {fileID: 115861867}
   _quests:
-  - ID: ECHO_RIDGE_CAVE
-    Title: Echo Ridge Cave
-    Description: A clan of goblins have been raiding nearby farms and we need to
-      put a stop to it. Farmer Veven said he saw them heading to Echo Ridge Cave
-      after one of their raids. Kill their leader Gliark the Big and the rest will
-      scatter.
-    Objectives:
-    - Slay Gliark the Big
-    sceneName: Caves
-    RecommendedLevel: 1
-    MaxPlayers: 4
-    MinPlayers: 1
+  - {fileID: 11400000, guid: 1a39317cfee06b041bbf27f254074236, type: 2}
+  - {fileID: 11400000, guid: 28e173bb11e50534c9ae0fe9912faa35, type: 2}
   _selectedQuestIndex: -1
 --- !u!1 &137733687
 GameObject:

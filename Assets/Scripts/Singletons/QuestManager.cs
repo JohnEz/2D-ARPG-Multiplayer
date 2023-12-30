@@ -8,19 +8,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[Serializable]
-public class Quest {
-    public string ID;
-    public string Title;
-    public string Description;
-    public List<string> Objectives;
-    public string sceneName;
-
-    public int RecommendedLevel = 1;
-    public int MaxPlayers = 4;
-    public int MinPlayers = 1;
-}
-
 public class QuestManager : NetworkSingleton<QuestManager> {
 
     [SerializeField]
