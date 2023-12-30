@@ -1,15 +1,16 @@
 using FishNet.Managing.Scened;
-using FishNet.Object;
 using FishNet;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using FishNet.Managing.Logging;
 
-public class MainMenu : Singleton<MainMenu> {
+public class MainMenu : Menu {
 
-    [Server(Logging = LoggingType.Off)]
+    public void OpenOptions() {
+        MenuManager.Instance.OpenMenu("OPTIONS");
+    }
+
+    public void OpenKeybinds() {
+        MenuManager.Instance.OpenMenu("KEYBINDS");
+    }
+
     public void ExitScenario() {
         SceneLoadData data = new SceneLoadData("Town");
         data.ReplaceScenes = ReplaceOption.All;

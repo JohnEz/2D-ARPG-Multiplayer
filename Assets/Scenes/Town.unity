@@ -1810,7 +1810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prompt: Select Quest
   _icon: {fileID: 21300000, guid: 5cb1d74beee09014582d3127aca80d98, type: 3}
-  _menu: 2
+  _menuId: QUEST_BOARD
 --- !u!1001 &509617483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50508,7 +50508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prompt: Craft
   _icon: {fileID: 21300000, guid: 4487829b5161438408c40f4e48bc6ea2, type: 3}
-  _menu: 3
+  _menuId: 
 --- !u!61 &1115236867
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -50694,7 +50694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prompt: Alchemist
   _icon: {fileID: 21300000, guid: 15c5f45370ffb884d8787b587ee94e65, type: 3}
-  _menu: 2
+  _menuId: 
 --- !u!61 &1130967153
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -52079,7 +52079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prompt: Select Character
   _icon: {fileID: 21300000, guid: 1e8300bf5b379ae48aacb37b63d3a9e8, type: 3}
-  _menu: 2
+  _menuId: 
 --- !u!61 &1559733436
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -93911,9 +93911,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6909662082614632023}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &6909662082614632044
 MonoBehaviour:
@@ -93927,6 +93927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d9f88f6dfb0c648a3093efa50de5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: QUEST_BOARD
+  _previousMenuId: 
   _questTilePrefab: {fileID: -2523692085797113885, guid: c5e9206941389934bbd605f5a0de8eb6, type: 3}
   _questListTransform: {fileID: 616374610}
   _questTitle: {fileID: 1538271875}

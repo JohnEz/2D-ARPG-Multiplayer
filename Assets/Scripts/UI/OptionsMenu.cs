@@ -9,7 +9,7 @@ public struct Options {
     public float musicVolume;
 }
 
-public class OptionsMenu : MonoBehaviour {
+public class OptionsMenu : Menu {
 
     [SerializeField]
     private Slider masterVolumeSlider;
@@ -24,14 +24,16 @@ public class OptionsMenu : MonoBehaviour {
 
     private Options savedOptions;
 
-    private void Awake() {
+    public void Awake() {
         LoadOptions();
 
         currentOptions = new Options();
         savedOptions = new Options();
     }
 
-    private void Start() {
+    public override void Start() {
+        base.Start();
+
         masterVolumeSlider.onValueChanged.AddListener(HandleMasterVolumeChange);
         sfxVolumeSlider.onValueChanged.AddListener(HandleSfxVolumeChange);
         musicVolumeSlider.onValueChanged.AddListener(HandleMusicVolumeChange);

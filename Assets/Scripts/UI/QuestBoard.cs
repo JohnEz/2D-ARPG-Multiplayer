@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestBoard : MonoBehaviour {
+public class QuestBoard : Menu {
 
     [SerializeField]
     public QuestTile _questTilePrefab;
@@ -35,7 +35,9 @@ public class QuestBoard : MonoBehaviour {
 
     private bool _isPlayingQuestAccepted = false;
 
-    private void Start() {
+    public override void Start() {
+        base.Start();
+
         QuestManager.Instance.Quests.ForEach(quest => {
             AddQuest(quest);
         });
@@ -99,7 +101,10 @@ public class QuestBoard : MonoBehaviour {
 
     private void HandleStampComplete() {
         QuestManager.Instance.SelectQuest(_currentlyShownQuest.ID);
-        MenuManager.Instance.CloseQuestBoard();
+
+        string MyMenuId = GetComponent<Menu>().ID;
+
+        MenuManager.Instance.CloseMenu(MyMenuId);
 
         ResetStamp();
 

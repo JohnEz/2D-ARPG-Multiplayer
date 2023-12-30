@@ -2016,6 +2016,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d101871dee5eacf489fbd341c26a0442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: OPTIONS
+  _previousMenuId: GAME_MENU
   masterVolumeSlider: {fileID: 1415449652619599369}
   sfxVolumeSlider: {fileID: 5193028859200599819}
   musicVolumeSlider: {fileID: 5193028858192653390}
@@ -4521,18 +4523,18 @@ PrefabInstance:
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1415449653243581201}
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: CloseOptionsMenu
+      value: Close
       objectReference: {fileID: 0}
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MenuManager, Assembly-CSharp
+      value: Menu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName

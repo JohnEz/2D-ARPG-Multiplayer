@@ -1,178 +1,93 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]
-public enum MenuType {
-    MAIN_MENU,
-    OPTIONS_MENU,
-    QUEST_BOARD,
-    BLACKSMITH,
-    NONE
+public struct MenuData {
+    public string ID;
+    public Panel Panel;
+    public string PreviousMenuId; // store the actual previous menu?
 }
 
 public class MenuManager : Singleton<MenuManager> {
+    private Dictionary<string, MenuData> _menus;
 
-    [SerializeField]
-    private Panel _mainMenu;
+    private string _currentMenuId;
 
-    [SerializeField]
-    private Panel _optionsMenu;
-
-    [SerializeField]
-    private Panel _questBoard;
-
-    private MenuType _currentMenu;
-
-    private void Start() {
-        _currentMenu = MenuType.NONE;
-        _mainMenu.SetPanelEnabled(false, false);
-        _optionsMenu.SetPanelEnabled(false, false);
-        _questBoard.SetPanelEnabled(false, false);
+    private void Awake() {
+        _menus = new Dictionary<string, MenuData>();
+        _currentMenuId = string.Empty;
     }
 
     private void Update() {
-        switch (_currentMenu) {
-            case MenuType.MAIN_MENU:
-            MainMenuUpdate();
-            break;
-
-            case MenuType.OPTIONS_MENU:
-            OptionsMenuUpdate();
-            break;
-
-            case MenuType.QUEST_BOARD:
-            QuestBoardUpdate();
-            break;
-
-            case MenuType.NONE:
-            default:
-            EmptyUpdate();
-            break;
-        }
-    }
-
-    private void EmptyUpdate() {
         if (Input.GetKeyUp(KeyCode.Escape)) {
-            OpenMainMenu();
+            if (_currentMenuId.Equals(string.Empty)) {
+                OpenMenu("GAME_MENU");
+            } else {
+                CloseCurrentMenu();
+            }
         }
     }
 
-    private void MainMenuUpdate() {
-        if (Input.GetKeyUp(KeyCode.Escape)) {
-            CloseMainMenu();
+    public bool RegisterMenu(MenuData menuData) {
+        if (_menus.ContainsKey(menuData.ID)) {
+            Debug.Log($"Tried to register the menu {menuData.ID} but it there is already a menu with that id registered.");
+            return false;
+        }
+
+        menuData.Panel.SetPanelEnabled(false, false);
+        _menus.Add(menuData.ID, menuData);
+
+        return true;
+    }
+
+    public void CloseCurrentMenu() {
+        if (_currentMenuId == string.Empty) {
+            return;
+        }
+
+        CloseMenu(_currentMenuId);
+    }
+
+    public void CloseMenu(string menuId) {
+        if (menuId == string.Empty) {
+            return;
+        }
+
+        if (!_menus.ContainsKey(menuId)) {
+            Debug.LogError($"Tried to close the menu {menuId} that doesnt exist");
+            return;
+        }
+
+        MenuData menuToClose = _menus[menuId];
+
+        menuToClose.Panel.SetPanelEnabled(false);
+
+        _currentMenuId = string.Empty;
+
+        if (!menuToClose.PreviousMenuId.Equals(string.Empty)) {
+            OpenMenu(menuToClose.PreviousMenuId);
         }
     }
 
-    private void OptionsMenuUpdate() {
-        if (Input.GetKeyUp(KeyCode.Escape)) {
-            CloseOptionsMenu();
-        }
-    }
-
-    private void QuestBoardUpdate() {
-        if (Input.GetKeyUp(KeyCode.Escape)) {
-            CloseQuestBoard();
-        }
-    }
-
-    public void OpenMenu(MenuType menuToOpen) {
+    public void OpenMenu(string menuId) {
         CloseCurrentMenu();
 
-        switch (menuToOpen) {
-            case MenuType.MAIN_MENU:
-            DisplayMainMenu();
-            break;
-
-            case MenuType.OPTIONS_MENU:
-            DisplayOptionsMenu();
-            break;
-
-            case MenuType.QUEST_BOARD:
-            DisplayQuestBoard();
-            break;
-
-            case MenuType.NONE:
-            default:
-            break;
+        if (!_menus.ContainsKey(menuId)) {
+            Debug.LogError($"Tried to open the menu {menuId} that doesnt exist");
+            return;
         }
 
-        _currentMenu = menuToOpen;
-    }
+        MenuData menuToOpen = _menus[menuId];
 
-    private void CloseCurrentMenu() {
-        switch (_currentMenu) {
-            case MenuType.MAIN_MENU:
-            HideMainMenu();
-            break;
+        menuToOpen.Panel.SetPanelEnabled(true);
 
-            case MenuType.OPTIONS_MENU:
-            HideOptionsMenu();
-            break;
-
-            case MenuType.QUEST_BOARD:
-            HideQuestBoard();
-            break;
-
-            case MenuType.NONE:
-            default:
-            break;
-        }
-        _currentMenu = MenuType.NONE;
-    }
-
-    private void DisplayMainMenu() {
-        _mainMenu.SetPanelEnabled(true);
-    }
-
-    private void HideMainMenu() {
-        _mainMenu.SetPanelEnabled(false);
-    }
-
-    private void DisplayOptionsMenu() {
-        _optionsMenu.SetPanelEnabled(true);
-    }
-
-    private void HideOptionsMenu() {
-        _optionsMenu.SetPanelEnabled(false);
-    }
-
-    private void DisplayQuestBoard() {
-        _questBoard.SetPanelEnabled(true);
-    }
-
-    private void HideQuestBoard() {
-        _questBoard.SetPanelEnabled(false);
-    }
-
-    // Functions for buttons to call
-
-    public void OpenMainMenu() {
-        OpenMenu(MenuType.MAIN_MENU);
-    }
-
-    public void CloseMainMenu() {
-        OpenMenu(MenuType.NONE);
-    }
-
-    public void OpenOptionsMenu() {
-        OpenMenu(MenuType.OPTIONS_MENU);
-    }
-
-    public void CloseOptionsMenu() {
-        OpenMenu(MenuType.MAIN_MENU);
-    }
-
-    public void OpenQuestBoard() {
-        OpenMenu(MenuType.QUEST_BOARD);
-    }
-
-    public void CloseQuestBoard() {
-        OpenMenu(MenuType.NONE);
+        _currentMenuId = menuId;
     }
 
     public bool IsBlockingMenuOpen() {
-        return _currentMenu != MenuType.NONE;
+        return _currentMenuId != string.Empty;
     }
 }

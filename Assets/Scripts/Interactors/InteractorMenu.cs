@@ -14,10 +14,10 @@ public class InteractorMenu : MonoBehaviour, IInteractable {
     public Sprite InteractionIcon => _icon;
 
     [SerializeField]
-    private MenuType _menu;
+    private string _menuId;
 
     public bool Interact(Interactor interactor) {
-        MenuManager.Instance.OpenMenu(_menu);
+        MenuManager.Instance.OpenMenu(_menuId);
         return true;
     }
 }
