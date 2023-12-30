@@ -19,7 +19,7 @@ MonoBehaviour:
     one of their raids. Kill their leader Gliark the Big and the rest will scatter.
   Objectives:
   - Kill Gliak the Big
-  sceneName: Echo Ridge Caves
+  sceneName: Echo Ridge Cave
   RecommendedLevel: 1
   MaxPlayers: 4
   MinPlayers: 1
