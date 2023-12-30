@@ -10,10 +10,11 @@ using UnityEngine;
 
 [Serializable]
 public class Quest {
+    public string ID;
     public string Title;
     public string Description;
     public List<string> Objectives;
-    public SceneAsset scene;
+    public string sceneName;
 
     public int RecommendedLevel = 1;
     public int MaxPlayers = 4;
@@ -37,8 +38,10 @@ public class QuestManager : NetworkSingleton<QuestManager> {
     private bool _isLoadingScene = false;
 
     [ServerRpc(RequireOwnership = false)]
-    public void SelectQuest(int newQuest) {
-        _selectedQuestIndex = newQuest;
+    public void SelectQuest(string questId) {
+        int index = _quests.FindIndex(quest => quest.ID == questId);
+
+        _selectedQuestIndex = index;
     }
 
     private void HandleQuestChange(int prevValue, int newValue, bool asServer) {
@@ -81,7 +84,7 @@ public class QuestManager : NetworkSingleton<QuestManager> {
         // bring up error message
 
         // load scene
-        SceneLoadData data = new SceneLoadData(quest.scene.name);
+        SceneLoadData data = new SceneLoadData(quest.sceneName);
         data.ReplaceScenes = ReplaceOption.All;
         InstanceFinder.SceneManager.LoadGlobalScenes(data);
     }

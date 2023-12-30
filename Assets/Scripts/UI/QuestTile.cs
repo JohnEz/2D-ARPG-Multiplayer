@@ -10,4 +10,10 @@ public class QuestTile : MonoBehaviour {
     public void SetQuest(Quest quest) {
         _text.text = quest.Title;
     }
+
+    public void Highlight() {
+    }
+
+    public void Unhighlight() {
+    }
 }
