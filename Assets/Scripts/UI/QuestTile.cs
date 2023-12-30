@@ -28,6 +28,12 @@ public class QuestTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     [SerializeField]
     private Color _selectedColor = Color.white;
 
+    [SerializeField]
+    private AudioClip _hoverSfx;
+
+    [SerializeField]
+    private AudioClip _clickSfx;
+
     public event Action<QuestTile> OnClicked;
 
     private void Awake() {
@@ -35,6 +41,8 @@ public class QuestTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     }
 
     public void OnPointerClick(PointerEventData eventData) {
+        AudioManager.Instance.PlaySound(_clickSfx);
+
         if (_isSelected) {
             return;
         }
@@ -43,6 +51,8 @@ public class QuestTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
+        AudioManager.Instance.PlaySound(_hoverSfx);
+
         if (_isSelected) {
             return;
         }

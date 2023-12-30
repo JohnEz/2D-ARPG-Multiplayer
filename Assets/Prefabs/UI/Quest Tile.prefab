@@ -344,3 +344,5 @@ MonoBehaviour:
   _defaultColor: {r: 1, g: 1, b: 1, a: 0}
   _hoveredColor: {r: 1, g: 1, b: 1, a: 0.1764706}
   _selectedColor: {r: 0.78039217, g: 1, b: 0, a: 0.3529412}
+  _hoverSfx: {fileID: 8300000, guid: 6f96a4893d7708441887a586a96fc04a, type: 3}
+  _clickSfx: {fileID: 8300000, guid: c2aca3dbc01ea4d47a2dd0949e178f26, type: 3}

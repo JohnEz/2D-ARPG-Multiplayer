@@ -35,6 +35,10 @@ public class CameraManager : Singleton<CameraManager> {
             return;
         }
 
+        if (MenuManager.Instance && MenuManager.Instance.IsBlockingMenuOpen()) {
+            return;
+        }
+
         Vector3 mouseWorldPosition = InputHandler.Instance.MouseWorldPosition;
         mouseWorldPosition.z = 0;
 
