@@ -33,12 +33,14 @@ public class QuestBoard : MonoBehaviour {
     [SerializeField]
     private AudioClip _questAcceptedSfx;
 
+    private bool _isPlayingQuestAccepted = false;
+
     private void Start() {
         QuestManager.Instance.Quests.ForEach(quest => {
             AddQuest(quest);
         });
 
-        SelectQuest(QuestManager.Instance.Quests[0]);
+        SelectQuest(_questList[0]);
 
         ResetStamp();
     }
@@ -53,27 +55,37 @@ public class QuestBoard : MonoBehaviour {
     }
 
     private void HandleQuestTileClicked(QuestTile tile) {
+        if (_isPlayingQuestAccepted) {
+            return;
+        }
+
         _questList.ForEach(questTile => {
             questTile.Deselect();
         });
 
-        SelectQuest(tile.Quest);
-        tile.Select();
+        SelectQuest(tile);
     }
 
-    private void SelectQuest(Quest quest) {
-        if (quest == _currentlyShownQuest) {
+    private void SelectQuest(QuestTile tile) {
+        if (tile.Quest == _currentlyShownQuest) {
             return;
         }
 
-        _currentlyShownQuest = quest;
+        _currentlyShownQuest = tile.Quest;
 
-        _questTitle.text = quest.Title;
-        _questDescription.text = quest.Description;
-        _questObjectives.text = quest.Objectives[0];
+        _questTitle.text = tile.Quest.Title;
+        _questDescription.text = tile.Quest.Description;
+        _questObjectives.text = tile.Quest.Objectives[0];
+        tile.Select();
     }
 
     public void AcceptQuest() {
+        if (_isPlayingQuestAccepted) {
+            return;
+        }
+
+        _isPlayingQuestAccepted = true;
+
         DOTween.Sequence()
             .Append(_questAcceptedStamp.DOFade(1f, .125f).SetEase(Ease.OutQuad))
             .Append(_questAcceptedStamp.transform.DOScale(1f, .125f).SetEase(Ease.OutQuad))
@@ -91,6 +103,8 @@ public class QuestBoard : MonoBehaviour {
         MenuManager.Instance.CloseQuestBoard();
 
         ResetStamp();
+
+        _isPlayingQuestAccepted = false;
     }
 
     private void ResetStamp() {
