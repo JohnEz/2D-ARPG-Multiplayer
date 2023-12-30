@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,12 @@ public struct Options {
     public float masterVolume;
     public float sfxVolume;
     public float musicVolume;
+
+    public void CopyValuesFrom(Options other) {
+        masterVolume = other.masterVolume;
+        sfxVolume = other.sfxVolume;
+        musicVolume = other.musicVolume;
+    }
 }
 
 public class OptionsMenu : Menu {
@@ -25,8 +32,6 @@ public class OptionsMenu : Menu {
     private Options savedOptions;
 
     public void Awake() {
-        LoadOptions();
-
         currentOptions = new Options();
         savedOptions = new Options();
     }
@@ -37,6 +42,8 @@ public class OptionsMenu : Menu {
         masterVolumeSlider.onValueChanged.AddListener(HandleMasterVolumeChange);
         sfxVolumeSlider.onValueChanged.AddListener(HandleSfxVolumeChange);
         musicVolumeSlider.onValueChanged.AddListener(HandleMusicVolumeChange);
+
+        LoadOptions();
     }
 
     public void LoadOptions() {
@@ -44,26 +51,38 @@ public class OptionsMenu : Menu {
         savedOptions.sfxVolume = PlayerPrefs.GetFloat("SfxVolume", 50);
         savedOptions.musicVolume = PlayerPrefs.GetFloat("MusicVolume", 50);
 
-        HandleMasterVolumeChange(savedOptions.masterVolume);
-        HandleSfxVolumeChange(savedOptions.sfxVolume);
-        HandleMusicVolumeChange(savedOptions.musicVolume);
-
-        masterVolumeSlider.SetValueWithoutNotify(savedOptions.masterVolume);
-        sfxVolumeSlider.SetValueWithoutNotify(savedOptions.sfxVolume);
-        musicVolumeSlider.SetValueWithoutNotify(savedOptions.musicVolume);
+        ResetSliders();
     }
 
-    public void SaveOptions() {
+    public void ApplyOptions() {
+        SaveOptions();
+        Close();
+    }
+
+    private void SaveOptions() {
         PlayerPrefs.SetFloat("MasterVolume", currentOptions.masterVolume);
         PlayerPrefs.SetFloat("SfxVolume", currentOptions.sfxVolume);
         PlayerPrefs.SetFloat("MusicVolume", currentOptions.musicVolume);
         PlayerPrefs.Save();
 
-        savedOptions = currentOptions;
+        savedOptions.CopyValuesFrom(currentOptions);
     }
 
     public void CancelOptions() {
-        currentOptions = savedOptions;
+        ResetSliders();
+        Close();
+    }
+
+    private void ResetSliders() {
+        currentOptions.CopyValuesFrom(savedOptions);
+
+        HandleMasterVolumeChange(savedOptions.masterVolume);
+        HandleSfxVolumeChange(savedOptions.sfxVolume);
+        HandleMusicVolumeChange(savedOptions.musicVolume);
+
+        masterVolumeSlider.value = savedOptions.masterVolume;
+        sfxVolumeSlider.value = savedOptions.sfxVolume;
+        musicVolumeSlider.value = savedOptions.musicVolume;
     }
 
     private void HandleMasterVolumeChange(float value) {

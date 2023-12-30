@@ -83,7 +83,7 @@ public class AudioManager : Singleton<AudioManager> {
 
     public void SetMasterVolume(float volume) {
         float MAX_VOLUME = 20f;
-        float MIN_VOLUME = -60f;
+        float MIN_VOLUME = -50f;
 
         float newVolume = GetMixerVolume(volume / 100, MIN_VOLUME, MAX_VOLUME);
 
@@ -96,7 +96,7 @@ public class AudioManager : Singleton<AudioManager> {
 
     public void SetMusicVolume(float volume) {
         float MAX_VOLUME = 20f;
-        float MIN_VOLUME = -60f;
+        float MIN_VOLUME = -50f;
 
         float newVolume = GetMixerVolume(volume / 100, MIN_VOLUME, MAX_VOLUME);
 
@@ -109,7 +109,7 @@ public class AudioManager : Singleton<AudioManager> {
 
     public void SetSfxVolume(float volume) {
         float MAX_VOLUME = 0f;
-        float MIN_VOLUME = -60f;
+        float MIN_VOLUME = -50f;
 
         float newVolume = GetMixerVolume(volume / 100, MIN_VOLUME, MAX_VOLUME);
 
