@@ -86,9 +86,8 @@ public class QuestBoard : MonoBehaviour {
 
         _isPlayingQuestAccepted = true;
 
-        DOTween.Sequence()
-            .Append(_questAcceptedStamp.DOFade(1f, .125f).SetEase(Ease.OutQuad))
-            .Append(_questAcceptedStamp.transform.DOScale(1f, .125f).SetEase(Ease.OutQuad))
+        _questAcceptedStamp.DOFade(1f, .125f).SetEase(Ease.OutQuad);
+        _questAcceptedStamp.transform.DOScale(1f, .125f).SetEase(Ease.OutQuad)
             .OnComplete(HandleStampImpact);
     }
 
