@@ -1,6 +1,7 @@
 using FishNet.Managing.Scened;
 using FishNet;
 using FishNet.Object;
+using FishNet.Managing.Logging;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,17 +14,33 @@ public class NetworkSceneLoader : NetworkSingleton<NetworkSceneLoader> {
     [SerializeField]
     private Animator _fadeAnimator;
 
-    [Server]
     public void LoadScene(string scene) {
-        _sceneToLoad = scene;
-
-        // start screenfade
-        _fadeAnimator.SetTrigger("FadeOut");
-
-        Invoke(nameof(ChangeGlobalScene), SCENE_LOAD_DELAY);
+        if (base.IsServer) {
+            ServerLoadScene(scene);
+        } else {
+            LoadSceneRpc(scene);
+        }
     }
 
-    private void ChangeGlobalScene() {
+    [ServerRpc]
+    private void LoadSceneRpc(string scene) {
+        ServerLoadScene(scene);
+    }
+
+    private void ServerLoadScene(string scene) {
+        _sceneToLoad = scene;
+        Invoke(nameof(ServerChangeScene), SCENE_LOAD_DELAY);
+
+        ClientLoadScene();
+    }
+
+    [ObserversRpc]
+    private void ClientLoadScene() {
+        _fadeAnimator.SetTrigger("FadeOut");
+    }
+
+    [Server(Logging = LoggingType.Off)]
+    private void ServerChangeScene() {
         SceneLoadData data = new SceneLoadData(_sceneToLoad);
         data.ReplaceScenes = ReplaceOption.All;
         InstanceFinder.SceneManager.LoadGlobalScenes(data);
