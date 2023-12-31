@@ -12,8 +12,6 @@ public class MainMenu : Menu {
     }
 
     public void ExitScenario() {
-        SceneLoadData data = new SceneLoadData("Town");
-        data.ReplaceScenes = ReplaceOption.All;
-        InstanceFinder.SceneManager.LoadGlobalScenes(data);
+        NetworkSceneLoader.Instance.LoadScene("Town");
     }
 }

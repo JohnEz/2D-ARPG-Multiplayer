@@ -70,9 +70,6 @@ public class QuestManager : NetworkSingleton<QuestManager> {
         // check if all players are in the area
         // bring up error message
 
-        // load scene
-        SceneLoadData data = new SceneLoadData(quest.sceneName);
-        data.ReplaceScenes = ReplaceOption.All;
-        InstanceFinder.SceneManager.LoadGlobalScenes(data);
+        NetworkSceneLoader.Instance.LoadScene(quest.sceneName);
     }
 }
