@@ -1,5 +1,6 @@
 using FishNet.Managing.Scened;
 using FishNet;
+using FishNet.Managing;
 
 public class MainMenu : Menu {
 
@@ -13,5 +14,11 @@ public class MainMenu : Menu {
 
     public void ExitScenario() {
         NetworkSceneLoader.Instance.LoadScene("Town");
+    }
+
+    public void ExitGame() {
+        NetworkSceneLoader.Instance.LoadScene("MainMenu");
+        InstanceFinder.ServerManager.StopConnection(true);
+        InstanceFinder.ClientManager.StopConnection();
     }
 }
