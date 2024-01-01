@@ -109,7 +109,7 @@ public class PersistentPlayer : NetworkBehaviour {
     }
 
     [Server(Logging = LoggingType.Off)]
-    public void SpawnServer(Vector3 spawnLocation) {
+    public NetworkStats SpawnServer(Vector3 spawnLocation) {
         Debug.Log("Spawning on server");
         GameObject prefab = null;
 
@@ -129,12 +129,14 @@ public class PersistentPlayer : NetworkBehaviour {
 
         if (prefab == null) {
             Debug.LogError($"No prefab found for character {SelectedCharacter}");
-            return;
+            return null;
         }
 
         GameObject instance = Instantiate(prefab);
         instance.transform.position = spawnLocation;
         instance.GetComponent<CharacterController>().Username = Username; // TODO id like the persistent character or connection to hold this ownership
         InstanceFinder.ServerManager.Spawn(instance, Owner);
+
+        return instance.GetComponent<NetworkStats>();
     }
 }

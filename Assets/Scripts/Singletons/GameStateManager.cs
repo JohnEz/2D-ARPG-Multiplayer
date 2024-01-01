@@ -13,6 +13,10 @@ public class GameStateManager : Singleton<GameStateManager> {
 
     private int spawnIndex = 0;
 
+    private List<NetworkStats> _players = new();
+
+    public List<NetworkStats> Players { get { return _players; } }
+
     private void SpawnPlayer(PersistentPlayer player) {
         if (!InstanceFinder.IsServer) {
             return;
@@ -23,8 +27,10 @@ public class GameStateManager : Singleton<GameStateManager> {
             return;
         }
 
-        player.SpawnServer(_spawnLocations[spawnIndex].position);
+        NetworkStats spawnedPlayer = player.SpawnServer(_spawnLocations[spawnIndex].position);
         spawnIndex = (spawnIndex + 1) % _spawnLocations.Count;
+
+        _players.Add(spawnedPlayer);
     }
 
     private void OnEnable() {
