@@ -6,7 +6,9 @@ using UnityEngine;
 public class AbilityTooltip : TooltipGenerator {
     private AbilityIcon abilityIcon;
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
+
         abilityIcon = GetComponent<AbilityIcon>();
     }
 
@@ -33,7 +35,9 @@ public class AbilityTooltip : TooltipGenerator {
         Tooltip.Instance.AddSpacer();
         Tooltip.Instance.AddSpacer();
 
-        Tooltip.Instance.AddText($"Cooldown: {abilityIcon.MyAbility.Cooldown}s");
+        if (abilityIcon.MyAbility.Cooldown > 0) {
+            Tooltip.Instance.AddText($"Cooldown: {abilityIcon.MyAbility.Cooldown}s");
+        }
 
         if (abilityIcon.MyAbility.MaxCharges > 1) {
             Tooltip.Instance.AddText($"Charges: {abilityIcon.MyAbility.MaxCharges}");

@@ -76,12 +76,20 @@ public class Ability : ScriptableObject {
     [SerializeField]
     public List<string> buffIds;
 
+    [SerializeField]
+    public bool _isConsumable = false;
+
     public void Awake() {
         _remainingCooldown = 0;
         _currentCharges = MaxCharges;
     }
 
     public void Update() {
+        // consumables dont go on cooldown or regen charges
+        if (_isConsumable) {
+            return;
+        }
+
         if (_remainingCooldown <= 0) {
             return;
         }
@@ -123,6 +131,11 @@ public class Ability : ScriptableObject {
 
     public string GetCooldownAsString() {
         float remainingCooldown = GetRemainingCooldown();
+
+        if (remainingCooldown <= 0) {
+            return string.Empty;
+        }
+
         return remainingCooldown > 1 ? remainingCooldown.ToString("F0") : remainingCooldown.ToString("F1");
     }
 }

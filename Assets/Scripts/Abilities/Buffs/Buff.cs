@@ -71,7 +71,6 @@ public class Buff : ScriptableObject {
         get { return _canBeDispelled; }
     }
 
-    [SerializeField]
     private BuffController _caster;
 
     public BuffController Caster {

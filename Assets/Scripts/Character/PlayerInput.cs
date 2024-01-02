@@ -50,12 +50,20 @@ public class PlayerInput : NetworkBehaviour {
             _characterController.CastAbility(2);
         }
 
-        if (InputHandler.Instance.UtilityPressed) {
+        if (InputHandler.Instance.AltAttackTwoPressed) {
             _characterController.CastAbility(3);
         }
 
-        if (InputHandler.Instance.UtilityTwoPressed) {
+        if (InputHandler.Instance.AltAttackThreePressed) {
             _characterController.CastAbility(4);
+        }
+
+        if (InputHandler.Instance.UtilityPressed) {
+            _characterController.CastUtilityAbility(0);
+        }
+
+        if (InputHandler.Instance.UtilityTwoPressed) {
+            _characterController.CastUtilityAbility(1);
         }
 
         TurnToMouse();

@@ -50,54 +50,51 @@ public class CastController : NetworkBehaviour {
         CancelCast();
     }
 
-    public void Cast(int abilityId) {
-        CastAbility(abilityId, 0);
-        NotifyCast(abilityId, base.TimeManager.Tick);
+    public void Cast(int abilityId, bool isUtilityAbility) {
+        CastAbility(abilityId, isUtilityAbility, 0);
+        NotifyCast(abilityId, isUtilityAbility, base.TimeManager.Tick);
     }
 
-    private void CastAbility(int abilityId, float passedTime) {
-        castingAbility = _abilitiesController.GetAbility(abilityId);
+    private void CastAbility(int abilityId, bool isUtilityAbility, float passedTime) {
+        castingAbility = isUtilityAbility ?
+            _abilitiesController.GetUtilityAbility(abilityId) :
+            _abilitiesController.GetAbility(abilityId);
+
         castTime = castingAbility.CastTime;
 
-        CreateAbilityEffect(abilityId);
+        CreateAbilityEffect(castingAbility);
 
         OnCastStart.Invoke(castTime, passedTime);
 
         StartCoroutine(Casting());
     }
 
-    public void NotifyCast(int abilityId, uint tick) {
+    public void NotifyCast(int abilityId, bool isUtilityAbility, uint tick) {
         if (InstanceFinder.IsServer) {
-            ObserverCast(abilityId, tick);
+            ObserverCast(abilityId, isUtilityAbility, tick);
         } else {
-            ServerCast(abilityId, tick);
+            ServerCast(abilityId, isUtilityAbility, tick);
         }
     }
 
     [ServerRpc]
-    private void ServerCast(int abilityId, uint tick) {
+    private void ServerCast(int abilityId, bool isUtilityAbility, uint tick) {
         float passedTime = (float)base.TimeManager.TimePassed(tick, false);
         passedTime = Mathf.Min(MAX_PASSED_TIME / 2f, passedTime);
 
-        CastAbility(abilityId, passedTime);
-        ObserverCast(abilityId, tick);
+        CastAbility(abilityId, isUtilityAbility, passedTime);
+        ObserverCast(abilityId, isUtilityAbility, tick);
     }
 
     [ObserversRpc(ExcludeOwner = true, ExcludeServer = true)]
-    private void ObserverCast(int abilityId, uint tick) {
+    private void ObserverCast(int abilityId, bool isUtilityAbility, uint tick) {
         float passedTime = (float)base.TimeManager.TimePassed(tick, false);
         passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
 
-        CastAbility(abilityId, passedTime);
+        CastAbility(abilityId, isUtilityAbility, passedTime);
     }
 
-    private void CreateAbilityEffect(int abilityId) {
-        if (abilityId >= _abilitiesController.AbilityList.Count) {
-            return;
-        }
-
-        Ability abilityToCreate = _abilitiesController.GetAbility(abilityId);
-
+    private void CreateAbilityEffect(Ability abilityToCreate) {
         // TODO these can potentially be moved to "Casting()"
         GameObject createdEffect = Instantiate(abilityToCreate.AbilityEffectPrefab);
         castingAbilityEffect = createdEffect.GetComponent<AbilityEffect>();

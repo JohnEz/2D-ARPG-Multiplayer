@@ -170,12 +170,21 @@ public class CharacterController : NetworkBehaviour {
     }
 
     public void CastAbility(int abilityId) {
-        var ability = _abilitiesController.GetAbility(abilityId);
+        Ability ability = _abilitiesController.GetAbility(abilityId);
         if (!CanCastAbility(ability)) {
             return;
         }
 
-        _castController.Cast(abilityId);
+        _castController.Cast(abilityId, false);
+    }
+
+    public void CastUtilityAbility(int abilityId) {
+        Ability utilityAbility = _abilitiesController.GetUtilityAbility(abilityId);
+        if (!CanCastAbility(utilityAbility)) {
+            return;
+        }
+
+        _castController.Cast(abilityId, true);
     }
 
     #region Leaping

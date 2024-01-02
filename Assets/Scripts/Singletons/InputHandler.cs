@@ -12,6 +12,9 @@ public class InputHandler : Singleton<InputHandler> {
 
     public bool AttackPressed { get; private set; }
     public bool AltAttackPressed { get; private set; }
+    public bool AltAttackTwoPressed { get; private set; }
+    public bool AltAttackThreePressed { get; private set; }
+
     public bool UtilityPressed { get; private set; }
     public bool UtilityTwoPressed { get; private set; }
 
@@ -37,8 +40,11 @@ public class InputHandler : Singleton<InputHandler> {
         AttackPressed = Input.GetKey(KeyCode.Mouse0);
         AltAttackPressed = Input.GetKey(KeyCode.Mouse1);
         DashPressed = Input.GetKey(KeyCode.Space);
-        UtilityPressed = Input.GetKey(KeyCode.Q);
-        UtilityTwoPressed = Input.GetKey(KeyCode.E);
+        AltAttackTwoPressed = Input.GetKey(KeyCode.Q);
+        AltAttackThreePressed = Input.GetKey(KeyCode.E);
+
+        UtilityPressed = Input.GetKey(KeyCode.Alpha1);
+        UtilityTwoPressed = Input.GetKey(KeyCode.Alpha2);
 
         UltimatePressed = Input.GetKeyDown(KeyCode.R);
 
