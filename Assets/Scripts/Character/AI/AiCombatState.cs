@@ -123,6 +123,10 @@ public class AiCombatState : NetworkBehaviour {
     }
 
     private bool IsValidTarget(CharacterController target, AbilityTargetCondition conditions) {
+        if (target.GetComponent<CharacterStateController>().IsDead()) {
+            return false;
+        }
+
         // TODO allow multiple conditions
         float value = GetCharacterAttributeValue(target, conditions.attribute);
 
