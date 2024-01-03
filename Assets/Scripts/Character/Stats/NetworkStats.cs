@@ -13,6 +13,7 @@ public enum StatType {
     POWER,
     MOVE_SPEED,
     DAMAGE_TAKEN,
+    HEALABLE_HEALTH,
 }
 
 public enum Faction {
@@ -24,6 +25,8 @@ public enum Faction {
 public class NetworkStats : NetworkBehaviour {
     private BuffController _buffController;
 
+    private const float BASE_HEALABLE_HEALTH = .33f;
+
     [SerializeField]
     public Faction Faction;
 
@@ -33,12 +36,21 @@ public class NetworkStats : NetworkBehaviour {
 
     public int CurrentHealth { get { return _currentHealth; } }
 
+    [HideInInspector]
+    [SyncVar(OnChange = nameof(HandleRemainingMaxHealthChange), WritePermissions = WritePermission.ServerOnly)]
+    private int _remainingMaxHealth = 100;
+
+    public int RemainingMaxHealth { get { return _remainingMaxHealth; } }
+
     // new Stats
     [SerializeField]
     private int _baseMaxHealth = 100;
 
     [SyncObject]
     public readonly SyncedCharacterStat MaxHealth = new SyncedCharacterStat();
+
+    [SyncObject]
+    public readonly SyncedCharacterStat HealableHealth = new SyncedCharacterStat();
 
     [SerializeField]
     private float _baseSpeed = 4f;
@@ -62,12 +74,14 @@ public class NetworkStats : NetworkBehaviour {
 
     public override void OnStartServer() {
         MaxHealth.SetBaseValue(_baseMaxHealth);
+        HealableHealth.SetBaseValue(BASE_HEALABLE_HEALTH);
         Power.SetBaseValue(_basePower);
         Speed.SetBaseValue(_baseSpeed);
         Shield.SetBaseValue(0f);
         DamageTaken.SetBaseValue(1f);
 
         _currentHealth = (int)MaxHealth.CurrentValue;
+        _remainingMaxHealth = (int)MaxHealth.CurrentValue;
     }
 
     private void Start() {
@@ -76,6 +90,7 @@ public class NetworkStats : NetworkBehaviour {
         StatList.Add(StatType.MOVE_SPEED, Speed);
         StatList.Add(StatType.SHIELD, Shield);
         StatList.Add(StatType.DAMAGE_TAKEN, DamageTaken);
+        StatList.Add(StatType.HEALABLE_HEALTH, HealableHealth);
 
         _buffController = GetComponent<BuffController>();
     }
@@ -107,7 +122,17 @@ public class NetworkStats : NetworkBehaviour {
 
         if (IsServer) {
             _currentHealth = Mathf.Min(_currentHealth, (int)MaxHealth.CurrentValue);
+            // TODO do i need to change remaining max health here?
         }
+    }
+
+    private void HandleRemainingMaxHealthChange(int previousValue, int nextValue, bool asServer) {
+        if (!asServer && InstanceFinder.IsHost) {
+            // this is called for each client and for server, so host would call twice
+            return;
+        }
+
+        OnHealthChanged?.Invoke();
     }
 
     private void HandleCurrentHealthChange(int previousValue, int nextValue, bool asServer) {
@@ -185,7 +210,28 @@ public class NetworkStats : NetworkBehaviour {
             Shield.ForceUpdateCachedValue();
         }
 
-        _currentHealth = Math.Clamp(_currentHealth - remainingDamage, 0, (int)MaxHealth.CurrentValue);
+        SetHealthServer(_currentHealth - remainingDamage);
+    }
+
+    [Server(Logging = LoggingType.Off)]
+    private void SetHealthServer(int health) {
+        int newHealth = Math.Clamp(health, 0, _remainingMaxHealth);
+
+        if (newHealth < _currentHealth) {
+            _remainingMaxHealth = CalculateRemainingMaxHealth(newHealth);
+        }
+
+        _currentHealth = newHealth;
+    }
+
+    private int CalculateRemainingMaxHealth(int newHealth) {
+        int healableHealth = (int)(MaxHealth.CurrentValue * HealableHealth.CurrentValue);
+
+        if (newHealth >= _remainingMaxHealth - healableHealth) {
+            return _remainingMaxHealth;
+        }
+
+        return Math.Clamp(newHealth + healableHealth, 0, (int)MaxHealth.CurrentValue);
     }
 
     public void DealDamageTo(string spellId, NetworkStats target, int baseDamage, float powerScaling) {
@@ -209,7 +255,7 @@ public class NetworkStats : NetworkBehaviour {
 
     [Server(Logging = LoggingType.Off)]
     public void ReceiveHealingServer(int healing) {
-        _currentHealth = Math.Clamp(_currentHealth + healing, 0, (int)MaxHealth.CurrentValue);
+        SetHealthServer(_currentHealth + healing);
     }
 
     public void GiveHealingTo(string spellId, NetworkStats target, int baseHealing, float powerScaling) {
