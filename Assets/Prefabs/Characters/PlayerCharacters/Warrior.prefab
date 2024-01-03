@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 285830505362005779, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: _componentIndexCache
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 385028806926593515, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: _scenePathHash
@@ -21,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 385028806926593515, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: <PrefabId>k__BackingField
-      value: 2
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 385028806926593515, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: _networkBehaviours.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 385028806926593515, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
@@ -87,6 +87,14 @@ PrefabInstance:
       propertyPath: _abilityPrefabList.Array.data[4]
       value: 
       objectReference: {fileID: 11400000, guid: 3ee0761b0f466ab419adf284acae5a14, type: 2}
+    - target: {fileID: 3405262305815227104, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
+      propertyPath: _utilityAbilityPrefabList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405262305815227104, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
+      propertyPath: _utilityAbilityPrefabList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5343721f377ee1645aa3b30528d7a7b9, type: 2}
     - target: {fileID: 3849424800736336829, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: _componentIndexCache
       value: 9

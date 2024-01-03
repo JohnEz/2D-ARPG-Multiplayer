@@ -254,18 +254,22 @@ public class NetworkStats : NetworkBehaviour {
     }
 
     [Server(Logging = LoggingType.Off)]
-    public void ReceiveHealingServer(int healing) {
+    public void ReceiveHealingServer(int healing, bool isTrueHealing) {
+        if (isTrueHealing) {
+            _remainingMaxHealth = Math.Clamp(_remainingMaxHealth + healing, 0, (int)MaxHealth.CurrentValue);
+        }
+
         SetHealthServer(_currentHealth + healing);
     }
 
-    public void GiveHealingTo(string spellId, NetworkStats target, int baseHealing, float powerScaling) {
+    public void GiveHealingTo(string spellId, NetworkStats target, int baseHealing, float powerScaling, bool isTrueHealing = false) {
         int healing = GetDamage(baseHealing, powerScaling);
 
-        target.ReceiveHealing(spellId, this, healing);
+        target.ReceiveHealing(spellId, this, healing, isTrueHealing);
     }
 
-    public void ReceiveHealing(string spellId, NetworkStats source, int healing) {
-        ReceiveHealingServer(healing);
+    public void ReceiveHealing(string spellId, NetworkStats source, int healing, bool isTrueHealing) {
+        ReceiveHealingServer(healing, isTrueHealing);
 
         if (InstanceFinder.IsClient) {
             OnReceiveHealing?.Invoke(healing, source);

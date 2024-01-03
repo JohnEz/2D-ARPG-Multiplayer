@@ -27,6 +27,9 @@ public class AoeHeal : AbilityEffect {
     [SerializeField]
     private GameObject _characterHitVfx;
 
+    [SerializeField]
+    private bool isTrueHealing = false;
+
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
@@ -36,7 +39,7 @@ public class AoeHeal : AbilityEffect {
             List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(targetLocation, _radius, _caster, _canHitCaster, _canHitEnemy, _canHitAlly);
 
             hitTargets.ForEach(hitTarget => {
-                _caster.GiveHealingTo(gameObject.name, hitTarget, BASE_HEALING, POWER_SCALING);
+                _caster.GiveHealingTo(gameObject.name, hitTarget, BASE_HEALING, POWER_SCALING, isTrueHealing);
 
                 if (_characterHitVfx) {
                     GameObject hitVFX = Instantiate(_characterHitVfx, hitTarget.transform);

@@ -110,6 +110,8 @@ MonoBehaviour:
     prefab: {fileID: 11400000, guid: bf9f71d5f2dbf074297c2d9efd4b9432, type: 2}
   - id: Potion of Power
     prefab: {fileID: 11400000, guid: c20a407d79ea919429e50373f88aabaa, type: 2}
+  - id: Potion of Protection
+    prefab: {fileID: 11400000, guid: 7d05be8c4b336e24d84bdf160c5ec53e, type: 2}
   _persistentAOEResources:
   - id: Healing Goo
     prefab: {fileID: 6044991187181725206, guid: 6dbc05bbe925a80409af3b61408b647c, type: 3}
