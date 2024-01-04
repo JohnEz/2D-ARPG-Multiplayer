@@ -39,6 +39,8 @@ public class GameStateManager : Singleton<GameStateManager> {
             return;
         }
 
+        // TODO i think this first listener might be dangerous if the player hasnt loaded the scene and is reconnecting
+        ConnectionManager.Instance.OnPlayerConnected += HandlePlayerLoadedScene;
         ConnectionManager.Instance.OnPlayerLoadedScene += HandlePlayerLoadedScene;
     }
 
@@ -47,6 +49,7 @@ public class GameStateManager : Singleton<GameStateManager> {
             return;
         }
 
+        ConnectionManager.Instance.OnPlayerConnected -= HandlePlayerLoadedScene;
         ConnectionManager.Instance.OnPlayerLoadedScene -= HandlePlayerLoadedScene;
     }
 
