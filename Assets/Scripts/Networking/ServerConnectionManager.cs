@@ -78,6 +78,7 @@ public class ServerConnectionManager : NetworkSingleton<ServerConnectionManager>
         if (GetPlayerData(playerId)?.ClientID == clientId) {
             SessionPlayerData playerData = Connections[playerId];
             playerData.IsConnected = false;
+            playerData.PersistentPlayer = null;
             Connections[playerId] = playerData;
         }
     }
