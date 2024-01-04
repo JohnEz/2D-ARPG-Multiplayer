@@ -23,32 +23,18 @@ public class LobbyManager : Singleton<LobbyManager> {
 
     public event Action<Lobby> OnLobbyUpdate;
 
-    [SerializeField]
-    private ConnectionManager _connectionManagerPrefab;
-
     private void OnEnable() {
-        NetworkManagerHooks.Instance.OnConnected += HandleConnected;
-        NetworkManagerHooks.Instance.OnDisconnected += CleanUp;
+        NetworkManagerHooks.Instance.OnClientDisconnected += CleanUp;
     }
 
     private void OnDisable() {
         if (NetworkManagerHooks.Instance != null) {
-            NetworkManagerHooks.Instance.OnConnected -= HandleConnected;
-            NetworkManagerHooks.Instance.OnDisconnected -= CleanUp;
+            NetworkManagerHooks.Instance.OnClientDisconnected -= CleanUp;
         }
     }
 
     private void OnDestroy() {
         CleanUp();
-    }
-
-    protected virtual void HandleConnected() {
-        if (!InstanceFinder.IsServer) {
-            return;
-        }
-
-        GameObject connectionManager = Instantiate(_connectionManagerPrefab.gameObject);
-        InstanceFinder.ServerManager.Spawn(connectionManager, null);
     }
 
     protected virtual void CleanUp() {
@@ -62,7 +48,6 @@ public class LobbyManager : Singleton<LobbyManager> {
     }
 
     protected virtual void InvokeLoggedIn() {
-        Debug.Log($"Logged in as {PlayerName}");
         OnLoggedIn?.Invoke();
     }
 

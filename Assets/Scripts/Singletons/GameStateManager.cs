@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class GameStateManager : Singleton<GameStateManager> {
 
@@ -34,54 +35,22 @@ public class GameStateManager : Singleton<GameStateManager> {
     }
 
     private void OnEnable() {
-        NetworkManagerHooks.Instance.OnPlayerLoaded += HandlePlayerLoaded;
-
-        if (ConnectionManager.Instance) {
-            ConnectionManager.Instance.OnPlayerLoadedScene += HandlePlayerLoadedScene;
-        }
-    }
-
-    private void OnDisable() {
-        if (NetworkManagerHooks.Instance != null) {
-            NetworkManagerHooks.Instance.OnPlayerLoaded -= HandlePlayerLoaded;
-        }
-
-        if (ConnectionManager.Instance != null) {
-            ConnectionManager.Instance.OnPlayerLoadedScene -= HandlePlayerLoadedScene;
-        }
-    }
-
-    private void Start() {
         if (!ConnectionManager.Instance) {
             return;
         }
 
-        Debug.Log("connections i can see " + ConnectionManager.Instance.Connections.Count);
-
-        foreach (var item in ConnectionManager.Instance.Connections) {
-            Debug.Log($"ClientId: {item.Key.ClientId}, IsLoadingScene:  {item.Value.IsLoadingScene}, PersistentPlayer:  {item.Value.PersistentPlayer != null}");
-
-            if (InstanceFinder.IsServer && item.Value.PersistentPlayer != null && !item.Value.IsLoadingScene) {
-                SpawnPlayer(item.Value.PersistentPlayer);
-            }
-        }
+        ConnectionManager.Instance.OnPlayerLoadedScene += HandlePlayerLoadedScene;
     }
 
-    [Server(Logging = LoggingType.Off)]
-    public void HandlePlayerLoaded(PersistentPlayer player) {
-        Debug.Log("Player loaded");
-
-        if (InstanceFinder.IsServer) {
-            SpawnPlayer(player);
+    private void OnDisable() {
+        if (!ConnectionManager.Instance) {
+            return;
         }
+
+        ConnectionManager.Instance.OnPlayerLoadedScene -= HandlePlayerLoadedScene;
     }
 
-    [Server(Logging = LoggingType.Off)]
-    private void HandlePlayerLoadedScene(PlayerConnectionState player) {
-        Debug.Log("Player loaded scene");
-
-        if (InstanceFinder.IsServer) {
-            SpawnPlayer(player.PersistentPlayer);
-        }
+    private void HandlePlayerLoadedScene(SessionPlayerData playerData) {
+        SpawnPlayer(playerData.PersistentPlayer);
     }
 }

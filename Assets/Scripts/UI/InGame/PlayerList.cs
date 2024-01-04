@@ -11,7 +11,7 @@ public class PlayerList : MonoBehaviour {
     private PlayerTile _playerTilePrefab;
 
     [SerializeField]
-    private List<PlayerTile> _playersTiles = new List<PlayerTile>();
+    private Dictionary<string, PlayerTile> _playersTiles = new();
 
     [SerializeField]
     private Transform _listTransform;
@@ -21,9 +21,16 @@ public class PlayerList : MonoBehaviour {
             return;
         }
 
-        ConnectionManager.Instance.Connections.Values.ToList().ForEach(playerState => {
-            AddPlayerTile(playerState);
-        });
+        ConnectionManager.Instance
+            .GetConnections()?.Values
+            .ToList()
+            .ForEach(playerData => {
+                if (!playerData.IsConnected) {
+                    return;
+                }
+
+                AddPlayerTile(playerData);
+            });
     }
 
     private void OnEnable() {
@@ -44,13 +51,20 @@ public class PlayerList : MonoBehaviour {
         ConnectionManager.Instance.OnPlayerDisconnected -= RemovePlayer;
     }
 
-    public void AddPlayerTile(PlayerConnectionState player) {
+    private void AddPlayerTile(SessionPlayerData playerData) {
         PlayerTile tile = Instantiate(_playerTilePrefab, _listTransform);
-        tile.SetPlayer(player.PersistentPlayer);
+        tile.SetPlayer(playerData.PersistentPlayer);
 
-        _playersTiles.Add(tile);
+        _playersTiles[playerData.PlayerName] = tile;
     }
 
-    public void RemovePlayer(PlayerConnectionState player) {
+    private void RemovePlayer(string playerId) {
+        if (!_playersTiles.ContainsKey(playerId)) {
+            return;
+        }
+
+        PlayerTile tile = _playersTiles[playerId];
+        Destroy(tile.gameObject);
+        _playersTiles.Remove(playerId);
     }
 }

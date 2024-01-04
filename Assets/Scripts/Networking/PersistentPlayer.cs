@@ -55,62 +55,65 @@ public class PersistentPlayer : NetworkBehaviour {
         gameObject.name = $"Player {base.OwnerId}";
     }
 
-    public override void OnStartClient() {
-        base.OnStartClient();
-
-        if (!base.IsOwner) {
-            return;
-        }
-
-        if (LobbyManager.Instance != null) {
-            Username = LobbyManager.Instance.PlayerName;
-        }
-
-        NetworkManagerHooks.Instance.HandleCompletedConnection();
-    }
-
     public override void OnOwnershipClient(NetworkConnection prevOwner) {
         base.OnOwnershipClient(prevOwner);
 
         if (prevOwner == Owner) {
+            Debug.Log("Tried setting persistent player owner to themself");
             return;
         }
 
-        // Shouldnt be needed after connection manager changes, function should be remnoved?
-        NetworkManagerHooks.Instance.HandlePlayerLoaded(this);
-
-        if (prevOwner.IsValid) {
-            ConnectionManager.Instance?.RemovePersistentPlayer(prevOwner, this);
-        }
-
         if (IsOwner) {
-            ConnectionManager.Instance?.AddPersistentPlayer(Owner, this);
+            Username = LobbyManager.Instance?.PlayerName ?? "Dev";
+            HandleConnectedServer(Username);
         }
     }
 
     public void OnDestroy() {
-        RemovePersistentPlayer();
+        HandleDisconnect();
     }
 
     public override void OnStopNetwork() {
-        RemovePersistentPlayer();
+        HandleDisconnect();
     }
 
-    private void RemovePersistentPlayer() {
-        if (LobbyMenu.Instance != null) {
-            //LobbyMenu.Instance.ClientDisconnected(this);
-        }
-
+    private void HandleDisconnect() {
         if (!IsServer) {
             return;
         }
 
-        // update the session manager with the player data
+        ServerConnectionManager.Instance.PlayerDisconnectedServer(OwnerId);
+
+        SessionPlayerData? existingSessionData = ServerConnectionManager.Instance.GetPlayerData(OwnerId);
+        if (existingSessionData != null) {
+            //save the session data
+        }
+    }
+
+    [ServerRpc]
+    private void HandleConnectedServer(string playerId) {
+        if (!IsServer) {
+            return;
+        }
+
+        ServerConnectionManager.Instance.PlayerConnectedServer(OwnerId, playerId, this);
+
+        //existingSessionData = ConnectionManager.instance.GetPlayerData(OwnerId);
+
+        //if (existingSessionData) {
+        //set this player data to the stored value
+
+        // if the character has already spawned
+        // set this' character to that character
+
+        // else
+        // create a new character
+        // update sessionData
+        //}
     }
 
     [Server(Logging = LoggingType.Off)]
     public NetworkStats SpawnServer(Vector3 spawnLocation) {
-        Debug.Log("Spawning on server");
         GameObject prefab = null;
 
         switch (SelectedCharacter) {

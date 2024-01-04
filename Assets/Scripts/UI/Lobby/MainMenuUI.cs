@@ -22,8 +22,8 @@ public class MainMenuUI : MonoBehaviour {
     private void OnEnable() {
         LobbyManager.Instance.OnLoggedIn += HandleLoggedIn;
 
-        NetworkManagerHooks.Instance.OnConnected += HandleJoinedLobby;
-        NetworkManagerHooks.Instance.OnDisconnected += HandleDisconnectLobby;
+        NetworkManagerHooks.Instance.OnClientConnected += HandleJoinedLobby;
+        NetworkManagerHooks.Instance.OnClientDisconnected += HandleDisconnectLobby;
     }
 
     private void OnDisable() {
@@ -32,8 +32,8 @@ public class MainMenuUI : MonoBehaviour {
         }
 
         if (NetworkManagerHooks.Instance) {
-            NetworkManagerHooks.Instance.OnConnected -= HandleJoinedLobby;
-            NetworkManagerHooks.Instance.OnDisconnected -= HandleDisconnectLobby;
+            NetworkManagerHooks.Instance.OnClientConnected -= HandleJoinedLobby;
+            NetworkManagerHooks.Instance.OnClientDisconnected -= HandleDisconnectLobby;
         }
     }
 

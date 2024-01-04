@@ -35,8 +35,13 @@ public class LobbyMenu : Singleton<LobbyMenu> {
     }
 
     private void OnEnable() {
-        NetworkManagerHooks.Instance.OnPlayerLoaded += ClientConnected;
-        NetworkManagerHooks.Instance.OnPlayerDisconnected += ClientDisconnected;
+        if (!ConnectionManager.Instance) {
+            Debug.Log("LobbyMenu - There is no connection manager in the scene!");
+            return;
+        }
+
+        ConnectionManager.Instance.OnPlayerConnected += HandleClientConnected;
+        ConnectionManager.Instance.OnPlayerDisconnected += HandleClientDisconnected;
     }
 
     private void OnDisable() {
@@ -44,20 +49,13 @@ public class LobbyMenu : Singleton<LobbyMenu> {
             return;
         }
 
-        NetworkManagerHooks.Instance.OnPlayerLoaded -= ClientConnected;
-        NetworkManagerHooks.Instance.OnPlayerDisconnected -= ClientDisconnected;
+        ConnectionManager.Instance.OnPlayerConnected -= HandleClientConnected;
+        ConnectionManager.Instance.OnPlayerDisconnected -= HandleClientDisconnected;
     }
 
-    public void ClientConnected(PersistentPlayer player) {
-        HandleClientConnected(player);
-    }
-
-    public void ClientDisconnected(PersistentPlayer player) {
-        HandleClientDisconnected(player);
-    }
-
-    private void HandleClientConnected(PersistentPlayer player) {
+    private void HandleClientConnected(SessionPlayerData playerData) {
         LobbyPlayerCard card = GetNextAvailableCard();
+        PersistentPlayer player = playerData.PersistentPlayer;
 
         if (player.IsOwner) {
             LocalPlayer = player;
@@ -69,13 +67,13 @@ public class LobbyMenu : Singleton<LobbyMenu> {
         }
     }
 
-    private void HandleClientDisconnected(PersistentPlayer player) {
-        if (player == LocalPlayer) {
+    private void HandleClientDisconnected(string playerId) {
+        if (LocalPlayer.Username == playerId) {
             LocalPlayer = null;
         }
 
         foreach (KeyValuePair<LobbyPlayerCard, PersistentPlayer> pair in _connections) {
-            if (pair.Value == player) {
+            if (pair.Value.Username == playerId) {
                 pair.Key.SetPlayer(null);
                 _connections[pair.Key] = null;
                 return;

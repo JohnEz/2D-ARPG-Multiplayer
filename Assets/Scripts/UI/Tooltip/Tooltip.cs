@@ -45,7 +45,7 @@ public class Tooltip : Singleton<Tooltip> {
 
     private bool _isShown;
 
-    private bool _isTransitioning = false;
+    //private bool _isTransitioning = false;
 
     private bool _transitionToState = false;
 

@@ -16,12 +16,12 @@ public class CreateLobbyMenu : MonoBehaviour {
         //TODO fill the input field with the last used username
 
         lobbyNameInput.interactable = true;
-        NetworkManagerHooks.Instance.OnConnected += HandleCreateComplete;
+        NetworkManagerHooks.Instance.OnClientConnected += HandleCreateComplete;
     }
 
     public void OnDisable() {
         if (NetworkManagerHooks.Instance) {
-            NetworkManagerHooks.Instance.OnConnected -= HandleCreateComplete;
+            NetworkManagerHooks.Instance.OnClientConnected -= HandleCreateComplete;
         }
     }
 

@@ -21,8 +21,6 @@ public class LoginMenu : MonoBehaviour {
     }
 
     public void Login() {
-        Debug.Log("Login");
-
         HandleLoginStart();
         LobbyManager.Instance.Authenticate(_usernameInput.text);
     }
