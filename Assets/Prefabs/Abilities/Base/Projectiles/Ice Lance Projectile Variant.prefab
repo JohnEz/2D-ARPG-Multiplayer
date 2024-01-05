@@ -71,8 +71,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2120382511
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Time: 0.2
   m_Parameters:
@@ -238,8 +238,8 @@ VFXRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2120382511
+  m_SortingLayer: 2
   m_SortingOrder: 0
 --- !u!1001 &5852266323488383602
 PrefabInstance:
@@ -335,6 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1eb7c4d35ab7240a365c072ec3813f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterHitVfx: {fileID: 0}
 --- !u!4 &6645909228738890239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 940247426658823053, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
