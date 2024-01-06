@@ -8,7 +8,7 @@ public class ShieldSlamHit : MonoBehaviour {
     private AudioClip _hitSFX;
 
     private const int BASE_DAMAGE = 14;
-    private const float POWER_SCALING = 1f;
+    private const float POWER_SCALING = .2f;
 
     private bool _hasGainedShield = false;
 

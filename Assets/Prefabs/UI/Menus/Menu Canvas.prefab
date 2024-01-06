@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff620ceca0c5024c8bec642fd9f6848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isGlobal: 0
 --- !u!1001 &7182571657821176728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -122,6 +123,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831519357444216978}
     m_Modifications:
+    - target: {fileID: 1081633029953522641, guid: 85076303532792b4c83ebe3b2016053c, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081633029953522641, guid: 85076303532792b4c83ebe3b2016053c, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081633029953522641, guid: 85076303532792b4c83ebe3b2016053c, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1081633029953522646, guid: 85076303532792b4c83ebe3b2016053c, type: 3}
       propertyPath: m_Name
       value: Game Menu
@@ -287,6 +300,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2609980663823251977, guid: 85076303532792b4c83ebe3b2016053c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4317930899026539286, guid: 85076303532792b4c83ebe3b2016053c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4317930899026539286, guid: 85076303532792b4c83ebe3b2016053c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4317930899026539286, guid: 85076303532792b4c83ebe3b2016053c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -467,6 +492,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1415449653044977033, guid: 21a32070e931d144986d595f4ac998c1, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415449653243581203, guid: 21a32070e931d144986d595f4ac998c1, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415449653243581203, guid: 21a32070e931d144986d595f4ac998c1, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415449653243581203, guid: 21a32070e931d144986d595f4ac998c1, type: 3}
+      propertyPath: m_BlocksRaycasts
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1415449653243581230, guid: 21a32070e931d144986d595f4ac998c1, type: 3}

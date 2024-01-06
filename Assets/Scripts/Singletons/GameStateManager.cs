@@ -1,5 +1,6 @@
 using FishNet;
 using FishNet.Managing.Logging;
+using FishNet.Managing.Scened;
 using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,10 +8,14 @@ using System.Linq;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class GameStateManager : Singleton<GameStateManager> {
+public class GameStateManager : NetworkSingleton<GameStateManager> {
+    private bool isGameOver = false;
 
     [SerializeField]
     private List<Transform> _spawnLocations;
+
+    [SerializeField]
+    private GameObject _defeatScreenPrefab;
 
     private int spawnIndex = 0;
 
@@ -55,5 +60,38 @@ public class GameStateManager : Singleton<GameStateManager> {
 
     private void HandlePlayerLoadedScene(SessionPlayerData playerData) {
         SpawnPlayer(playerData.PersistentPlayer);
+    }
+
+    [Server]
+    public void DefeatServer() {
+        if (isGameOver) {
+            return;
+        }
+
+        isGameOver = true;
+
+        DefeatClient();
+    }
+
+    [ObserversRpc]
+    private void DefeatClient() {
+        Instantiate(_defeatScreenPrefab);
+    }
+
+    [Server]
+    public void VictoryServer() {
+        if (isGameOver) {
+            return;
+        }
+
+        isGameOver = true;
+
+        NetworkSceneLoader.Instance.LoadScene("Town");
+        VictoryClient();
+    }
+
+    [ObserversRpc]
+    private void VictoryClient() {
+        //Instantiate(_victoryScreenPrefab);
     }
 }

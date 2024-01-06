@@ -1,4 +1,5 @@
 using FishNet;
+using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
 using System.Collections;
@@ -100,11 +101,13 @@ public class ObjectiveManager : NetworkSingleton<ObjectiveManager> {
         }
     }
 
+    [Server]
     private void Victory() {
-        NetworkSceneLoader.Instance.LoadScene("Town");
+        GameStateManager.Instance.VictoryServer();
     }
 
+    [Server]
     private void Defeat() {
-        NetworkSceneLoader.Instance.LoadScene("Town");
+        GameStateManager.Instance.DefeatServer();
     }
 }

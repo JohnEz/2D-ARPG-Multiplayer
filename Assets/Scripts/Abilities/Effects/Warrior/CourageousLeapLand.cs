@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CourageousLeapLand : TelegraphHitEffect {
-    private const int BASE_DAMAGE = 22;
-    private const float POWER_SCALING = 0.5f;
+    private const int BASE_DAMAGE = 19;
+    private const float POWER_SCALING = 0.3f;
 
     private float _baseValiantDuration = 1f;
 

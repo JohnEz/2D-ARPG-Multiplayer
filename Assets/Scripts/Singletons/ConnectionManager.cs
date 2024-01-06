@@ -48,6 +48,10 @@ public class ConnectionManager : Singleton<ConnectionManager> {
     }
 
     private void OnDisable() {
+        if (!NetworkManagerHooks.Instance) {
+            return;
+        }
+
         NetworkManagerHooks.Instance.OnServerConnected -= HandleConnectedServer;
     }
 
