@@ -565,6 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e25e7aaeda8d54aa19630116155f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isGlobal: 0
   fadeDuration: 0.25
   _anchoredOffset: {x: 2, y: 2}
   _anchoring: 0
@@ -628,7 +629,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935542574104945910}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
