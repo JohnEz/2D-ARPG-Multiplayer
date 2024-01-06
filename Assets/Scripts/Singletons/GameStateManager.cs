@@ -40,10 +40,6 @@ public class GameStateManager : NetworkSingleton<GameStateManager> {
     }
 
     private void OnEnable() {
-        if (!ConnectionManager.Instance) {
-            return;
-        }
-
         // TODO i think this first listener might be dangerous if the player hasnt loaded the scene and is reconnecting
         ConnectionManager.Instance.OnPlayerConnected += HandlePlayerLoadedScene;
         ConnectionManager.Instance.OnPlayerLoadedScene += HandlePlayerLoadedScene;
@@ -51,7 +47,7 @@ public class GameStateManager : NetworkSingleton<GameStateManager> {
 
     private void OnDisable() {
         if (!ConnectionManager.Instance) {
-            return;
+            //return;
         }
 
         ConnectionManager.Instance.OnPlayerConnected -= HandlePlayerLoadedScene;

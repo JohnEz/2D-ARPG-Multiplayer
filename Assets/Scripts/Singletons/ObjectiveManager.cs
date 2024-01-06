@@ -21,6 +21,7 @@ public class ScenarioObjective {
 }
 
 public enum ScenarioObjectiveType {
+    FREE_ROAM,
     KILL_TARGET,
 }
 
