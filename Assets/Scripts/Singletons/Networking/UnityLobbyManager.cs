@@ -85,6 +85,8 @@ public class UnityLobbyManager : LobbyManager {
                 MigrateLobbyHost();
             }
 
+            Debug.Log("Leaving lobby");
+
             // TODO should go in if?
             await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
 

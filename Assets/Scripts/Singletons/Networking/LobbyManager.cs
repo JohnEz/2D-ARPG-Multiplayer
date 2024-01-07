@@ -38,11 +38,8 @@ public class LobbyManager : Singleton<LobbyManager> {
     }
 
     protected virtual void CleanUp() {
-        if (!this.gameObject.scene.isLoaded) {
-            return;
-        }
-
         if (joinedLobby != null) {
+            Debug.Log("No joined lobby to clean up");
             LeaveLobby();
         }
     }
