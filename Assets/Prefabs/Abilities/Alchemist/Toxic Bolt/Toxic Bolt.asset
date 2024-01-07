@@ -24,10 +24,15 @@ MonoBehaviour:
   TimeCast: -Infinity
   TargetGraphics: []
   AiDetails:
-    AbilityRange: 0
-    ProjectileSpeed: 0
+    AbilityRange: 3
+    ProjectileSpeed: 25
     IsSupportAbility: 0
     IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
   Description: Shoots an arrow that deals 12 damage and applies Toxic.
   buffIds:
   - Toxic
+  _isConsumable: 0

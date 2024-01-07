@@ -77,7 +77,7 @@ public class BuffController : NetworkBehaviour {
     private void Update() {
         List<Buff> expiredBuffs = new List<Buff>();
         ActiveBuffs.ForEach(buff => {
-            if (buff != null) {
+            if (buff == null) {
                 return;
             }
 
