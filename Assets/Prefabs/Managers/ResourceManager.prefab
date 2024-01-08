@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b332fc461ef122349b7d2c8d11d14ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isGlobal: 0
   _projectileResources:
   - id: Frostbolt
     prefab: {fileID: 4383211419124462175, guid: fab855985f2f72b4288b02e4dea8d6c6, type: 3}
@@ -115,3 +116,8 @@ MonoBehaviour:
   _persistentAOEResources:
   - id: Healing Goo
     prefab: {fileID: 6044991187181725206, guid: 6dbc05bbe925a80409af3b61408b647c, type: 3}
+  _spawnableCharacterResources:
+  - id: Goblin Healing Totem
+    prefab: {fileID: 7430036101803872282, guid: afe80d293d459c5418d194fcca32cb1e, type: 3}
+  - id: Spiderling
+    prefab: {fileID: 8308748916312066135, guid: 1acbfa7b81154024ab0c932223a4b17a, type: 3}

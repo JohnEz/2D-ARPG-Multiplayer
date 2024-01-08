@@ -35,12 +35,18 @@ public class ResourceManager : Singleton<ResourceManager> {
 
     private Dictionary<string, PersistentAOE> _persistentAOEs = new Dictionary<string, PersistentAOE>();
 
+    [SerializeField]
+    private List<Resource<NetworkStats>> _spawnableCharacterResources;
+
+    private Dictionary<string, NetworkStats> _spawnableCharacters = new Dictionary<string, NetworkStats>();
+
     public void Awake() {
         _projectileResources.ForEach(resource => _projectiles.Add(resource.id, resource.prefab));
         _telegraphResources.ForEach(resource => _telegraphs.Add(resource.id, resource.prefab));
         _buffResources.ForEach(resource => _buffs.Add(resource.id, resource.prefab));
         _slashResources.ForEach(resource => _slashes.Add(resource.id, resource.prefab));
         _persistentAOEResources.ForEach(resource => _persistentAOEs.Add(resource.id, resource.prefab));
+        _spawnableCharacterResources.ForEach(resource => _spawnableCharacters.Add(resource.id, resource.prefab));
     }
 
     public Projectile GetProjectile(string id) {
@@ -61,5 +67,9 @@ public class ResourceManager : Singleton<ResourceManager> {
 
     public PersistentAOE GetPersistentAOE(string id) {
         return _persistentAOEs[id];
+    }
+
+    public NetworkStats GetSpawnableCharacter(string id) {
+        return _spawnableCharacters[id];
     }
 }

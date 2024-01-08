@@ -893,7 +893,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jonesy
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 568f73c2c4d07374f8c058c3220b93bb, type: 2}
   m_sharedMaterial: {fileID: 8406018270425840884, guid: 568f73c2c4d07374f8c058c3220b93bb, type: 2}

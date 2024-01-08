@@ -47,6 +47,5 @@ MonoBehaviour:
   _castCompleteSFX: {fileID: 0}
   _castCompleteVFX: {fileID: 0}
   _nextAbilityEffect: {fileID: 0}
-  projectileId: 
-  _targetsLocation: 0
-  telegraphId: 
+  _spawnCharacterId: Goblin Healing Totem
+  _spawnCount: 1
