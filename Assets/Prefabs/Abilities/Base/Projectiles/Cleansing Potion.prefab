@@ -318,6 +318,8 @@ MonoBehaviour:
   onCreateSFX: {fileID: 0}
   onHitVFXPrefab: {fileID: 3105081040855368836, guid: e1caf2a69a7932a4fa3fb374478c505e, type: 3}
   onHitSFX: {fileID: 8300000, guid: 131e3344714ffb148a4cef78fd3c48f1, type: 3}
+  onHitSFXs:
+  - {fileID: 8300000, guid: 131e3344714ffb148a4cef78fd3c48f1, type: 3}
   _timeToHitLocation: 0.55
   movementCurve:
     serializedVersion: 2

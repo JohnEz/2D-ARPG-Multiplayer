@@ -5122,6 +5122,14 @@ PrefabInstance:
       propertyPath: onHitVFXPrefab
       value: 
       objectReference: {fileID: 8999511168179259199, guid: 2e4a8d5aee7353843806b70e3d66961b, type: 3}
+    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+      propertyPath: onHitSFXs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+      propertyPath: onHitSFXs.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: c88d2673ef9df00418adfbc57034f528, type: 3}
     - target: {fileID: 7230630703061844008, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
       propertyPath: m_Name
       value: Frostbolt Projectile Variant

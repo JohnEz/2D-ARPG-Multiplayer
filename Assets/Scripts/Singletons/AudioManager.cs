@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
@@ -22,8 +23,20 @@ public class AudioManager : Singleton<AudioManager> {
     [SerializeField]
     private AudioMixerGroup sfxMixer;
 
+    private AudioClip GetRandomClip(List<AudioClip> clips) {
+        int randomIndex = Random.Range(0, clips.Count);
+        return clips[randomIndex];
+    }
+
     public void PlaySound(AudioClip clip, AudioClipOptions options = null) {
         PlaySound(clip, Camera.main.transform, options);
+    }
+
+    public void PlaySound(List<AudioClip> clips, Vector3 worldPosition, AudioClipOptions options = null) {
+        //get a random sound clip
+        var clip = GetRandomClip(clips);
+
+        PlaySound(clip, worldPosition, options);
     }
 
     public void PlaySound(AudioClip clip, Vector3 worldPosition, AudioClipOptions options = null) {

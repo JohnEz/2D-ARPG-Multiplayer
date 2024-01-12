@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 2120382511
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ed103b65577e00a4094acfaa0696e449, type: 3}
   m_Color: {r: 0.41714135, g: 0.8113208, b: 0.53561884, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -281,11 +281,7 @@ PrefabInstance:
     - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
       propertyPath: onHitSFX
       value: 
-      objectReference: {fileID: 8300000, guid: 7dcda0be336bb6b46bee7238fc765adf, type: 3}
-    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
-      propertyPath: onCreateSFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 8bb57f4f487279e4b92596e4e59fe9df, type: 3}
+      objectReference: {fileID: 8300000, guid: 1ea42b046863af54880905685320a8c6, type: 3}
     - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
       propertyPath: onHitVFXPrefab
       value: 
@@ -294,12 +290,46 @@ PrefabInstance:
       propertyPath: _baseMaxDistance
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+      propertyPath: onHitSFXs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+      propertyPath: onHitSFXs.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1ea42b046863af54880905685320a8c6, type: 3}
+    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+      propertyPath: onHitSFXs.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 22ba6d4c4d9597c44997c8d63ff0983c, type: 3}
+    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+      propertyPath: onHitSFXs.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: d4c3912f6398fdd43ab8b41c5a0bcf84, type: 3}
     - target: {fileID: 7230630703061844008, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
       propertyPath: m_Name
       value: Venom Spit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+--- !u!1 &2369771810764234109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7230630703061844008, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+  m_PrefabInstance: {fileID: 4952625575905647957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6932598298783558807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2369771810764234109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 979a61945574d32478aae5a6655af0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterHitVfx: {fileID: 0}
 --- !u!4 &5311763441804359384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 940247426658823053, guid: d96d976afe0358b4b9926e73171b877a, type: 3}

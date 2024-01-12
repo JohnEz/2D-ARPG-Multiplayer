@@ -1,6 +1,6 @@
 ﻿using FishNet;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour {
     private GameObject onHitVFXPrefab;
 
     [SerializeField]
-    private AudioClip onHitSFX;
+    private List<AudioClip> onHitSFXs;
 
     private void Awake() {
         _body = GetComponent<Rigidbody2D>();
@@ -89,7 +89,7 @@ public class Projectile : MonoBehaviour {
             hitVFX.transform.rotation = transform.rotation;
         }
 
-        if (onHitSFX) {
+        if (onHitSFXs.Count > 0) {
             AudioClipOptions options = new AudioClipOptions();
 
             if (isExpired) {
@@ -97,7 +97,7 @@ public class Projectile : MonoBehaviour {
                 options.Pitch = 0.75f;
             }
 
-            AudioManager.Instance.PlaySound(onHitSFX, transform.position, options);
+            AudioManager.Instance.PlaySound(onHitSFXs, transform.position, options);
         }
     }
 

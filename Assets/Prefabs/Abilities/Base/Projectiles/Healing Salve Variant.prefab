@@ -286,6 +286,14 @@ PrefabInstance:
       propertyPath: onHitVFXPrefab
       value: 
       objectReference: {fileID: 2923128738963998858, guid: adf3e9407e66b72469061d4f3b279e4d, type: 3}
+    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+      propertyPath: onHitSFXs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
+      propertyPath: onHitSFXs.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8c24cec402ace5b4390b4c27333e69fd, type: 3}
     - target: {fileID: 7230630703061844008, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
       propertyPath: m_Name
       value: Healing Salve Variant

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ccf476524c950469cba00a1014116c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _castCompleteSFX: {fileID: 0}
+  _castCompleteSFX: {fileID: 8300000, guid: abf30b7f3eeb2564db024458a4361bdc, type: 3}
   _castCompleteVFX: {fileID: 0}
   _nextAbilityEffect: {fileID: 8270326709207089226, guid: 85395cee7ed8f754d9553cccc2f07c6b, type: 3}
   _spawnCharacterId: Spiderling

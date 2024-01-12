@@ -30,7 +30,7 @@ PrefabInstance:
     - target: {fileID: 2289821241675693025, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
       propertyPath: _abilityPrefabList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 28511e1dbc611a9469bd62c13982f0de, type: 2}
+      objectReference: {fileID: 11400000, guid: bc62d18728942dc4485a4d5fec1d02a7, type: 2}
     - target: {fileID: 3877913632205126890, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
       propertyPath: _scenePathHash
       value: 0
