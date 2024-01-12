@@ -7,8 +7,7 @@ public class ShieldSlamHit : MonoBehaviour {
     [SerializeField]
     private AudioClip _hitSFX;
 
-    private const int BASE_DAMAGE = 14;
-    private const float POWER_SCALING = .2f;
+    private const float POWER_SCALING = 1.6f;
 
     private bool _hasGainedShield = false;
 
@@ -27,7 +26,7 @@ public class ShieldSlamHit : MonoBehaviour {
 
         AudioManager.Instance.PlaySound(_hitSFX, hitLocation);
 
-        caster.DealDamageTo(gameObject.name, hitCharacter, BASE_DAMAGE, POWER_SCALING);
+        caster.DealDamageTo(gameObject.name, hitCharacter, POWER_SCALING);
 
         BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
         BuffController casterBuffController = caster.GetComponent<BuffController>();

@@ -25,7 +25,8 @@ MonoBehaviour:
   applyVFX: {fileID: 0}
   expireVFX: {fileID: 0}
   _statMods:
-  - _value: 20
+  - _value: 0
+    powerScale: 2
     Type: 0
     Stat: 1
   _expireEffect: {fileID: 0}

@@ -3,8 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PredictedTelegraph))]
 public class Coldsnap : TelegraphHitEffect {
-    private const int BASE_DAMAGE = 14;
-    private const float POWER_SCALING = 0.25f;
+    private const float POWER_SCALING = 1.6f;
 
     private const float CHILL_DURATION = 2.5f;
 
@@ -16,7 +15,7 @@ public class Coldsnap : TelegraphHitEffect {
         BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
         BuffController casterBuffController = caster.GetComponent<BuffController>();
 
-        caster.DealDamageTo(gameObject.name, hitCharacter, BASE_DAMAGE, POWER_SCALING);
+        caster.DealDamageTo(gameObject.name, hitCharacter, POWER_SCALING);
 
         if (hitBuffController.HasBuff(DEBUFF)) {
             hitBuffController.ServerRemoveBuff(DEBUFF);

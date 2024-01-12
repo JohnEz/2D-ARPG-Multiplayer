@@ -2,8 +2,7 @@
 using UnityEngine;
 
 public class GoblinSlash : MonoBehaviour {
-    private const int BASE_DAMAGE = 8;
-    private const float POWER_SCALING = .2f;
+    private const float POWER_SCALING = 1f;
 
     private void OnEnable() {
         GetComponent<PredictedSlash>().OnHit += HandleCharacterHit;
@@ -14,6 +13,6 @@ public class GoblinSlash : MonoBehaviour {
     }
 
     private void HandleCharacterHit(Vector3 Location, NetworkStats caster, NetworkStats hitCharacter) {
-        caster.DealDamageTo(gameObject.name, hitCharacter, BASE_DAMAGE, POWER_SCALING);
+        caster.DealDamageTo(gameObject.name, hitCharacter, POWER_SCALING);
     }
 }

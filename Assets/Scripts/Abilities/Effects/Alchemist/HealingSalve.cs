@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealingSalve : ProjectileHitEffect {
-    private const int BASE_HEALING = 7;
-    private const float POWER_SCALING = .75f;
+    private const float POWER_SCALING = 1.4f;
 
     private const string BUFF = "Rejuvenation";
     private const string BUFF2 = "Rejuvenation II";
@@ -46,6 +45,6 @@ public class HealingSalve : ProjectileHitEffect {
             casterBuffController.ApplyBuffTo(hitBuffController, BUFF);
         }
 
-        caster.GiveHealingTo(gameObject.name, hitTarget, BASE_HEALING, POWER_SCALING);
+        caster.GiveHealingTo(gameObject.name, hitTarget, POWER_SCALING);
     }
 }

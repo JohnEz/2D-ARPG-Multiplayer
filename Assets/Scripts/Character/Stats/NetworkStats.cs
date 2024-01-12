@@ -234,8 +234,8 @@ public class NetworkStats : NetworkBehaviour {
         return Math.Clamp(newHealth + healableHealth, 0, (int)MaxHealth.CurrentValue);
     }
 
-    public void DealDamageTo(string spellId, NetworkStats target, int baseDamage, float powerScaling) {
-        int damage = GetDamage(baseDamage, powerScaling);
+    public void DealDamageTo(string spellId, NetworkStats target, float powerScaling) {
+        int damage = GetDamage(powerScaling);
 
         target.TakeDamage(spellId, this, damage);
     }
@@ -262,8 +262,8 @@ public class NetworkStats : NetworkBehaviour {
         SetHealthServer(_currentHealth + healing);
     }
 
-    public void GiveHealingTo(string spellId, NetworkStats target, int baseHealing, float powerScaling, bool isTrueHealing = false) {
-        int healing = GetDamage(baseHealing, powerScaling);
+    public void GiveHealingTo(string spellId, NetworkStats target, float powerScaling, bool isTrueHealing = false) {
+        int healing = GetHealing(powerScaling);
 
         target.ReceiveHealing(spellId, this, healing, isTrueHealing);
     }
@@ -285,8 +285,16 @@ public class NetworkStats : NetworkBehaviour {
 
     #region Modifier functions
 
-    public int GetDamage(int baseDamage, float powerScaling) {
-        return baseDamage + (int)(powerScaling * Power.CurrentValue);
+    public int GetPowerScaledValue(float powerScaling) {
+        return (int)(powerScaling * Power.CurrentValue);
+    }
+
+    public int GetDamage(float powerScaling) {
+        return GetPowerScaledValue(powerScaling);
+    }
+
+    public int GetHealing(float powerScaling) {
+        return GetPowerScaledValue(powerScaling);
     }
 
     public SyncedCharacterStat GetCharacterStat(StatType stat) {

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CourageousLeapLand : TelegraphHitEffect {
-    private const int BASE_DAMAGE = 19;
-    private const float POWER_SCALING = 0.3f;
+    private const float POWER_SCALING = 1.8f;
 
     private float _baseValiantDuration = 1f;
 
@@ -33,6 +32,6 @@ public class CourageousLeapLand : TelegraphHitEffect {
     protected override void HandleCharacterHit(NetworkStats caster, NetworkStats hitCharacter) {
         base.HandleCharacterHit(caster, hitCharacter);
 
-        caster.DealDamageTo(gameObject.name, hitCharacter, BASE_DAMAGE, POWER_SCALING);
+        caster.DealDamageTo(gameObject.name, hitCharacter, POWER_SCALING);
     }
 }

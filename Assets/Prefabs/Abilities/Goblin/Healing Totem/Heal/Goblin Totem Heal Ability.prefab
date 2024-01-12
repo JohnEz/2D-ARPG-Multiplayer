@@ -49,8 +49,9 @@ MonoBehaviour:
   _nextAbilityEffect: {fileID: 0}
   _radius: 10
   BASE_HEALING: 10
-  POWER_SCALING: 0
+  POWER_SCALING: 2
   _canHitCaster: 0
   _canHitAlly: 1
   _canHitEnemy: 0
   _characterHitVfx: {fileID: 6762083383415996051, guid: 4e41c3153bcaa764794131e1b774f0d2, type: 3}
+  isTrueHealing: 0

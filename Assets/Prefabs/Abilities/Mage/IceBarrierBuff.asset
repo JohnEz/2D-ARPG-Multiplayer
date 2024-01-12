@@ -25,7 +25,8 @@ MonoBehaviour:
   applyVFX: {fileID: 5277472720557037422, guid: c1012d090c8671e419e810ca239c9045, type: 3}
   expireVFX: {fileID: 2324499392439472971, guid: 8882d1dc514966e48a490642ffed431a, type: 3}
   _statMods:
-  - _value: 24
+  - _value: 0
+    powerScale: 2.4
     Type: 0
     Stat: 1
   _expireEffect: {fileID: 5392340010105657957, guid: bb8aebae320c893428471bd46e166b81, type: 3}

@@ -10,9 +10,6 @@ public class AoeHeal : AbilityEffect {
     private float _radius = 2f;
 
     [SerializeField]
-    private int BASE_HEALING = 0;
-
-    [SerializeField]
     private float POWER_SCALING = 0f;
 
     [SerializeField]
@@ -33,20 +30,18 @@ public class AoeHeal : AbilityEffect {
     public override void OnCastComplete(bool isOwner) {
         base.OnCastComplete(isOwner);
 
-        if (InstanceFinder.IsServer) {
-            Vector3 targetLocation = _caster.transform.position;
+        Vector3 targetLocation = _caster.transform.position;
 
-            List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(targetLocation, _radius, _caster, _canHitCaster, _canHitEnemy, _canHitAlly);
+        List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(targetLocation, _radius, _caster, _canHitCaster, _canHitEnemy, _canHitAlly);
 
-            hitTargets.ForEach(hitTarget => {
-                _caster.GiveHealingTo(gameObject.name, hitTarget, BASE_HEALING, POWER_SCALING, isTrueHealing);
+        hitTargets.ForEach(hitTarget => {
+            _caster.GiveHealingTo(gameObject.name, hitTarget, POWER_SCALING, isTrueHealing);
 
-                if (_characterHitVfx) {
-                    GameObject hitVFX = Instantiate(_characterHitVfx, hitTarget.transform);
-                    hitVFX.transform.position = hitTarget.transform.position;
-                }
-            });
-        }
+            if (_characterHitVfx) {
+                GameObject hitVFX = Instantiate(_characterHitVfx, hitTarget.transform);
+                hitVFX.transform.position = hitTarget.transform.position;
+            }
+        });
 
         Destroy(gameObject);
     }

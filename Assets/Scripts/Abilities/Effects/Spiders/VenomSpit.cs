@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 public class VenomSpit : ProjectileHitEffect {
-    private const int BASE_DAMAGE = 3;
-    private const float POWER_SCALING = .1f;
+    private const float POWER_SCALING = .4f;
 
     private const float ADDED_BUFF_DURATION = .75f;
 
@@ -20,6 +19,6 @@ public class VenomSpit : ProjectileHitEffect {
             casterBuffController.ApplyBuffTo(hitBuffController, BUFF, 1f);
         }
 
-        caster.DealDamageTo(gameObject.name, hitCharacter, BASE_DAMAGE, POWER_SCALING);
+        caster.DealDamageTo(gameObject.name, hitCharacter, POWER_SCALING);
     }
 }

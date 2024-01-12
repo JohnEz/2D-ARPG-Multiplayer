@@ -7,13 +7,9 @@ using static Pathfinding.Util.RetainedGizmos;
 public class ChallengingShout : AbilityEffect {
     private float _radius = 5f;
 
-    private int _additionalAggro = 10;
+    private const float AGGRO_POWER_SCALING = 2.4f;
 
-    private const float AGGRO_POWER_SCALING = 1.4f;
-
-    private const int BASE_DAMAGE = 5;
-
-    private const float DAMAGE_POWER_SCALING = .1f;
+    private const float DAMAGE_POWER_SCALING = .6f;
 
     private float _baseValiantDuration = 1f;
 
@@ -28,10 +24,10 @@ public class ChallengingShout : AbilityEffect {
 
         List<NetworkStats> hitTargets = PredictedTelegraph.GetCircleHitTargets(targetLocation, _radius, _caster, false, true, false);
 
-        int scaledAdditionalAggro = _caster.GetDamage(_additionalAggro, AGGRO_POWER_SCALING);
+        int scaledAdditionalAggro = _caster.GetPowerScaledValue(AGGRO_POWER_SCALING);
 
         hitTargets.ForEach(hitTarget => {
-            _caster.DealDamageTo(gameObject.name, hitTarget, BASE_DAMAGE, DAMAGE_POWER_SCALING);
+            _caster.DealDamageTo(gameObject.name, hitTarget, DAMAGE_POWER_SCALING);
 
             if (InstanceFinder.IsServer) {
                 AiBrain aiBrain = hitTarget.GetComponent<AiBrain>();

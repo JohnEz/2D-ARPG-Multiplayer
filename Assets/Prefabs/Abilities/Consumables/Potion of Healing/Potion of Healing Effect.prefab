@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4161319654811375423}
-  - component: {fileID: -1062075835805383663}
+  - component: {fileID: -8209198904153025797}
   m_Layer: 0
   m_Name: Potion of Healing Effect
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1062075835805383663
+--- !u!114 &-8209198904153025797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,17 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6275213758318686426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b86e4dc745abe346a448ae72bad02be, type: 3}
+  m_Script: {fileID: 11500000, guid: be5a269ee66aa074e89b00ac98b56597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _castCompleteSFX: {fileID: 0}
   _castCompleteVFX: {fileID: 0}
   _nextAbilityEffect: {fileID: 0}
-  _radius: 1
-  BASE_HEALING: 40
-  POWER_SCALING: 0
-  _canHitCaster: 1
-  _canHitAlly: 0
-  _canHitEnemy: 0
-  _characterHitVfx: {fileID: 0}
+  HEALING: 40
+  _characterHitVfx: {fileID: 6762083383415996051, guid: 4e41c3153bcaa764794131e1b774f0d2, type: 3}
   isTrueHealing: 1
