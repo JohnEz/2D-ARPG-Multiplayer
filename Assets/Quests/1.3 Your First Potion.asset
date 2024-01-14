@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b57627ca63bfa644090d6b0c00048835, type: 3}
-  m_Name: 0. DevRoom
+  m_Name: 1.3 Your First Potion
   m_EditorClassIdentifier: 
-  ID: DEV_ROOM
-  Title: Dev Room
-  Description: A level to test things
+  ID: YOUR_FIRST_POTION
+  Title: Your First Potion
+  Description: Now I've got my shop set up, you are welcome to use my tools but you
+    will have to find your own ingredients. Bring me a peacebloom and ill teach you.
   Objectives:
-  - Dev stuff
-  sceneName: DevRoom
-  RecommendedLevel: 1
-  MaxPlayers: 2
+  - Find a Peacebloom
+  sceneName: Your First Potion
+  RecommendedLevel: 2
+  MaxPlayers: 4
   MinPlayers: 1
+  RequiredQuests:
+  - ALCHEMIST_BASEMENT

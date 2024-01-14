@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b57627ca63bfa644090d6b0c00048835, type: 3}
-  m_Name: 1. Echo Ridge Cave
+  m_Name: 0 DevRoom
   m_EditorClassIdentifier: 
-  ID: ECHO_RIDGE_CAVE
-  Title: Echo Ridge Cave
-  Description: A clan of goblins have been raiding nearby farms and we need to put
-    a stop to it. Farmer Veven said he saw them heading to Echo Ridge Cave after
-    one of their raids. Kill their leader Gliark the Big and the rest will scatter.
+  ID: DEV_ROOM
+  Title: Dev Room
+  Description: A level to test things
   Objectives:
-  - Kill Gliak the Big
-  sceneName: Echo Ridge Cave
+  - Dev stuff
+  sceneName: DevRoom
   RecommendedLevel: 1
-  MaxPlayers: 4
+  MaxPlayers: 2
   MinPlayers: 1

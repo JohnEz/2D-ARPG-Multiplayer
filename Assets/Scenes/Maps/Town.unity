@@ -171,8 +171,8 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 106397560
-  <SceneId>k__BackingField: 456974044801375896
+  _scenePathHash: 2746513586
+  <SceneId>k__BackingField: 11796186033137161327
   <AssetPathHash>k__BackingField: 0
 --- !u!4 &115861869
 Transform:
@@ -206,6 +206,10 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 115861867}
   _quests:
   - {fileID: 11400000, guid: 28e173bb11e50534c9ae0fe9912faa35, type: 2}
+  - {fileID: 11400000, guid: 9e11b57c3416bdb4a8691ca75c1c6ebf, type: 2}
+  - {fileID: 11400000, guid: 11bf4908a0c626345920e73800fa965a, type: 2}
+  - {fileID: 11400000, guid: a28d29041f31eaf47af5291d49f5475f, type: 2}
+  - {fileID: 11400000, guid: b68f45fcc19c1a1439373d93705bb23b, type: 2}
   - {fileID: 11400000, guid: 1a39317cfee06b041bbf27f254074236, type: 2}
   _selectedQuestIndex: -1
 --- !u!1 &169699812

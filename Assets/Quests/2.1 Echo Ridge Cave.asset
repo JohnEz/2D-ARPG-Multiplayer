@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57627ca63bfa644090d6b0c00048835, type: 3}
+  m_Name: 2.1 Echo Ridge Cave
+  m_EditorClassIdentifier: 
+  ID: ECHO_RIDGE_CAVE
+  Title: Echo Ridge Cave
+  Description: A clan of goblins have been raiding nearby farms and we need to put
+    a stop to it. Farmer Veven said he saw them heading to Echo Ridge Cave after
+    one of their raids. Kill their leader Gliark the Big and the rest will scatter.
+  Objectives:
+  - Kill Gliak the Big
+  sceneName: Echo Ridge Cave
+  RecommendedLevel: 2
+  MaxPlayers: 4
+  MinPlayers: 1
+  RequiredQuests:
+  - ALCHEMIST_BASEMENT
+  - HAMMER_HEIST

@@ -14,4 +14,6 @@ public class Quest : ScriptableObject {
     public int RecommendedLevel = 1;
     public int MaxPlayers = 4;
     public int MinPlayers = 1;
+
+    public List<string> RequiredQuests = new();
 }
