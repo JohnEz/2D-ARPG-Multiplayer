@@ -1,57 +1,73 @@
 using FishNet;
-using FishNet.Managing.Logging;
-using FishNet.Managing.Scened;
 using FishNet.Object;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class GameStateManager : NetworkSingleton<GameStateManager> {
     private bool isGameOver = false;
 
-    [SerializeField]
-    private List<Transform> _spawnLocations;
+    public bool IsGameOver { get { return isGameOver; } }
 
     [SerializeField]
     private GameObject _defeatScreenPrefab;
-
-    private int spawnIndex = 0;
 
     private List<NetworkStats> _players = new();
 
     public List<NetworkStats> Players { get { return _players; } }
 
-    private void SpawnPlayer(PersistentPlayer player) {
+    private void SpawnPlayer(PersistentPlayer persistentPlayer) {
         if (!InstanceFinder.IsServer) {
             return;
         }
 
-        if (!player) {
+        if (!persistentPlayer) {
             Debug.LogError("No persistent player given to SpawnPlayer");
             return;
         }
 
-        NetworkStats spawnedPlayer = player.SpawnServer(_spawnLocations[spawnIndex].position);
-        spawnIndex = (spawnIndex + 1) % _spawnLocations.Count;
+        var existingPlayer = _players.Find(player => player.OwnerId == persistentPlayer.OwnerId);
+
+        if (existingPlayer) {
+            Debug.Log("Player already has a spawned character");
+            return;
+        }
+
+        NetworkStats spawnedPlayer = persistentPlayer.SpawnServer(SpawnLocations.Instance.GetNextSpawnLocation().position);
 
         _players.Add(spawnedPlayer);
     }
 
     private void OnEnable() {
+        if (!InstanceFinder.IsServer) {
+            return;
+        }
+
         // TODO i think this first listener might be dangerous if the player hasnt loaded the scene and is reconnecting
         ConnectionManager.Instance.OnPlayerConnected += HandlePlayerLoadedScene;
+        // TODO we are now loading multiple scenes at the same time and this is causing issues, maybe i only fire the event when the main scene loads
         ConnectionManager.Instance.OnPlayerLoadedScene += HandlePlayerLoadedScene;
+
+        NetworkSceneLoader.Instance.OnSceneLoadStart += HandleLoadSceneStart;
     }
 
     private void OnDisable() {
-        if (!ConnectionManager.Instance) {
-            //return;
+        if (!InstanceFinder.IsServer) {
+            return;
         }
 
-        ConnectionManager.Instance.OnPlayerConnected -= HandlePlayerLoadedScene;
-        ConnectionManager.Instance.OnPlayerLoadedScene -= HandlePlayerLoadedScene;
+        if (ConnectionManager.Instance) {
+            ConnectionManager.Instance.OnPlayerConnected -= HandlePlayerLoadedScene;
+            ConnectionManager.Instance.OnPlayerLoadedScene -= HandlePlayerLoadedScene;
+        }
+
+        if (NetworkSceneLoader.Instance) {
+            NetworkSceneLoader.Instance.OnSceneLoadStart -= HandleLoadSceneStart;
+        }
+    }
+
+    private void HandleLoadSceneStart() {
+        _players.Clear();
+        isGameOver = false;
     }
 
     private void HandlePlayerLoadedScene(SessionPlayerData playerData) {
@@ -69,8 +85,9 @@ public class GameStateManager : NetworkSingleton<GameStateManager> {
         DefeatClient();
     }
 
-    [ObserversRpc]
+    [ObserversRpc(RunLocally = true)]
     private void DefeatClient() {
+        Debug.Log("Spawning defeat screen");
         Instantiate(_defeatScreenPrefab);
     }
 
@@ -82,7 +99,7 @@ public class GameStateManager : NetworkSingleton<GameStateManager> {
 
         isGameOver = true;
 
-        NetworkSceneLoader.Instance.LoadScene("Town");
+        NetworkSceneLoader.Instance.LoadGameLevel("Town");
         VictoryClient();
     }
 

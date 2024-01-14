@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.XR;
 
 [Serializable]
 public struct MenuData {
@@ -40,6 +41,11 @@ public class MenuManager : Singleton<MenuManager> {
         menuData.Panel.SetPanelEnabled(false, false);
         _menus.Add(menuData.ID, menuData);
 
+        return true;
+    }
+
+    public bool UnregisterMenu(string menuId) {
+        _menus.Remove(menuId);
         return true;
     }
 

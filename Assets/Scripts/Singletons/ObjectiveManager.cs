@@ -48,12 +48,21 @@ public class ObjectiveManager : NetworkSingleton<ObjectiveManager> {
             return;
         }
 
+        if (GameStateManager.Instance || GameStateManager.Instance.IsGameOver) {
+            return;
+        }
+
         if (AreAllPlayersDead()) {
             Defeat();
         }
     }
 
     private bool AreAllPlayersDead() {
+        if (!GameStateManager.Instance) {
+            Debug.Log("No gamestate manager");
+            return false;
+        }
+
         return GameStateManager.Instance.Players.Count > 0 && GameStateManager.Instance.Players.Find(player => player.CurrentHealth > 0) == null;
     }
 

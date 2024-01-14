@@ -137,6 +137,6 @@ public class LobbyMenu : Singleton<LobbyMenu> {
 
     [Server(Logging = LoggingType.Off)]
     private void LoadGame() {
-        NetworkSceneLoader.Instance.LoadScene("Town");
+        NetworkSceneLoader.Instance.LoadGameLevel("Town");
     }
 }

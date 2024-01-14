@@ -9,6 +9,7 @@ using Unity.Networking.Transport.Relay;
 using FishNet.Transporting.UTP;
 using static System.Net.WebRequestMethods;
 using System;
+using FishNet;
 
 public class UnityRelayManager : RelayManager {
 
@@ -27,7 +28,7 @@ public class UnityRelayManager : RelayManager {
     public override async Task<string> CreateRelay(string playerId) {
         SetConnectionPayload(playerId);
 
-        var utp = (FishyUnityTransport)_networkManager.TransportManager.Transport;
+        var utp = (FishyUnityTransport)InstanceFinder.NetworkManager.TransportManager.Transport;
 
         try {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
@@ -37,9 +38,9 @@ public class UnityRelayManager : RelayManager {
             utp.SetRelayServerData(new RelayServerData(allocation, "dtls"));
 
             // Start Server Connection
-            _networkManager.ServerManager.StartConnection();
+            InstanceFinder.NetworkManager.ServerManager.StartConnection();
             // Start Client Connection
-            _networkManager.ClientManager.StartConnection();
+            InstanceFinder.NetworkManager.ClientManager.StartConnection();
 
             return joinCode;
         } catch (RelayServiceException e) {
@@ -51,14 +52,14 @@ public class UnityRelayManager : RelayManager {
     public override async Task<bool> JoinRelay(string joinCode, string playerId) {
         SetConnectionPayload(playerId);
 
-        var utp = (FishyUnityTransport)_networkManager.TransportManager.Transport;
+        var utp = (FishyUnityTransport)InstanceFinder.NetworkManager.TransportManager.Transport;
 
         try {
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
             utp.SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
 
-            return _networkManager.ClientManager.StartConnection();
+            return InstanceFinder.NetworkManager.ClientManager.StartConnection();
         } catch (RelayServiceException e) {
             print(e);
             return false;

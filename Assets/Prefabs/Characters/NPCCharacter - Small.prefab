@@ -9,15 +9,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 152614098553520114, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Radius
-      value: 0.25
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: <PrefabId>k__BackingField
-      value: 12
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
       value: 16356570382045450492
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526138517799695465, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_Mass
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 3875263173456399388, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Sprite

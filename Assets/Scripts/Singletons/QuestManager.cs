@@ -24,6 +24,24 @@ public class QuestManager : NetworkSingleton<QuestManager> {
 
     private bool _isLoadingScene = false;
 
+    private void OnEnable() {
+        ConnectionManager.Instance.OnPlayerLoadedScene += HandlePlayerLoadedScene;
+    }
+
+    private void OnDisable() {
+        if (!ConnectionManager.Instance) {
+            return;
+        }
+
+        ConnectionManager.Instance.OnPlayerLoadedScene -= HandlePlayerLoadedScene;
+    }
+
+    private void HandlePlayerLoadedScene(SessionPlayerData playerData) {
+        if (playerData.PersistentPlayer.IsOwner) {
+            _isLoadingScene = false;
+        }
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void SelectQuest(string questId) {
         int index = _quests.FindIndex(quest => quest.ID == questId);
@@ -70,6 +88,6 @@ public class QuestManager : NetworkSingleton<QuestManager> {
         // check if all players are in the area
         // bring up error message
 
-        NetworkSceneLoader.Instance.LoadScene(quest.sceneName);
+        NetworkSceneLoader.Instance.LoadGameLevel(quest.sceneName);
     }
 }

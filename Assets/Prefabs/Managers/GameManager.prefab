@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5902003240485607153}
   - component: {fileID: 3081724197393153790}
-  - component: {fileID: 8305106647772638019}
   - component: {fileID: 723603734855430841}
   m_Layer: 0
   m_Name: GameManager
@@ -49,24 +48,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 723603734855430841}
   _networkObjectCache: {fileID: 723603734855430841}
-  _spawnLocations: []
   _defeatScreenPrefab: {fileID: 6893788921697797413, guid: 540f4a65e36be80449198b70f155e137, type: 3}
---- !u!114 &8305106647772638019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8809204056719896565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38bb6076f60a7e40844e13fd9483e43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 723603734855430841}
-  _networkObjectCache: {fileID: 723603734855430841}
-  _objectives: []
 --- !u!114 &723603734855430841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +66,7 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 3081724197393153790}
-  - {fileID: 8305106647772638019}
+  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:

@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class RelayManager : Singleton<RelayManager> {
 
-    [SerializeField]
-    protected NetworkManager _networkManager;
-
     public virtual Task<string> CreateRelay(string playerId) {
         return null;
     }

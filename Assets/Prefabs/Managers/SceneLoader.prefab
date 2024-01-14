@@ -48,7 +48,6 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 217246353064596688}
   _networkObjectCache: {fileID: 217246353064596688}
-  _fadeAnimator: {fileID: 0}
 --- !u!114 &217246353064596688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +78,6 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 106397560
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 16280065130518904212

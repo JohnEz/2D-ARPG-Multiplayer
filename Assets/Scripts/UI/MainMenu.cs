@@ -13,7 +13,8 @@ public class MainMenu : Menu {
     }
 
     public void ExitScenario() {
-        NetworkSceneLoader.Instance.LoadScene("Town");
+        NetworkSceneLoader.Instance.LoadGameLevel("Town");
+        MenuManager.Instance.CloseCurrentMenu();
     }
 
     public void ExitGame() {

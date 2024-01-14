@@ -65,6 +65,7 @@ public class ConnectionManager : Singleton<ConnectionManager> {
     }
 
     public void PlayerConnected(SessionPlayerData playerData) {
+        Debug.Log($"Player connected, playerName: {playerData.PlayerName}");
         OnPlayerConnected?.Invoke(playerData);
     }
 
@@ -78,6 +79,7 @@ public class ConnectionManager : Singleton<ConnectionManager> {
     }
 
     public void PlayerLoadedScene(SessionPlayerData playerData) {
+        Debug.Log($"Player loaded scene, playerName: {playerData.PlayerName}");
         OnPlayerLoadedScene?.Invoke(playerData);
     }
 

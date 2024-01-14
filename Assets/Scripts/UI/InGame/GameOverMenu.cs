@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameOverMenu : MonoBehaviour {
 
     public void BackToTown() {
-        NetworkSceneLoader.Instance.LoadScene("Town");
+        NetworkSceneLoader.Instance.LoadGameLevel("Town");
     }
 
     public void Retry() {

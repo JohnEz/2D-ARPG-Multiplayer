@@ -21,8 +21,22 @@ public class MovementController : MonoBehaviour {
         _myStats = GetComponent<NetworkStats>();
         _stateController = GetComponent<CharacterStateController>();
         _castController = GetComponent<CastController>();
+    }
+
+    private void OnEnable() {
+        if (!InstanceFinder.TimeManager) {
+            return;
+        }
 
         InstanceFinder.TimeManager.OnTick += Move;
+    }
+
+    private void OnDisable() {
+        if (!InstanceFinder.TimeManager) {
+            return;
+        }
+
+        InstanceFinder.TimeManager.OnTick -= Move;
     }
 
     private void FixedUpdate() {

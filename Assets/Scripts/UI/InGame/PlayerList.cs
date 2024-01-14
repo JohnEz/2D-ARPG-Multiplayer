@@ -52,6 +52,7 @@ public class PlayerList : MonoBehaviour {
     }
 
     private void AddPlayerTile(SessionPlayerData playerData) {
+        Debug.Log("Adding player tile");
         PlayerTile tile = Instantiate(_playerTilePrefab, _listTransform);
         tile.SetPlayer(playerData.PersistentPlayer);
 

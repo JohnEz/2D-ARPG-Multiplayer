@@ -24,6 +24,14 @@ public class Menu : MonoBehaviour {
         MenuManager.Instance.RegisterMenu(menuData);
     }
 
+    public virtual void OnDestroy() {
+        if (!MenuManager.Instance) {
+            return;
+        }
+
+        MenuManager.Instance.UnregisterMenu(ID);
+    }
+
     public void Close() {
         MenuManager.Instance.CloseMenu(ID);
     }

@@ -28,6 +28,10 @@ public class InputHandler : Singleton<InputHandler> {
     public bool InteractPressed { get; private set; }
 
     private void Update() {
+        if (Camera.main == null) {
+            return;
+        }
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
