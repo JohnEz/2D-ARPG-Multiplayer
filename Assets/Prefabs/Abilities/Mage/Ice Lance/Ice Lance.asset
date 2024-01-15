@@ -24,14 +24,19 @@ MonoBehaviour:
   TimeCast: -Infinity
   TargetGraphics:
   - prefab: {fileID: 3993497721173713923, guid: c790c04c860f3594dade1109caa9c196, type: 3}
-    scale: 12
+    scale: 10.5
     myStyle: 3
   AiDetails:
     AbilityRange: 0
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
   Description: Launches an ice lance that deals 22 damage and applies Chill. Deals
     6 additional damage if target is already affected by Chill.
   buffIds:
   - Chill
+  _isConsumable: 0

@@ -24,15 +24,20 @@ MonoBehaviour:
   TimeCast: -Infinity
   TargetGraphics:
   - prefab: {fileID: 4536119196424114156, guid: 077acc03dc905f34aa7a9e7eee9468ce, type: 3}
-    scale: 3
+    scale: 2
     myStyle: 0
   AiDetails:
     AbilityRange: 0
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
   Description: Causes a flash freeze at target location that deals 16 damage and
     applies Chill to enemies. Applies Frozen to enemies that already have Chill.
   buffIds:
   - Chill
   - Frozen
+  _isConsumable: 0

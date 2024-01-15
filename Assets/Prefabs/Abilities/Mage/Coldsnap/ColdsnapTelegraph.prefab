@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2956777469308170475, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
       propertyPath: _radius
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2956777469308170475, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
       propertyPath: _onCastSFX
@@ -27,6 +27,22 @@ PrefabInstance:
       propertyPath: m_Asset
       value: 
       objectReference: {fileID: 8926484042661614526, guid: f29fb31aa2710bb46a32f615c899d1b8, type: 3}
+    - target: {fileID: 4604158467522375800, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4604158467522375800, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Size
+      objectReference: {fileID: 0}
+    - target: {fileID: 4604158467522375800, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4604158467522375800, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4604158467522375801, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}
       propertyPath: m_RootOrder
       value: 0
