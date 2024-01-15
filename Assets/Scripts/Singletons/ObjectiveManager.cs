@@ -18,11 +18,15 @@ public class ScenarioObjective {
 
     // todo we should pull these out into different types OOP
     public NetworkStats KillTarget;
+
+    public string killTargetName;
 }
 
 public enum ScenarioObjectiveType {
     FREE_ROAM,
     KILL_TARGET,
+    KILL_ALL,
+    KILL_NUMBER,
 }
 
 public class ObjectiveManager : NetworkSingleton<ObjectiveManager> {
