@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3581208948269987931, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: radius
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 152614098553520114, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Radius
       value: 0.33
@@ -19,9 +23,13 @@ PrefabInstance:
       propertyPath: <AssetPathHash>k__BackingField
       value: 16356570382045450492
       objectReference: {fileID: 0}
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2526138517799695465, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Mass
-      value: 0.33
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3875263173456399388, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Sprite
