@@ -21,6 +21,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Maps/Alchemist Basement.unity
     guid: e0e76b55948ce184191fcbad5e20d650
   - enabled: 1
+    path: Assets/Scenes/Maps/Your First Potion.unity
+    guid: d5ad939270728b946901a80ee2b20125
+  - enabled: 1
+    path: Assets/Scenes/Maps/Hammer Heist.unity
+    guid: 23d758c0278d67648a52e58eb3d00f5c
+  - enabled: 1
+    path: Assets/Scenes/Maps/Missing Shipment.unity
+    guid: b52f8c16ac362e64a9f93756570fab5d
+  - enabled: 1
     path: Assets/Scenes/Maps/Echo Ridge Cave.unity
     guid: b699e2e2a38ea8849a8bc56cfc312923
   - enabled: 1
