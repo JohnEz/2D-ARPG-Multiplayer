@@ -378,7 +378,13 @@ namespace FishNet.Managing.Server
                 //If iterations are met then we can begin checking for timeouts.
                 if (connsIterated >= _nextClientTimeoutCheckIndex)
                 {
-                    uint difference = (localTick - item.PacketTick.LocalTick);
+                    uint clientLocalTick = item.PacketTick.LocalTick;
+                    /* If client tick has not been set yet then use the tick
+                     * when they connected to the server. */
+                    if (clientLocalTick == 0)
+                        clientLocalTick = item.ServerConnectionTick;
+
+                    uint difference = (localTick - clientLocalTick);
                     //Client has timed out.
                     if (difference >= requiredTicks)
                         item.Kick(KickReason.UnexpectedProblem, LoggingType.Common, $"{item.ToString()} has timed out. You can modify this feature on the ServerManager component.");
@@ -495,7 +501,10 @@ namespace FishNet.Managing.Server
             {
                 Transport t = NetworkManager.TransportManager.GetTransport(args.TransportIndex);
                 string tName = (t == null) ? "Unknown" : t.GetType().Name;
-                Debug.Log($"Local server is {state.ToString().ToLower()} for {tName}.");
+                string socketInformation = string.Empty;
+                if (state == LocalConnectionState.Starting)
+                    socketInformation = $" Listening on port {t.GetPort()}.";
+                Debug.Log($"Local server is {state.ToString().ToLower()} for {tName}.{socketInformation}");
             }
 
             NetworkManager.UpdateFramerate();
@@ -696,7 +705,7 @@ namespace FishNet.Managing.Server
                  * Force an immediate disconnect. */
                 if (!Clients.TryGetValueIL2CPP(args.ConnectionId, out conn))
                 {
-                    Kick(args.ConnectionId, KickReason.UnexpectedProblem, LoggingType.Error, $"ConnectionId {conn.ClientId} not found within Clients. Connection will be kicked immediately.");
+                    Kick(args.ConnectionId, KickReason.UnexpectedProblem, LoggingType.Error, $"ConnectionId {args.ConnectionId} not found within Clients. Connection will be kicked immediately.");
                     return;
                 }
                 conn.PacketTick.Update(NetworkManager.TimeManager, tick, Timing.EstimatedTick.OldTickOption.SetLastRemoteTick);

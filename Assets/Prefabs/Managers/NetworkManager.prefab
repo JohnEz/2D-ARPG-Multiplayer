@@ -198,8 +198,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1285684914489348489}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 5868807589132172195}
+        m_TargetAssemblyTypeName: FishNet.Example.NetworkHudCanvases, Assembly-CSharp
         m_MethodName: OnClick_Client
         m_Mode: 1
         m_Arguments:
@@ -332,8 +332,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1285684914489348489}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 5868807589132172195}
+        m_TargetAssemblyTypeName: FishNet.Example.NetworkHudCanvases, Assembly-CSharp
         m_MethodName: OnClick_Server
         m_Mode: 1
         m_Arguments:
@@ -353,7 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1285684914489348501}
-  - component: {fileID: 1285684914489348489}
+  - component: {fileID: 5868807589132172195}
   - component: {fileID: 1285684914489348500}
   - component: {fileID: 1285684914489348503}
   - component: {fileID: 1285684914489348502}
@@ -386,7 +386,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1285684914489348489
+--- !u!114 &5868807589132172195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -395,12 +395,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1285684914489348488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d3606bfdac5a4743890fc1a5ecd8f24, type: 3}
+  m_Script: {fileID: 11500000, guid: 522803874135ce74d941818757d9f0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _autoStartType: 0
   _stoppedColor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 1}
-  _changingColor: {r: 0.78431374, g: 0.6862745, b: 0, a: 1}
+  _changingColor: {r: 0.7843138, g: 0.6862745, b: 0, a: 1}
   _startedColor: {r: 0, g: 0.5882353, b: 0.64705884, a: 1}
   _serverIndicator: {fileID: 1885258499072562979}
   _clientIndicator: {fileID: 4531575591563266857}
@@ -654,6 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6828dc8fb4327ee4f8750a4e2a109c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isGlobal: 0
 --- !u!1 &8042500737844379358
 GameObject:
   m_ObjectHideFlags: 0

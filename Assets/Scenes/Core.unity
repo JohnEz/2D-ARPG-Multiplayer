@@ -643,22 +643,6 @@ PrefabInstance:
       propertyPath: _maximumFrameTicks
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 5362679807532690853, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
-      propertyPath: Spawns.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362679807532690853, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
-      propertyPath: Spawns.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362679807532690853, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
-      propertyPath: Spawns.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362679807532690853, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
-      propertyPath: Spawns.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5362679807532690856, guid: c6918778866bf5340a558a5632ebe54e, type: 3}
       propertyPath: m_RootOrder
       value: 4

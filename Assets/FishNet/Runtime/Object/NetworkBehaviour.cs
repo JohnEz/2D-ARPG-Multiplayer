@@ -66,7 +66,16 @@ namespace FishNet.Object
 #pragma warning restore CS0414
         #endregion
 
-#if !PREDICTION_V2
+        /// <summary>
+        /// Outputs data about this NetworkBehaviour to string.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"Name [{gameObject.name}] ComponentId [{ComponentIndex}] NetworkObject Name [{_networkObjectCache.name}] NetworkObject Id [{_networkObjectCache.ObjectId}]";
+        }
+
+
         /// <summary>
         /// Preinitializes this script for the network.
         /// </summary>
@@ -85,30 +94,7 @@ namespace FishNet.Object
                 _initializedOnceClient = true;
             }
         }
-#else
-        /// <summary>
-        /// Preinitializes this script for the network.
-        /// </summary>
-        internal void Preinitialize_Internal(NetworkObject nob, bool asServer)
-        {
-            _transportManagerCache = nob.TransportManager;
-            
-            InitializeOnceSyncTypes(asServer);
-            if (asServer)
-            {
-                InitializeRpcLinks();
-                _initializedOnceServer = true;
-            }
-            else
-            {
-                if (!_initializedOnceClient && nob.EnablePrediction)
-                    nob.RegisterPredictionBehaviourOnce(this);
 
-                _initializedOnceClient = true;
-            }
-        }
-
-#endif
         internal void Deinitialize(bool asServer)
         {
 
