@@ -758,7 +758,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3843323529793418513}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -796,7 +796,7 @@ MonoBehaviour:
   _previousMenuId: 
   _questTilePrefab: {fileID: -2523692085797113885, guid: c5e9206941389934bbd605f5a0de8eb6, type: 3}
   _questListTransform: {fileID: 7688268456016906772}
-  _questTitle: {fileID: 7688268456469692869}
+  _questTitle: {fileID: 7688268455403281877}
   _questDescription: {fileID: 7688268456979211246}
   _questObjectives: {fileID: 7688268456394175019}
   _questAcceptedStamp: {fileID: 7688268456315380732}
@@ -1448,7 +1448,7 @@ GameObject:
   - component: {fileID: 7688268455403281877}
   - component: {fileID: 7688268455403281876}
   m_Layer: 5
-  m_Name: Title
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2457,7 +2457,7 @@ GameObject:
   - component: {fileID: 7688268456586094887}
   - component: {fileID: 7688268456586094884}
   m_Layer: 5
-  m_Name: Title
+  m_Name: Quest Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3213,18 +3213,18 @@ PrefabInstance:
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3843323529793418538}
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: CloseQuestBoard
+      value: Close
       objectReference: {fileID: 0}
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MenuManager, Assembly-CSharp
+      value: Menu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3114863763913542450, guid: d1c73378a1df9f64986beeb6068de8d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName

@@ -116,9 +116,6 @@ public class CharacterController : NetworkBehaviour {
         }
     }
 
-    private void FixedUpdate() {
-    }
-
     private void HandleHealthDepleted() {
         _stateController.State = CharacterState.Dead;
 
@@ -255,9 +252,4 @@ public class CharacterController : NetworkBehaviour {
     }
 
     #endregion Dashing
-
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, (10 * 1.42f) + .5f);
-    }
 }
