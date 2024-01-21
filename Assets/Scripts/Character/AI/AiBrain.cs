@@ -46,6 +46,7 @@ public class AiBrain : NetworkBehaviour {
 
     public bool HasTarget { get { return TargetCharacter != null; } }
 
+    [HideInInspector]
     public float DistanceToTarget = Mathf.Infinity;
 
     public bool IsTargetOutOfLeashRange { get { return DistanceToTarget >= LeashRange; } }

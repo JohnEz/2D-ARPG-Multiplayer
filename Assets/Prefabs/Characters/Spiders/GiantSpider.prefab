@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3947939024881755772
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: _scenePathHash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 10041653560387369947
+      objectReference: {fileID: 0}
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 27.852602
+      objectReference: {fileID: 0}
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 21.05502
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652713151283351242, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: Username
+      value: Giant Spider
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745750688392768921, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: _abilityPrefabList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745750688392768921, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: _abilityPrefabList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: bc62d18728942dc4485a4d5fec1d02a7, type: 2}
+    - target: {fileID: 3875263173456399388, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 68bedaaab3a79fc4baebd9c725ddfe2c, type: 3}
+    - target: {fileID: 3875263173456399388, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_Color.b
+      value: 0.40000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875263173456399388, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_Color.g
+      value: 0.40000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875263173456399388, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_Color.r
+      value: 0.48235297
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 27.852602
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 21.05502
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250001997670786460, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951982167571737849, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_Name
+      value: GiantSpider
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216968842373518153, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: _basePower
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216968842373518153, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: _baseMaxHealth
+      value: 250
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 052ae12470bacea41b4700d2939419cf, type: 3}

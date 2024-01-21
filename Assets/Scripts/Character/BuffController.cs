@@ -17,6 +17,7 @@ public class BuffController : NetworkBehaviour {
 
     private List<Buff> _activeBuffs;
 
+    [HideInInspector]
     public bool IsStunned = false;
 
     [SerializeField]
