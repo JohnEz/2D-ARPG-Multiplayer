@@ -5111,10 +5111,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: c88d2673ef9df00418adfbc57034f528, type: 3}
     - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
-      propertyPath: onCreateSFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 1e4c11d0a3e304a49b7e7e29312dc301, type: 3}
-    - target: {fileID: 3235023101485158506, guid: d96d976afe0358b4b9926e73171b877a, type: 3}
       propertyPath: MAX_LIFE_TIME
       value: 0.36
       objectReference: {fileID: 0}

@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour {
     // FX
 
     [SerializeField]
-    private AudioClip onCreateSFX;
+    private AudioClip _persistentSFX;
 
     [SerializeField]
     private GameObject onHitVFXPrefab;
@@ -48,8 +48,11 @@ public class Projectile : MonoBehaviour {
         _direction = direction;
         transform.up = direction;
 
-        if (onCreateSFX) {
-            AudioManager.Instance.PlaySound(onCreateSFX, transform);
+        if (_persistentSFX) {
+            AudioClipOptions options = new AudioClipOptions();
+            options.Loop = true;
+
+            AudioManager.Instance.PlaySound(_persistentSFX, transform, options);
         }
     }
 

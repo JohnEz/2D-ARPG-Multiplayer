@@ -10,6 +10,8 @@ public class AudioClipOptions {
     public bool RandomPitch = false;
 
     public float PitchRange = 0.1f;
+
+    public bool Loop = false;
 }
 
 public class AudioManager : Singleton<AudioManager> {
@@ -84,10 +86,10 @@ public class AudioManager : Singleton<AudioManager> {
         audioSource.spatialBlend = 1f;
         audioSource.rolloffMode = AudioRolloffMode.Linear;
         audioSource.dopplerLevel = 0f;
-        audioSource.loop = false;
         audioSource.outputAudioMixerGroup = sfxMixer;
         audioSource.pitch = pitch;
         audioSource.volume = audioOptions.Volume;
+        audioSource.loop = audioOptions.Loop;
 
         audioSource.Play();
 

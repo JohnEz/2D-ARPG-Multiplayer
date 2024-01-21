@@ -4,6 +4,7 @@ using FishNet.Object.Synchronizing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ public class ScenarioObjective {
     public NetworkStats KillTarget;
 
     public string killTargetName;
+
+    public int killCount;
 }
 
 public enum ScenarioObjectiveType {
@@ -49,16 +52,19 @@ public class ObjectiveManager : NetworkSingleton<ObjectiveManager> {
 
     public void Update() {
         if (!InstanceFinder.IsServer) {
+            Debug.Log("isnt server");
             return;
         }
 
-        if (GameStateManager.Instance || GameStateManager.Instance.IsGameOver) {
+        if (GameStateManager.Instance && (GameStateManager.Instance.IsGameOver || !GameStateManager.Instance.IsGameStarted)) {
             return;
         }
 
         if (AreAllPlayersDead()) {
             Defeat();
         }
+
+        UpdateObjectives();
     }
 
     private bool AreAllPlayersDead() {
@@ -101,6 +107,59 @@ public class ObjectiveManager : NetworkSingleton<ObjectiveManager> {
         _isObjectiveComplete.Dirty(objective.Id);
 
         CheckIfAllObjectivesAreComplete();
+    }
+
+    private void UpdateObjectives() {
+        _objectives.ForEach(objective => {
+            UpdateObjective(objective);
+        });
+    }
+
+    private void UpdateObjective(ScenarioObjective objective) {
+        switch (objective.Type) {
+            case ScenarioObjectiveType.KILL_TARGET:
+            break;
+
+            case ScenarioObjectiveType.KILL_ALL:
+            UpdateKillAll(objective);
+            break;
+
+            case ScenarioObjectiveType.KILL_NUMBER:
+            UpdateKillNumber(objective);
+            break;
+        }
+    }
+
+    private void UpdateKillAll(ScenarioObjective objective) {
+        if (_isObjectiveComplete.ContainsKey(objective.Id) && _isObjectiveComplete[objective.Id]) {
+            Debug.Log("Objective is complete");
+            return;
+        }
+
+        List<NetworkStats> aliveTargets = GameStateManager.Instance.Enemies.Where((enemy) => {
+            return enemy.GetComponent<CharacterController>().Username == objective.killTargetName && enemy.CurrentHealth > 0;
+        }).ToList();
+
+        Debug.Log($"remaining: {aliveTargets.Count}");
+
+        if (aliveTargets.Count == 0) {
+            _isObjectiveComplete[objective.Id] = true;
+            CheckIfAllObjectivesAreComplete();
+        }
+    }
+
+    private void UpdateKillNumber(ScenarioObjective objective) {
+        if (_isObjectiveComplete.ContainsKey(objective.Id) && _isObjectiveComplete[objective.Id]) {
+            return;
+        }
+
+        List<NetworkStats> deadTargets = GameStateManager.Instance.Enemies.Where((enemy) => {
+            return enemy.GetComponent<CharacterController>().Username == objective.killTargetName && enemy.CurrentHealth == 0;
+        }).ToList();
+
+        if (deadTargets.Count == objective.killCount) {
+            _isObjectiveComplete[objective.Id] = true;
+        }
     }
 
     private void CheckIfAllObjectivesAreComplete() {

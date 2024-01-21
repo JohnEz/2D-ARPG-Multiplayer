@@ -1,9 +1,14 @@
 using FishNet;
+using FishNet.Managing;
 using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStateManager : NetworkSingleton<GameStateManager> {
+    private bool isGameStarted = false;
+
+    public bool IsGameStarted { get { return isGameStarted; } }
+
     private bool isGameOver = false;
 
     public bool IsGameOver { get { return isGameOver; } }
@@ -15,27 +20,9 @@ public class GameStateManager : NetworkSingleton<GameStateManager> {
 
     public List<NetworkStats> Players { get { return _players; } }
 
-    private void SpawnPlayer(PersistentPlayer persistentPlayer) {
-        if (!InstanceFinder.IsServer) {
-            return;
-        }
+    private List<NetworkStats> _enemies = new();
 
-        if (!persistentPlayer) {
-            Debug.LogError("No persistent player given to SpawnPlayer");
-            return;
-        }
-
-        var existingPlayer = _players.Find(player => player.OwnerId == persistentPlayer.OwnerId);
-
-        if (existingPlayer) {
-            Debug.Log("Player already has a spawned character");
-            return;
-        }
-
-        NetworkStats spawnedPlayer = persistentPlayer.SpawnServer(SpawnLocations.Instance.GetNextSpawnLocation().position);
-
-        _players.Add(spawnedPlayer);
-    }
+    public List<NetworkStats> Enemies { get { return _enemies; } }
 
     private void OnEnable() {
         if (!InstanceFinder.IsServer) {
@@ -65,8 +52,52 @@ public class GameStateManager : NetworkSingleton<GameStateManager> {
         }
     }
 
+    public void RegisterEnemy(NetworkStats enemy) {
+        if (_enemies.Contains(enemy)) {
+            return;
+        }
+
+        _enemies.Add(enemy);
+    }
+
+    public void UnregisterEnemy(NetworkStats enemy) {
+        if (!_enemies.Contains(enemy)) {
+            return;
+        }
+
+        _enemies.Remove(enemy);
+    }
+
+    private void SpawnPlayer(PersistentPlayer persistentPlayer) {
+        if (!InstanceFinder.IsServer) {
+            return;
+        }
+
+        if (!persistentPlayer) {
+            Debug.LogError("No persistent player given to SpawnPlayer");
+            return;
+        }
+
+        var existingPlayer = _players.Find(player => player.OwnerId == persistentPlayer.OwnerId);
+
+        if (existingPlayer) {
+            Debug.Log("Player already has a spawned character");
+            return;
+        }
+
+        NetworkStats spawnedPlayer = persistentPlayer.SpawnServer(SpawnLocations.Instance.GetNextSpawnLocation().position);
+
+        _players.Add(spawnedPlayer);
+
+        // TODO this is a hack, we say the game has started when the first player spawns
+        if (!IsGameStarted) {
+            isGameStarted = true;
+        }
+    }
+
     private void HandleLoadSceneStart() {
         _players.Clear();
+        isGameStarted = false;
         isGameOver = false;
     }
 

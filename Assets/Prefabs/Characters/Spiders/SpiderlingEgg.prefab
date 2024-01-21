@@ -24,6 +24,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _networkBehaviours.Array.size
       value: 13
       objectReference: {fileID: 0}
@@ -62,6 +66,10 @@ PrefabInstance:
     - target: {fileID: 2340972110974500011, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _componentIndexCache
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652713151283351242, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: Username
+      value: Spiderling Egg
       objectReference: {fileID: 0}
     - target: {fileID: 2745750688392768921, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _abilityPrefabList.Array.size
@@ -146,6 +154,10 @@ PrefabInstance:
     - target: {fileID: 9216968842373518153, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _baseSpeed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216968842373518153, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: _baseMaxHealth
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 052ae12470bacea41b4700d2939419cf, type: 3}

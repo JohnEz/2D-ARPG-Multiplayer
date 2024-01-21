@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: projectileId
       value: Hamstring Shot
       objectReference: {fileID: 0}
+    - target: {fileID: 7550471873473540724, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: _castCompleteSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 47973c92a27e54c49be3c4bb038fa37c, type: 3}
     - target: {fileID: 7840497419732744747, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
       propertyPath: m_Name
       value: Hamstring Shot Ability Effect

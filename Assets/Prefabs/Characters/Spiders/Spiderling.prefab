@@ -23,6 +23,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.4811321
       objectReference: {fileID: 0}
+    - target: {fileID: 2093502522988042418, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
+      propertyPath: Username
+      value: Spiderling
+      objectReference: {fileID: 0}
     - target: {fileID: 2289821241675693025, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
       propertyPath: _abilityPrefabList.Array.size
       value: 1
@@ -40,6 +44,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3877913632205126890, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3877913632205126890, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
       value: 13542059509392992349
       objectReference: {fileID: 0}
@@ -53,7 +61,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5058819642564412721, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
       propertyPath: _basePower
-      value: 2
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058819642564412721, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
+      propertyPath: _baseSpeed
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 5058819642564412721, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
       propertyPath: _baseMaxHealth

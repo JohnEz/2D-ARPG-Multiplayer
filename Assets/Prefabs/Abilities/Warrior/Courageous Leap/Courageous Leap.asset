@@ -17,8 +17,8 @@ MonoBehaviour:
   AbilityEffectPrefab: {fileID: 8610744601017237921, guid: 321d303961c38d74c8a5cd40f4d66667, type: 3}
   CastTime: 0.1
   Cooldown: 9
-  CastSFX: {fileID: 8300000, guid: aafa385bc75e026469da63ccdab767e6, type: 3}
-  CastVFX: {fileID: 0}
+  PrecastSFX: {fileID: 8300000, guid: aafa385bc75e026469da63ccdab767e6, type: 3}
+  PrecastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
   _maxCharges: 1
   TimeCast: -Infinity
@@ -34,7 +34,12 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
   Description: Leap to target location dealing 22 damage and become Valiant. Valiant
     duration increased per enemy hit.
   buffIds:
   - Valiant
+  _isConsumable: 0

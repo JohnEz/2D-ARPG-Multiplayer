@@ -139,13 +139,13 @@ public class CastController : NetworkBehaviour {
 
         GameObject castVFX = null;
 
-        if (castingAbility.CastVFX) {
-            castVFX = Instantiate(castingAbility.CastVFX, visuals.transform);
+        if (castingAbility.PrecastVFX) {
+            castVFX = Instantiate(castingAbility.PrecastVFX, visuals.transform);
             castVFX.GetComponent<VisualEffect>().SetFloat("Duration", castTime);
         }
 
-        if (castingAbility.CastSFX) {
-            AudioManager.Instance.PlaySound(castingAbility.CastSFX, visuals.transform);
+        if (castingAbility.PrecastSFX) {
+            AudioManager.Instance.PlaySound(castingAbility.PrecastSFX, visuals.transform);
         }
 
         yield return new WaitUntil(() => castRequest == false);

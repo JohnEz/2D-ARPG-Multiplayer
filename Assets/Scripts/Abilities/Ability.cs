@@ -47,8 +47,8 @@ public class Ability : ScriptableObject {
     public float Cooldown;
     private float _remainingCooldown;
 
-    public AudioClip CastSFX;
-    public GameObject CastVFX;
+    public AudioClip PrecastSFX;
+    public GameObject PrecastVFX;
 
     public float SpeedWhileCasting = 0.1f;
 

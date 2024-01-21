@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: projectileId
       value: Frostbolt
       objectReference: {fileID: 0}
+    - target: {fileID: 7550471873473540724, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
+      propertyPath: _castCompleteSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e4c11d0a3e304a49b7e7e29312dc301, type: 3}
     - target: {fileID: 7840497419732744747, guid: cc3031b5c7eabb54d870c264fedc0f72, type: 3}
       propertyPath: m_Name
       value: Frostbolt Ability Effect

@@ -17,8 +17,8 @@ MonoBehaviour:
   AbilityEffectPrefab: {fileID: 8619108135685365426, guid: 99379936d7b9a9549bfc1d0865bddd56, type: 3}
   CastTime: 0.15
   Cooldown: 6
-  CastSFX: {fileID: 8300000, guid: 5f4ce1d79dcc57349aa3fd91e4ee19a8, type: 3}
-  CastVFX: {fileID: 0}
+  PrecastSFX: {fileID: 8300000, guid: 5f4ce1d79dcc57349aa3fd91e4ee19a8, type: 3}
+  PrecastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
   _maxCharges: 1
   TimeCast: -Infinity
@@ -31,7 +31,12 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
   Description: Taunts nearby enemies making you Valiant, dealing 6 damage andchanging
     their focus to you. Valiant duration increased per enemy hit.
   buffIds:
   - Valiant
+  _isConsumable: 0

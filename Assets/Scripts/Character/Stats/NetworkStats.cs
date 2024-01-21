@@ -98,11 +98,23 @@ public class NetworkStats : NetworkBehaviour {
     private void OnEnable() {
         MaxHealth.OnValueChanged += HandleMaxHealthChange;
         Shield.OnValueChanged += HandleCurrentShieldChange;
+
+        // TODO should this be in its own script?
+        if (GameStateManager.Instance && Faction == Faction.ENEMY) {
+            Debug.Log("Restiering enemy");
+            GameStateManager.Instance.RegisterEnemy(this);
+        }
     }
 
     private void OnDisable() {
         MaxHealth.OnValueChanged -= HandleMaxHealthChange;
         Shield.OnValueChanged -= HandleCurrentShieldChange;
+
+        // TODO should this be in its own script?
+        if (GameStateManager.Instance && Faction == Faction.ENEMY) {
+            Debug.Log("Unrestiering enemy");
+            GameStateManager.Instance.UnregisterEnemy(this);
+        }
     }
 
     public event Action OnHealthDepleted;
