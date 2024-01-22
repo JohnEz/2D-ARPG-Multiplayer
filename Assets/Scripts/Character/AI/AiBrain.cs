@@ -11,7 +11,7 @@ using static Unity.VisualScripting.Member;
 public class AiBrain : NetworkBehaviour {
 
     // TODO these should depend on if the creature is a boss or something
-    private float _aggroRange = 10f;
+    private float _aggroRange = 8f;
 
     private float _combatRange = 11f;
 

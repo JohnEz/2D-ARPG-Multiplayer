@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class CameraOrthoSize : MonoBehaviour {
 
-    private void Start() {
-        float orthoSize = 30 * Screen.height / Screen.width * .5f;
+    [SerializeField]
+    private float baseOrthoSize = 20;
+
+    private void Update() {
+        float orthoSize = baseOrthoSize * Screen.height / Screen.width * .5f;
 
         GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = orthoSize;
     }

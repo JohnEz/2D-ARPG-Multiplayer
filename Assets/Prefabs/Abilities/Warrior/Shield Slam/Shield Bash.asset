@@ -15,10 +15,10 @@ MonoBehaviour:
   AbilityName: Shield Bash
   Icon: {fileID: 21300000, guid: abbd3d09ac66d2e4e8a3b1b14e51c1c5, type: 3}
   AbilityEffectPrefab: {fileID: 4085629182842641238, guid: ecf8fc1d3c0c7bd4cb6792eaf127e644, type: 3}
-  CastTime: 0.2
+  CastTime: 0.4
   Cooldown: 5
-  CastSFX: {fileID: 0}
-  CastVFX: {fileID: 0}
+  PrecastSFX: {fileID: 0}
+  PrecastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
   _maxCharges: 1
   TimeCast: -Infinity
@@ -31,8 +31,13 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
   Description: Throw yourself forward slamming enemies with your shield, dealing
     14 damage and stunning the target for 1s. If you are Valiant you also gain Shielded.
   buffIds:
   - Stunned
   - Shielded
+  _isConsumable: 0

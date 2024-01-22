@@ -1360,6 +1360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801ebf6a85aa1c4439b83a1b755a45a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseOrthoSize: 20
 --- !u!114 &1663445525 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8646917123064815131, guid: ada2da3ff7b959d4c9d23bb79db12165, type: 3}
