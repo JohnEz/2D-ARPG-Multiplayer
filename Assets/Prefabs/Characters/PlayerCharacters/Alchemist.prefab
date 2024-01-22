@@ -25,11 +25,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 385028806926593515, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: SerializedTransformProperties.Position.x
-      value: -3.71
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 385028806926593515, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: SerializedTransformProperties.Position.y
-      value: -19.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3405262305815227104, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: _abilityPrefabList.Array.size
@@ -123,6 +123,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6059682498132600699, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1713305901, guid: 099db786b7c52fa4ab5a382900ddb9e2, type: 3}
+    - target: {fileID: 6196976597420950987, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -275848344, guid: 099db786b7c52fa4ab5a382900ddb9e2, type: 3}
     - target: {fileID: 7575431984105466752, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: m_Name
       value: Alchemist

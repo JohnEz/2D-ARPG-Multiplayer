@@ -139,6 +139,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6720321249392975874, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -761366134, guid: 91ac8aa5c82b63d4da99671e6bd4ffde, type: 3}
+    - target: {fileID: 6871126147504325298, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1309155303, guid: 91ac8aa5c82b63d4da99671e6bd4ffde, type: 3}
     - target: {fileID: 6951982167571737849, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Name
       value: Goblin Shaman

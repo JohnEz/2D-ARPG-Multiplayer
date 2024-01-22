@@ -25,15 +25,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: SerializedTransformProperties.Position.x
-      value: -3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 483269577795649093, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: SerializedTransformProperties.Position.y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1029480607384504065, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: m_BodyType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683873278762535853, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1765523077374607220, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: m_Sprite
@@ -94,6 +98,14 @@ PrefabInstance:
     - target: {fileID: 3005759801672048830, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: m_BodyType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383460417909004950, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449295520075899263, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4575530052882258123, guid: 6be54a61cbd585146b68ae2ebacee68c, type: 3}
       propertyPath: m_Sprite

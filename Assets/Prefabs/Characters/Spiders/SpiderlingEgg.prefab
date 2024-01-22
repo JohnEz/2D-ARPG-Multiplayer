@@ -63,13 +63,33 @@ PrefabInstance:
       propertyPath: _networkBehaviours.Array.data[12]
       value: 
       objectReference: {fileID: 5402720672700243262}
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: -3.936623
+      objectReference: {fileID: 0}
+    - target: {fileID: 868302038984649362, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: -15.4647255
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154531341830954874, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2340972110974500011, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _componentIndexCache
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 2615545020570259009, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2652713151283351242, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: Username
       value: Spiderling Egg
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694950297256998312, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2745750688392768921, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _abilityPrefabList.Array.size

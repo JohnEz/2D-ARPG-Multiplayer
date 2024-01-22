@@ -167,6 +167,14 @@ PrefabInstance:
       propertyPath: _componentIndexCache
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6059682498132600699, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1937953251, guid: df29b1c78ab5de74b84fda9b5be94e48, type: 3}
+    - target: {fileID: 6196976597420950987, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1459343575, guid: df29b1c78ab5de74b84fda9b5be94e48, type: 3}
     - target: {fileID: 7575431984105466752, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: m_Name
       value: Warrior
