@@ -59,6 +59,10 @@ public class StatusBarController : MonoBehaviour {
         // TODO add a buff priority (eg short stuns should be shown over longer slows)
         Buff buffToDisplay = buffs.OrderByDescending(buff => buff.RemainingTime()).ToList().First();
 
+        if (currentStatus == buffToDisplay) {
+            return;
+        }
+
         SetStatus(buffToDisplay);
 
         ShowStatus();
