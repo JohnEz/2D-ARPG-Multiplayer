@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Cinemachine;
+using FishNet;
 
 public class CameraManager : Singleton<CameraManager> {
 
@@ -20,6 +21,18 @@ public class CameraManager : Singleton<CameraManager> {
     public void Awake() {
     }
 
+    private void OnEnable() {
+        InstanceFinder.TimeManager.OnTick += UpdatePlayerCamera;
+    }
+
+    private void OnDisable() {
+        if (!InstanceFinder.TimeManager) {
+            return;
+        }
+
+        InstanceFinder.TimeManager.OnTick -= UpdatePlayerCamera;
+    }
+
     public void SetFollowTarget(GameObject target) {
         player = target;
     }
@@ -27,7 +40,7 @@ public class CameraManager : Singleton<CameraManager> {
     private void Update() {
         ShakeUpdate();
 
-        UpdatePlayerCamera();
+        //UpdatePlayerCamera();
     }
 
     private void UpdatePlayerCamera() {
