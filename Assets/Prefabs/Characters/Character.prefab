@@ -1647,7 +1647,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 25
+  <PrefabId>k__BackingField: 18
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -1820,8 +1820,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992a3430b64b72a47b005ab6790ae8db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSpriteRenderer: {fileID: 4575530052882258123}
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashDuration: 0.25
+  _flashSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -12.963507
+      outSlope: -12.963507
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.052980375
+    - serializedVersion: 3
+      time: 0.25
+      value: 0
+      inSlope: -0.041028984
+      outSlope: -0.041028984
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.36154395
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &-4708184228888337338
 MonoBehaviour:
   m_ObjectHideFlags: 0
