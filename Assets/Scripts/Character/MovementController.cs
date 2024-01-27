@@ -52,7 +52,10 @@ public class MovementController : MonoBehaviour {
         //_body.MovePosition(newPosition);
 
         //_body.AddForce(MoveDirection * GetMoveSpeed(), ForceMode2D.Impulse);
-        _body.AddForce(MoveDirection * GetMoveSpeed(), ForceMode2D.Impulse);
+
+        float massModifier = _body.mass;
+
+        _body.AddForce(MoveDirection * GetMoveSpeed() * massModifier, ForceMode2D.Impulse);
     }
 
     private float GetMoveSpeed() {
