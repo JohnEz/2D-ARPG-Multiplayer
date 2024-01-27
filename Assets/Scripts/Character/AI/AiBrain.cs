@@ -138,7 +138,8 @@ public class AiBrain : NetworkBehaviour {
                 !targetStateController.IsDead() &&
                 targetStats.Faction != myStats.Faction &&
                 !_aggroTable.ContainsKey(target) &&
-                Vector3.Distance(transform.position, target.transform.position) <= _aggroRange;
+                Vector3.Distance(transform.position, target.transform.position) <= _aggroRange &&
+                HasLineOfSightTo(transform, target.transform);
         }).ToList();
 
         if (newEnemiesInRange.Count <= 0) {

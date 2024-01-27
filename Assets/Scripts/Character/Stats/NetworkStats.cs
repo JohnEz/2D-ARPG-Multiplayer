@@ -101,7 +101,6 @@ public class NetworkStats : NetworkBehaviour {
 
         // TODO should this be in its own script?
         if (GameStateManager.Instance && Faction == Faction.ENEMY) {
-            Debug.Log("Restiering enemy");
             GameStateManager.Instance.RegisterEnemy(this);
         }
     }
@@ -112,7 +111,6 @@ public class NetworkStats : NetworkBehaviour {
 
         // TODO should this be in its own script?
         if (GameStateManager.Instance && Faction == Faction.ENEMY) {
-            Debug.Log("Unrestiering enemy");
             GameStateManager.Instance.UnregisterEnemy(this);
         }
     }

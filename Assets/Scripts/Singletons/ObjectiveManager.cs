@@ -140,8 +140,6 @@ public class ObjectiveManager : NetworkSingleton<ObjectiveManager> {
             return enemy.GetComponent<CharacterController>().Username == objective.killTargetName && enemy.CurrentHealth > 0;
         }).ToList();
 
-        Debug.Log($"remaining: {aliveTargets.Count}");
-
         if (aliveTargets.Count == 0) {
             _isObjectiveComplete[objective.Id] = true;
             CheckIfAllObjectivesAreComplete();
