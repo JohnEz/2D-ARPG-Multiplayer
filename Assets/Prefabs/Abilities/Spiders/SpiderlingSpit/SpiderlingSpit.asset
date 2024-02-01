@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab16c9757379d0f4ebd4c3ef6be46545, type: 3}
+  m_Name: SpiderlingSpit
+  m_EditorClassIdentifier: 
+  AbilityName: Spiderling Spit
+  Icon: {fileID: 21300000, guid: c7a0fd86d70b4ff47bddaca9aa220180, type: 3}
+  AbilityEffectPrefab: {fileID: 5648543754990960940, guid: 265b8614ee672e14f9cb37e636d7a2ba, type: 3}
+  CastTime: 0.4
+  Cooldown: 0.55
+  PrecastSFX: {fileID: 0}
+  PrecastVFX: {fileID: 0}
+  SpeedWhileCasting: 0.1
+  _maxCharges: 1
+  TimeCast: -Infinity
+  TargetGraphics: []
+  AiDetails:
+    AbilityRange: 3
+    ProjectileSpeed: 25
+    IsSupportAbility: 0
+    IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
+  Description: 
+  buffIds: []
+  _isConsumable: 0

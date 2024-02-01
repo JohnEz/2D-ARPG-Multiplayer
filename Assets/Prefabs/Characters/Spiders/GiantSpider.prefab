@@ -50,7 +50,7 @@ PrefabInstance:
     - target: {fileID: 3105203638103846947, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
       propertyPath: _abilityPrefabList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 28511e1dbc611a9469bd62c13982f0de, type: 2}
+      objectReference: {fileID: 11400000, guid: bc62d18728942dc4485a4d5fec1d02a7, type: 2}
     - target: {fileID: 4092233460817908134, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
       propertyPath: m_Sprite
       value: 

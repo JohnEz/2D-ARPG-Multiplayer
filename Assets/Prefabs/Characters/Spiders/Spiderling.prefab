@@ -50,7 +50,7 @@ PrefabInstance:
     - target: {fileID: 2289821241675693025, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
       propertyPath: _abilityPrefabList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: bc62d18728942dc4485a4d5fec1d02a7, type: 2}
+      objectReference: {fileID: 11400000, guid: c4188f2233d793b429e8047eb1d972f8, type: 2}
     - target: {fileID: 2610864210188552450, guid: 49092eaf7267a9844b6239b0e4ae31c3, type: 3}
       propertyPath: m_IsActive
       value: 0

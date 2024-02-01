@@ -5,7 +5,7 @@ using UnityEngine;
 public class VenomSpit : ProjectileHitEffect {
     private const float POWER_SCALING = .4f;
 
-    private const float ADDED_BUFF_DURATION = .75f;
+    private const float ADDED_BUFF_DURATION = 2f;
 
     private const string BUFF = "Venom";
 
@@ -16,7 +16,7 @@ public class VenomSpit : ProjectileHitEffect {
         if (hitBuffController.HasBuff(BUFF)) {
             hitBuffController.ServerUpdateBuffDuration(BUFF, ADDED_BUFF_DURATION);
         } else {
-            casterBuffController.ApplyBuffTo(hitBuffController, BUFF, 1f);
+            casterBuffController.ApplyBuffTo(hitBuffController, BUFF, ADDED_BUFF_DURATION);
         }
 
         caster.DealDamageTo(gameObject.name, hitCharacter, POWER_SCALING);
