@@ -9,12 +9,14 @@ public class CameraOrthoSize : MonoBehaviour {
     private float PIXELS_PER_UNIT = 16;
 
     [SerializeField]
-    private float PPU_SCALE = 2;
+    private int PPU_SCALE = 1;
 
     private void Update() {
         //float orthoSize = baseOrthoSize * Screen.height / Screen.width * .5f;
         float orthoSize = ((Screen.height) / (PPU_SCALE * PIXELS_PER_UNIT)) * 0.5f;
 
         GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = orthoSize;
+
+        Debug.Log(orthoSize);
     }
 }
