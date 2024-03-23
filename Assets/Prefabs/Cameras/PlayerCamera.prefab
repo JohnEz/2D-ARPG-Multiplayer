@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 943993558014859431}
   - component: {fileID: 943993558014859430}
   - component: {fileID: 5893864099406985194}
-  - component: {fileID: 7557021064768390148}
+  - component: {fileID: 2934505587435079740}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508fc2bd234ddea488c57dbe96891f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7557021064768390148
+--- !u!114 &2934505587435079740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,4 +204,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PIXELS_PER_UNIT: 16
-  PPU_SCALE: 6
+  PPU_SCALE: 3

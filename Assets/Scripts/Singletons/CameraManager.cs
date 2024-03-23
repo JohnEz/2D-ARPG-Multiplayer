@@ -39,8 +39,6 @@ public class CameraManager : Singleton<CameraManager> {
 
     private void Update() {
         ShakeUpdate();
-
-        //UpdatePlayerCamera();
     }
 
     private void UpdatePlayerCamera() {
