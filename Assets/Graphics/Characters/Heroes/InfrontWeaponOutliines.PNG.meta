@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1700ee910ad17c641854e5f699b12f94
+guid: f9a7722a89953714e86dc02eea0c0951
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,28 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: goblins_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1d050e6f5ded01b458ea7a845bd83c2b
-      internalID: -1301862404
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: goblins_1
+      name: InfrontWeaponOutliines_0
       rect:
         serializedVersion: 2
         x: 16
@@ -152,50 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0ed7cc8a85660c4896e34d22c8f9f37
-      internalID: 1089584882
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: goblins_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 77ec96b063c8fb34b8ce4289c178633a
-      internalID: -490799498
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: goblins_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e31c71d6b7ccfc8498534b527310d96f
-      internalID: 172440007
+      spriteID: cad8850e53f824847b08453a49ca1257
+      internalID: -259153842
       vertices: []
       indices: 
       edges: []
@@ -211,10 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      goblins_0: -1301862404
-      goblins_1: 1089584882
-      goblins_2: -490799498
-      goblins_3: 172440007
+      InfrontWeaponOutliines_0: -259153842
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

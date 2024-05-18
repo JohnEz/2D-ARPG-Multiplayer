@@ -98,7 +98,7 @@ PrefabInstance:
     - target: {fileID: 3875263173456399388, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 172440007, guid: 1700ee910ad17c641854e5f699b12f94, type: 3}
+      objectReference: {fileID: 1524775820, guid: 77a7784f0e63a684b871dfbcbb3bce05, type: 3}
     - target: {fileID: 3875263173456399388, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Color.b
       value: 0.26561943
@@ -155,6 +155,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6854850349249516155, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6951982167571737849, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: m_Name
       value: Goblin Healing Totem
@@ -167,6 +171,10 @@ PrefabInstance:
       propertyPath: _componentIndexCache
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 9030225002379689903, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -25918495, guid: 1470f588ffa565d48b3cda8021378001, type: 3}
     - target: {fileID: 9216968842373518153, guid: 052ae12470bacea41b4700d2939419cf, type: 3}
       propertyPath: _basePower
       value: 5
