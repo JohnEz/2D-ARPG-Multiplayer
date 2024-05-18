@@ -1,6 +1,7 @@
 using UnityEngine;
 using FishNet;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 
 [CreateAssetMenu(fileName = "New Buff", menuName = "2d RPG/New Buff")]
 public class Buff : ScriptableObject {
@@ -130,6 +131,12 @@ public class Buff : ScriptableObject {
 
         if (applyVFX) {
             _applyVFXInstance = Instantiate(applyVFX, target.transform);
+
+            VisualEffect applyVFXVisualEffect = _applyVFXInstance.GetComponent<VisualEffect>();
+
+            if (applyVFXVisualEffect != null && applyVFXVisualEffect.HasFloat("Duration")) {
+                applyVFXVisualEffect.SetFloat("Duration", InitialDuration);
+            }
         }
     }
 
