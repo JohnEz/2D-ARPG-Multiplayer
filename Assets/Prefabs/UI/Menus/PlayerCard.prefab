@@ -357,8 +357,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Waiting For Player...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fec380d012d416c4a94bf94fb7013d18, type: 2}
+  m_sharedMaterial: {fileID: -4214766448489003500, guid: fec380d012d416c4a94bf94fb7013d18, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -727,7 +727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 65389173, guid: d0f543109e31b2b4f9a9c7c5eda50348, type: 3}
+  m_Sprite: {fileID: -262548635, guid: d352579d77f65ab4e9781ee496cb2e5f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -843,7 +843,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Display Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fec380d012d416c4a94bf94fb7013d18, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -907,7 +907,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6805682622283154078
@@ -978,7 +978,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Frost Mage
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fec380d012d416c4a94bf94fb7013d18, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7766574053265632139
@@ -1121,13 +1121,13 @@ MonoBehaviour:
   _selectableCharacters:
   - Name: Mage
     Color: {r: 0, g: 0.6901961, b: 0.8392157, a: 1}
-    Sprite: {fileID: 65389173, guid: d0f543109e31b2b4f9a9c7c5eda50348, type: 3}
+    Sprite: {fileID: -262548635, guid: d352579d77f65ab4e9781ee496cb2e5f, type: 3}
   - Name: Warrior
     Color: {r: 0.5647059, g: 0.4392157, b: 0.3137255, a: 1}
-    Sprite: {fileID: -490937426, guid: d0f543109e31b2b4f9a9c7c5eda50348, type: 3}
+    Sprite: {fileID: 1070515078, guid: d352579d77f65ab4e9781ee496cb2e5f, type: 3}
   - Name: Alchemist
     Color: {r: 0.23529412, g: 0.5568628, b: 0.30980393, a: 1}
-    Sprite: {fileID: 337020188, guid: d0f543109e31b2b4f9a9c7c5eda50348, type: 3}
+    Sprite: {fileID: -1734015373, guid: d352579d77f65ab4e9781ee496cb2e5f, type: 3}
   _characterSelectCard: {fileID: 1655633639706267816}
   _waitingForPlayer: {fileID: 2509250026523148993}
   _rightArrow: {fileID: 3955000073402844683}

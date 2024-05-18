@@ -111,7 +111,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8556947321916904147, guid: 8e7cfc893452a1747964a36a245c77ed, type: 3}
       propertyPath: m_Name
-      value: UIButton
+      value: UIButtonAsync
       objectReference: {fileID: 0}
     - target: {fileID: 8556947321916904148, guid: 8e7cfc893452a1747964a36a245c77ed, type: 3}
       propertyPath: m_Pivot.x
@@ -197,6 +197,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8556947322444996923, guid: 8e7cfc893452a1747964a36a245c77ed, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fec380d012d416c4a94bf94fb7013d18, type: 2}
+    - target: {fileID: 8556947322444996923, guid: 8e7cfc893452a1747964a36a245c77ed, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4214766448489003500, guid: fec380d012d416c4a94bf94fb7013d18, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e7cfc893452a1747964a36a245c77ed, type: 3}
 --- !u!224 &2460321500297507882 stripped
