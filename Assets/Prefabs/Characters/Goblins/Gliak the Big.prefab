@@ -187,6 +187,10 @@ PrefabInstance:
       propertyPath: <AssetPathHash>k__BackingField
       value: 14979305603447687217
       objectReference: {fileID: 0}
+    - target: {fileID: 3016689903141458800, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: Username
+      value: Gliak the Big
+      objectReference: {fileID: 0}
     - target: {fileID: 3105203638103846947, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
       propertyPath: _abilityPrefabList.Array.size
       value: 1
