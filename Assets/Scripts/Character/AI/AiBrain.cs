@@ -25,6 +25,10 @@ public class AiBrain : NetworkBehaviour {
     [HideInInspector]
     public event Action<List<CharacterController>> OnAggroTableChange;
 
+    public event Action OnEnterCombat;
+
+    public event Action OnDeath;
+
     private CharacterController _target;
 
     // TODO add on target change
@@ -90,6 +94,7 @@ public class AiBrain : NetworkBehaviour {
         _aggroTable.Clear();
         TargetCharacter = null;
         StopCoroutine(checksCoroutine);
+        OnDeath?.Invoke();
     }
 
     private void HandleTakeDamage(int damage, bool hitShield, NetworkStats source) {
@@ -208,10 +213,18 @@ public class AiBrain : NetworkBehaviour {
     }
 
     private void HandleAggroTableChange(List<CharacterController> updatedCharacters) {
-        bool previouslyInCombat = _aggroTable.Count > 0;
+        bool previouslyInCombat = HasTarget;
 
-        if (!HasTarget) {
+        if (!previouslyInCombat) {
             TargetCharacter = GetHighestAggro(updatedCharacters);
+
+            // i probably should store a variable rather than just checking there wasnt a target
+            bool isInCombat = _aggroTable.Count > 0;
+
+            if (isInCombat) {
+                HandlePull();
+            }
+
             return;
         }
 
@@ -222,15 +235,11 @@ public class AiBrain : NetworkBehaviour {
             // it should be fine as we always pass the target character anyway
             TargetCharacter = newTarget;
         }
-
-        bool isInCombat = _aggroTable.Count > 0;
-
-        if (!previouslyInCombat && isInCombat) {
-            HandlePull();
-        }
     }
 
     private void HandlePull() {
+        Debug.Log("ai pulled");
+        OnEnterCombat?.Invoke();
         CauseAlliesToAggro();
     }
 
