@@ -187,6 +187,26 @@ PrefabInstance:
       propertyPath: <AssetPathHash>k__BackingField
       value: 14979305603447687217
       objectReference: {fileID: 0}
+    - target: {fileID: 72602879670368040, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 52.28171
+      objectReference: {fileID: 0}
+    - target: {fileID: 72602879670368040, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 175.82578
+      objectReference: {fileID: 0}
+    - target: {fileID: 72602879670368040, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72602879670368040, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72602879670368040, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 3016689903141458800, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
       propertyPath: Username
       value: Gliak the Big
@@ -198,7 +218,7 @@ PrefabInstance:
     - target: {fileID: 3105203638103846947, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
       propertyPath: _abilityPrefabList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 84b42f034c54cd949982255d8bd7cee9, type: 2}
+      objectReference: {fileID: 11400000, guid: da7411753ef4a1040903a678df60d9ce, type: 2}
     - target: {fileID: 4092233460817908134, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
       propertyPath: m_Sprite
       value: 
