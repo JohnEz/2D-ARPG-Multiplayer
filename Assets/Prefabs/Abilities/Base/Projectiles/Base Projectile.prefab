@@ -47,14 +47,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visuals: {fileID: 0}
-  Speed: 15
-  _baseMaxDistance: 12
   CanHitAllies: 0
   CanHitCaster: 0
   CanHitEnemies: 1
-  onCreateSFX: {fileID: 0}
+  _persistentSFX: {fileID: 0}
   onHitVFXPrefab: {fileID: 0}
-  onHitSFX: {fileID: 0}
+  playHitSFXOnMiss: 1
+  onHitSFXs: []
+  Speed: 15
+  _baseMaxDistance: 12
 --- !u!58 &1920491565625790781
 CircleCollider2D:
   m_ObjectHideFlags: 0

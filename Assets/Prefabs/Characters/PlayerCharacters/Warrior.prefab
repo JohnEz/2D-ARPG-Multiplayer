@@ -406,7 +406,7 @@ PrefabInstance:
     - target: {fileID: 3405262305815227104, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: _abilityPrefabList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 1c67c416e3d87624a9cf984552b9ec3f, type: 2}
+      objectReference: {fileID: 11400000, guid: 866b2acbcc1afe1448acb3c2d3ce7313, type: 2}
     - target: {fileID: 3405262305815227104, guid: ae120e583ae32fd4ab79160f27bcbc9c, type: 3}
       propertyPath: _abilityPrefabList.Array.data[1]
       value: 

@@ -66,6 +66,10 @@ MonoBehaviour:
     prefab: {fileID: 7520552771459370303, guid: b224847fd64951143b134540be143908, type: 3}
   - id: Spiderling Spit
     prefab: {fileID: 7520552771459370303, guid: 04358b95a01122d4aa150aebfe474476, type: 3}
+  - id: Slash Wave
+    prefab: {fileID: 6500937463671237538, guid: 0137127827618244b94be2e983ed32f9, type: 3}
+  - id: Slash Wave Small
+    prefab: {fileID: 6500937463671237538, guid: 6f4d9e2ad15177949825fe2c5107da9c, type: 3}
   _telegraphResources:
   - id: Default
     prefab: {fileID: 2956777469308170475, guid: 78c55fb5e6a83d349b4eacaac04e5dfe, type: 3}

@@ -28,6 +28,8 @@ public class Projectile : MonoBehaviour {
 
     public bool CanHitEnemies = true;
 
+    public bool DestroyOnHit = true;
+
     // FX
 
     [SerializeField]
@@ -35,6 +37,9 @@ public class Projectile : MonoBehaviour {
 
     [SerializeField]
     private GameObject onHitVFXPrefab;
+
+    [SerializeField]
+    private bool playHitSFXOnMiss = true;
 
     [SerializeField]
     private List<AudioClip> onHitSFXs;
@@ -72,6 +77,11 @@ public class Projectile : MonoBehaviour {
 
         OnHitLocation?.Invoke(hitLocation, _caster);
 
+        // if we arent expired and dont destroy on hit continue
+        if (!DestroyOnHit && !isExpired) {
+            return;
+        }
+
         // we destroy the visuals so the trail isnt instantly destroyed.
         if (visuals) {
             Destroy(visuals);
@@ -100,7 +110,9 @@ public class Projectile : MonoBehaviour {
                 options.Pitch = 0.75f;
             }
 
-            AudioManager.Instance.PlaySound(onHitSFXs, transform.position, options);
+            if (playHitSFXOnMiss || !isExpired) {
+                AudioManager.Instance.PlaySound(onHitSFXs, transform.position, options);
+            }
         }
     }
 

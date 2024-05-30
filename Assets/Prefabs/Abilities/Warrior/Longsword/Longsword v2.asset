@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab16c9757379d0f4ebd4c3ef6be46545, type: 3}
-  m_Name: Goblin Slash
+  m_Name: Longsword v2
   m_EditorClassIdentifier: 
-  AbilityName: Slash
+  AbilityName: Longsword
   Icon: {fileID: 21300000, guid: 9bca91dfcd8e5fc45a33eeda928e20b4, type: 3}
-  AbilityEffectPrefab: {fileID: 7996151038390841083, guid: 77c28d6ca4f44e44f818be69d91ee5cb, type: 3}
-  CastTime: 0.4
-  Cooldown: 0.5
+  AbilityEffectPrefab: {fileID: 7996151038390841083, guid: 30a41b1438f846a45a3c2cc613b0d0f0, type: 3}
+  CastTime: 0.35
+  Cooldown: 0.2
   PrecastSFX: {fileID: 0}
   PrecastVFX: {fileID: 0}
   SpeedWhileCasting: 1
@@ -24,14 +24,16 @@ MonoBehaviour:
   TimeCast: -Infinity
   TargetGraphics: []
   AiDetails:
-    AbilityRange: 2
-    ProjectileSpeed: -1
+    AbilityRange: 0
+    ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
     targetConditions:
       attribute: 0
       AttributeQuantifier: 0
       amount: 0
-  Description: 
-  buffIds: []
+  Description: Slash with your longsword, dealing 9 damage. If you are Valiant you
+    also heal for 4.
+  buffIds:
+  - Valiant
   _isConsumable: 0
