@@ -5,6 +5,8 @@ using UnityEngine;
 public class Coldsnap : TelegraphHitEffect {
     private const float POWER_SCALING = 1.6f;
 
+    private const float IMMUNE_SCALING = POWER_SCALING * 2f;
+
     private const float CHILL_DURATION = 2.5f;
 
     private const string DEBUFF = "Chill";
@@ -15,13 +17,17 @@ public class Coldsnap : TelegraphHitEffect {
         BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
         BuffController casterBuffController = caster.GetComponent<BuffController>();
 
-        caster.DealDamageTo(gameObject.name, hitCharacter, POWER_SCALING);
+        bool isHitStunImmune = hitCharacter.IsStunImmune;
+        caster.DealDamageTo(gameObject.name, hitCharacter, isHitStunImmune ? IMMUNE_SCALING : POWER_SCALING);
 
         if (hitBuffController.HasBuff(DEBUFF)) {
             hitBuffController.ServerRemoveBuff(DEBUFF);
+
             casterBuffController.ApplyBuffTo(hitBuffController, "Frozen");
         } else {
             casterBuffController.ApplyBuffTo(hitBuffController, DEBUFF, CHILL_DURATION);
+
+            caster.DealDamageTo(gameObject.name, hitCharacter, POWER_SCALING);
         }
     }
 }

@@ -50,7 +50,7 @@ public class BuffController : NetworkBehaviour {
     public void HandleBuffsChanged(List<Buff> buffs) {
         // Check to see if we have been stunned or unstunned
         bool previousStunState = IsStunned;
-        IsStunned = buffs.Exists(buff => buff.IsAStun);
+        IsStunned = _myStats.IsStunImmune ? false : buffs.Exists(buff => buff.IsAStun);
 
         if (!previousStunState && IsStunned) {
             OnStunApplied?.Invoke();
@@ -107,6 +107,12 @@ public class BuffController : NetworkBehaviour {
 
     private void ServerApplyBuffFrom(BuffController caster, string buffName, float duration = -1f) {
         if (!IsServer || !_canReceiveBuffs) {
+            return;
+        }
+
+        Buff buffPrefab = ResourceManager.Instance.GetBuff(buffName);
+
+        if (buffPrefab == null || (buffPrefab.IsAStun && _myStats.IsStunImmune)) {
             return;
         }
 

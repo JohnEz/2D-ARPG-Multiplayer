@@ -184,6 +184,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 72602879670368040, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 72602879670368040, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
       value: 14979305603447687217
       objectReference: {fileID: 0}
@@ -293,7 +297,19 @@ PrefabInstance:
       objectReference: {fileID: -130260498, guid: 07cba12e2985ddf4e943f371c9ecf0fd, type: 3}
     - target: {fileID: 8278877949395275507, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
       propertyPath: _basePower
-      value: 30
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278877949395275507, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: _baseSpeed
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278877949395275507, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: _isSlowImmune
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278877949395275507, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
+      propertyPath: _isStunImmune
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8278877949395275507, guid: 946e8a265d7fcf14ca22a441c4e09dcf, type: 3}
       propertyPath: _baseMaxHealth

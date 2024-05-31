@@ -34,24 +34,35 @@ public class SyncedCharacterStat : SyncBase, ICustomSync {
 
     public Action OnValueChanged;
 
+    private bool _reductionImmune = true;
+
     protected override void Registered() {
         base.Registered();
         _initialValue = Value;
     }
 
-    public void SetBaseValue(float newValue) {
+    public SyncedCharacterStat SetReductionImmune(bool reductionImmune) {
+        _reductionImmune = reductionImmune;
+        return this;
+    }
+
+    public SyncedCharacterStat SetBaseValue(float newValue) {
         if (Value.BaseValue == newValue) {
-            return;
+            return this;
         }
 
         Value.BaseValue = newValue;
         UpdateCachedValue();
+
+        return this;
     }
 
-    public void AddModifier(StatModifier mod) {
+    public SyncedCharacterStat AddModifier(StatModifier mod) {
         _statModifiers.Add(mod);
         _statModifiers.Sort();
         UpdateCachedValue();
+
+        return this;
     }
 
     public bool RemoveModifier(StatModifier mod) {
@@ -92,24 +103,28 @@ public class SyncedCharacterStat : SyncBase, ICustomSync {
         for (int i = 0; i < _statModifiers.Count; i++) {
             StatModifier mod = _statModifiers[i];
 
+            if (_reductionImmune && mod.Value <= 0) {
+                continue;
+            }
+
             switch (mod.Type) {
                 case StatModType.Flat:
-                    finalValue += mod.Value;
-                    break;
+                finalValue += mod.Value;
+                break;
 
                 case StatModType.PercentageAdd:
-                    sumPercentage += mod.Value;
+                sumPercentage += mod.Value;
 
-                    // if this is the last PercentageAdd, calculate the change
-                    if (i + 1 >= _statModifiers.Count || _statModifiers[i + 1].Type != StatModType.PercentageAdd) {
-                        finalValue *= 1 + sumPercentage;
-                    }
+                // if this is the last PercentageAdd, calculate the change
+                if (i + 1 >= _statModifiers.Count || _statModifiers[i + 1].Type != StatModType.PercentageAdd) {
+                    finalValue *= 1 + sumPercentage;
+                }
 
-                    break;
+                break;
 
                 case StatModType.Percentage:
-                    finalValue *= 1 + mod.Value;
-                    break;
+                finalValue *= 1 + mod.Value;
+                break;
             }
         }
 

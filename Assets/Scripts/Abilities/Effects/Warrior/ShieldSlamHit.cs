@@ -9,6 +9,8 @@ public class ShieldSlamHit : MonoBehaviour {
 
     private const float POWER_SCALING = 1.6f;
 
+    private const float IMMUNE_SCALING = POWER_SCALING * 1.5f;
+
     private bool _hasGainedShield = false;
 
     private void OnEnable() {
@@ -26,7 +28,8 @@ public class ShieldSlamHit : MonoBehaviour {
 
         AudioManager.Instance.PlaySound(_hitSFX, hitLocation);
 
-        caster.DealDamageTo(gameObject.name, hitCharacter, POWER_SCALING);
+        bool isHitStunImmune = hitCharacter.IsStunImmune;
+        caster.DealDamageTo(gameObject.name, hitCharacter, isHitStunImmune ? IMMUNE_SCALING : POWER_SCALING);
 
         BuffController hitBuffController = hitCharacter.GetComponent<BuffController>();
         BuffController casterBuffController = caster.GetComponent<BuffController>();

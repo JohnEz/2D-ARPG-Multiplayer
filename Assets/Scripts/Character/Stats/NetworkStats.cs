@@ -72,11 +72,22 @@ public class NetworkStats : NetworkBehaviour {
 
     public Dictionary<StatType, SyncedCharacterStat> StatList = new Dictionary<StatType, SyncedCharacterStat>();
 
+    // imunities
+
+    [SerializeField]
+    private bool _isStunImmune = false;
+
+    public bool IsStunImmune { get { return _isStunImmune; } }
+
+    [SerializeField]
+    private bool _isSlowImmune = false;
+
     public override void OnStartServer() {
         MaxHealth.SetBaseValue(_baseMaxHealth);
         HealableHealth.SetBaseValue(BASE_HEALABLE_HEALTH);
         Power.SetBaseValue(_basePower);
-        Speed.SetBaseValue(_baseSpeed);
+        Speed.SetBaseValue(_baseSpeed)
+            .SetReductionImmune(_isSlowImmune);
         Shield.SetBaseValue(0f);
         DamageTaken.SetBaseValue(1f);
 
