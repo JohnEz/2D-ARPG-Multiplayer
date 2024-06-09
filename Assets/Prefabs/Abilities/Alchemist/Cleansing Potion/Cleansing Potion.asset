@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Cleansing Potion
   m_EditorClassIdentifier: 
   AbilityName: Cleansing Potion
-  Icon: {fileID: 21300000, guid: 23ff9c33da7b32c48bf435911cb83d9d, type: 3}
+  Icon: {fileID: 21300000, guid: 1ab0caa2446a0624e92e50a539ab6e92, type: 3}
   AbilityEffectPrefab: {fileID: 7483317077893260990, guid: 419dbd502b0b15b47b00cf96c39c9dfb, type: 3}
   CastTime: 0.15
   Cooldown: 6
-  CastSFX: {fileID: 0}
-  CastVFX: {fileID: 0}
+  PrecastSFX: {fileID: 0}
+  PrecastVFX: {fileID: 0}
   SpeedWhileCasting: 0.5
   _maxCharges: 1
   TimeCast: -Infinity
@@ -31,6 +31,11 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
   Description: Throws a potion that removes negative effects from allies and positive
     effects from enemies.
   buffIds: []
+  _isConsumable: 0

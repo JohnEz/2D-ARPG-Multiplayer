@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Barrier
   m_EditorClassIdentifier: 
   AbilityName: Barrier
-  Icon: {fileID: 21300000, guid: 3e7d8662e01b65342b3aac6e4b698434, type: 3}
+  Icon: {fileID: 21300000, guid: 6d57a46da5396d9419acd0f8f2252e64, type: 3}
   AbilityEffectPrefab: {fileID: 5060808590815780805, guid: 1818903ad10f39740ab0145187a68e5c, type: 3}
   CastTime: 0.1
   Cooldown: 10
-  CastSFX: {fileID: 0}
-  CastVFX: {fileID: 0}
+  PrecastSFX: {fileID: 0}
+  PrecastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
   _maxCharges: 1
   TimeCast: -Infinity
@@ -31,6 +31,11 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
   Description: Grants Barrier to an ally.
   buffIds:
   - Barrier
+  _isConsumable: 0

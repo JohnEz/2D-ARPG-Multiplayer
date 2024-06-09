@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Potion of Power
   m_EditorClassIdentifier: 
   AbilityName: Potion of Power
-  Icon: {fileID: 21300000, guid: 23ff9c33da7b32c48bf435911cb83d9d, type: 3}
+  Icon: {fileID: 21300000, guid: 1ab0caa2446a0624e92e50a539ab6e92, type: 3}
   AbilityEffectPrefab: {fileID: 6275213758318686426, guid: 098b258a0bff08644a9e496c60cc3324, type: 3}
   CastTime: 0.1
   Cooldown: 0
-  CastSFX: {fileID: 0}
-  CastVFX: {fileID: 0}
+  PrecastSFX: {fileID: 0}
+  PrecastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
   _maxCharges: 1
   TimeCast: -Infinity

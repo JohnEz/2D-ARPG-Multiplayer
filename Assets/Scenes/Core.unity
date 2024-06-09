@@ -630,6 +630,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2932805363908061111, guid: 646741424f2da734389a4317b6abe0cb, type: 3}
+      propertyPath: crosshairTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: cc77403fd85aa564dacf1bb49de726ff, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 646741424f2da734389a4317b6abe0cb, type: 3}
 --- !u!1001 &3251700280092095175

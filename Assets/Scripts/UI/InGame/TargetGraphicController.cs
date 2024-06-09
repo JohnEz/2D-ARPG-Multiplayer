@@ -23,9 +23,8 @@ public struct TargetGraphic {
 }
 
 public class TargetGraphicController : MonoBehaviour {
-    private const float ARROW_BODY_SIZE = 0.5f;
-    private const float ARROW_HEAD_SIZE = 1f;
-    private const float DISTANCE_TO_UNIT_SCALE = 0.5f;
+    private const float ARROW_BODY_SIZE = 0.25f; // body width px / 16 (ppu)
+    private const float ARROW_HEAD_SIZE = 1f; // head width px / 16 (ppu)
 
     private TargetGraphicStyle myStyle;
 
@@ -83,7 +82,7 @@ public class TargetGraphicController : MonoBehaviour {
     }
 
     private void SetArrowLength(float length) {
-        float unitLength = length * DISTANCE_TO_UNIT_SCALE;
+        float unitLength = length;
 
         float requiredHeadDistance = Mathf.Max(unitLength - ARROW_HEAD_SIZE, 0);
 
@@ -92,6 +91,6 @@ public class TargetGraphicController : MonoBehaviour {
         float bodyScale = requiredHeadDistance / ARROW_BODY_SIZE;
 
         _arrowBodyTransform.localScale = new Vector3(bodyScale, 1f, 1f);
-        _arrowBodyTransform.localPosition = new Vector3(bodyScale * (1 - ARROW_BODY_SIZE) / 2, 0, 0);
+        _arrowBodyTransform.localPosition = new Vector3(bodyScale * ARROW_BODY_SIZE / 2, 0, 0);
     }
 }
