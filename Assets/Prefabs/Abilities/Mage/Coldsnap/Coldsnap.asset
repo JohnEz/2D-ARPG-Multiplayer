@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Coldsnap
   m_EditorClassIdentifier: 
   AbilityName: Coldsnap
-  Icon: {fileID: 21300000, guid: c06d2f42d07a5f944b1b5db796f7e600, type: 3}
+  Icon: {fileID: 21300000, guid: 866e214a60534214fa5d8f64247f352d, type: 3}
   AbilityEffectPrefab: {fileID: 3095254696551962992, guid: d6904ca027ccfc24eae96c3b222e5805, type: 3}
   CastTime: 0.3
   Cooldown: 8
-  CastSFX: {fileID: 0}
-  CastVFX: {fileID: 0}
+  PrecastSFX: {fileID: 0}
+  PrecastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
   _maxCharges: 1
   TimeCast: -Infinity

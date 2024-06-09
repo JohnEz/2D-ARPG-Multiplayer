@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Ice Barrier
   m_EditorClassIdentifier: 
   AbilityName: Ice Barrier
-  Icon: {fileID: 21300000, guid: 24d0ca988dc4b1b47a115a5df9cfc82b, type: 3}
+  Icon: {fileID: 21300000, guid: 309e8c4361b9ca8438bd101ed4341139, type: 3}
   AbilityEffectPrefab: {fileID: 509610996504727253, guid: acdc6462aff660c4791d0aae09d81fa7, type: 3}
   CastTime: 0.1
   Cooldown: 8
-  CastSFX: {fileID: 0}
-  CastVFX: {fileID: 0}
+  PrecastSFX: {fileID: 0}
+  PrecastVFX: {fileID: 0}
   SpeedWhileCasting: 0.1
   _maxCharges: 1
   TimeCast: -Infinity
@@ -31,7 +31,12 @@ MonoBehaviour:
     ProjectileSpeed: 0
     IsSupportAbility: 0
     IsAutoCast: 0
+    targetConditions:
+      attribute: 0
+      AttributeQuantifier: 0
+      amount: 0
   Description: Applies Ice Barrier to an ally.
   buffIds:
   - Ice Barrier
   - Chill
+  _isConsumable: 0
